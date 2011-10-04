@@ -1,0 +1,10 @@
+File structure goes like this:
+
+/rtl        is for the rtl level code 
+
+/tb         for testbenches
+
+/toplevel   contains the toplevel designs, including the projects required for 
+            synthesis. This is also the place for the boardlevel constrains.
+            
+            
