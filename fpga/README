@@ -1,6 +1,6 @@
 File structure goes like this:
 
-/rtl        is for the rtl level code 
+/hdl        is for the HDL level code 
 
 /tb         for testbenches
 
