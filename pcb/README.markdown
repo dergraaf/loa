@@ -50,7 +50,7 @@ PA0  | ADC0/Timer 2.1/Timer 5.1 |                            | Encoder 1
 PA1  | ADC1/Timer 2.2/Timer 5.2 |                            | Encoder 1
 PA2  | ADC2/Timer 9.1           |                            |     - 
 PA3  | ADC3/Timer 9.2           |                            |     - 
-PA4  | SPI1 Cs                  | -> FPGA                    | 
+PA4  | SPI1 Cs                  | -> FPGA (DIN)              | 
 PA5  | SPI1 Sck                 | -> FPGA                    | 
 PA6  | SPI1 Miso                | <- FPGA                    | 
 PA7  | SPI1 Mosi                | -> FPGA                    | 
@@ -65,12 +65,12 @@ PA15 | TDI                      | <- JTAG                    |
 ---- | ------------------------ | -------------------------- | ----------------
 PB0  | ADC8/Timer 3.3           |                            |     - 
 PB1  | ADC9/Timer 3.4           |                            |     - 
-PB2  | (BOOT1)                  |                            |     - 
+PB2  | (BOOT1)                  | FPGA_CCLK                  | 
 PB3  | TDO                      | -> JTAG                    | 
 PB4  | Timer 3.1/TRST           |                            | Encoder 2
 PB5  | Timer 3.2                |                            | Encoder 2
-PB6  | UART1 Tx                 | -> Upstream                | 
-PB7  | UART1 Rx                 | <- Upstream                | 
+PB6  | UART1 Tx                 |                            | -> Upstream
+PB7  | UART1 Rx                 |                            | <- Upstream
 PB8  | I2C1 Scl                 |                            |     - 
 PB9  | I2C1 Sda                 |                            |     - 
 PB10 | I2C2 Scl                 |                            |     - 
@@ -92,14 +92,14 @@ PC8  | Timer 3.3/Timer 8.3      |                            |     -
 PC9  | Timer 3.4/Timer 8.4      |                            |     - 
 PC10 | UART4 Tx                 |                            | APB
 PC11 | UART4 Rx                 |                            | APB
-PC12 | UART5 Tx                 | -> Debug UART              | 
-PC13 | (nur als Eingang)        |                            | 
-PC14 | (nur als Eingang)        |                            | 
-PC15 | (nur als Eingang)        |                            | 
+PC12 | UART5 Tx                 |                            | -> Debug UART
+PC13 | (nur als Eingang)        | <- Button 1                | 
+PC14 | (nur als Eingang)        | <- FPGA (DONE)             | 
+PC15 | (nur als Eingang)        | <- SD Card Detect          | 
 ---- | ------------------------ | -------------------------- | ----------------
 PD0  | CAN1 Rx                  | <- CAN                     | 
 PD1  | CAN1 Tx                  | -> CAN                     | 
-PD2  | UART5 Rx                 | <- Debug UART              | 
+PD2  | UART5 Rx                 |                            | <- Debug UART
 PD3  |                          | -> SD Card (CS)            | 
 PD4  |                          |                            |     - 
 PD5  | UART2 Tx                 |                            | SPI 1
@@ -114,14 +114,14 @@ PD13 | Timer 4.2                |                            | Encoder 4
 PD14 | Timer 4.3                |                            |     - 
 PD15 | Timer 4.4                |                            |     - 
 ---- | ------------------------ | -------------------------- | ----------------
-PE0  |                          | -> FPGA                    | 
-PE1  |                          | -> FPGA                    | 
+PE0  |                          | -> FPGA (CCLK)             | 
+PE1  |                          | -> FPGA (PROG_B)           | 
 PE2  |                          | -> FPGA                    | 
-PE3  |                          | -> FPGA                    | 
-PE4  |                          | <- FPGA                    | 
-PE5  | Timer 9.1                |                            |     - 
-PE6  | Timer 9.2                |                            |     - 
-PE7  |                          |                            |     - 
+PE3  |                          | -> LED0                    | 
+PE4  |                          | -> LED1                    | 
+PE5  | Timer 9.1                | -> LED2                    | 
+PE6  | Timer 9.2                | -> LED3                    | 
+PE7  |                          | <- FPGA (INIT_B)           | 
 PE8  | Timer 1.1N               |                            | Motor 1
 PE9  | Timer 1.1                |                            | Motor 1
 PE10 | Timer 1.2N               |                            | Motor 2
@@ -143,7 +143,8 @@ PE15 |                          |                            |     -
 
 #### SPI vs. SDIO
 
-We choose a SPI interface for the SD Card because
+We choose a SPI over the SDIO interface for the SD Card because SDIO would
+have blocked UART4 and UART5.
 
 #### JTAG Connector
 
@@ -151,13 +152,13 @@ This is the official JTAG Connector proposed by ARM for the Cortex-M3. The only
 difference is that we don't use a 1.27mm grid but a normal 2.54mm one. This
 allows to use standard ribbon cable.
 
-           ------
-   3.3V --| 1  2 |-- TMS
-    GND --| 3  4 |-- TCLK
-    GND -[| 5  6 |-- TDO
-   RTCK --| 7  8 |-- TDI
-    GND --| 9 10 |-- Reset (SRST)
-           ------
+            ------
+    3.3V --| 1  2 |-- TMS
+     GND --| 3  4 |-- TCLK
+     GND -[| 5  6 |-- TDO
+    RTCK --| 7  8 |-- TDI
+     GND --| 9 10 |-- Reset (SRST)
+            ------
 
 On this connector TRST (also called NJTRST) is not connected. This might
 lead to the problem that the "reset halt" command from OpenOCD doesn't work.
