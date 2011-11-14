@@ -90,8 +90,8 @@ PC6  | Timer 3.1/Timer 8.1      |                            | Encoder 3
 PC7  | Timer 3.2/Timer 8.2      |                            | Encoder 3
 PC8  | Timer 3.3/Timer 8.3      |                            |     - 
 PC9  | Timer 3.4/Timer 8.4      |                            |     - 
-PC10 | UART4 Tx                 |                            | APB
-PC11 | UART4 Rx                 |                            | APB
+PC10 | UART4 Tx                 |                            | SAB (Sensor Actor Bus)
+PC11 | UART4 Rx                 |                            | SAB (       "        )
 PC12 | UART5 Tx                 |                            | -> Debug UART
 PC13 | (nur als Eingang)        | <- Button 1                | 
 PC14 | (nur als Eingang)        | <- FPGA (DONE)             | 
