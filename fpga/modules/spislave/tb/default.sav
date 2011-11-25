@@ -1,0 +1,23 @@
+[timestart] 6489100000
+[size] 1920 1004
+[pos] -9 -41
+*-25.310389 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb_spi_slave.
+[treeopen] top.tb_spi_slave.bus_i.
+[treeopen] top.tb_spi_slave.bus_o.
+[treeopen] top.tb_spi_slave.dut.
+[treeopen] top.tb_spi_slave.dut.r.
+[treeopen] top.tb_spi_slave.dut.rin.
+@28
+top.tb_spi_slave.dut.clk
+top.tb_spi_slave.dut.reset
+top.tb_spi_slave.dut.csn_p
+top.tb_spi_slave.dut.mosi_p
+top.tb_spi_slave.dut.miso_p
+top.tb_spi_slave.bus_o.we
+top.tb_spi_slave.bus_o.re
+@22
+#{top.tb_spi_slave.bus_i.data[15:0]} top.tb_spi_slave.bus_i.data[15] top.tb_spi_slave.bus_i.data[14] top.tb_spi_slave.bus_i.data[13] top.tb_spi_slave.bus_i.data[12] top.tb_spi_slave.bus_i.data[11] top.tb_spi_slave.bus_i.data[10] top.tb_spi_slave.bus_i.data[9] top.tb_spi_slave.bus_i.data[8] top.tb_spi_slave.bus_i.data[7] top.tb_spi_slave.bus_i.data[6] top.tb_spi_slave.bus_i.data[5] top.tb_spi_slave.bus_i.data[4] top.tb_spi_slave.bus_i.data[3] top.tb_spi_slave.bus_i.data[2] top.tb_spi_slave.bus_i.data[1] top.tb_spi_slave.bus_i.data[0]
+#{top.tb_spi_slave.bus_o.data[15:0]} top.tb_spi_slave.bus_o.data[15] top.tb_spi_slave.bus_o.data[14] top.tb_spi_slave.bus_o.data[13] top.tb_spi_slave.bus_o.data[12] top.tb_spi_slave.bus_o.data[11] top.tb_spi_slave.bus_o.data[10] top.tb_spi_slave.bus_o.data[9] top.tb_spi_slave.bus_o.data[8] top.tb_spi_slave.bus_o.data[7] top.tb_spi_slave.bus_o.data[6] top.tb_spi_slave.bus_o.data[5] top.tb_spi_slave.bus_o.data[4] top.tb_spi_slave.bus_o.data[3] top.tb_spi_slave.bus_o.data[2] top.tb_spi_slave.bus_o.data[1] top.tb_spi_slave.bus_o.data[0]
+#{top.tb_spi_slave.bus_o.addr[14:0]} top.tb_spi_slave.bus_o.addr[14] top.tb_spi_slave.bus_o.addr[13] top.tb_spi_slave.bus_o.addr[12] top.tb_spi_slave.bus_o.addr[11] top.tb_spi_slave.bus_o.addr[10] top.tb_spi_slave.bus_o.addr[9] top.tb_spi_slave.bus_o.addr[8] top.tb_spi_slave.bus_o.addr[7] top.tb_spi_slave.bus_o.addr[6] top.tb_spi_slave.bus_o.addr[5] top.tb_spi_slave.bus_o.addr[4] top.tb_spi_slave.bus_o.addr[3] top.tb_spi_slave.bus_o.addr[2] top.tb_spi_slave.bus_o.addr[1] top.tb_spi_slave.bus_o.addr[0]
