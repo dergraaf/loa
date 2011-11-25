@@ -1,12 +1,20 @@
 File structure goes like this:
 
     |
-    +- hdl        is for the HDL level code 
+    +- modules-\        is for the HDL level code 
+    |          |
+    |          +- <module name> -\
+    |          |                 |
+    |                            +- hdl    for HDL sources 
+    |                            |
+    |                            +- tb     for testbenches
     |
-    +- tb         for testbenches
-    |
-    \- toplevel   contains the toplevel designs, including the projects
-                  required for synthesis. This is also the place for the
-                  boardlevel constrains.
+    \- toplevel -\
+                 |
+                 +- <target> -\
+                 |            |
+                              +- ISE    ISE Project goes here.
+                              |
+                              \- ...    implementation files (toplevel.vhd, board.ucf, ..)
 
 
