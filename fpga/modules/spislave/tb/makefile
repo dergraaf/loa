@@ -6,8 +6,8 @@ TESTBENCH = tb_spi_slave
 # testbench
 TESTBENCHPATH = ${TESTBENCH}$(VHDLEX)
 
-FILES = ../../hdl/spislave.vhd \
-../../hdl/spislave_pkg.vhd \
+FILES = ../hdl/spislave.vhd \
+../hdl/spislave_pkg.vhd \
 
 #$(TESTBENCHPATH)
 
