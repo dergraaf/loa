@@ -221,6 +221,15 @@ M[2:0]
     '111' Slave Serial Mode
     '101' JTAG Mode
 
+#### Spartan 3 Bitstream Size
+
+Device  | Configuration
+        |  Size [Bits]
+------- | --------------
+XC3S50  |     439,264
+XC3S200 |   1,047,616
+XC3S400 |   1,699,136
+
 ### Power Supply
 
 http://focus.ti.com/analog/docs/refdesignovw.tsp?familyId=64&contentType=2&genContentId=34823
