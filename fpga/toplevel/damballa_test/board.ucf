@@ -1,0 +1,11 @@
+
+NET "clk" LOC = P127;
+NET "clk" TNM_NET = clk;
+TIMESPEC TS_clk = PERIOD "clk" 50 MHz HIGH 50%;
+
+NET "led_n<0>" LOC = P141;
+NET "led_n<1>" LOC = P140;
+NET "led_n<2>" LOC = P137;
+NET "led_n<3>" LOC = P135;
+
+NET "reset_n" LOC = P21;
