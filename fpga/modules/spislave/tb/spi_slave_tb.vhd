@@ -26,13 +26,13 @@ use work.spislave_pkg.all;
 
 -------------------------------------------------------------------------------
 
-entity tb_spi_slave is
+entity spi_slave_tb is
   
-end tb_spi_slave;
+end spi_slave_tb;
 
 -------------------------------------------------------------------------------
 
-architecture tb of tb_spi_slave is
+architecture tb of spi_slave_tb is
 
   -- component ports
   signal mosi  : std_logic;
@@ -72,13 +72,6 @@ begin  -- tb
     wait for 25 ns;
     reset <= '0';
   end process;
-
-  -- waveform generation
-  WaveGen_Proc : process
-  begin
-    -- insert signal assignments here
-    wait until Clk = '1';
-  end process WaveGen_Proc;
 
   process
     variable d : std_logic_vector(31 downto 0);
@@ -156,11 +149,3 @@ begin  -- tb
 
 end tb;
 
--------------------------------------------------------------------------------
-
-configuration tb_spi_slave_cfg of tb_spi_slave is
-  for tb
-  end for;
-end tb_spi_slave_cfg;
-
--------------------------------------------------------------------------------

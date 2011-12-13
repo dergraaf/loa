@@ -27,9 +27,6 @@ use work.spislave_pkg.all;
 
 entity spi_slave is
 
-  --generic (
-  --  );
-
   port (
     --ireg    : out std_logic_vector(31 downto 0);
     --bit_cnt : out integer;
@@ -51,9 +48,6 @@ entity spi_slave is
     reset : in std_logic;
     clk   : in std_logic
     );
-
-
-
 
 end spi_Slave;
 
@@ -78,18 +72,13 @@ architecture str of spi_Slave is
     state    : spi_slave_states;
   end record;
 
-
-
   signal r, rin : spi_slave_state_type;
-  
+
 begin  -- str
 
   -----------------------------------------------------------------------------
   -- Component instantiations
   -----------------------------------------------------------------------------
-
-
-
 
   spi_cmb : process (bus_i, csn_p, mosi_p, r, sck_p)
     
@@ -154,7 +143,6 @@ begin  -- str
       when others => null;
     end case;
 
-
     if v.csn(1) = '1' then
       v.state := idle;
     end if;
@@ -199,7 +187,5 @@ begin  -- str
     end if;
   end process spi_seq;
 
-
 end str;
 
--------------------------------------------------------------------------------

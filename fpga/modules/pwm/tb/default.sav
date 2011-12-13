@@ -1,0 +1,19 @@
+[timestart] 0
+[size] 1618 894
+[pos] 20 0
+*-35.538807 56170000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.pwm_tb.
+[treeopen] top.pwm_tb.uut.
+@28
+top.pwm_tb.clk
+top.pwm_tb.clk_en
+@22
+#{top.pwm_tb.uut.value_buf[7:0]} top.pwm_tb.uut.value_buf[7] top.pwm_tb.uut.value_buf[6] top.pwm_tb.uut.value_buf[5] top.pwm_tb.uut.value_buf[4] top.pwm_tb.uut.value_buf[3] top.pwm_tb.uut.value_buf[2] top.pwm_tb.uut.value_buf[1] top.pwm_tb.uut.value_buf[0]
+#{top.pwm_tb.uut.value[7:0]} top.pwm_tb.uut.value[7] top.pwm_tb.uut.value[6] top.pwm_tb.uut.value[5] top.pwm_tb.uut.value[4] top.pwm_tb.uut.value[3] top.pwm_tb.uut.value[2] top.pwm_tb.uut.value[1] top.pwm_tb.uut.value[0]
+@29
+top.pwm_tb.uut.count
+@28
+top.pwm_tb.output
+[pattern_trace] 1
+[pattern_trace] 0

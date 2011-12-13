@@ -19,6 +19,10 @@ Now run impact to create a SVF file:
 
     $ impact -batch impact.cmd
 
+If the 'impact' command isn't found check that the ISE path is added to PATH.
+For example add the following to ~/.bashrc (adapt it your ISE-path):
+    export PATH=$PATH:/home/user/fpga/xilinx_ise/ISE_DS/ISE/bin/lin/
+
 
 Download and Install
 --------------------
@@ -35,7 +39,7 @@ Connect to your FPGA
 --------------------
 
     $ jtag
-    jtag> cable Turtelizer2 vid=0403 pid=6010 driver=ftdi-mpsse
+    jtag> cable jtagkey vid=0403 pid=6010 driver=ftdi-mpsse
     Connected to libftdi driver.
     jtag> detect
     IR length: 6

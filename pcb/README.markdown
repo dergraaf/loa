@@ -203,10 +203,10 @@ DOUT
 :   Serial Data Output. Not used in single FPGA designs.
 
 INIT_B
-:   Output with 3,3V suppy. Driven low during before configuration. After it
+:   Output with 3,3V supply. Driven low during before configuration. After it
     goes high the M[2:0] pins are sampled and the configuration is started.
     Holding the pin low stalls the configuration start. During configuration
-    During configuration, the FPGA indicates the occurrence of a configuration
+    the FPGA indicates the occurrence of a configuration
     data error (i.e., CRC error) by asserting INIT_B Low.
     After configuration successfully completes, i.e., when the DONE pin goes
     High, the INIT_B pin is available as a full user-I/O pin.

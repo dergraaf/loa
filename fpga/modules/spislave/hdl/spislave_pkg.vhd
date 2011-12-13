@@ -62,11 +62,6 @@ package spislave_pkg is
     clk   : in std_logic);
   end component;
   
-
-
-
-
-
 end spislave_pkg;
 
 -------------------------------------------------------------------------------
