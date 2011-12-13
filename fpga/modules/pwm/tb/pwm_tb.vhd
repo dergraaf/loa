@@ -8,9 +8,9 @@ architecture behavior of pwm_tb is
 	use work.pwm_pkg.all;
 	
 	signal clk		: std_logic := '0';
-	signal clk_en : std_logic := '1';
+	signal clk_en 	: std_logic := '1';
 	signal reset	: std_logic := '1';
-	signal value 	: std_logic_vector(7 downto 0) := (others => '0');
+	signal value 	: std_logic_vector(11 downto 0) := (others => '0');
 	signal output	: std_logic;
 begin
 	clk	 <= not clk after 10 ns;		 -- 50 Mhz clock
@@ -18,20 +18,20 @@ begin
 	
 	tb : process
 	begin
-		value <= x"7F";
-		wait for 50 us;
-		value <= x"01";
-		wait for 50 us;
-		value <= x"FE";
-		wait for 50 us;
-		value <= x"00";
-		wait for 50 us;
-		value <= x"FF";
-		wait for 50 us;
+		value <= x"7FF";
+		wait for 200 us;
+		value <= x"001";
+		wait for 200 us;
+		value <= x"FFE";
+		wait for 200 us;
+		value <= x"000";
+		wait for 200 us;
+		value <= x"FFF";
+		wait for 200 us;
 	end process;
 	
 	uut : pwm
-		generic map (width => 8)
+		generic map (width => 12)
 		port map(
 			clk => clk,
 			clk_en => clk_en,
