@@ -1,0 +1,24 @@
+
+NET "cs_np"		LOC = P65;
+NET "sck_p"		LOC = P53;
+NET "miso_p"	LOC = P60;
+NET "mosi_p"	LOC = P59;
+
+NET "load_p"	LOC = P55;	# PE7
+
+# P63 -> ? (PE2)
+# P58 -> output	(PA8)
+
+NET "led_np<0>" LOC = P141;
+NET "led_np<1>" LOC = P140;
+NET "led_np<2>" LOC = P137;
+NET "led_np<3>" LOC = P135;
+
+NET "sw_np<0>" LOC = P21;	# Button 3
+NET "sw_np<1>" LOC = P20;	# Button 4
+
+NET "reset_n" LOC = P56;	# PB2 (BOOT0)
+
+NET "clk" LOC = P127;
+NET "clk" TNM_NET = clk;
+TIMESPEC TS_clk = PERIOD "clk" 50 MHz HIGH 50%;

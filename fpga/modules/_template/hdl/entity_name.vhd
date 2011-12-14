@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
--- Title      : titleString
+-- Title      : Title String
 -- Project    : 
 -------------------------------------------------------------------------------
--- File       : EntityName.vhd
+-- File       : entity_name.vhd
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2011-09-27
+-- Last update: 2011-12-13
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -21,10 +21,11 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 -------------------------------------------------------------------------------
 
-entity EntityName is
+entity entity_name is
 
   generic (
     );
@@ -34,30 +35,30 @@ entity EntityName is
     clk   : in std_logic
     );
 
-end EntityName;
+end entity_name;
 
 -------------------------------------------------------------------------------
 
-architecture str of EntityName is
+architecture behavioral of entity_name is
 
-  type EntityName_state_type is (idle, state1, state2);
+  type entity_name_state_type is (idle, state1, state2);
 
-  type EntityName_type is record
-    state : EntityName_state_type;
+  type entity_name_type is record
+    state : entity_name_state_type;
   end record;
 
 
   -----------------------------------------------------------------------------
   -- Internal signal declarations
   -----------------------------------------------------------------------------
-  signal r, rin : EntityName_type;
+  signal r, rin : entity_name_type;
 
   -----------------------------------------------------------------------------
   -- Component declarations
   -----------------------------------------------------------------------------
 
-begin  -- str
-
+begin
+  
   seq_proc : process(reset, clk)
   begin
     if rising_edge(clk) then
@@ -71,7 +72,7 @@ begin  -- str
 
 
   comb_proc : process(r)
-    variable v : EntityName_type;
+    variable v : entity_name_type;
     
   begin
     v := r;
@@ -86,11 +87,8 @@ begin  -- str
     rin := v;
   end process comb_proc;
 
------------------------------------------------------------------------------
--- Component instantiations
------------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
+  -- Component instantiations
+  -----------------------------------------------------------------------------
 
-
-end str;
-
--------------------------------------------------------------------------------
+end behavioral;

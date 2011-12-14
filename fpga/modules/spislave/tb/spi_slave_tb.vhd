@@ -6,7 +6,7 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-07-31
--- Last update: 2011-09-10
+-- Last update: 2011-12-14
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -23,6 +23,7 @@ use ieee.std_logic_1164.all;
 
 library work;
 use work.spislave_pkg.all;
+use work.bus_pkg.all;
 
 -------------------------------------------------------------------------------
 

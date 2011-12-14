@@ -18,7 +18,7 @@
 --!   254 => 1 cycle low, 254 cycles high
 --!   255 => output constant high
 --! 
---! @author		Fabian Greif
+--! @author             Fabian Greif
 --! 
 
 library ieee;
@@ -26,59 +26,61 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity pwm is
-	generic (
-		WIDTH	: natural := 12 );
-	port (
-		reset	: in  std_logic;
-		clk		: in  std_logic;
-		clk_en	: in  std_logic;
-		value	: in  std_logic_vector (width - 1 downto 0);
-		output	: out std_logic );
+  generic (
+    WIDTH : natural := 12);  --! Number of bits used for the PWM (12bit => 0..4095)
+  port (
+    clk_en_p : in  std_logic;           --! clock enable
+    value_p  : in  std_logic_vector (width - 1 downto 0);
+    output_p : out std_logic;
+
+    reset : in std_logic;  --! High active, Restarts the PWM period
+    clk   : in std_logic
+    );
 end pwm;
 
 -- ----------------------------------------------------------------------------
 architecture simple of pwm is
-	signal count 		: integer range 0 to ((2 ** WIDTH) - 2) := 0;
-	signal value_buf	: std_logic_vector(width - 1 downto 0) := (others => '0');
+  signal count     : integer range 0 to ((2 ** WIDTH) - 2) := 0;
+  signal value_buf : std_logic_vector(width - 1 downto 0)  := (others => '0');
 begin
-	-- Counter
-	process
-	begin
-		wait until rising_edge(clk);
-		
-		if reset = '1' then
-			-- Load new value and reset counter => restart periode
-			count <= 0;
-			value_buf <= value;
-		elsif clk_en = '1' then
-			-- counter
-			if count < ((2 ** WIDTH) - 2) then
-				count <= count + 1;
-			else
-				count <= 0;
-				
-				-- Load new value from the shadow register (not active before
-				-- the next clock cycle)
-				value_buf <= value;
-			end if;
-		end if;
-	end process;
-	
-	-- Generate Output
-	process (clk)
-	begin
-		wait until rising_edge(clk);
-		
-		if reset = '1' then
-			output <= '0';
-		else
-			-- comparator for the output
-			if count >= to_integer(unsigned(value_buf)) then
-				output <= '0';
-			else
-				output <= '1';
-			end if;
-		end if;
-	end process;
+  -- Counter
+  process
+  begin
+    wait until rising_edge(clk);
+
+    if reset = '1' then
+      -- Load new value and reset counter => restart periode
+      count     <= 0;
+      value_buf <= value_p;
+    elsif clk_en_p = '1' then
+      -- counter
+      if count < ((2 ** WIDTH) - 2) then
+        count <= count + 1;
+      else
+        count <= 0;
+
+        -- Load new value from the shadow register (not active before
+        -- the next clock cycle)
+        value_buf <= value_p;
+      end if;
+    end if;
+  end process;
+
+  -- Generate Output
+  process
+  begin
+    wait until rising_edge(clk);
+
+    if reset = '1' then
+      output_p <= '0';
+    else
+      -- comparator for the output
+      if count >= to_integer(unsigned(value_buf)) then
+        output_p <= '0';
+      else
+        output_p <= '1';
+      end if;
+    end if;
+  end process;
 end simple;
 

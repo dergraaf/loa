@@ -5,16 +5,24 @@ use ieee.numeric_std.all;
 
 entity toplevel is
   port (
-    clk     : in  std_logic;
-    reset_n : in  std_logic;
-    led_n   : out std_logic_vector (3 downto 0)
-    -- sw_n : in  std_logic_vector (1 downto 0)
-    );
+    cs_np   : in  std_logic;
+	sck_p   : in  std_logic;
+	miso_p  : out std_logic;
+	mosi_p  : in  std_logic;
+	
+	load_p  : in  std_logic;	-- On the rising edge encoders etc are sampled
+	
+    led_np  : out std_logic_vector (3 downto 0);
+    sw_np   : in  std_logic_vector (1 downto 0);
+    
+	reset_n : in  std_logic;
+	clk     : in  std_logic
+	);
 end toplevel;
 
 architecture behavioral of toplevel is
-  signal reset_r : std_logic_vector(1 downto 0) := (others => '0');
-  signal reset   : std_logic;
+  signal reset_sync : std_logic_vector(1 downto 0) := (others => '0');
+  signal reset      : std_logic;
 
   signal led : std_logic_vector(3 downto 0);
   signal cnt : integer;
@@ -23,12 +31,12 @@ begin
   process (clk)
   begin
     if rising_edge(clk) then
-      reset_r <= reset_r(0) & reset_n;
+      reset_sync <= reset_sync(0) & reset_n;
     end if;
   end process;
 
-  reset <= not reset_r(1);
-
+  reset <= not reset_sync(1);
+  
   -- blinking led
   process
   begin
@@ -48,6 +56,7 @@ begin
     end if;
   end process;
 
-  led_n <= not led;
+  led_np <= not led;
+  miso_p <= 'Z';
   
 end behavioral;

@@ -1,0 +1,11 @@
+ISE/iseconfig/
+ISE/toplevel*
+ISE/webtalk*
+ISE/usage_statistics_webtalk.html
+ISE/damballa_test.gise
+ISE/_ngo/
+ISE/_xmsgs/
+ISE/xst/
+ISE/xlnx_auto_0_xdb/
+toplevel.svf
+_impactbatch.log

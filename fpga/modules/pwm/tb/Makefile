@@ -1,15 +1,23 @@
 
 # Name of the testbench without extenstion
-TESTBENCH = pwm_tb
+#TESTBENCH = pwm_tb
+TESTBENCH = pwm_module_tb
 
 # VHDL files
+ifeq ($(TESTBENCH),pwm_tb)
 FILES =  \
 	../hdl/pwm.vhd \
 	../hdl/pwm_pkg.vhd
+else
+FILES =  \
+	../../spislave/hdl/bus_pkg.vhd \
+	../../utils/hdl/*.vhd \
+	../hdl/*.vhd
+endif
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file
-WAVEFORM_SETTINGS = default.sav
+WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error

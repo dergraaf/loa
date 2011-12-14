@@ -39,10 +39,10 @@ endif
 	$(GHDL) -m $(GHDL_FLAGS) --workdir=$(SIMDIR) --work=work $(TESTBENCH)
 	@mv $(TESTBENCH) simulation/$(TESTBENCH)
 
-run:
+run: compile
 	@$(SIMDIR)/$(TESTBENCH) $(GHDL_SIM_OPT) --vcdgz=$(SIMDIR)/$(TESTBENCH).vcdgz --wave=$(SIMDIR)/$(TESTBENCH).ghw
 
-view:
+view: compile run
 	$(WAVEFORM_VIEWER) $(SIMDIR)/$(TESTBENCH).ghw $(WAVEFORM_SETTINGS)
 
 clean:

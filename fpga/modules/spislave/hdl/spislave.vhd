@@ -6,7 +6,7 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-08-27
--- Last update: 2011-08-30
+-- Last update: 2011-12-13
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -23,8 +23,9 @@ use ieee.std_logic_1164.all;
 
 library work;
 use work.spislave_pkg.all;
--------------------------------------------------------------------------------
+use work.bus_pkg.all;
 
+-------------------------------------------------------------------------------
 entity spi_slave is
 
   port (
@@ -36,24 +37,24 @@ entity spi_slave is
     sck_p  : in  std_logic;
     csn_p  : in  std_logic;
 
-	bus_o : out busmaster_out_type;
+    bus_o : out busmaster_out_type;
     --bus_do_p   : out std_logic_vector(15 downto 0);
     --bus_addr_p : out std_logic_vector(14 downto 0);
     --bus_we_p   : out std_logic;
     --bus_re_p   : out std_logic;
 
-	bus_i : in busmaster_in_type;
+    bus_i : in busmaster_in_type;
     --bus_di_p   : in  std_logic_vector(15 downto 0);
 
     reset : in std_logic;
     clk   : in std_logic
     );
 
-end spi_Slave;
+end spi_slave;
 
 -------------------------------------------------------------------------------
 
-architecture str of spi_Slave is
+architecture behavioral of spi_slave is
 
   type spi_slave_states is (idle, sel, rd, wr);
 
@@ -74,7 +75,7 @@ architecture str of spi_Slave is
 
   signal r, rin : spi_slave_state_type;
 
-begin  -- str
+begin
 
   -----------------------------------------------------------------------------
   -- Component instantiations
@@ -134,8 +135,8 @@ begin  -- str
         --v.oreg(31 downto 16) := bus_di_p;
         v.oreg(31 downto 16) := bus_i.data;
 
-        v.state              := sel;
-        v.bit_cnt            := 31;
+        v.state   := sel;
+        v.bit_cnt := 31;
 
       when wr =>
         v.state   := sel;
@@ -161,7 +162,7 @@ begin  -- str
   --bus_re_p   <= r.bus_re;
 
   bus_o.addr <= r.bus_addr;
-  bus_o.data   <= r.bus_do;
+  bus_o.data <= r.bus_do;
   bus_o.we   <= r.bus_we;
   bus_o.re   <= r.bus_re;
 
@@ -187,5 +188,5 @@ begin  -- str
     end if;
   end process spi_seq;
 
-end str;
+end behavioral;
 

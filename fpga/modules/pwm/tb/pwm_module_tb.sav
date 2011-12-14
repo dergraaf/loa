@@ -1,0 +1,28 @@
+[timestart] 0
+[size] 1230 1000
+[pos] -1 -1
+*-37.000000 163840000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.pwm_module_tb.
+[treeopen] top.pwm_module_tb.bus_i.
+[treeopen] top.pwm_module_tb.bus_o.
+[treeopen] top.pwm_module_tb.dut.
+[treeopen] top.pwm_module_tb.dut.pwm_1.
+[treeopen] top.pwm_module_tb.dut.r.
+@28
+top.pwm_module_tb.clk
+top.pwm_module_tb.reset
+top.pwm_module_tb.dut.pwm_p
+top.pwm_module_tb.bus_i.we
+top.pwm_module_tb.bus_i.re
+@22
+#{top.pwm_module_tb.bus_i.addr[14:0]} top.pwm_module_tb.bus_i.addr[14] top.pwm_module_tb.bus_i.addr[13] top.pwm_module_tb.bus_i.addr[12] top.pwm_module_tb.bus_i.addr[11] top.pwm_module_tb.bus_i.addr[10] top.pwm_module_tb.bus_i.addr[9] top.pwm_module_tb.bus_i.addr[8] top.pwm_module_tb.bus_i.addr[7] top.pwm_module_tb.bus_i.addr[6] top.pwm_module_tb.bus_i.addr[5] top.pwm_module_tb.bus_i.addr[4] top.pwm_module_tb.bus_i.addr[3] top.pwm_module_tb.bus_i.addr[2] top.pwm_module_tb.bus_i.addr[1] top.pwm_module_tb.bus_i.addr[0]
+#{top.pwm_module_tb.bus_i.data[15:0]} top.pwm_module_tb.bus_i.data[15] top.pwm_module_tb.bus_i.data[14] top.pwm_module_tb.bus_i.data[13] top.pwm_module_tb.bus_i.data[12] top.pwm_module_tb.bus_i.data[11] top.pwm_module_tb.bus_i.data[10] top.pwm_module_tb.bus_i.data[9] top.pwm_module_tb.bus_i.data[8] top.pwm_module_tb.bus_i.data[7] top.pwm_module_tb.bus_i.data[6] top.pwm_module_tb.bus_i.data[5] top.pwm_module_tb.bus_i.data[4] top.pwm_module_tb.bus_i.data[3] top.pwm_module_tb.bus_i.data[2] top.pwm_module_tb.bus_i.data[1] top.pwm_module_tb.bus_i.data[0]
+#{top.pwm_module_tb.bus_o.data[15:0]} top.pwm_module_tb.bus_o.data[15] top.pwm_module_tb.bus_o.data[14] top.pwm_module_tb.bus_o.data[13] top.pwm_module_tb.bus_o.data[12] top.pwm_module_tb.bus_o.data[11] top.pwm_module_tb.bus_o.data[10] top.pwm_module_tb.bus_o.data[9] top.pwm_module_tb.bus_o.data[8] top.pwm_module_tb.bus_o.data[7] top.pwm_module_tb.bus_o.data[6] top.pwm_module_tb.bus_o.data[5] top.pwm_module_tb.bus_o.data[4] top.pwm_module_tb.bus_o.data[3] top.pwm_module_tb.bus_o.data[2] top.pwm_module_tb.bus_o.data[1] top.pwm_module_tb.bus_o.data[0]
+#{top.pwm_module_tb.dut.rin.pwm[11:0]} top.pwm_module_tb.dut.rin.pwm[11] top.pwm_module_tb.dut.rin.pwm[10] top.pwm_module_tb.dut.rin.pwm[9] top.pwm_module_tb.dut.rin.pwm[8] top.pwm_module_tb.dut.rin.pwm[7] top.pwm_module_tb.dut.rin.pwm[6] top.pwm_module_tb.dut.rin.pwm[5] top.pwm_module_tb.dut.rin.pwm[4] top.pwm_module_tb.dut.rin.pwm[3] top.pwm_module_tb.dut.rin.pwm[2] top.pwm_module_tb.dut.rin.pwm[1] top.pwm_module_tb.dut.rin.pwm[0]
+#{top.pwm_module_tb.dut.r.pwm[11:0]} top.pwm_module_tb.dut.r.pwm[11] top.pwm_module_tb.dut.r.pwm[10] top.pwm_module_tb.dut.r.pwm[9] top.pwm_module_tb.dut.r.pwm[8] top.pwm_module_tb.dut.r.pwm[7] top.pwm_module_tb.dut.r.pwm[6] top.pwm_module_tb.dut.r.pwm[5] top.pwm_module_tb.dut.r.pwm[4] top.pwm_module_tb.dut.r.pwm[3] top.pwm_module_tb.dut.r.pwm[2] top.pwm_module_tb.dut.r.pwm[1] top.pwm_module_tb.dut.r.pwm[0]
+#{top.pwm_module_tb.dut.pwm_1.value_buf[11:0]} top.pwm_module_tb.dut.pwm_1.value_buf[11] top.pwm_module_tb.dut.pwm_1.value_buf[10] top.pwm_module_tb.dut.pwm_1.value_buf[9] top.pwm_module_tb.dut.pwm_1.value_buf[8] top.pwm_module_tb.dut.pwm_1.value_buf[7] top.pwm_module_tb.dut.pwm_1.value_buf[6] top.pwm_module_tb.dut.pwm_1.value_buf[5] top.pwm_module_tb.dut.pwm_1.value_buf[4] top.pwm_module_tb.dut.pwm_1.value_buf[3] top.pwm_module_tb.dut.pwm_1.value_buf[2] top.pwm_module_tb.dut.pwm_1.value_buf[1] top.pwm_module_tb.dut.pwm_1.value_buf[0]
+@23
+#{top.pwm_module_tb.dut.pwm_1.value_p[11:0]} top.pwm_module_tb.dut.pwm_1.value_p[11] top.pwm_module_tb.dut.pwm_1.value_p[10] top.pwm_module_tb.dut.pwm_1.value_p[9] top.pwm_module_tb.dut.pwm_1.value_p[8] top.pwm_module_tb.dut.pwm_1.value_p[7] top.pwm_module_tb.dut.pwm_1.value_p[6] top.pwm_module_tb.dut.pwm_1.value_p[5] top.pwm_module_tb.dut.pwm_1.value_p[4] top.pwm_module_tb.dut.pwm_1.value_p[3] top.pwm_module_tb.dut.pwm_1.value_p[2] top.pwm_module_tb.dut.pwm_1.value_p[1] top.pwm_module_tb.dut.pwm_1.value_p[0]
+[pattern_trace] 1
+[pattern_trace] 0
