@@ -6,7 +6,7 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-08-27
--- Last update: 2011-12-13
+-- Last update: 2011-12-14
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -113,12 +113,14 @@ begin
           v.ireg(v.bit_cnt) := v.mosi(1);
           v.miso            := v.oreg(v.bit_cnt);
 
+          -- MSB = '0' => read
           if v.ireg(31) = '0' and v.bit_cnt = 16 then
             v.bus_addr := v.ireg(30 downto 16);
             v.bus_re   := '1';
             v.state    := rd;
           end if;
 
+          -- MSB = '1' => write
           if v.ireg(31) = '1' and v.bit_cnt = 0 then
             v.bus_addr := v.ireg(30 downto 16);
             v.bus_do   := v.ireg(15 downto 0);
