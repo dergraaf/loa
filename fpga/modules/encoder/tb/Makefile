@@ -1,12 +1,12 @@
 
 # Name of the testbench without extenstion
-#TESTBENCH = encoder_tb
-TESTBENCH = quadrature_decoder_tb
+TESTBENCH = encoder_module_tb
+#TESTBENCH = quadrature_decoder_tb
 
 # VHDL files
-ifeq ($(TESTBENCH), encoder_tb)
-FILES = ../hdl/encoder.vhd \
-	../hdl/encoder_pkg.vhd
+ifeq ($(TESTBENCH), encoder_module_tb)
+FILES = ../hdl/*.vhd \
+	../../spislave/hdl/bus_pkg.vhd
 else
 FILES = ../hdl/quadrature_decoder.vhd
 endif

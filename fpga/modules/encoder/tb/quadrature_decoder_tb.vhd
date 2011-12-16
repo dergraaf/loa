@@ -106,6 +106,7 @@ begin
   -- waveform generation
   wave : process
   begin
+    wait until falling_edge(reset);
     wait for 20 ns;
 
     for i in stimuli'left to (stimuli'right + 2) loop
