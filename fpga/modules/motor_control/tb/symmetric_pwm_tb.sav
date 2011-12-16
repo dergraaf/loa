@@ -1,0 +1,16 @@
+[timestart] 14370000000
+[size] 1230 1000
+[pos] -229 -1
+*-33.747105 45770000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.symmetric_pwm_tb.
+@28
+top.symmetric_pwm_tb.clk
+@29
+top.symmetric_pwm_tb.reset
+@28
+top.symmetric_pwm_tb.pwm
+top.symmetric_pwm_tb.overflow
+top.symmetric_pwm_tb.underflow
+[pattern_trace] 1
+[pattern_trace] 0

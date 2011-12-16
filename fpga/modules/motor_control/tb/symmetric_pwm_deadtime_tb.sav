@@ -1,0 +1,22 @@
+[timestart] 197830000000
+[size] 1230 1000
+[pos] -1 -1
+*-32.733852 213530000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.symmetric_pwm_deadtime_tb.
+[treeopen] top.symmetric_pwm_deadtime_tb.uut.
+@28
+top.symmetric_pwm_deadtime_tb.clk
+@200
+-
+@28
+top.symmetric_pwm_deadtime_tb.highside
+top.symmetric_pwm_deadtime_tb.lowside
+top.symmetric_pwm_deadtime_tb.center
+@200
+-
+@28
+top.symmetric_pwm_deadtime_tb.uut.lowside_center
+top.symmetric_pwm_deadtime_tb.uut.highside_center
+[pattern_trace] 1
+[pattern_trace] 0
