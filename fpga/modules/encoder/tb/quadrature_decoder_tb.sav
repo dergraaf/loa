@@ -1,0 +1,20 @@
+[timestart] 0
+[size] 1230 1000
+[pos] -1 -1
+*-27.000000 440900000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.quadrature_decoder_tb.
+[treeopen] top.quadrature_decoder_tb.dut.
+@28
+top.quadrature_decoder_tb.clk
+top.quadrature_decoder_tb.a
+#{top.quadrature_decoder_tb.dut.a_buf[1:0]} top.quadrature_decoder_tb.dut.a_buf[1] top.quadrature_decoder_tb.dut.a_buf[0]
+top.quadrature_decoder_tb.b
+@29
+#{top.quadrature_decoder_tb.dut.b_buf[1:0]} top.quadrature_decoder_tb.dut.b_buf[1] top.quadrature_decoder_tb.dut.b_buf[0]
+@28
+top.quadrature_decoder_tb.step
+top.quadrature_decoder_tb.dir
+top.quadrature_decoder_tb.error
+[pattern_trace] 1
+[pattern_trace] 0

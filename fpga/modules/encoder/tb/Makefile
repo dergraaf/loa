@@ -1,13 +1,19 @@
 
 # Name of the testbench without extenstion
-TESTBENCH = encoder_tb
+#TESTBENCH = encoder_tb
+TESTBENCH = quadrature_decoder_tb
 
 # VHDL files
-FILES =  ../hdl/encoder.vhd 
+ifeq ($(TESTBENCH), encoder_tb)
+FILES = ../hdl/encoder.vhd \
+	../hdl/encoder_pkg.vhd
+else
+FILES = ../hdl/quadrature_decoder.vhd
+endif
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file
-WAVEFORM_SETTINGS = default.sav
+WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
