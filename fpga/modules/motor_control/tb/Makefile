@@ -2,8 +2,8 @@
 # Name of the testbench without extenstion
 #TESTBENCH = symmetric_pwm_tb
 #TESTBENCH = symmetric_pwm_deadtime_tb
-TESTBENCH = commutation_tb
-#TESTBENCH = motor_control_tb
+#TESTBENCH = commutation_tb
+TESTBENCH = bldc_motor_module_tb
 
 # VHDL files
 ifeq ($(TESTBENCH),symmetric_pwm_tb)

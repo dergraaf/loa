@@ -1,0 +1,38 @@
+[timestart] 0
+[size] 1315 859
+[pos] -1 -1
+*-37.595600 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.bldc_motor_module_tb.
+[treeopen] top.bldc_motor_module_tb.bus_i.
+[treeopen] top.bldc_motor_module_tb.bus_o.
+@28
+top.bldc_motor_module_tb.clk
+top.bldc_motor_module_tb.reset
+@200
+-
+@28
+top.bldc_motor_module_tb.bus_i.we
+top.bldc_motor_module_tb.bus_i.re
+@22
+#{top.bldc_motor_module_tb.bus_i.addr[14:0]} top.bldc_motor_module_tb.bus_i.addr[14] top.bldc_motor_module_tb.bus_i.addr[13] top.bldc_motor_module_tb.bus_i.addr[12] top.bldc_motor_module_tb.bus_i.addr[11] top.bldc_motor_module_tb.bus_i.addr[10] top.bldc_motor_module_tb.bus_i.addr[9] top.bldc_motor_module_tb.bus_i.addr[8] top.bldc_motor_module_tb.bus_i.addr[7] top.bldc_motor_module_tb.bus_i.addr[6] top.bldc_motor_module_tb.bus_i.addr[5] top.bldc_motor_module_tb.bus_i.addr[4] top.bldc_motor_module_tb.bus_i.addr[3] top.bldc_motor_module_tb.bus_i.addr[2] top.bldc_motor_module_tb.bus_i.addr[1] top.bldc_motor_module_tb.bus_i.addr[0]
+#{top.bldc_motor_module_tb.bus_i.data[15:0]} top.bldc_motor_module_tb.bus_i.data[15] top.bldc_motor_module_tb.bus_i.data[14] top.bldc_motor_module_tb.bus_i.data[13] top.bldc_motor_module_tb.bus_i.data[12] top.bldc_motor_module_tb.bus_i.data[11] top.bldc_motor_module_tb.bus_i.data[10] top.bldc_motor_module_tb.bus_i.data[9] top.bldc_motor_module_tb.bus_i.data[8] top.bldc_motor_module_tb.bus_i.data[7] top.bldc_motor_module_tb.bus_i.data[6] top.bldc_motor_module_tb.bus_i.data[5] top.bldc_motor_module_tb.bus_i.data[4] top.bldc_motor_module_tb.bus_i.data[3] top.bldc_motor_module_tb.bus_i.data[2] top.bldc_motor_module_tb.bus_i.data[1] top.bldc_motor_module_tb.bus_i.data[0]
+#{top.bldc_motor_module_tb.bus_o.data[15:0]} top.bldc_motor_module_tb.bus_o.data[15] top.bldc_motor_module_tb.bus_o.data[14] top.bldc_motor_module_tb.bus_o.data[13] top.bldc_motor_module_tb.bus_o.data[12] top.bldc_motor_module_tb.bus_o.data[11] top.bldc_motor_module_tb.bus_o.data[10] top.bldc_motor_module_tb.bus_o.data[9] top.bldc_motor_module_tb.bus_o.data[8] top.bldc_motor_module_tb.bus_o.data[7] top.bldc_motor_module_tb.bus_o.data[6] top.bldc_motor_module_tb.bus_o.data[5] top.bldc_motor_module_tb.bus_o.data[4] top.bldc_motor_module_tb.bus_o.data[3] top.bldc_motor_module_tb.bus_o.data[2] top.bldc_motor_module_tb.bus_o.data[1] top.bldc_motor_module_tb.bus_o.data[0]
+@200
+-
+@28
+top.bldc_motor_module_tb.hall_sensors.a
+top.bldc_motor_module_tb.hall_sensors.b
+top.bldc_motor_module_tb.hall_sensors.c
+@200
+-
+@28
+top.bldc_motor_module_tb.driver_stage.u.high
+top.bldc_motor_module_tb.driver_stage.u.low
+top.bldc_motor_module_tb.driver_stage.v.high
+top.bldc_motor_module_tb.driver_stage.v.low
+top.bldc_motor_module_tb.driver_stage.w.high
+@29
+top.bldc_motor_module_tb.driver_stage.w.low
+[pattern_trace] 1
+[pattern_trace] 0

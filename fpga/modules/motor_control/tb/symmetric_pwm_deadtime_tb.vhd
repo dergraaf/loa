@@ -1,10 +1,12 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+library work;
+use work.motor_control_pkg.all;
+use work.symmetric_pwm_deadtime_pkg.all;
+
 entity symmetric_pwm_deadtime_tb is
 end symmetric_pwm_deadtime_tb;
-
-use work.symmetric_pwm_deadtime_pkg.all;
 
 architecture behavior of symmetric_pwm_deadtime_tb is
   signal clk    : std_logic := '0';

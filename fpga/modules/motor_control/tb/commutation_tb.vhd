@@ -10,79 +10,79 @@ use work.symmetric_pwm_deadtime_pkg.all;
 use work.commutation_pkg.all;
 
 architecture behavior of commutation_tb is
-  signal clk    : std_logic := '0';
-  signal reset  : std_logic := '1';
-  signal clk_en : std_logic := '1';
+   signal clk    : std_logic := '0';
+   signal reset  : std_logic := '1';
+   signal clk_en : std_logic := '1';
 
-  signal center : std_logic;
-  signal value  : std_logic_vector(7 downto 0) := x"F0";
+   signal center : std_logic;
+   signal value  : std_logic_vector(7 downto 0) := x"F0";
 
-  signal driver_stage : bldc_driver_stage_type;
-  signal pwm          : half_bridge_type;
-  signal sd           : std_logic        := '0';
-  signal hall         : hall_sensor_type := ('0', '0', '0');
+   signal driver_stage : bldc_driver_stage_type;
+   signal pwm          : half_bridge_type;
+   signal sd           : std_logic        := '0';
+   signal hall         : hall_sensor_type := ('0', '0', '0');
 begin
-  clk   <= not clk  after 10 NS;        -- 50 Mhz clock
-  reset <= '1', '0' after 50 NS;        -- erzeugt Resetsignal
+   clk   <= not clk  after 10 NS;       -- 50 Mhz clock
+   reset <= '1', '0' after 50 NS;       -- erzeugt Resetsignal
 
-  waveform : process
-  begin
-    wait until falling_edge(reset);
+   waveform : process
+   begin
+      wait until falling_edge(reset);
 
-    wait for 50 US;
-    hall <= ('1', '0', '1');
-    wait for 100 US;
-    hall <= ('1', '0', '0');
-    wait for 100 US;
-    hall <= ('1', '1', '0');
-    wait for 100 US;
-    hall <= ('0', '1', '0');
-    wait for 100 US;
-    hall <= ('0', '1', '1');
-    wait for 100 US;
-    hall <= ('0', '0', '1');
+      wait for 50 US;
+      hall <= ('1', '0', '1');
+      wait for 100 US;
+      hall <= ('1', '0', '0');
+      wait for 100 US;
+      hall <= ('1', '1', '0');
+      wait for 100 US;
+      hall <= ('0', '1', '0');
+      wait for 100 US;
+      hall <= ('0', '1', '1');
+      wait for 100 US;
+      hall <= ('0', '0', '1');
 
-    wait for 100 US;
-    hall <= ('1', '0', '1');
-    wait for 100 US;
-    hall <= ('1', '0', '0');
-    wait for 100 US;
-    hall <= ('1', '1', '0');
-    wait for 100 US;
-    hall <= ('0', '1', '0');
-    wait for 100 US;
-    hall <= ('0', '1', '1');
-    wait for 100 US;
-    hall <= ('0', '0', '1');
-  end process;
+      wait for 100 US;
+      hall <= ('1', '0', '1');
+      wait for 100 US;
+      hall <= ('1', '0', '0');
+      wait for 100 US;
+      hall <= ('1', '1', '0');
+      wait for 100 US;
+      hall <= ('0', '1', '0');
+      wait for 100 US;
+      hall <= ('0', '1', '1');
+      wait for 100 US;
+      hall <= ('0', '0', '1');
+   end process;
 
-  waveform2 : process
-  begin
-    wait until falling_edge(reset);
+   waveform2 : process
+   begin
+      wait until falling_edge(reset);
 
-    wait for 600 US;
-    sd <= '1';
-    wait for 20 US;
-    sd <= '0';
-  end process;
+      wait for 600 US;
+      sd <= '1';
+      wait for 20 US;
+      sd <= '0';
+   end process;
 
-  pwm_generator : symmetric_pwm_deadtime
-    generic map (
-      WIDTH  => 8,
-      T_DEAD => 20)
-    port map (
-      pwm_p    => pwm,
-      clk_en_p => clk_en,
-      value_p  => value,
-      center_p => center,
-      reset    => reset,
-      clk      => clk);
+   pwm_generator : symmetric_pwm_deadtime
+      generic map (
+         WIDTH  => 8,
+         T_DEAD => 20)
+      port map (
+         pwm_p    => pwm,
+         clk_en_p => clk_en,
+         value_p  => value,
+         center_p => center,
+         reset    => reset,
+         clk      => clk);
 
-  commutation_1 : commutation
-    port map (
-      driver_stage_p => driver_stage,
-      pwm_p          => pwm,
-      sd_p           => sd,
-      hall_p         => hall,
-      clk            => clk);
+   commutation_1 : commutation
+      port map (
+         driver_stage_p => driver_stage,
+         hall_p         => hall,
+         pwm_p          => pwm,
+         sd_p           => sd,
+         clk            => clk);
 end;

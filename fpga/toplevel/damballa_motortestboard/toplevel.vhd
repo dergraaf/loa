@@ -53,7 +53,7 @@ entity toplevel is
     );
 end toplevel;
 
-architecture behavioral of toplevel is
+architecture structural of toplevel is
   signal reset_sync : std_logic_vector(1 downto 0) := (others => '0');
   signal reset      : std_logic;
 
@@ -157,4 +157,4 @@ begin
       clk   => clk);
   
   -----------------------------------------------------------------------------
-end behavioral;
+end structural;

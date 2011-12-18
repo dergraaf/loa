@@ -40,7 +40,7 @@ endif
 	@mv $(TESTBENCH) simulation/$(TESTBENCH)
 
 run: compile
-	@$(SIMDIR)/$(TESTBENCH) $(GHDL_SIM_OPT) --vcdgz=$(SIMDIR)/$(TESTBENCH).vcdgz --wave=$(SIMDIR)/$(TESTBENCH).ghw
+	$(SIMDIR)/$(TESTBENCH) $(GHDL_SIM_OPT) --vcdgz=$(SIMDIR)/$(TESTBENCH).vcdgz --wave=$(SIMDIR)/$(TESTBENCH).ghw
 
 view: compile run
 	$(WAVEFORM_VIEWER) $(SIMDIR)/$(TESTBENCH).ghw $(WAVEFORM_SETTINGS)
