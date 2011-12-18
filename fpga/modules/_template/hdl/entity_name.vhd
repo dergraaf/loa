@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2011-12-13
+-- Last update: 2011-12-18
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ end entity_name;
 
 architecture behavioral of entity_name is
 
-  type entity_name_state_type is (idle, state1, state2);
+  type entity_name_state_type is (IDLE, STATE1, STATE2);
 
   type entity_name_type is record
     state : entity_name_state_type;
@@ -63,7 +63,7 @@ begin
   begin
     if rising_edge(clk) then
       if reset = '1' then
-        r.state <= idle;
+        r.state <= IDLE;
       else
         r <= rin;
       end if;
@@ -78,13 +78,13 @@ begin
     v := r;
     
     case v.state is
-      when idle =>
+      when IDLE =>
         null;
       when others =>
         null;
     end case;
     
-    rin := v;
+    rin <= v;
   end process comb_proc;
 
   -----------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2011-12-16
+-- Last update: 2011-12-18
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description: Generates a symmetric (center-aligned) PWM with deadtime
@@ -31,7 +31,7 @@ use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
-use work.symmetric_pwm_with_deadtime_pkg.all;
+use work.symmetric_pwm_deadtime_pkg.all;
 
 entity encoder_module is
   generic (

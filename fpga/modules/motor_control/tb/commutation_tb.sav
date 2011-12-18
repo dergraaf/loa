@@ -1,0 +1,37 @@
+[timestart] 0
+[size] 1353 894
+[pos] -1 -1
+*-37.539768 36900000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.commutation_tb.
+@28
+top.commutation_tb.clk
+top.commutation_tb.reset
+@200
+-
+@28
+top.commutation_tb.hall.ha
+top.commutation_tb.hall.hb
+top.commutation_tb.hall.hc
+@200
+-
+-U
+@28
+top.commutation_tb.driver_stage.u.high
+top.commutation_tb.driver_stage.u.low
+@200
+-V
+@28
+top.commutation_tb.driver_stage.v.high
+top.commutation_tb.driver_stage.v.low
+@200
+-W
+@28
+top.commutation_tb.driver_stage.w.high
+top.commutation_tb.driver_stage.w.low
+@200
+-
+@28
+top.commutation_tb.sd
+[pattern_trace] 1
+[pattern_trace] 0

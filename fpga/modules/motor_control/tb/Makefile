@@ -1,30 +1,34 @@
 
 # Name of the testbench without extenstion
-TESTBENCH = symmetric_pwm_tb
+#TESTBENCH = symmetric_pwm_tb
 #TESTBENCH = symmetric_pwm_deadtime_tb
-#TESTBENCH = pwm_module_tb
+TESTBENCH = commutation_tb
+#TESTBENCH = motor_control_tb
 
 # VHDL files
 ifeq ($(TESTBENCH),symmetric_pwm_tb)
 FILES =  ../hdl/symmetric_pwm.vhd
-
-# Simulation break condition
 GHDL_SIM_OPT = --stop-time=500us
 else ifeq ($(TESTBENCH),symmetric_pwm_deadtime_tb)
 FILES = \
+	../hdl/motor_control_pkg.vhd \
 	../hdl/symmetric_pwm_deadtime.vhd \
 	../hdl/symmetric_pwm.vhd \
 	../hdl/deadtime.vhd
-
-# Simulation break condition
 GHDL_SIM_OPT = --stop-time=500us
+else ifeq ($(TESTBENCH),commutation_tb)
+FILES = \
+	../hdl/motor_control_pkg.vhd \
+	../hdl/commutation.vhd \
+	../hdl/symmetric_pwm_deadtime.vhd \
+	../hdl/symmetric_pwm.vhd \
+	../hdl/deadtime.vhd
+GHDL_SIM_OPT = --stop-time=1000us
 else
 FILES =  \
 	../../spislave/hdl/bus_pkg.vhd \
 	../../utils/hdl/*.vhd \
 	../hdl/*.vhd
-
-# Simulation break condition
 GHDL_SIM_OPT = --stop-time=1000us
 endif
 

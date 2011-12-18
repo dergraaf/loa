@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2011-12-16
+-- Last update: 2011-12-18
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -18,21 +18,23 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library work;
+use work.motor_control_pkg.all;
+
 package symmetric_pwm_deadtime_pkg is
 
-  component symmetric_pwm_deadtime is
+  component symmetric_pwm_deadtime
     generic (
       WIDTH  : natural;
       T_DEAD : natural);
     port (
-      lowside_p  : out std_logic;
-      highside_p : out std_logic;
-      center_p   : out std_logic;
-      clk_en_p   : in  std_logic;
-      value_p    : in  std_logic_vector (WIDTH - 1 downto 0);
-      reset      : in  std_logic;
-      clk        : in  std_logic);
-  end component symmetric_pwm_deadtime;
+      pwm_p    : out half_bridge_type;
+      center_p : out std_logic;
+      clk_en_p : in  std_logic;
+      value_p  : in  std_logic_vector (WIDTH - 1 downto 0);
+      reset    : in  std_logic;
+      clk      : in  std_logic);
+  end component;
 
 end package symmetric_pwm_deadtime_pkg;
 
@@ -41,6 +43,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 library work;
+use work.motor_control_pkg.all;
 use work.symmetric_pwm_pkg.all;
 use work.deadtime_pkg.all;
 
@@ -48,11 +51,10 @@ entity symmetric_pwm_deadtime is
   generic (
     WIDTH  : natural := 12;  -- Number of bits used for the PWM (12bit => 0..4095)
     T_DEAD : natural         -- Defines the duration of the dead-time
-   -- inserted between the complementary outputs (in clock cycles of 'clk').
+    -- inserted between the complementary outputs (in clock cycles of 'clk').
     );
   port (
-    lowside_p  : out std_logic;         -- PWM output
-    highside_p : out std_logic;         -- inverted PWM output
+    pwm_p : out half_bridge_type;
 
     center_p : out std_logic;  -- PWM is in the middle of the 'on'-periode
     clk_en_p : in  std_logic;           -- clock enable
@@ -89,16 +91,16 @@ begin
     generic map (
       T_DEAD => T_DEAD)
     port map (
-      in_p  => pwm,
-      out_p => lowside_p,
+      in_p  => pwm_n,
+      out_p => pwm_p.low,
       clk   => clk);
 
   deadtime_off : deadtime
     generic map (
       T_DEAD => T_DEAD)
     port map (
-      in_p  => pwm_n,
-      out_p => highside_p,
+      in_p  => pwm,
+      out_p => pwm_p.high,
       clk   => clk);
 
   -- The deadtime generation delays the PWM output. To keep the center_p signal
