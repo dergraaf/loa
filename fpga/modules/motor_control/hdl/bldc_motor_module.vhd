@@ -93,6 +93,7 @@ begin
       if rising_edge(clk) then
          if reset = '1' then
             r.data_out <= (others => '0');
+            r.pwm_value <= (others => '0');
             r.sd       <= '1';
          else
             r <= rin;
@@ -137,7 +138,7 @@ begin
          -- Deadtime settings:
          -- 50 MHz clock => 20ns per cycle
          -- T_DEAD = 20 * 20ns = 400ns
-         T_DEAD => 10)
+         T_DEAD => 20)
       port map (
          pwm_p    => pwm,
          center_p => center,

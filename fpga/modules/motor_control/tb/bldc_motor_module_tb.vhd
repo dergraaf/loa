@@ -37,12 +37,12 @@ architecture tb of bldc_motor_module_tb is
 
    -- component generics
    constant BASE_ADDRESS : positive := 16#0100#;
-   constant WIDTH        : positive := 12;
+   constant WIDTH        : positive := 8;
    constant PRESCALER    : positive := 2;
 
    -- component ports
    signal driver_stage : bldc_driver_stage_type;
-   signal hall_sensors : hall_sensor_type := ('0', '0', '0');
+   signal hall         : hall_sensor_type := ('0', '0', '0');
 
    signal bus_o : busdevice_out_type;
    signal bus_i : busdevice_in_type :=
@@ -63,22 +63,22 @@ begin
          PRESCALER    => PRESCALER)
       port map (
          driver_stage_p => driver_stage,
-         hall_p         => hall_sensors,
+         hall_p         => hall,
          bus_o          => bus_o,
          bus_i          => bus_i,
          reset          => reset,
          clk            => clk);
 
    -- clock generation
-   clk <= not clk after 10 ns;
+   clk <= not clk after 10 NS;
 
    -- reset generation
-   reset <= '1', '0' after 50 ns;
+   reset <= '1', '0' after 50 NS;
 
-   waveform : process
+   bus_waveform : process
    begin
       wait until falling_edge(reset);
-      wait for 100 ns;
+      wait for 100 NS;
 
       -- wrong address
       wait until rising_edge(clk);
@@ -93,7 +93,7 @@ begin
       -- correct address
       wait until rising_edge(clk);
       bus_i.addr <= std_logic_vector(unsigned'(resize(x"0100", bus_i.addr'length)));
-      bus_i.data <= x"07ff";
+      bus_i.data <= x"00f0";
       bus_i.we   <= '1';
       wait until rising_edge(clk);
       bus_i.we   <= '0';
@@ -107,6 +107,57 @@ begin
       bus_i.we   <= '1';
       wait until rising_edge(clk);
       bus_i.we   <= '0';
+
+      wait for 630 US;
       
-   end process waveform;
+      wait until rising_edge(clk);
+      bus_i.addr <= std_logic_vector(unsigned'(resize(x"0100", bus_i.addr'length)));
+      bus_i.data <= x"000f";
+      bus_i.we   <= '1';
+      wait until rising_edge(clk);
+      bus_i.we   <= '0';
+
+      wait for 100 US;
+
+      -- Disable PWM via Shutdown
+      wait until rising_edge(clk);
+      bus_i.addr <= std_logic_vector(unsigned'(resize(x"0100", bus_i.addr'length)));
+      bus_i.data <= x"800f";
+      bus_i.we   <= '1';
+      wait until rising_edge(clk);
+      bus_i.we   <= '0';
+
+      
+   end process;
+
+   hall_sensor_waveform : process
+   begin
+      wait until falling_edge(reset);
+
+      wait for 50 US;
+      hall <= ('1', '0', '1');
+      wait for 100 US;
+      hall <= ('1', '0', '0');
+      wait for 100 US;
+      hall <= ('1', '1', '0');
+      wait for 100 US;
+      hall <= ('0', '1', '0');
+      wait for 100 US;
+      hall <= ('0', '1', '1');
+      wait for 100 US;
+      hall <= ('0', '0', '1');
+
+      wait for 100 US;
+      hall <= ('1', '0', '1');
+      wait for 100 US;
+      hall <= ('1', '0', '0');
+      wait for 100 US;
+      hall <= ('1', '1', '0');
+      wait for 100 US;
+      hall <= ('0', '1', '0');
+      wait for 100 US;
+      hall <= ('0', '1', '1');
+      wait for 100 US;
+      hall <= ('0', '0', '1');
+   end process;
 end tb;

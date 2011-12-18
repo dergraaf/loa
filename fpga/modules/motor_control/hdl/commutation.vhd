@@ -87,49 +87,49 @@ begin
       case r.hall_2r is
          when "101" =>
             v.driver :=
-               (u => (pwm_p.high, pwm_p.low),
-                v => (pwm_p.low, pwm_p.high),
-                w => ('0', '0'));
+               (a => (pwm_p.high, pwm_p.low),
+                b => (pwm_p.low, pwm_p.high),
+                c => ('0', '0'));
          when "100" =>
             v.driver :=
-               (u => (pwm_p.high, pwm_p.low),
-                v => ('0', '0'),
-                w => (pwm_p.low, pwm_p.high));
+               (a => (pwm_p.high, pwm_p.low),
+                b => ('0', '0'),
+                c => (pwm_p.low, pwm_p.high));
          when "110" =>
             v.driver :=
-               (u => ('0', '0'),
-                v => (pwm_p.high, pwm_p.low),
-                w => (pwm_p.low, pwm_p.high));
+               (a => ('0', '0'),
+                b => (pwm_p.high, pwm_p.low),
+                c => (pwm_p.low, pwm_p.high));
          when "010" =>
             v.driver :=
-               (u => (pwm_p.low, pwm_p.high),
-                v => (pwm_p.high, pwm_p.low),
-                w => ('0', '0'));
+               (a => (pwm_p.low, pwm_p.high),
+                b => (pwm_p.high, pwm_p.low),
+                c => ('0', '0'));
          when "011" =>
             v.driver :=
-               (u => (pwm_p.low, pwm_p.high),
-                v => ('0', '0'),
-                w => (pwm_p.high, pwm_p.low));
+               (a => (pwm_p.low, pwm_p.high),
+                b => ('0', '0'),
+                c => (pwm_p.high, pwm_p.low));
          when "001" =>
             v.driver :=
-               (u => ('0', '0'),
-                v => (pwm_p.low, pwm_p.high),
-                w => (pwm_p.high, pwm_p.low));
+               (a => ('0', '0'),
+                b => (pwm_p.low, pwm_p.high),
+                c => (pwm_p.high, pwm_p.low));
 
          when others =>
             -- Error in the readings of the Hall-Sensors
             -- Disable PWM
             v.driver :=
-               (u => ('0', '0'),
-                v => ('0', '0'),
-                w => ('0', '0'));
+               (a => ('0', '0'),
+                b => ('0', '0'),
+                c => ('0', '0'));
       end case;
 
       if sd_p = '1' then
          v.driver :=
-            (u => ('0', '0'),
-             v => ('0', '0'),
-             w => ('0', '0'));
+            (a => ('0', '0'),
+             b => ('0', '0'),
+             c => ('0', '0'));
       end if;
 
       rin <= v;

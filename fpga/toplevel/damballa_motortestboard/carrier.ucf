@@ -8,6 +8,65 @@ NET "*"			IOSTANDARD = LVCMOS33;
 #NET "servo_p<2>"	LOC = P86;
 #NET "servo_p<3>"	LOC = P87;
 
-NET "led_red_p"		LOC = P89;	# RGB LED
+NET "led_red_p"	LOC = P89;	# RGB LED
 NET "led_green_p"	LOC = P90;
 NET "led_blue_p"	LOC = P92;
+
+# ----------------------------------------------------------------------------
+# BLDC 1 & 2
+
+NET "bldc1_driver_p_a_high"	LOC = P118;
+NET "bldc1_driver_p_a_low"		LOC = P108;
+NET "bldc1_driver_p_b_high"	LOC = P116;
+NET "bldc1_driver_p_b_low"		LOC = P119;
+NET "bldc1_driver_p_c_high"	LOC = P105;
+NET "bldc1_driver_p_c_low"		LOC = P113;
+
+NET "bldc1_hall_p_a"				LOC = P27;
+NET "bldc1_hall_p_b"				LOC = P30;
+NET "bldc1_hall_p_c"				LOC = P26;
+
+NET "bldc1_encoder_p_a"			LOC = P5;
+NET "bldc1_encoder_p_b"			LOC = P2;
+NET "bldc1_encoder_index_p"	LOC = P7;
+
+NET "bldc2_driver_p_a_high"	LOC = P104;
+NET "bldc2_driver_p_a_low"		LOC = P107;
+NET "bldc2_driver_p_b_high"	LOC = P102;
+NET "bldc2_driver_p_b_low"		LOC = P100;
+NET "bldc2_driver_p_c_high"	LOC = P112;
+NET "bldc2_driver_p_c_low"		LOC = P103;
+
+NET "bldc2_hall_p_a"				LOC = P31;
+NET "bldc2_hall_p_b"				LOC = P25;
+NET "bldc2_hall_p_c"				LOC = P28;
+
+NET "bldc2_encoder_p_a"			LOC = P4;
+NET "bldc2_encoder_p_b"			LOC = P1;
+NET "bldc2_encoder_index_p"	LOC = P6;
+
+# ----------------------------------------------------------------------------
+# Motor 3 & 4
+
+NET "motor3_pwm_p"		LOC = P99;
+NET "motor3_pwm_np"		LOC = P96;
+NET "motor3_sd_np"		LOC = P98;
+
+NET "motor3_encoder_p_a"		LOC = P12;
+NET "motor3_encoder_p_b"		LOC = P10;
+NET "motor3_encoder_index_p"	LOC = P24;
+
+NET "motor4_pwm_p"		LOC = P97;
+NET "motor4_pwm_np"		LOC = P93;
+NET "motor4_sd_np"		LOC = P95;
+
+NET "motor4_encoder_p_a"		LOC = P11;
+NET "motor4_encoder_p_b"		LOC = P8;
+NET "motor4_encoder_index_p"	LOC = P23;
+
+# ----------------------------------------------------------------------------
+# Rotary encoder
+
+NET "encoder6_p_a"		LOC = P33;
+NET "encoder6_p_b"		LOC = P32;
+NET "encoder6_index_p"	LOC = P36;

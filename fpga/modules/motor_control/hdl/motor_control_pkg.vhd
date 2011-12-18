@@ -28,9 +28,9 @@ package motor_control_pkg is
    end record;
    
    type bldc_driver_stage_type is record
-      u : half_bridge_type;             -- Channel 1 (U,X)
-      v : half_bridge_type;             -- Channel 2 (V,Y)
-      w : half_bridge_type;             -- Channel 3 (W,Z)
+      a : half_bridge_type;             -- Channel 1 (U,X)
+      b : half_bridge_type;             -- Channel 2 (V,Y)
+      c : half_bridge_type;             -- Channel 3 (W,Z)
    end record;
 
 end package motor_control_pkg;

@@ -1,7 +1,7 @@
 [timestart] 0
 [size] 1230 1000
 [pos] -1 -1
-*-33.852356 11160000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-36.852356 11160000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.symmetric_pwm_deadtime_tb.
 [treeopen] top.symmetric_pwm_deadtime_tb.uut.
