@@ -48,16 +48,16 @@ NET "bldc2_encoder_index_p"	LOC = P6;
 # ----------------------------------------------------------------------------
 # Motor 3 & 4
 
-NET "motor3_pwm_p"		LOC = P99;
-NET "motor3_pwm_np"		LOC = P96;
+NET "motor3_pwm1_p"		LOC = P99;
+NET "motor3_pwm2_p"		LOC = P96;
 NET "motor3_sd_np"		LOC = P98;
 
 NET "motor3_encoder_p_a"		LOC = P12;
 NET "motor3_encoder_p_b"		LOC = P10;
 NET "motor3_encoder_index_p"	LOC = P24;
 
-NET "motor4_pwm_p"		LOC = P97;
-NET "motor4_pwm_np"		LOC = P93;
+NET "motor4_pwm1_p"		LOC = P97;
+NET "motor4_pwm2_p"		LOC = P93;
 NET "motor4_sd_np"		LOC = P95;
 
 NET "motor4_encoder_p_a"		LOC = P11;

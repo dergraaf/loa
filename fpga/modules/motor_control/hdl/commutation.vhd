@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-17
--- Last update: 2011-12-18
+-- Last update: 2011-12-19
 -- Platform   : Spartan 3
 -------------------------------------------------------------------------------
 -- Description: 
@@ -67,15 +67,12 @@ begin
    seq_proc : process(clk)
    begin
       if rising_edge(clk) then
---      if reset = '1' then
---        r.state <= idle;
---      else
          r <= rin;
---      end if;
       end if;
    end process seq_proc;
 
-   comb_proc : process(r, hall_p, pwm_p, sd_p)
+   comb_proc : process(hall_p.a, hall_p.b, hall_p.c, pwm_p.high, pwm_p.low, r,
+                       r.hall_1r, r.hall_2r, sd_p)
       variable v : commutation_type;
    begin
       v := r;

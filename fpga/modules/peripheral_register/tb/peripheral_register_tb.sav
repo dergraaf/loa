@@ -1,0 +1,27 @@
+[timestart] 0
+[size] 2048 1128
+[pos] -1 -1
+*-26.813288 30000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.peripheral_register_tb.
+[treeopen] top.peripheral_register_tb.bus_i.
+[treeopen] top.peripheral_register_tb.bus_o.
+[treeopen] top.peripheral_register_tb.dut.
+@28
+top.peripheral_register_tb.clk
+top.peripheral_register_tb.reset
+@200
+-
+@22
+#{top.peripheral_register_tb.reg[15:0]} top.peripheral_register_tb.reg[15] top.peripheral_register_tb.reg[14] top.peripheral_register_tb.reg[13] top.peripheral_register_tb.reg[12] top.peripheral_register_tb.reg[11] top.peripheral_register_tb.reg[10] top.peripheral_register_tb.reg[9] top.peripheral_register_tb.reg[8] top.peripheral_register_tb.reg[7] top.peripheral_register_tb.reg[6] top.peripheral_register_tb.reg[5] top.peripheral_register_tb.reg[4] top.peripheral_register_tb.reg[3] top.peripheral_register_tb.reg[2] top.peripheral_register_tb.reg[1] top.peripheral_register_tb.reg[0]
+@200
+-
+@28
+top.peripheral_register_tb.bus_i.we
+top.peripheral_register_tb.bus_i.re
+@22
+#{top.peripheral_register_tb.bus_i.addr[14:0]} top.peripheral_register_tb.bus_i.addr[14] top.peripheral_register_tb.bus_i.addr[13] top.peripheral_register_tb.bus_i.addr[12] top.peripheral_register_tb.bus_i.addr[11] top.peripheral_register_tb.bus_i.addr[10] top.peripheral_register_tb.bus_i.addr[9] top.peripheral_register_tb.bus_i.addr[8] top.peripheral_register_tb.bus_i.addr[7] top.peripheral_register_tb.bus_i.addr[6] top.peripheral_register_tb.bus_i.addr[5] top.peripheral_register_tb.bus_i.addr[4] top.peripheral_register_tb.bus_i.addr[3] top.peripheral_register_tb.bus_i.addr[2] top.peripheral_register_tb.bus_i.addr[1] top.peripheral_register_tb.bus_i.addr[0]
+#{top.peripheral_register_tb.bus_i.data[15:0]} top.peripheral_register_tb.bus_i.data[15] top.peripheral_register_tb.bus_i.data[14] top.peripheral_register_tb.bus_i.data[13] top.peripheral_register_tb.bus_i.data[12] top.peripheral_register_tb.bus_i.data[11] top.peripheral_register_tb.bus_i.data[10] top.peripheral_register_tb.bus_i.data[9] top.peripheral_register_tb.bus_i.data[8] top.peripheral_register_tb.bus_i.data[7] top.peripheral_register_tb.bus_i.data[6] top.peripheral_register_tb.bus_i.data[5] top.peripheral_register_tb.bus_i.data[4] top.peripheral_register_tb.bus_i.data[3] top.peripheral_register_tb.bus_i.data[2] top.peripheral_register_tb.bus_i.data[1] top.peripheral_register_tb.bus_i.data[0]
+#{top.peripheral_register_tb.bus_o.data[15:0]} top.peripheral_register_tb.bus_o.data[15] top.peripheral_register_tb.bus_o.data[14] top.peripheral_register_tb.bus_o.data[13] top.peripheral_register_tb.bus_o.data[12] top.peripheral_register_tb.bus_o.data[11] top.peripheral_register_tb.bus_o.data[10] top.peripheral_register_tb.bus_o.data[9] top.peripheral_register_tb.bus_o.data[8] top.peripheral_register_tb.bus_o.data[7] top.peripheral_register_tb.bus_o.data[6] top.peripheral_register_tb.bus_o.data[5] top.peripheral_register_tb.bus_o.data[4] top.peripheral_register_tb.bus_o.data[3] top.peripheral_register_tb.bus_o.data[2] top.peripheral_register_tb.bus_o.data[1] top.peripheral_register_tb.bus_o.data[0]
+[pattern_trace] 1
+[pattern_trace] 0

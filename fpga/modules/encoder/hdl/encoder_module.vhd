@@ -39,11 +39,7 @@ end encoder_module;
 -------------------------------------------------------------------------------
 architecture behavioral of encoder_module is
 
-   type encoder_module_state_type is (IDLE);
-
    type encoder_module_type is record
-      state    : encoder_module_state_type;
---    pwm   : std_logic_vector (WIDTH - 1 downto 0);
       counter  : std_logic_vector(15 downto 0);
       data_out : std_logic_vector(15 downto 0);
    end record;
@@ -60,7 +56,6 @@ begin
    begin
       if rising_edge(clk) then
          if reset = '1' then
-            r.state    <= IDLE;
             r.data_out <= (others => '0');
             r.counter  <= (others => '0');
          else
@@ -76,23 +71,19 @@ begin
 
       v.data_out := (others => '0');
 
-      case v.state is
-         when IDLE =>
-            -- Load counter into own buffer
-            if load_p = '1' then
-               v.counter := counter;
-            end if;
+      -- Load counter into own buffer
+      if load_p = '1' then
+         v.counter := counter;
+      end if;
 
-            -- Check Bus Address
-            if bus_i.addr = std_logic_vector(to_unsigned(BASE_ADDRESS, 15)) then
-               if bus_i.we = '1' then
-               -- TODO
-               elsif bus_i.re = '1' then
-                  v.data_out := r.counter;
-               end if;
-            end if;
-            
-      end case;
+      -- Check Bus Address
+      if bus_i.addr = std_logic_vector(to_unsigned(BASE_ADDRESS, 15)) then
+         if bus_i.we = '1' then
+         -- TODO
+         elsif bus_i.re = '1' then
+            v.data_out := r.counter;
+         end if;
+      end if;
 
       rin <= v;
    end process comb_proc;

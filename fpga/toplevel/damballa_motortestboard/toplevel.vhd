@@ -5,7 +5,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-14
--- Last update: 2011-12-18
+-- Last update: 2011-12-19
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -28,7 +28,9 @@ use work.bus_pkg.all;
 use work.spislave_pkg.all;
 use work.motor_control_pkg.all;
 
+use work.peripheral_register_pkg.all;
 use work.pwm_module_pkg.all;
+use work.dc_motor_module_pkg.all;
 use work.bldc_motor_module_pkg.all;
 use work.encoder_module_pkg.all;
 
@@ -52,15 +54,15 @@ entity toplevel is
       bldc2_encoder_index_p : in  std_logic;
 
       -- Motor 3 & 4
-      motor3_pwm_p  : out std_logic;
-      motor3_pwm_np : out std_logic;
+      motor3_pwm1_p : out std_logic;
+      motor3_pwm2_p : out std_logic;
       motor3_sd_np  : out std_logic;
 
       motor3_encoder_p       : in encoder_type;
       motor3_encoder_index_p : in std_logic;
 
-      motor4_pwm_p  : out std_logic;
-      motor4_pwm_np : out std_logic;
+      motor4_pwm1_p : out std_logic;
+      motor4_pwm2_p : out std_logic;
       motor4_sd_np  : out std_logic;
 
       motor4_encoder_p       : in encoder_type;
@@ -93,16 +95,21 @@ architecture structural of toplevel is
    signal load_r  : std_logic_vector(1 downto 0) := (others => '0');
    signal load    : std_logic;
 
-   signal led : std_logic_vector(3 downto 0);
+   signal sw_1r         : std_logic_vector(1 downto 0);
+   signal sw_2r : std_logic_vector(1 downto 0);
+   signal register_out : std_logic_vector(15 downto 0);
+   signal register_in  : std_logic_vector(15 downto 0);
 
-   signal motor3_pwm : std_logic := '0';
-   signal motor4_pwm : std_logic := '0';
+   signal motor3_sd : std_logic := '1';
+   signal motor4_sd : std_logic := '1';
 
    -- Connection to the Busmaster
    signal bus_o : busmaster_out_type;
    signal bus_i : busmaster_in_type;
 
    -- Outputs form the Bus devices
+   signal bus_register_out : busdevice_out_type;
+
    signal bus_pwm1_out : busdevice_out_type;
    signal bus_pwm2_out : busdevice_out_type;
    signal bus_pwm3_out : busdevice_out_type;
@@ -132,28 +139,7 @@ begin
    reset <= not reset_r(1);
    load  <= load_r(1);
 
-   -- blinking led
-   process
-      variable cnt : integer range 0 to 24999999;
-   begin
-      wait until rising_edge(clk);
-      if reset = '1' then
-         led <= "0000";
-         cnt := 24999999;
-      else
-         -- 0...24999999 = 25000000 Takte = 1/2 Sekunde bei 50MHz 
-         if cnt < (24999999 - 1) then
-            cnt := cnt + 1;
-         else
-            cnt    := 0;
-            led(0) <= not led(0);
-         end if;
-      end if;
-   end process;
-
-   led_np <= not led;
-
-   -----------------------------------------------------------------------------
+   ----------------------------------------------------------------------------
    -- SPI connection to the STM32F4xx and Busmaster
    -- for the internal bus
    spi : spi_slave
@@ -167,21 +153,45 @@ begin
          bus_i => bus_i,
 
          reset => reset,
-         clk   => clk
-         );
+         clk   => clk);
 
-   bus_i.data <= bus_pwm1_out.data or bus_pwm2_out.data or bus_pwm3_out.data or
+   bus_i.data <= bus_register_out.data or
+                 bus_pwm1_out.data or bus_pwm2_out.data or bus_pwm3_out.data or
                  bus_bldc1_out.data or bus_bldc1_encoder_out.data or
                  bus_bldc2_out.data or bus_bldc2_encoder_out.data or
                  bus_motor3_pwm_out.data or bus_motor3_encoder_out.data or
                  bus_motor4_pwm_out.data or bus_motor4_encoder_out.data or
                  bus_encoder6_out.data;
 
-   -----------------------------------------------------------------------------
+   ----------------------------------------------------------------------------
+   -- Register
+   preg : peripheral_register
+      generic map (
+         BASE_ADDRESS => 16#0000#)
+      port map (
+         dout_p => register_out,
+         din_p  => register_in,
+         bus_o  => bus_register_out,
+         bus_i  => bus_o,
+         reset  => reset,
+         clk    => clk);
+
+   process (clk)
+   begin
+      if rising_edge(clk) then
+         sw_1r <= not sw_np;
+         sw_2r <= sw_1r;
+      end if;
+   end process;
+
+   register_in <= x"abc" & "00" & sw_2r;
+   led_np <= not register_out(3 downto 0);
+
+   ----------------------------------------------------------------------------
    -- Bus devices
    pwm_module_1 : pwm_module
       generic map (
-         BASE_ADDRESS => 0,
+         BASE_ADDRESS => 16#0001#,
          WIDTH        => 16,
          PRESCALER    => 2)
       port map (
@@ -193,7 +203,7 @@ begin
 
    pwm_module_2 : pwm_module
       generic map (
-         BASE_ADDRESS => 1,
+         BASE_ADDRESS => 16#0002#,
          WIDTH        => 16,
          PRESCALER    => 2)
       port map (
@@ -205,7 +215,7 @@ begin
 
    pwm_module_3 : pwm_module
       generic map (
-         BASE_ADDRESS => 2,
+         BASE_ADDRESS => 16#0003#,
          WIDTH        => 16,
          PRESCALER    => 2)
       port map (
@@ -220,7 +230,7 @@ begin
 
    bldc1 : bldc_motor_module
       generic map (
-         BASE_ADDRESS => 10,
+         BASE_ADDRESS => 16#0010#,
          WIDTH        => 12,
          PRESCALER    => 2)
       port map (
@@ -233,7 +243,7 @@ begin
 
    bldc1_encoder : encoder_module
       generic map (
-         BASE_ADDRESS => 11)
+         BASE_ADDRESS => 16#0012#)
       port map (
          encoder_p => bldc1_encoder_p,
          index_p   => bldc1_encoder_index_p,
@@ -245,7 +255,7 @@ begin
 
    bldc2 : bldc_motor_module
       generic map (
-         BASE_ADDRESS => 20,
+         BASE_ADDRESS => 16#0020#,
          WIDTH        => 12,
          PRESCALER    => 2)
       port map (
@@ -258,7 +268,7 @@ begin
 
    bldc2_encoder : encoder_module
       generic map (
-         BASE_ADDRESS => 21)
+         BASE_ADDRESS => 16#0022#)
       port map (
          encoder_p => bldc2_encoder_p,
          index_p   => bldc2_encoder_index_p,
@@ -271,25 +281,25 @@ begin
    ----------------------------------------------------------------------------
    -- DC Motors 3 & 4
 
-   motor3_pwm_module : pwm_module
+   motor3_pwm_module : dc_motor_module
       generic map (
-         BASE_ADDRESS => 30,
+         BASE_ADDRESS => 16#0030#,
          WIDTH        => 12,
          PRESCALER    => 2)
       port map (
-         pwm_p => motor3_pwm,
-         bus_o => bus_motor3_pwm_out,
-         bus_i => bus_o,
-         reset => reset,
-         clk   => clk);
+         pwm1_p => motor3_pwm1_p,
+         pwm2_p => motor3_pwm2_p,
+         sd_p   => motor3_sd,
+         bus_o  => bus_motor3_pwm_out,
+         bus_i  => bus_o,
+         reset  => reset,
+         clk    => clk);
 
-   motor3_pwm_p  <= motor3_pwm;
-   motor3_pwm_np <= not motor3_pwm;
-	motor3_sd_np  <= '0';					-- FIXME
+   motor3_sd_np <= not motor3_sd;
 
    motor3_encoder_module : encoder_module
       generic map (
-         BASE_ADDRESS => 31)
+         BASE_ADDRESS => 16#0032#)
       port map (
          encoder_p => motor3_encoder_p,
          index_p   => motor3_encoder_index_p,
@@ -299,25 +309,25 @@ begin
          reset     => reset,
          clk       => clk);
 
-   motor4_pwm_module : pwm_module
+   motor4_pwm_module : dc_motor_module
       generic map (
-         BASE_ADDRESS => 40,
+         BASE_ADDRESS => 16#0040#,
          WIDTH        => 12,
          PRESCALER    => 2)
       port map (
-         pwm_p => motor4_pwm,
-         bus_o => bus_motor4_pwm_out,
-         bus_i => bus_o,
-         reset => reset,
-         clk   => clk);
+         pwm1_p => motor4_pwm1_p,
+         pwm2_p => motor4_pwm2_p,
+         sd_p   => motor4_sd,
+         bus_o  => bus_motor4_pwm_out,
+         bus_i  => bus_o,
+         reset  => reset,
+         clk    => clk);
 
-   motor4_pwm_p  <= motor4_pwm;
-   motor4_pwm_np <= not motor4_pwm;
-	motor4_sd_np  <= '0';					-- FIXME
+   motor4_sd_np <= not motor4_sd;
 
    motor4_encoder_module : encoder_module
       generic map (
-         BASE_ADDRESS => 41)
+         BASE_ADDRESS => 16#0042#)
       port map (
          encoder_p => motor4_encoder_p,
          index_p   => motor4_encoder_index_p,
@@ -331,7 +341,7 @@ begin
    -- Encoder 6
    encoder6 : encoder_module
       generic map (
-         BASE_ADDRESS => 60)
+         BASE_ADDRESS => 16#0060#)
       port map (
          encoder_p => encoder6_p,
          index_p   => encoder6_index_p,

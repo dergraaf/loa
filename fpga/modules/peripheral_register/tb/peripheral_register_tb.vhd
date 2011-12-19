@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-10-26
--- Last update: 2011-10-27
+-- Last update: 2011-12-19
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -21,104 +21,100 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+library work;
+use work.peripheral_register_pkg.all;
+use work.bus_pkg.all;
 
 -------------------------------------------------------------------------------
-
 entity peripheral_register_tb is
-
 end peripheral_register_tb;
 
 -------------------------------------------------------------------------------
-
 architecture tb of peripheral_register_tb is
 
-  component peripheral_register
-    port (
-      din_p  : in  std_logic_vector(15 downto 0);
-      dout_p : out std_logic_vector(15 downto 0);
-      we_p   : in  std_logic;
-      re_p   : in  std_logic;
-      reset  : in  std_logic;
-      clk    : in  std_logic);
-  end component;
+   -- component generics
+   constant BASE_ADDRESS : positive := 16#0100#;
 
-  -- component ports
-  signal din   : std_logic_vector(15 downto 0);
-  signal dout  : std_logic_vector(15 downto 0);
-  signal we    : std_logic;
-  signal re    : std_logic;
-  signal reset : std_logic;
-  signal clk   : std_logic := '1';
+   -- component ports
+   signal reg : std_logic_vector(15 downto 0) := (others => '0');
+   
+   signal bus_o : busdevice_out_type;
+   signal bus_i : busdevice_in_type :=
+      (addr => (others => '0'),
+       data => (others => '0'),
+       we   => '0',
+       re   => '0');
+   signal reset : std_logic := '1';
+   signal clk   : std_logic := '0';
 
+begin
+   -- component instantiation
+   DUT : peripheral_register
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS)
+      port map (
+         dout_p    => reg,
+         din_p     => reg,
+         bus_o     => bus_o,
+         bus_i     => bus_i,
+         reset     => reset,
+         clk       => clk);
 
-begin  -- tb
+   -- clock generation
+   clk <= not clk after 10 NS;
 
-  -- component instantiation
-  DUT : peripheral_register
-    port map (
-      din_p  => din,
-      dout_p => dout,
-      we_p   => we,
-      re_p   => re,
-      reset  => reset,
-      clk    => clk);
+   -- reset generation
+   reset <= '1', '0' after 50 NS;
 
-  -- clock generation
-  Clk <= not Clk after 10 ns;
+   waveform : process
+   begin
+      wait until falling_edge(reset);
+      wait for 20 NS;
+      
+      -- wrong address
+      wait until rising_edge(clk);
+      bus_i.addr <= std_logic_vector(unsigned'(resize(x"0020", bus_i.addr'length)));
+      bus_i.data <= x"1234";
+      bus_i.re   <= '1';
+      wait until rising_edge(clk);
+      bus_i.re   <= '0';
 
-  -- waveform generation
-  WaveGen_Proc : process
-  begin
-    -- insert signal assignments here
-    din   <= (others => '0');
-    we    <= '0';
-    re    <= '0';
-    reset <= '1';
+      wait for 30 NS;
+      
+      -- correct address
+      wait until rising_edge(clk);
+      bus_i.addr <= std_logic_vector(unsigned'(resize(x"0100", bus_i.addr'length)));
+      bus_i.re   <= '1';
+      wait until rising_edge(clk);
+      bus_i.re   <= '0';
 
-    wait for 20 ns;
+      wait for 30 NS;
 
-    wait until Clk = '1';
-    reset <= '0';
+      wait until rising_edge(clk);
+      bus_i.we   <= '1';
+      wait until rising_edge(clk);
+      bus_i.we   <= '0';
+      wait until rising_edge(clk);
+      
+      -- generate two read cycles directly following each other
+      bus_i.re <= '1';
+      wait until rising_edge(clk);
+      wait until rising_edge(clk);
+      bus_i.re <= '0';
 
-    wait until Clk = '1';
-    re <= '1';
+      wait until rising_edge(clk);
+      bus_i.data <= x"4321";
+      bus_i.we   <= '1';
+      wait until rising_edge(clk);
+      bus_i.we   <= '0';
 
-    wait until Clk = '1';
-    re <= '0';
+      wait until rising_edge(clk);
+      bus_i.re   <= '1';
+      wait until rising_edge(clk);
+      bus_i.re   <= '0';
 
-    wait until Clk = '1';
-
-    wait until Clk = '1';
-    din <= X"1234";
-    we  <= '1';
-
-    wait until Clk = '1';
-    din <= X"0000";
-    we <= '0';
-
-    wait until Clk = '1';
-
-    wait until Clk = '1';
-
-    wait until Clk = '1';
-    re <= '1';
-
-    wait until Clk = '1';
-    re <= '0';
-
-    wait for 1 ms;
-    
-  end process WaveGen_Proc;
-
-  
-
+      
+   end process waveform;
 end tb;
-
--------------------------------------------------------------------------------
-
-configuration peripheral_register_tb_tb_cfg of peripheral_register_tb is
-  for tb
-  end for;
-end peripheral_register_tb_tb_cfg;
-
--------------------------------------------------------------------------------
