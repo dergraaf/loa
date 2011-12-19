@@ -154,7 +154,7 @@ begin
 
          reset => reset,
          clk   => clk);
-
+	
    bus_i.data <= bus_register_out.data or
                  bus_pwm1_out.data or bus_pwm2_out.data or bus_pwm3_out.data or
                  bus_bldc1_out.data or bus_bldc1_encoder_out.data or

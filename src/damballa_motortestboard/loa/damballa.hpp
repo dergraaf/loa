@@ -94,6 +94,10 @@ namespace loa
 		static bool
 		initialize();
 		
+		/// Load values into the internal buffers (e.g. encoder values)
+		static void
+		load();
+		
 		static void
 		writeWord(uint16_t address, uint16_t data);
 		

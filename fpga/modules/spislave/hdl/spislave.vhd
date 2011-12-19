@@ -47,7 +47,7 @@ end spi_slave;
 
 architecture behavioral of spi_slave is
 
-   type spi_slave_states is (IDLE, SEL, RD, WR);
+   type spi_slave_states is (IDLE, SEL, WAIT_RD, RD, WR);
 
    type spi_slave_state_type is record
       ireg     : std_logic_vector(31 downto 0);
@@ -56,7 +56,7 @@ architecture behavioral of spi_slave is
       miso     : std_logic;
       sck      : std_logic_vector(2 downto 0);
       csn      : std_logic_vector(2 downto 0);
-      bit_cnt  : integer;               --range 0 to 15;
+      bit_cnt  : integer range 0 to 31;
       bus_addr : std_logic_vector(14 downto 0);
       bus_do   : std_logic_vector(15 downto 0);
       bus_re   : std_logic;
@@ -64,7 +64,20 @@ architecture behavioral of spi_slave is
       state    : spi_slave_states;
    end record;
 
-   signal r, rin : spi_slave_state_type;
+   signal r, rin : spi_slave_state_type := (
+      ireg     => (others => '0'),
+      oreg     => (others => '0'),
+      mosi     => (others => '0'),
+      miso     => '0',
+      sck      => (others => '0'),
+      csn      => (others => '1'),
+      bit_cnt  => 31,
+      bus_addr => (others => '0'),
+      bus_do   => (others => '0'),
+      bus_re   => '0',
+      bus_we   => '0',
+      state    => IDLE
+      );
 
 begin
 
@@ -87,7 +100,7 @@ begin
       v.bus_re   := '0';
       v.bus_addr := (others => '0');
 
-      case v.state is
+      case r.state is
          when IDLE =>
             -- falling chip select 
             if falling_csn = '1' then
@@ -96,15 +109,16 @@ begin
             end if;
             
          when SEL =>
+            v.miso := v.oreg(v.bit_cnt);
+
             if rising_sck = '1' then
                v.ireg(v.bit_cnt) := v.mosi(1);
-               v.miso            := v.oreg(v.bit_cnt);
 
                -- MSB = '0' => read
                if v.ireg(31) = '0' and v.bit_cnt = 16 then
                   v.bus_addr := v.ireg(30 downto 16);
                   v.bus_re   := '1';
-                  v.state    := RD;
+                  v.state    := WAIT_RD;
                end if;
 
                -- MSB = '1' => write
@@ -119,6 +133,10 @@ begin
                   v.bit_cnt := v.bit_cnt - 1;
                end if;
             end if;
+
+         -- delay for one clock cycle
+         when WAIT_RD =>
+            v.state := RD;
             
          when RD =>
             --v.oreg(31 downto 16) := bus_di_p;
@@ -135,7 +153,7 @@ begin
       end case;
 
       if v.csn(1) = '1' then
-         v.state := idle;
+         v.state := IDLE;
       end if;
 
       rin <= v;

@@ -1,6 +1,7 @@
 
 #include <xpcc/architecture.hpp>
 #include <xpcc/workflow.hpp>
+#include <xpcc/debug.hpp>
 
 #include <xpcc/driver/connectivity/sab.hpp>
 
@@ -11,6 +12,15 @@ GPIO__OUTPUT(LedBlue, A, 1);		// TIM2_CH2
 GPIO__OUTPUT(LedGreen, A, 2);		// TIM2_CH3
 
 GPIO__OUTPUT(LedBacklight, A, 3);	// TIM2_CH4
+
+xpcc::stm32::Uart5 uart5(115200);
+xpcc::IODeviceWrapper<xpcc::stm32::Uart5> loggerDevice(uart5);
+
+// Set all four logger streams to use the UART
+xpcc::log::Logger xpcc::log::debug(loggerDevice);
+xpcc::log::Logger xpcc::log::info(loggerDevice);
+xpcc::log::Logger xpcc::log::warning(loggerDevice);
+xpcc::log::Logger xpcc::log::error(loggerDevice);
 
 using namespace xpcc::stm32;
 
@@ -92,26 +102,6 @@ convertHsvToRgb(const ColorHsv& hsv, ColorRgb& rgb)
 }
 
 // ----------------------------------------------------------------------------
-extern "C"
-void
-TIM6_DAC_IRQHandler(void)
-{
-	Timer6::resetState(Timer6::FLAG_UPDATE);
-	
-	xpcc::Clock::increment();
-}
-
-static void
-initTimebase()
-{
-	Timer6::enable();
-	Timer6::setMode(Timer6::UP_COUNTER);
-	Timer6::enableInterrupt(Timer6::INTERRUPT_UPDATE);
-	Timer6::setPeriod(1000);
-	Timer6::start();
-}
-
-// ----------------------------------------------------------------------------
 // wrapper class for the A/D converter
 /*class DataFlashConnector : public xpcc::sab::Callable
 {
@@ -160,17 +150,16 @@ MAIN_FUNCTION
 	// Initialize predefined IO-Pins and load the FPGA configuration
 	loa::Damballa::initialize();
 	
+	xpcc::stm32::SysTickTimer::enable();
+	
+	uart5.configurePins(uart5.REMAP_PC12_PD2);
+	
 	initRgbLed();
-	initTimebase();
-	/*
-	uart5.configurePins(Uart5::REMAP_PC12_PD2);
 	
 	// initialize ABP interface
-	Slave slave(0x02,
+	/*Slave slave(0x02,
 			xpcc::accessor::asFlash(actionList),
 			sizeof(actionList) / sizeof(xpcc::sab::Action));
-	
-	uart5.write("Hello World!\n");
 	*/
 	
 	ColorHsv color = { 0, 255, 100 };
@@ -190,14 +179,21 @@ MAIN_FUNCTION
 			color2.hue++;
 			convertHsvToRgb(color2, rgb);
 			
-			loa::Damballa::writeWord(0, rgb.red * rgb.red);		// red
-			loa::Damballa::writeWord(1, rgb.green * rgb.green);	// green
-			loa::Damballa::writeWord(2, rgb.blue * rgb.blue);	// blue
+			loa::Damballa::writeWord(0x0001, rgb.red * rgb.red);		// red
+			loa::Damballa::writeWord(0x0002, rgb.green * rgb.green);	// green
+			loa::Damballa::writeWord(0x0003, rgb.blue * rgb.blue);	// blue
 		}
 		
 		if (timer2.isExpired())
 		{
 			loa::Led1::toggle();
+			uint16_t sw = loa::Damballa::readWord(0x0000) & 0x000f;
+			XPCC_LOG_DEBUG << "sw: " << sw << xpcc::endl;
+			
+			loa::Damballa::load();
+			
+			uint16_t encoder6 = loa::Damballa::readWord(0x0060);
+			XPCC_LOG_DEBUG << "encoder6: " << encoder6 << xpcc::endl;
 		}
 		
 		// decode received messages etc.

@@ -4,3 +4,6 @@
 .#*
 *.vhd#
 *~
+.sconsign.dblite
+.cproject
+.project

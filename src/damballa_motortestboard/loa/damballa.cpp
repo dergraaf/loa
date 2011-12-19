@@ -44,10 +44,16 @@ loa::Damballa::initialize()
 	
 	fpga::Cs::setOutput(xpcc::gpio::HIGH);
 	fpga::spi.configurePins(xpcc::stm32::Spi1::REMAP_PA5_PA6_PA7);
-	fpga::spi.initialize(xpcc::stm32::Spi1::MODE_0, xpcc::stm32::Spi1::PRESCALER_4);	// 21 MHz
+	fpga::spi.initialize(xpcc::stm32::Spi1::MODE_0, xpcc::stm32::Spi1::PRESCALER_8);	// 10.5 MHz
 	
 	// release Reset to start the FPGA operation
 	fpga::Reset::set();
+	
+	// check if we could read a fixed value from the FPGA
+	uint16_t sw = readWord(0);
+	if ((sw & 0xfff0) != 0xabc0) {
+		success = false;
+	}
 	
 	//can.configurePins(can.REMAP_PD0_PD1);
 	//can.initialize(xpcc::can::BITRATE_125_KBPS);
@@ -58,13 +64,15 @@ loa::Damballa::initialize()
 	{
 		uint8_t pattern = 0;
 		for (uint32_t i = 0; i < 4; ++i) {
-			pattern = (pattern << 1) | 1;
+			pattern = (pattern >> 1) | 0x8;
 			Leds::write(pattern);
+			writeWord(0x0000, pattern);
 			xpcc::delay_ms(50);
 		}
 		for (uint32_t i = 0; i < 4; ++i) {
-			pattern = (pattern << 1) & 0xf;
+			pattern = (pattern >> 1) & 0xf;
 			Leds::write(pattern);
+			writeWord(0x0000, pattern);
 			xpcc::delay_ms(50);
 		}
 	}
@@ -73,6 +81,7 @@ loa::Damballa::initialize()
 		for (uint32_t i = 0; i < 8; ++i) {
 			Leds::write(pattern);
 			pattern = (~pattern) & 0xf;
+			
 			xpcc::delay_ms(50);
 		}
 	}
@@ -81,6 +90,15 @@ loa::Damballa::initialize()
 }
 
 // ----------------------------------------------------------------------------
+void
+loa::Damballa::load()
+{
+	fpga::Load::set();
+	xpcc::delay_us(1);	// FIXME should be shorter!
+	//asm volatile ("nop.w");
+	fpga::Load::reset();
+}
+
 void
 loa::Damballa::writeWord(uint16_t address, uint16_t data)
 {
