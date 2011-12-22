@@ -134,7 +134,8 @@ begin
                end if;
             end if;
 
-         -- delay for one clock cycle
+         -- delay for one clock cycle to give the devices on the bus
+         -- some time to output their data
          when WAIT_RD =>
             v.state := RD;
             
