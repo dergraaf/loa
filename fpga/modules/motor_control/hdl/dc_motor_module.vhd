@@ -139,7 +139,7 @@ begin
    -- Generate clock for the PWM generator
    divider : clock_divider
       generic map (
-         DIVIDER => PRESCALER)
+         DIV => PRESCALER)
       port map (
          clk_out_p => clk_en,
          clk       => clk);

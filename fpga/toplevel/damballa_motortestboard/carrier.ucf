@@ -4,9 +4,9 @@ NET "*"			IOSTANDARD = LVCMOS33;
 
 # ----------------------------------------------------------------------------
 # Connections on the Motor Carrier
-#NET "servo_p<1>"	LOC = P85;
-#NET "servo_p<2>"	LOC = P86;
-#NET "servo_p<3>"	LOC = P87;
+NET "servo_p<1>"	LOC = P85;
+NET "servo_p<2>"	LOC = P86;
+NET "servo_p<3>"	LOC = P87;
 
 NET "led_red_p"	LOC = P89;	# RGB LED
 NET "led_green_p"	LOC = P90;

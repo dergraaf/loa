@@ -5,7 +5,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-14
--- Last update: 2011-12-19
+-- Last update: 2011-12-30
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -16,6 +16,7 @@
 -- 2x Brushless Motor (with Hall-Sensors and Encoders)
 -- 2x DC Motor (with Encoders)
 -- 1x RGB LED
+-- 3x Servo
 -- ...
 -------------------------------------------------------------------------------
 
@@ -33,6 +34,7 @@ use work.pwm_module_pkg.all;
 use work.dc_motor_module_pkg.all;
 use work.bldc_motor_module_pkg.all;
 use work.encoder_module_pkg.all;
+use work.servo_module_pkg.all;
 
 -------------------------------------------------------------------------------
 entity toplevel is
@@ -72,6 +74,8 @@ entity toplevel is
       encoder6_p       : in encoder_type;
       encoder6_index_p : in std_logic;
 
+      servo_p : out std_logic_vector(3 downto 1);
+
       -- Connections to the STM32F407
       cs_np  : in  std_logic;
       sck_p  : in  std_logic;
@@ -103,6 +107,8 @@ architecture structural of toplevel is
    signal motor3_sd : std_logic := '1';
    signal motor4_sd : std_logic := '1';
 
+   signal servo_signals : std_logic_vector(2 downto 0);
+
    -- Connection to the Busmaster
    signal bus_o : busmaster_out_type;
    signal bus_i : busmaster_in_type;
@@ -125,6 +131,8 @@ architecture structural of toplevel is
    signal bus_motor4_encoder_out : busdevice_out_type;
 
    signal bus_encoder6_out : busdevice_out_type;
+
+   signal bus_servo_out : busdevice_out_type;
 begin
    -- synchronize reset and other signals
    process (clk)
@@ -161,7 +169,8 @@ begin
                  bus_bldc2_out.data or bus_bldc2_encoder_out.data or
                  bus_motor3_pwm_out.data or bus_motor3_encoder_out.data or
                  bus_motor4_pwm_out.data or bus_motor4_encoder_out.data or
-                 bus_encoder6_out.data;
+                 bus_encoder6_out.data or
+                 bus_servo_out.data;
 
    ----------------------------------------------------------------------------
    -- Register
@@ -231,8 +240,8 @@ begin
    bldc1 : bldc_motor_module
       generic map (
          BASE_ADDRESS => 16#0010#,
-         WIDTH        => 12,
-         PRESCALER    => 2)
+         WIDTH        => 10,
+         PRESCALER    => 1)
       port map (
          driver_stage_p => bldc1_driver_p,
          hall_p         => bldc1_hall_p,
@@ -256,8 +265,8 @@ begin
    bldc2 : bldc_motor_module
       generic map (
          BASE_ADDRESS => 16#0020#,
-         WIDTH        => 12,
-         PRESCALER    => 2)
+         WIDTH        => 10,
+         PRESCALER    => 1)
       port map (
          driver_stage_p => bldc2_driver_p,
          hall_p         => bldc2_hall_p,
@@ -350,5 +359,20 @@ begin
          bus_i     => bus_o,
          reset     => reset,
          clk       => clk);
+
+   ----------------------------------------------------------------------------
+   -- Servos
+   servo_module_1: entity work.servo_module
+      generic map (
+         BASE_ADDRESS => 16#0070#,
+         SERVO_COUNT  => 3)
+      port map (
+         servo_p => servo_signals,
+         bus_o   => bus_servo_out,
+         bus_i   => bus_o,
+         reset   => reset,
+         clk     => clk);
+
+   servo_p <= servo_signals;
 
 end structural;

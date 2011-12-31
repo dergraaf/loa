@@ -1,0 +1,26 @@
+[timestart] 0
+[size] 974 744
+[pos] -1 -1
+*-42.973431 4655370000000 2500030000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.servo_sequencer_tb.
+@28
+top.servo_sequencer_tb.clk
+top.servo_sequencer_tb.reset
+@22
+#{top.servo_sequencer_tb.counter[15:0]} top.servo_sequencer_tb.counter[15] top.servo_sequencer_tb.counter[14] top.servo_sequencer_tb.counter[13] top.servo_sequencer_tb.counter[12] top.servo_sequencer_tb.counter[11] top.servo_sequencer_tb.counter[10] top.servo_sequencer_tb.counter[9] top.servo_sequencer_tb.counter[8] top.servo_sequencer_tb.counter[7] top.servo_sequencer_tb.counter[6] top.servo_sequencer_tb.counter[5] top.servo_sequencer_tb.counter[4] top.servo_sequencer_tb.counter[3] top.servo_sequencer_tb.counter[2] top.servo_sequencer_tb.counter[1] top.servo_sequencer_tb.counter[0]
+@800023
+#{top.servo_sequencer_tb.enable[7:0]} top.servo_sequencer_tb.enable[7] top.servo_sequencer_tb.enable[6] top.servo_sequencer_tb.enable[5] top.servo_sequencer_tb.enable[4] top.servo_sequencer_tb.enable[3] top.servo_sequencer_tb.enable[2] top.servo_sequencer_tb.enable[1] top.servo_sequencer_tb.enable[0]
+@29
+top.servo_sequencer_tb.enable[7]
+top.servo_sequencer_tb.enable[6]
+top.servo_sequencer_tb.enable[5]
+top.servo_sequencer_tb.enable[4]
+top.servo_sequencer_tb.enable[3]
+top.servo_sequencer_tb.enable[2]
+top.servo_sequencer_tb.enable[1]
+top.servo_sequencer_tb.enable[0]
+@1001201
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0

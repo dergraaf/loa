@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2011-12-19
+-- Last update: 2011-12-20
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -125,7 +125,7 @@ begin
    -- Generate clock for the PWM generator
    divider : clock_divider
       generic map (
-         DIVIDER => PRESCALER)
+         DIV => PRESCALER)
       port map (
          clk_out_p => clk_en,
          clk       => clk);
@@ -152,4 +152,5 @@ begin
          pwm_p          => pwm,
          sd_p           => r.sd,
          clk            => clk);
+
 end behavioral;

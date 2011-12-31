@@ -162,9 +162,10 @@ MAIN_FUNCTION
 			sizeof(actionList) / sizeof(xpcc::sab::Action));
 	*/
 	
+	int16_t speed = 0;
 	ColorHsv color = { 0, 255, 100 };
 	ColorHsv color2 = { 10, 255, 100 };
-	xpcc::PeriodicTimer<> timer(30);
+	xpcc::PeriodicTimer<> timer(15);
 	xpcc::PeriodicTimer<> timer2(500);
 	while (1)
 	{
@@ -192,8 +193,24 @@ MAIN_FUNCTION
 			
 			loa::Damballa::load();
 			
+			uint16_t encoder2 = loa::Damballa::readWord(0x0022);
+			XPCC_LOG_DEBUG << "enc2: " << encoder2 << xpcc::endl;
 			uint16_t encoder6 = loa::Damballa::readWord(0x0060);
-			XPCC_LOG_DEBUG << "encoder6: " << encoder6 << xpcc::endl;
+			XPCC_LOG_DEBUG << "enc6: " << encoder6 << xpcc::endl;
+			
+			if (!loa::Button1::read()) {
+				if (speed < 500) {
+					speed += 40;
+				}
+			}
+			if (!loa::Button2::read()) {
+				if (speed > -500) {
+					speed -= 40;
+				}
+			}
+			
+			// set PWM for BLDC2
+			loa::Damballa::writeWord(0x0020, 512 + speed);
 		}
 		
 		// decode received messages etc.

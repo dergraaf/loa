@@ -28,7 +28,7 @@ WAVEFORM_VIEWER ?= gtkwave
 
 all: compile run
 
-compile:
+simulation/$(TESTBENCH): $(FILES) $(TESTBENCH).vhd
 	# check if TESTBENCH is empty
 ifeq ($(strip $(TESTBENCH)),)
 	@echo "TESTBENCH not set. Use TESTBENCH=value to set it."
@@ -39,10 +39,14 @@ endif
 	$(GHDL) -m $(GHDL_FLAGS) --workdir=$(SIMDIR) --work=work $(TESTBENCH)
 	@mv $(TESTBENCH) simulation/$(TESTBENCH)
 
-run: compile
+compile: simulation/$(TESTBENCH) 
+
+$(SIMDIR)/$(TESTBENCH).ghw: simulation/$(TESTBENCH)
 	$(SIMDIR)/$(TESTBENCH) $(GHDL_SIM_OPT) --vcdgz=$(SIMDIR)/$(TESTBENCH).vcdgz --wave=$(SIMDIR)/$(TESTBENCH).ghw
 
-view: compile run
+run: $(SIMDIR)/$(TESTBENCH).ghw
+
+view: $(SIMDIR)/$(TESTBENCH).ghw
 	$(WAVEFORM_VIEWER) $(SIMDIR)/$(TESTBENCH).ghw $(WAVEFORM_SETTINGS)
 
 clean:
