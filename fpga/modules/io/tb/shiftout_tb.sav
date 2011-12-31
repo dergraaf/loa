@@ -1,0 +1,20 @@
+[timestart] 0
+[size] 974 576
+[pos] -1 -1
+*-29.949051 54000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.shiftout_tb.
+@28
+top.shiftout_tb.clk
+top.shiftout_tb.reset
+@22
+#{top.shiftout_tb.value[7:0]} top.shiftout_tb.value[7] top.shiftout_tb.value[6] top.shiftout_tb.value[5] top.shiftout_tb.value[4] top.shiftout_tb.value[3] top.shiftout_tb.value[2] top.shiftout_tb.value[1] top.shiftout_tb.value[0]
+@200
+-
+@28
+top.shiftout_tb.register_signal.sck
+top.shiftout_tb.register_signal.dout
+@29
+top.shiftout_tb.register_signal.load
+[pattern_trace] 1
+[pattern_trace] 0
