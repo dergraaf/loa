@@ -6,7 +6,7 @@
 -- Author     : Fabian <fabian@kleinvieh>
 -- Company    : 
 -- Created    : 2011-12-28
--- Last update: 2011-12-30
+-- Last update: 2011-12-31
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -84,6 +84,7 @@ architecture behavioral of servo_module is
 
    --  Servo channel enable (can be connected to multiple channels)
    signal enable : std_logic_vector(7 downto 0);
+   signal load   : std_logic_vector(7 downto 0);  -- Load new compare value
 
    type servo_module_type is record
       servo_value : servo_value_array_type;
@@ -128,6 +129,7 @@ begin
 
    servo_sequencer_1 : servo_sequencer
       port map (
+         load_p    => load,
          enable_p  => enable,
          counter_p => counter,
          reset     => reset,
@@ -138,8 +140,9 @@ begin
          port map (
             servo_p         => servo_p(i),
             compare_value_p => r.servo_value(i),
-            counter_p       => counter,
+            load_p          => load(i mod 8),
             enable_p        => enable(i mod 8),
+            counter_p       => counter,
             clk             => clk);
    end generate servo_channels;
 end behavioral;
