@@ -1,7 +1,7 @@
 [timestart] 0
-[size] 974 744
-[pos] -1 -1
-*-41.820492 6499990000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1749 756
+[pos] 66 -80
+*-41.820492 4730000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.servo_module_tb.
 [treeopen] top.servo_module_tb.dut.
@@ -30,9 +30,9 @@ top.servo_module_tb.dut.servo_sequencer_1.counter_p[1]
 top.servo_module_tb.dut.servo_sequencer_1.counter_p[0]
 @1401200
 -group_end
-@800023
+@800022
 #{top.servo_module_tb.dut.servo_sequencer_1.enable_p[7:0]} top.servo_module_tb.dut.servo_sequencer_1.enable_p[7] top.servo_module_tb.dut.servo_sequencer_1.enable_p[6] top.servo_module_tb.dut.servo_sequencer_1.enable_p[5] top.servo_module_tb.dut.servo_sequencer_1.enable_p[4] top.servo_module_tb.dut.servo_sequencer_1.enable_p[3] top.servo_module_tb.dut.servo_sequencer_1.enable_p[2] top.servo_module_tb.dut.servo_sequencer_1.enable_p[1] top.servo_module_tb.dut.servo_sequencer_1.enable_p[0]
-@29
+@28
 top.servo_module_tb.dut.servo_sequencer_1.enable_p[7]
 top.servo_module_tb.dut.servo_sequencer_1.enable_p[6]
 top.servo_module_tb.dut.servo_sequencer_1.enable_p[5]
@@ -41,7 +41,7 @@ top.servo_module_tb.dut.servo_sequencer_1.enable_p[3]
 top.servo_module_tb.dut.servo_sequencer_1.enable_p[2]
 top.servo_module_tb.dut.servo_sequencer_1.enable_p[1]
 top.servo_module_tb.dut.servo_sequencer_1.enable_p[0]
-@1001201
+@1001200
 -group_end
 @22
 #{top.servo_module_tb.dut.r.servo_value[0][15:0]} top.servo_module_tb.dut.r.servo_value[0][15] top.servo_module_tb.dut.r.servo_value[0][14] top.servo_module_tb.dut.r.servo_value[0][13] top.servo_module_tb.dut.r.servo_value[0][12] top.servo_module_tb.dut.r.servo_value[0][11] top.servo_module_tb.dut.r.servo_value[0][10] top.servo_module_tb.dut.r.servo_value[0][9] top.servo_module_tb.dut.r.servo_value[0][8] top.servo_module_tb.dut.r.servo_value[0][7] top.servo_module_tb.dut.r.servo_value[0][6] top.servo_module_tb.dut.r.servo_value[0][5] top.servo_module_tb.dut.r.servo_value[0][4] top.servo_module_tb.dut.r.servo_value[0][3] top.servo_module_tb.dut.r.servo_value[0][2] top.servo_module_tb.dut.r.servo_value[0][1] top.servo_module_tb.dut.r.servo_value[0][0]
@@ -57,7 +57,9 @@ top.servo_module_tb.dut.servo_p[5]
 top.servo_module_tb.dut.servo_p[4]
 top.servo_module_tb.dut.servo_p[3]
 top.servo_module_tb.dut.servo_p[2]
+@29
 top.servo_module_tb.dut.servo_p[1]
+@28
 top.servo_module_tb.dut.servo_p[0]
 @1001200
 -group_end

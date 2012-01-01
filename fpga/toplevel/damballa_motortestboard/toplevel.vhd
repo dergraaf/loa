@@ -362,7 +362,7 @@ begin
 
    ----------------------------------------------------------------------------
    -- Servos
-   servo_module_1: entity work.servo_module
+   servo_module_1: servo_module
       generic map (
          BASE_ADDRESS => 16#0070#,
          SERVO_COUNT  => 3)

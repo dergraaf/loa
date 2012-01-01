@@ -90,13 +90,13 @@ architecture behavioral of servo_module is
       servo_value : servo_value_array_type;
    end record;
 
-   signal r, rin : servo_module_type := (servo_value => (others => x"7fff"));
+   signal r, rin : servo_module_type := (servo_value => (others => (others => '0')));
 begin
    seq_proc : process(reset, clk)
    begin
       if rising_edge(clk) then
          if reset = '1' then
-            r <= (servo_value => (others => (x"7fff")));
+            r <= (servo_value => (others => (others => '0')));
          else
             r <= rin;
          end if;
@@ -115,7 +115,7 @@ begin
          BASE_ADDRESS_VECTOR(14 downto SERVO_BUS_WIDTH) then
 
          index := to_integer(unsigned(bus_i.addr(SERVO_BUS_WIDTH downto 0)));
-         if index < SERVO_MAX then
+         if index <= SERVO_MAX then
             if bus_i.we = '1' then
                v.servo_value(index) := bus_i.data;
             --elsif bus_i.re = '1' then

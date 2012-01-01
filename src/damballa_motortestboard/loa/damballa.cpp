@@ -9,14 +9,15 @@ loa::SpiFlash loa::spiFlash;
 xpcc::At45db0x1d<loa::SpiFlash, loa::CsFlash> loa::dataflash;
 
 using namespace loa;
+using namespace xpcc::stm32;
 
 // ----------------------------------------------------------------------------
 bool
 loa::Damballa::initialize()
 {
-	if (xpcc::stm32::Core::Clock::enableHSE(xpcc::stm32::Core::Clock::HSE_BYPASS)) {
-		xpcc::stm32::Core::Clock::enablePll(xpcc::stm32::Core::Clock::PLL_HSE, 25, 336);
-		xpcc::stm32::Core::Clock::switchToPll();
+	if (Core::Clock::enableHse(Core::Clock::HSE_BYPASS)) {
+		Core::Clock::enablePll(Core::Clock::PLL_HSE, 25, 336);
+		Core::Clock::switchToPll();
 	}
 	
 	bool success = true;

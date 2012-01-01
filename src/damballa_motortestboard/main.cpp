@@ -162,10 +162,15 @@ MAIN_FUNCTION
 			sizeof(actionList) / sizeof(xpcc::sab::Action));
 	*/
 	
+	loa::Damballa::writeWord(0x0070, 0x7fff);
+	
 	int16_t speed = 0;
+	uint16_t encoder2 = 0;
+	uint16_t encoder6 = 11;
+	uint16_t servo1 = 32768;
 	ColorHsv color = { 0, 255, 100 };
 	ColorHsv color2 = { 10, 255, 100 };
-	xpcc::PeriodicTimer<> timer(15);
+	xpcc::PeriodicTimer<> timer(20);
 	xpcc::PeriodicTimer<> timer2(500);
 	while (1)
 	{
@@ -183,6 +188,16 @@ MAIN_FUNCTION
 			loa::Damballa::writeWord(0x0001, rgb.red * rgb.red);		// red
 			loa::Damballa::writeWord(0x0002, rgb.green * rgb.green);	// green
 			loa::Damballa::writeWord(0x0003, rgb.blue * rgb.blue);	// blue
+			
+			// Encoders + Servos
+			loa::Damballa::load();
+			
+			encoder2 = loa::Damballa::readWord(0x0022) % (24*4);
+			encoder6 = loa::Damballa::readWord(0x0060) + 11*4;
+			encoder6 = ((encoder6 % (24*4) + 2) % (24*4)) / 4;
+			
+			servo1 = 34150 + (11 - encoder6) * 2845;
+			loa::Damballa::writeWord(0x0070, servo1);
 		}
 		
 		if (timer2.isExpired())
@@ -191,12 +206,9 @@ MAIN_FUNCTION
 			uint16_t sw = loa::Damballa::readWord(0x0000) & 0x000f;
 			XPCC_LOG_DEBUG << "sw: " << sw << xpcc::endl;
 			
-			loa::Damballa::load();
-			
-			uint16_t encoder2 = loa::Damballa::readWord(0x0022);
 			XPCC_LOG_DEBUG << "enc2: " << encoder2 << xpcc::endl;
-			uint16_t encoder6 = loa::Damballa::readWord(0x0060);
 			XPCC_LOG_DEBUG << "enc6: " << encoder6 << xpcc::endl;
+			XPCC_LOG_DEBUG << "servo: " << servo1 << xpcc::endl;
 			
 			if (!loa::Button1::read()) {
 				if (speed < 500) {

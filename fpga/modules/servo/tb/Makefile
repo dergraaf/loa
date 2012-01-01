@@ -11,7 +11,7 @@ else ifeq ($(TESTBENCH), servo_module_tb)
 FILES = ../hdl/*.vhd \
 	../../utils/hdl/utils_pkg.vhd \
 	../../spislave/hdl/bus_pkg.vhd
-GHDL_SIM_OPT = --stop-time=10ms
+GHDL_SIM_OPT = --stop-time=27ms
 endif
 
 # Default settings for gtkwave (visable signal etc.)
