@@ -1,11 +1,17 @@
 
+#include <xpcc/debug.hpp>
+
 #include "damballa.hpp"
+
+#undef XPCC_LOG_LEVEL
+#define	XPCC_LOG_LEVEL xpcc::log::DEBUG
 
 // ----------------------------------------------------------------------------
 xpcc::stm32::Can1 loa::can;
 xpcc::stm32::Spi1 loa::fpga::spi;
 
 loa::SpiFlash loa::spiFlash;
+//loa::SpiFlash loa::spiFlash(100000);
 xpcc::At45db0x1d<loa::SpiFlash, loa::CsFlash> loa::dataflash;
 
 using namespace loa;
@@ -20,7 +26,7 @@ loa::Damballa::initialize()
 		Core::Clock::switchToPll();
 	}
 	
-	bool success = true;
+	XPCC_LOG_DEBUG << "." << xpcc::endl;
 	
 	Led1::setOutput(xpcc::gpio::LOW);
 	Led2::setOutput(xpcc::gpio::LOW);
@@ -36,10 +42,15 @@ loa::Damballa::initialize()
 	// TODO disable NJTRST (PB4)
 	
 	spiFlash.initialize();
+	/*spiFlash.configureTxPin(spiFlash.REMAP_PD8);
+	spiFlash.configureRxPin(spiFlash.REMAP_PD9);
+	spiFlash.configureCkPin(spiFlash.REMAP_PD10);*/
 	
-	// TODO configure Dataflash
+	bool success = true;
 	success &= dataflash.initialize();
-	//success &= configureFpga();
+	if (success) {
+		success &= configureFpga();
+	}
 	
 	deassertFpgaConfiguration();
 	
@@ -134,12 +145,12 @@ loa::Damballa::readWord(uint16_t address)
 
 // ----------------------------------------------------------------------------
 /*
- * Device  | Configuration
- *         |  Size [Bits]
- * ------- | --------------
- * XC3S50  |     439,264
- * XC3S200 |   1,047,616
- * XC3S400 |   1,699,136
+ * Device  | Configuration | Configuration
+ *         |  Size [Bits]  |  Size [Bytes]
+ * ------- | ------------- | --------------
+ * XC3S50  |     439,264   |     54,908
+ * XC3S200 |   1,047,616   |    130,952
+ * XC3S400 |   1,699,136   |    212,392
  */
 namespace
 {
@@ -177,8 +188,26 @@ loa::Damballa::configureFpga()
 	fpga::InitB::setInput(xpcc::stm32::PULLDOWN);
 	Din::setOutput(xpcc::stm32::PUSH_PULL, xpcc::stm32::SPEED_50MHZ);
 	
+	XPCC_LOG_DEBUG << "configure FPGA" << xpcc::endl;
+	
 	// Reset FPGA => starts configuration
 	ProgB::reset();
+	
+	{
+		// wait until InitB and Done go low
+		uint32_t counter = 0;
+		while (fpga::InitB::read() == xpcc::gpio::HIGH ||
+				Done::read() == xpcc::gpio::HIGH)
+		{
+			xpcc::delay_us(1);
+			if (counter++ > 1000) {
+				// Timeout (1ms) reached, FPGA is not responding abort configuration
+				XPCC_LOG_ERROR << "FPGA not responding during reset!" << xpcc::endl;
+				return false;
+			}
+		}
+	}
+	
 	xpcc::delay_us(1);
 	ProgB::set();
 	
@@ -189,6 +218,7 @@ loa::Damballa::configureFpga()
 		xpcc::delay_us(1);
 		if (counter++ > 1000) {
 			// Timeout (1ms) reached, FPGA is not responding abort configuration
+			XPCC_LOG_ERROR << "FPGA not responding!" << xpcc::endl;
 			return false;
 		}
 	}
@@ -196,25 +226,67 @@ loa::Damballa::configureFpga()
 	// wait 0.5..4µs before starting the configuration
 	xpcc::delay_us(4);
 	
+	uint8_t buffer[256];
+	loa::dataflash.readPageFromMemory(0, buffer, sizeof(buffer));
+	
 	uint32_t pos = 0;
+	uint32_t offset = 0;
 	do {
-		Din::set(1);	// TODO
-		xpcc::delay_us(1);
-		Cclk::set();
-		Cclk::reset();
+		uint8_t byte = buffer[offset];
 		
+		//XPCC_LOG_DEBUG.printf("%02x,", byte);
+		
+		// write byte
+		for (uint_fast8_t i = 0; i < 8; i++)
+		{
+			// MSB first
+			if (byte & 0x80) {
+				Din::set();
+			}
+			else {
+				Din::reset();
+			}
+			byte <<= 1;
+			
+			Cclk::set();
+			Cclk::reset();
+			
+			if (Done::read() == xpcc::gpio::HIGH) {
+				XPCC_LOG_DEBUG << "FPGA configuration successful" << xpcc::endl;
+				XPCC_LOG_ERROR << "addr=" << pos << xpcc::endl;
+				break;
+			}
+			
+			if (fpga::InitB::read() == xpcc::gpio::LOW) {
+				// error in configuration
+				XPCC_LOG_ERROR << "FPGA configuration aborted!" << xpcc::endl;
+				XPCC_LOG_ERROR << "done=" << Done::read() << xpcc::endl;
+				XPCC_LOG_ERROR << "i=" << i << xpcc::endl;
+				XPCC_LOG_ERROR << "addr=" << pos << xpcc::endl;
+				XPCC_LOG_ERROR << "offset=" << offset << xpcc::endl;
+				return false;
+			}
+		}
+		
+		offset++;
 		pos++;
+		if (offset == 256) {
+			offset = 0;
+			loa::dataflash.readPageFromMemory(pos, buffer, sizeof(buffer));
+		}
 		
-		if (fpga::InitB::read() == xpcc::gpio::LOW) {
-			// error in configuration
+		if (pos > 212392+100) {
+			XPCC_LOG_DEBUG << "FPGA configuration failed!" << xpcc::endl;
 			return false;
 		}
 	} while (Done::read() == xpcc::gpio::LOW);
 	
 	// TODO see Xilinx UG332 if there are more clock cycles needed
-	for (uint32_t i = 0; i < 10; ++i) {
+	for (uint_fast8_t i = 0; i < 10; ++i) {
 		Cclk::set();
+		//xpcc::delay_us(1);
 		Cclk::reset();
+		//xpcc::delay_us(1);
 	}
 	
 	return true;

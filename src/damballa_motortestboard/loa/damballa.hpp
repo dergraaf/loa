@@ -28,12 +28,12 @@ namespace loa
 	 * RX (MISO) => PD9
 	 * CK (SCLK) => PD10
 	 */
-	//xpcc::stm32::UsartSpi3 spiFlash;
+	//typedef xpcc::stm32::UsartSpi3 SpiFlash;
 	GPIO__OUTPUT(Mosi, D, 8);
 	GPIO__INPUT(Miso, D, 9);
 	GPIO__OUTPUT(Sck, D, 10);
 	
-	typedef xpcc::SoftwareSpi<Sck, Mosi, Miso> SpiFlash;
+	typedef xpcc::SoftwareSpi<Sck, Mosi, Miso, 40000000> SpiFlash;
 	extern SpiFlash spiFlash;
 	
 	extern xpcc::At45db0x1d<SpiFlash, CsFlash> dataflash;
