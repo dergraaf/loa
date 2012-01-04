@@ -1,3 +1,4 @@
+*.b##
 *.b#[1-9]
 *.s#[1-9]
 *.l#[1-9]
@@ -7,3 +8,5 @@
 .sconsign.dblite
 .cproject
 .project
+.settings
+.classpath

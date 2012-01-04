@@ -77,12 +77,11 @@ public class Connection implements Sender, MessageDistributor {
 	}
 
 	@SuppressWarnings( { "unchecked" } )
-	public Enumeration enumPorts() {
-		Enumeration enu = CommPortIdentifier.getPortIdentifiers();
-		Vector identifiers = new Vector();
+	public Enumeration<PortIdentifier> enumPorts() {
+		Enumeration<CommPortIdentifier> enu = CommPortIdentifier.getPortIdentifiers();
+		Vector<PortIdentifier> identifiers = new Vector<PortIdentifier>();
 		while (enu.hasMoreElements())
-			identifiers.add(new PortIdentifier((CommPortIdentifier) enu
-					.nextElement()));
+			identifiers.add(new PortIdentifier(enu.nextElement()));
 		return identifiers.elements();
 	}
 

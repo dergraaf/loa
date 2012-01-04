@@ -3,15 +3,13 @@
 #include <xpcc/workflow.hpp>
 #include <xpcc/debug.hpp>
 
-#include <xpcc/driver/connectivity/sab.hpp>
-
 #include "loa/damballa.hpp"
 
-GPIO__OUTPUT(LedRed, A, 0);			// TIM2_CH1
-GPIO__OUTPUT(LedBlue, A, 1);		// TIM2_CH2
-GPIO__OUTPUT(LedGreen, A, 2);		// TIM2_CH3
-
-GPIO__OUTPUT(LedBacklight, A, 3);	// TIM2_CH4
+#include "uplink.hpp"
+#include "fpga.hpp"
+#include "led.hpp"
+#include "control.hpp"
+#include "ui.hpp"
 
 xpcc::stm32::Uart5 uart5(115200);
 xpcc::IODeviceWrapper<xpcc::stm32::Uart5> loggerDevice(uart5);
@@ -25,164 +23,8 @@ xpcc::log::Logger xpcc::log::error(loggerDevice);
 using namespace xpcc::stm32;
 
 // ----------------------------------------------------------------------------
-static void
-initRgbLed()
-{
-	Timer2::enable();
-	
-	Timer2::setMode(Timer2::CENTER_ALIGNED_3);
-	Timer2::setPrescaler(2);
-	Timer2::setOverflow(65535);
-	
-	Timer2::configureOutputChannel(1, Timer2::OUTPUT_PWM, 0);
-	Timer2::configureOutputChannel(2, Timer2::OUTPUT_PWM, 0);
-	Timer2::configureOutputChannel(3, Timer2::OUTPUT_PWM, 0);
-	Timer2::configureOutputChannel(4, Timer2::OUTPUT_PWM, 0);
-	
-	Timer2::applyAndReset();
-	Timer2::start();
-	
-	LedRed::setAlternateFunction(AF_TIM2, PUSH_PULL);
-	LedBlue::setAlternateFunction(AF_TIM2, PUSH_PULL);
-	LedGreen::setAlternateFunction(AF_TIM2, PUSH_PULL);
-	LedBacklight::setAlternateFunction(AF_TIM2, PUSH_PULL);
-}
-
-struct ColorRgb
-{
-	uint8_t red;
-	uint8_t green;
-	uint8_t blue;
-};
-
-struct ColorHsv
-{
-	uint8_t hue;
-	uint8_t saturation;
-	uint8_t value;
-};
-
-static void
-setColorRgb(const ColorRgb& color)
-{
-	Timer2::setCompareValue(1, color.red * color.red);
-	Timer2::setCompareValue(2, color.blue * color.blue);
-	Timer2::setCompareValue(3, color.green * color.green);
-}
-
-static void
-convertHsvToRgb(const ColorHsv& hsv, ColorRgb& rgb)
-{
-	uint16_t vs = hsv.value * hsv.saturation;
-	uint16_t h6 = 6 * hsv.hue;
-	
-	uint8_t p = ((hsv.value << 8) - vs) >> 8;
-	uint8_t i = h6 >> 8;
-	uint16_t f = ((i | 1) << 8) - h6;
-	if (i & 1) {
-		f = -f;
-	}
-	
-	uint8_t u = (((uint32_t) hsv.value << 16) - (uint32_t) vs * f) >> 16;
-	uint8_t r = hsv.value;
-	uint8_t g = hsv.value;
-	uint8_t b = hsv.value;
-	switch(i) {
-		case 0: g = u; b = p; break;
-		case 1: r = u; b = p; break;
-		case 2: r = p; b = u; break;
-		case 3: r = p; g = u; break;
-		case 4: r = u; g = p; break;
-		case 5: g = p; b = u; break;
-	}
-	
-	rgb.red = r;
-	rgb.green = g;
-	rgb.blue = b;
-}
-
-// ----------------------------------------------------------------------------
-class DataFlashConnector : public xpcc::sab::Callable
-{
-public:
-	DataFlashConnector() :
-		segment(0)
-	{
-	}
-    
-	void
-	getBitfileSize(xpcc::sab::Response& response)
-	{
-		loa::Led2::toggle();
-		XPCC_LOG_DEBUG << "bitsize" << xpcc::endl;
-		
-		/* 
-		 * XC3S50  =   439,264 Bits =  54,908 Bytes
-		 * XC3S200 = 1,047,616 Bits = 130,952 Bytes
-		 * XC3S400 = 1,699,136 Bits = 212,392 Bytes
-		 */
-		int32_t bitfileSize = 212392;
-		response.send(bitfileSize);
-	}
-	
-	void
-	setSegment(xpcc::sab::Response& response, const uint16_t *newSegment)
-	{
-		loa::Led3::toggle();
-		XPCC_LOG_DEBUG << "segment=" << *newSegment << xpcc::endl;
-		
-		segment = *newSegment;
-		response.send();
-	}
-	
-	void
-	storeSegment(xpcc::sab::Response& response, const uint8_t *data)
-	{
-		loa::Led4::toggle();
-		XPCC_LOG_DEBUG << "store=" << segment << xpcc::endl;
-		
-		uint16_t offset = segment % 8;
-		
-		loa::dataflash.waitUntilReady();
-		loa::dataflash.writeToBuffer(xpcc::at45db::BUFFER_0, offset * 32, data, 32);
-		
-		if (offset == 7) {
-			XPCC_LOG_DEBUG << "write page" << xpcc::endl;
-			// page finished
-			uint16_t pageAddress = segment / 8;
-			
-			loa::dataflash.waitUntilReady();
-			loa::dataflash.copyBufferToPage(xpcc::at45db::BUFFER_0, pageAddress);
-		}
-		
-		response.send(segment);
-		segment++;
-	}
-	
-private:
-	uint16_t segment;
-};
-
-DataFlashConnector dataFlashConnector;
-
-// ----------------------------------------------------------------------------
-// create a list of all possible actions
-FLASH_STORAGE(xpcc::sab::Action actionList[]) =
-{
-	SAB__ACTION('b', dataFlashConnector,	DataFlashConnector::getBitfileSize, 0 ),
-	SAB__ACTION('s', dataFlashConnector,	DataFlashConnector::setSegment,		2 ),
-	SAB__ACTION('S', dataFlashConnector,	DataFlashConnector::storeSegment,	32 ),
-};
-
-xpcc::stm32::Usart1 uart1(115200);
-
-// wrap the type definition inside a typedef to make the code more readable
-typedef xpcc::sab::Slave< xpcc::sab::Interface< xpcc::stm32::Usart1 > > Slave;
-
-// ----------------------------------------------------------------------------
 MAIN_FUNCTION
 {
-	uart1.configurePins(uart1.REMAP_PB6_PB7);
 	uart5.configurePins(uart5.REMAP_PC12_PD2);
 	
 	// Initialize predefined IO-Pins and load the FPGA configuration
@@ -190,18 +32,15 @@ MAIN_FUNCTION
 	
 	xpcc::stm32::SysTickTimer::enable();
 	
-	initRgbLed();
-	
-	// initialize ABP interface
-	Slave slave(0x02,
-			xpcc::accessor::asFlash(actionList),
-			sizeof(actionList) / sizeof(xpcc::sab::Action));
+	Fpga::initialize();
+	Uplink::initialize();
+	Led::initialize();
+	Ui::initialize();
+	Control::initialize();
 	
 	XPCC_LOG_INFO << "Motortestboard ready ..." << xpcc::endl;
 	
 	int16_t speed = 0;
-	uint16_t encoder2 = 0;
-	uint16_t encoder6 = 11;
 	uint16_t servo1 = 32768;
 	ColorHsv color = { 0, 255, 100 };
 	ColorHsv color2 = { 10, 255, 100 };
@@ -211,56 +50,34 @@ MAIN_FUNCTION
 	{
 		if (timer.isExpired())
 		{
-			ColorRgb rgb;
-			
 			color.hue++;
-			convertHsvToRgb(color, rgb);
-			setColorRgb(rgb);
-			
 			color2.hue++;
-			convertHsvToRgb(color2, rgb);
 			
-			loa::Damballa::writeWord(0x0001, rgb.red * rgb.red);		// red
-			loa::Damballa::writeWord(0x0002, rgb.green * rgb.green);	// green
-			loa::Damballa::writeWord(0x0003, rgb.blue * rgb.blue);	// blue
+			Led::setHsv(Led::LED1, color);
+			Led::setHsv(Led::LED2, color2);
 			
-			// Encoders + Servos
-			loa::Damballa::load();
-			
-			encoder2 = loa::Damballa::readWord(0x0022) % (24*4);
-			encoder6 = loa::Damballa::readWord(0x0060) + 11*4;
-			encoder6 = ((encoder6 % (24*4) + 2) % (24*4)) / 4;
-			
-			servo1 = 34150 + (11 - encoder6) * 2845;
-			loa::Damballa::writeWord(0x0070, servo1);
+			//servo1 = 34150 + (11 - encoder6) * 2845;*/
+			//Fpga::setServo(Fpga::SERVO1, servo1);
 		}
 		
 		if (timer2.isExpired())
 		{
 			loa::Led1::toggle();
-			//uint16_t sw = loa::Damballa::readWord(0x0000) & 0x000f;
-			//XPCC_LOG_DEBUG << "sw: " << sw << xpcc::endl;
 			
-			//XPCC_LOG_DEBUG << "enc2: " << encoder2 << xpcc::endl;
-			//XPCC_LOG_DEBUG << "enc6: " << encoder6 << xpcc::endl;
-			//XPCC_LOG_DEBUG << "servo: " << servo1 << xpcc::endl;
+			//uint16_t buttons = Fpga::getButtons() & 0x000f;
+			//XPCC_LOG_DEBUG << "l=" << static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_6) - 12) << xpcc::endl;
+			//XPCC_LOG_DEBUG << "r=" << static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_7) - 12) << xpcc::endl;
 			
-			if (!loa::Button1::read()) {
-				if (speed < 500) {
-					speed += 40;
-				}
-			}
-			if (!loa::Button2::read()) {
-				if (speed > -500) {
-					speed -= 40;
-				}
-			}
+			XPCC_LOG_DEBUG << "l=" << Control::getSpeed(Control::DRIVE_LEFT) << xpcc::endl;
+			XPCC_LOG_DEBUG << "r=" << Control::getSpeed(Control::DRIVE_RIGHT) << xpcc::endl;
 			
 			// set PWM for BLDC2
-			loa::Damballa::writeWord(0x0020, 512 + speed);
+			//loa::Damballa::writeWord(0x0020, 512 + speed);
 		}
 		
-		// decode received messages etc.
-		slave.update();
+		Uplink::update();
+		
+		// TODO remove this
+		Fpga::update();
 	}
 }

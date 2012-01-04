@@ -105,6 +105,9 @@ namespace loa
 		readWord(uint16_t address);
 		
 	private:
+		/// Configure the SPI interface to the FPGA
+		static void
+		configureSpiFpga();
 		/**
 		 * Load the configuration into the FPGA
 		 */

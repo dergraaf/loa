@@ -186,6 +186,11 @@ public class Upload implements Communicatable {
 			CommandLineArgs options = new CommandLineArgs();
 			JCommander parser = new JCommander(options, args);
 			
+			if (options.files.size() != 1 || options.help) {
+				parser.usage();
+				System.exit(1);
+			}
+			
 			// If the filename starts with a tilde it's relative to the
 			// home folder of the user. Java doesn't resolve this, so it
 			// needs to be done by hand here.
@@ -198,11 +203,6 @@ public class Upload implements Communicatable {
 			System.out.println("Port=" + options.port);
 			System.out.println("Baud=" + options.baudrate.intValue());
 			System.out.println("File=" + file.getAbsolutePath());
-			
-			if (options.files.size() != 1 || options.help) {
-				parser.usage();
-				System.exit(1);
-			}
 			
 			loader = new Upload(options.port, options.baudrate.intValue(), file);
 			loader.upload();

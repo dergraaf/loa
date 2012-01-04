@@ -21,23 +21,24 @@ using namespace xpcc::stm32;
 bool
 loa::Damballa::initialize()
 {
+	bool success = true;
+	
+	// Switch STM32F4 to 168 MHz (HSE clocked by an 25 MHz external clock)
 	if (Core::Clock::enableHse(Core::Clock::HSE_BYPASS)) {
 		Core::Clock::enablePll(Core::Clock::PLL_HSE, 25, 336);
 		Core::Clock::switchToPll();
 	}
 	
-	XPCC_LOG_DEBUG << "." << xpcc::endl;
-	
-	Led1::setOutput(xpcc::gpio::LOW);
-	Led2::setOutput(xpcc::gpio::LOW);
-	Led3::setOutput(xpcc::gpio::LOW);
-	Led4::setOutput(xpcc::gpio::LOW);
+	Led1::setOutput(xpcc::gpio::HIGH);
+	Led2::setOutput(xpcc::gpio::HIGH);
+	Led3::setOutput(xpcc::gpio::HIGH);
+	Led4::setOutput(xpcc::gpio::HIGH);
 	
 	Button1::setInput(xpcc::stm32::PULLUP);
 	Button2::setInput(xpcc::stm32::PULLUP);
 	
 	fpga::Load::setOutput(xpcc::gpio::LOW);
-	fpga::Reset::setOutput(xpcc::gpio::LOW);
+	fpga::Reset::setOutput(xpcc::gpio::HIGH);
 	
 	// TODO disable NJTRST (PB4)
 	
@@ -45,26 +46,28 @@ loa::Damballa::initialize()
 	/*spiFlash.configureTxPin(spiFlash.REMAP_PD8);
 	spiFlash.configureRxPin(spiFlash.REMAP_PD9);
 	spiFlash.configureCkPin(spiFlash.REMAP_PD10);*/
-	
-	bool success = true;
 	success &= dataflash.initialize();
-	if (success) {
-		success &= configureFpga();
-	}
 	
-	deassertFpgaConfiguration();
+	configureSpiFpga();
 	
-	fpga::Cs::setOutput(xpcc::gpio::HIGH);
-	fpga::spi.configurePins(xpcc::stm32::Spi1::REMAP_PA5_PA6_PA7);
-	fpga::spi.initialize(xpcc::stm32::Spi1::MODE_0, xpcc::stm32::Spi1::PRESCALER_8);	// 10.5 MHz
-	
-	// release Reset to start the FPGA operation
-	fpga::Reset::set();
-	
-	// check if we could read a fixed value from the FPGA
-	uint16_t sw = readWord(0);
-	if ((sw & 0xfff0) != 0xabc0) {
-		success = false;
+	// Check if the FPGA is already configured
+	if ((readWord(0x0000) & 0xfff0) != 0xabc0)
+	{
+		if (success) {
+			success &= configureFpga();
+		}
+		
+		deassertFpgaConfiguration();
+		
+		// The FPGA configuration uses Pins from the FPGA interface and
+		// therefore changes their settings. Reconfigure them here to
+		// be able to use the SPI interface again.
+		configureSpiFpga();
+		
+		// check if we could read a fixed value from the FPGA
+		if ((readWord(0x0000) & 0xfff0) != 0xabc0) {
+			success = false;
+		}
 	}
 	
 	//can.configurePins(can.REMAP_PD0_PD1);
@@ -99,6 +102,15 @@ loa::Damballa::initialize()
 	}
 	
 	return success;
+}
+
+// ----------------------------------------------------------------------------
+void
+loa::Damballa::configureSpiFpga()
+{
+	fpga::Cs::setOutput(xpcc::gpio::HIGH);
+	fpga::spi.configurePins(xpcc::stm32::Spi1::REMAP_PA5_PA6_PA7);
+	fpga::spi.initialize(xpcc::stm32::Spi1::MODE_0, xpcc::stm32::Spi1::PRESCALER_8);	// 10.5 MHz
 }
 
 // ----------------------------------------------------------------------------
@@ -207,6 +219,7 @@ loa::Damballa::configureFpga()
 			}
 		}
 	}
+	Led1::reset();
 	
 	xpcc::delay_us(1);
 	ProgB::set();
@@ -222,6 +235,7 @@ loa::Damballa::configureFpga()
 			return false;
 		}
 	}
+	Led2::reset();
 	
 	// wait 0.5..4µs before starting the configuration
 	xpcc::delay_us(4);
@@ -233,8 +247,6 @@ loa::Damballa::configureFpga()
 	uint32_t offset = 0;
 	do {
 		uint8_t byte = buffer[offset];
-		
-		//XPCC_LOG_DEBUG.printf("%02x,", byte);
 		
 		// write byte
 		for (uint_fast8_t i = 0; i < 8; i++)
@@ -260,10 +272,7 @@ loa::Damballa::configureFpga()
 			if (fpga::InitB::read() == xpcc::gpio::LOW) {
 				// error in configuration
 				XPCC_LOG_ERROR << "FPGA configuration aborted!" << xpcc::endl;
-				XPCC_LOG_ERROR << "done=" << Done::read() << xpcc::endl;
-				XPCC_LOG_ERROR << "i=" << i << xpcc::endl;
 				XPCC_LOG_ERROR << "addr=" << pos << xpcc::endl;
-				XPCC_LOG_ERROR << "offset=" << offset << xpcc::endl;
 				return false;
 			}
 		}
@@ -273,21 +282,24 @@ loa::Damballa::configureFpga()
 		if (offset == 256) {
 			offset = 0;
 			loa::dataflash.readPageFromMemory(pos, buffer, sizeof(buffer));
+			
+			Led3::toggle();
 		}
 		
 		if (pos > 212392+100) {
+			// More bits written than available
 			XPCC_LOG_DEBUG << "FPGA configuration failed!" << xpcc::endl;
 			return false;
 		}
 	} while (Done::read() == xpcc::gpio::LOW);
+	Led3::reset();
 	
 	// TODO see Xilinx UG332 if there are more clock cycles needed
 	for (uint_fast8_t i = 0; i < 10; ++i) {
 		Cclk::set();
-		//xpcc::delay_us(1);
 		Cclk::reset();
-		//xpcc::delay_us(1);
 	}
+	Led4::reset();
 	
 	return true;
 }
