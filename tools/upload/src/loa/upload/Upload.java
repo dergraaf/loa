@@ -73,7 +73,7 @@ public class Upload implements Communicatable {
 			remaingBytes -= size;
 			
 			reader.read(buffer, 0, size);
-			short segmentWritten = storeSegment(buffer);
+			short segmentWritten = storeSegment(segment, buffer);
 			
 			if (segment != segmentWritten) {
 				throw new IOException("Segment number mismatch!");
@@ -98,9 +98,24 @@ public class Upload implements Communicatable {
 		send(0x02, 's', b.array());
 	}
 	
-	private short storeSegment(byte[] data) {
-		ByteBuffer b = send(0x02, 'S', data, 2);
-		return b.getShort();
+	private short storeSegment(short segment, byte[] data) {
+		int tries = 3;
+		while (true)
+		{
+			try {
+				ByteBuffer b = send(0x02, 'S', data, 2);
+				return b.getShort();
+			}
+			catch (TimeoutException e) {
+				System.err.printf("Retry sending segment %d\n", segment);
+				tries -= 1;
+				if (tries == 0) {
+					// Number of tries exceeded => abort
+					throw e;
+				}
+				setSegment(segment);
+			}
+		}
 	}
 	
 	/**
@@ -118,14 +133,14 @@ public class Upload implements Communicatable {
 		synchronized (this) {
 			transmittedFrame = new Frame(address, command, data);
 			this.expectedSize = expectedSize;
+			connection.sendMessage(transmittedFrame);
 		}
-		connection.sendMessage(transmittedFrame);
 		
 		// DEBUG
 		//System.out.println("< " + transmittedFrame.toString());
 		
 		try {
-			if (receiveSemaphore.tryAcquire(500, TimeUnit.MILLISECONDS))
+			if (receiveSemaphore.tryAcquire(1000, TimeUnit.MILLISECONDS))
 			{
 				ByteBuffer b;
 				synchronized (this) {
@@ -162,7 +177,7 @@ public class Upload implements Communicatable {
 						frame.data[0], transmittedFrame.toString());
 			}
 			else if (frame.data.length != expectedSize) {
-				System.err.printf("Unexpected length: %i, expected %i\n",
+				System.err.printf("Unexpected length: %d, expected %d\n",
 						frame.data.length, expectedSize);
 			}
 			else {

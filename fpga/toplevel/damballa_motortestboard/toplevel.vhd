@@ -99,10 +99,12 @@ architecture structural of toplevel is
    signal load_r  : std_logic_vector(1 downto 0) := (others => '0');
    signal load    : std_logic;
 
-   signal sw_1r         : std_logic_vector(1 downto 0);
-   signal sw_2r : std_logic_vector(1 downto 0);
+   signal sw_1r        : std_logic_vector(1 downto 0);
+   signal sw_2r        : std_logic_vector(1 downto 0);
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
+   
+   signal encoder6_index_r : std_logic_vector(1 downto 0);
 
    signal motor3_sd : std_logic := '1';
    signal motor4_sd : std_logic := '1';
@@ -190,10 +192,12 @@ begin
       if rising_edge(clk) then
          sw_1r <= not sw_np;
          sw_2r <= sw_1r;
+		 
+		 encoder6_index_r <= encoder6_index_r(0) & not encoder6_index_p;
       end if;
    end process;
 
-   register_in <= x"abc" & "00" & sw_2r;
+   register_in <= x"abc" & "0" & encoder6_index_r(1) & sw_2r;
    led_np <= not register_out(3 downto 0);
 
    ----------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 
 #include <xpcc/architecture.hpp>
 #include <xpcc/driver/connectivity/sab.hpp>
+#include <xpcc/driver/connectivity/sab2/interface.hpp>
 
 #include <xpcc/debug/logger.hpp>
 
@@ -80,10 +81,10 @@ FLASH_STORAGE(xpcc::sab::Action actionList[]) =
 	SAB__ACTION('S', dataFlashConnector,	DataFlashConnector::storeSegment,	32 ),
 };
 
-static xpcc::stm32::Usart1 uart1(115200);
+static xpcc::stm32::BufferedUsart1 uart1(115200);
 
 // wrap the type definition inside a typedef to make the code more readable
-typedef xpcc::sab::Slave< xpcc::sab::Interface< xpcc::stm32::Usart1 > > Slave;
+typedef xpcc::sab::Slave< xpcc::sab2::Interface< xpcc::stm32::BufferedUsart1 > > Slave;
 
 // initialize ABP interface
 static Slave slave(0x02,

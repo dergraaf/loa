@@ -142,8 +142,9 @@ public class InputOutputProcess extends Thread {
 		if (isConnected() && outMsg != null) {
 			// System.out.println("Gesendet: " + outMsg);
 			try {
-				if (synchronousReadWrite)
+				if (synchronousReadWrite) {
 					messageOutputQueue.put(new QueueElement(outMsg, decoder));
+				}
 				else {
 					processOutput();
 					try {

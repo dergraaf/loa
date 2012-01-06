@@ -68,14 +68,17 @@ MAIN_FUNCTION
 			//XPCC_LOG_DEBUG << "l=" << static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_6) - 12) << xpcc::endl;
 			//XPCC_LOG_DEBUG << "r=" << static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_7) - 12) << xpcc::endl;
 			
-			XPCC_LOG_DEBUG << "l=" << Control::getSpeed(Control::DRIVE_LEFT) << xpcc::endl;
-			XPCC_LOG_DEBUG << "r=" << Control::getSpeed(Control::DRIVE_RIGHT) << xpcc::endl;
+			//XPCC_LOG_DEBUG << "l=" << Control::getSpeed(Control::DRIVE_LEFT) << xpcc::endl;
+			//XPCC_LOG_DEBUG << "r=" << Control::getSpeed(Control::DRIVE_RIGHT) << xpcc::endl;
+			
+			XPCC_LOG_DEBUG.printf("buttons=%04x\n", Ui::button.isPressed(0xffff));
 			
 			// set PWM for BLDC2
 			//loa::Damballa::writeWord(0x0020, 512 + speed);
 		}
 		
 		Uplink::update();
+		Ui::update();
 		
 		// TODO remove this
 		Fpga::update();
