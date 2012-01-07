@@ -58,7 +58,7 @@ public:
 	setServo(Servo servo, int16_t value)
 	{
 		// convert to signed
-		toFpgaBuffer[servo].value = 32768 + value; 
+		toFpgaBuffer[servo].value = 32768 + value;
 	}
 	
 	static inline void

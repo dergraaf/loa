@@ -103,7 +103,7 @@ begin
       end if;
    end process seq_proc;
 
-   comb_proc : process(bus_i.addr(14 downto SERVO_BUS_WIDTH),
+   comb_proc : process(bus_i.addr(14 downto SERVO_BUS_WIDTH), bus_i.data,
                        bus_i.addr(SERVO_BUS_WIDTH downto 0), bus_i.we, r)
       variable index : integer range 0 to 2**SERVO_BUS_WIDTH - 1;
       variable v     : servo_module_type;

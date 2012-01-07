@@ -28,6 +28,8 @@ public class Upload implements Communicatable {
 	private int expectedSize;
 	private byte[] receivedData;
 	private Semaphore receiveSemaphore = new Semaphore(0);
+	private String animation = "|/-\\";
+	private int lastPercent = -1;
 	
 	public Upload(String portName, int baudrate, File file) throws IOException {
 		bitfile = file;
@@ -78,7 +80,8 @@ public class Upload implements Communicatable {
 			if (segment != segmentWritten) {
 				throw new IOException("Segment number mismatch!");
 			}
-			System.out.println("segment=" + segmentWritten);
+			
+			reportProgress(segment, segmentCount);
 			segment++;
 		}
 		
@@ -115,6 +118,35 @@ public class Upload implements Communicatable {
 				}
 				setSegment(segment);
 			}
+		}
+	}
+	
+	/**
+	 * Prints a simple Progressbar on the console.
+	 * 
+	 * @param completed	Events already done
+	 * @param total		Total number of events
+	 */
+	private void reportProgress(int completed, int total) {
+		int percent = (completed * 100) / total;
+		if (lastPercent != percent) {
+			lastPercent = percent;
+			
+			char spinnerCharacter = animation.charAt(percent % animation.length());
+			
+			System.out.print("\r");
+			System.out.printf("%c %3d%% ", spinnerCharacter, percent);
+			
+			System.out.print("[");
+			for (int i = 0; i < 50; i++) {
+				if (i <= (percent / 2)) {
+					System.out.print("=");
+				}
+				else {
+					System.out.print(" ");
+				}
+			}
+			System.out.print("] ");
 		}
 	}
 	

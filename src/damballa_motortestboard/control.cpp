@@ -43,10 +43,15 @@ Control::run()
 	int16_t indexLeft = static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_6) - 12);
 	int16_t indexRight = static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_7) - 12);
 	
+	// -12..11 -> -32760..30030
+	//int16_t servo1 = indexLeft * 2730;
+	//Fpga::setServo(Fpga::SERVO1, servo1);
+	
+	
 	// -12..11 -> 0..1024
-	int16_t speedLeft = indexLeft * 42 + 512;
+	/*int16_t speedLeft = indexLeft * 42 + 512;
 	int16_t speedRight = indexRight * 42 + 512;
 	
 	Fpga::setPwm(Fpga::MOTOR_BLDC1, speedRight);
-	Fpga::setPwm(Fpga::MOTOR_BLDC2, speedLeft);
+	Fpga::setPwm(Fpga::MOTOR_BLDC2, speedLeft);*/
 }
