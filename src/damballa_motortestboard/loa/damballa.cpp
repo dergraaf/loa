@@ -24,9 +24,9 @@ loa::Damballa::initialize()
 	bool success = true;
 	
 	// Switch STM32F4 to 168 MHz (HSE clocked by an 25 MHz external clock)
-	if (Core::Clock::enableHse(Core::Clock::HSE_BYPASS)) {
-		Core::Clock::enablePll(Core::Clock::PLL_HSE, 25, 336);
-		Core::Clock::switchToPll();
+	if (Clock::enableHse(Clock::HSE_BYPASS)) {
+		Clock::enablePll(Clock::PLL_HSE, 25, 336);
+		Clock::switchToPll();
 	}
 	
 	Led1::setOutput(xpcc::gpio::HIGH);

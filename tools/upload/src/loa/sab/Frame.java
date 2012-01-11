@@ -74,20 +74,16 @@ public class Frame implements
 	public int command;
 	public byte[] data;
 
-	private int crc;
-
 	public Frame() {
 		this.type = Type.REQUEST;
 		this.address = 0;
 		this.command = 0;
-		this.crc = 0;
 	}
 	
 	public Frame(int address, int command) {
 		this.type = Type.REQUEST;
 		this.address = address;
 		this.command = command;
-		this.crc = 0;
 	}
 	
 	public Frame(int address, int command, byte[] data) {
@@ -95,7 +91,6 @@ public class Frame implements
 		this.address = address;
 		this.command = command;
 		this.data = data;
-		this.crc = 0;
 	}
 	
 	/**
@@ -106,7 +101,6 @@ public class Frame implements
 		this.type = other.type;
 		this.command = other.command;
 		this.data = other.data.clone();
-		this.crc = other.crc;
 	}
 	
 	public int getLength() {
@@ -121,40 +115,6 @@ public class Frame implements
 		else {
 			return false;
 		}
-	}
-	
-	/**
-	 * Update CRC value
-	 * 
-	 * @return	Calculated CRC value (see getCrc())
-	 */
-	public int calculateCrc() {
-		crc = 0;
-		updateCrc(data.length);
-
-		int header = address | type.getFlags();
-		updateCrc(header);
-		updateCrc(command);
-		for (byte b : data) {
-			updateCrc((int) b);
-		}
-		return crc;
-	}
-
-	public int getCrc() {
-		return this.crc;
-	}
-
-	private int updateCrc(int data) {
-		crc = (crc ^ data) & 0xff;
-		for (int i = 0; i < 8; ++i) {
-			if ((crc & 0x01) > 0) {
-				crc = (crc >> 1) ^ 0x8C;
-			} else {
-				crc >>= 1;
-			}
-		}
-		return crc;
 	}
 	
 	private String dataToString() {

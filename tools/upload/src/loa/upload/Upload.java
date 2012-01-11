@@ -31,6 +31,8 @@ public class Upload implements Communicatable {
 	private String animation = "|/-\\";
 	private int lastPercent = -1;
 	
+	private final int segmentBufferSize = 256;
+	
 	public Upload(String portName, int baudrate, File file) throws IOException {
 		bitfile = file;
 		connection = new Connection(new loa.sab.Decoder());
@@ -58,19 +60,21 @@ public class Upload implements Communicatable {
 					bitfile.length() + " bytes.");
 		}
 		
+		TimeWatch watch = TimeWatch.start();
+		
 		FileInputStream reader = new FileInputStream(bitfile);
-		byte[] buffer = new byte[32];
+		byte[] buffer = new byte[segmentBufferSize];
 		
 		int remaingBytes = bitstreamSize;
 		// round up to the next full 256 Byte border
-		short segmentCount = (short) (Math.ceil(((float) bitstreamSize) / 256.0) * 8);
+		short segmentCount = (short) (Math.ceil(((float) bitstreamSize) / 256.0) * (256 / segmentBufferSize));
 		short segment = 0;
 		
 		setSegment(segment);
 		while (segment < segmentCount) {
 			int size = remaingBytes;
-			if (size > 32) {
-				size = 32;
+			if (size > segmentBufferSize) {
+				size = segmentBufferSize;
 			}
 			remaingBytes -= size;
 			
@@ -84,8 +88,19 @@ public class Upload implements Communicatable {
 			reportProgress(segment, segmentCount);
 			segment++;
 		}
+		reportProgress(segment, segmentCount);
 		
-		System.out.println("Finished!");
+		reloadFpga();
+		
+		// get elapsed time in Seconds
+		watch.stop();
+		float estimatedTime = ((float) watch.getTime(TimeUnit.MILLISECONDS)) / 1000.0f;
+		
+		int bytesWritten = (segmentCount * buffer.length);
+		System.out.printf("\n\nwrote %d bytes in %.2fs (%.3f KiB/s)\n",
+				bytesWritten,
+				estimatedTime,
+				bytesWritten / 1024f / estimatedTime);
 	}
 	
 	private int getBitstreamSize() {
@@ -119,6 +134,10 @@ public class Upload implements Communicatable {
 				setSegment(segment);
 			}
 		}
+	}
+	
+	private void reloadFpga() {
+		send(0x02, 'r', new byte[0], 0);
 	}
 	
 	/**
@@ -172,7 +191,7 @@ public class Upload implements Communicatable {
 		//System.out.println("< " + transmittedFrame.toString());
 		
 		try {
-			if (receiveSemaphore.tryAcquire(1000, TimeUnit.MILLISECONDS))
+			if (receiveSemaphore.tryAcquire(500, TimeUnit.MILLISECONDS))
 			{
 				ByteBuffer b;
 				synchronized (this) {

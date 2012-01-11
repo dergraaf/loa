@@ -8,6 +8,8 @@
 #include "uplink.hpp"
 #include "loa/damballa.hpp"
 
+static const int32_t segmentBufferSize = 256;
+
 // ----------------------------------------------------------------------------
 class DataFlashConnector : public xpcc::sab::Callable
 {
@@ -20,9 +22,6 @@ public:
 	void
 	getBitfileSize(xpcc::sab::Response& response)
 	{
-		loa::Led2::toggle();
-		XPCC_LOG_DEBUG << "bitsize" << xpcc::endl;
-		
 		/* 
 		 * XC3S50  =   439,264 Bits =  54,908 Bytes
 		 * XC3S200 = 1,047,616 Bits = 130,952 Bytes
@@ -35,9 +34,6 @@ public:
 	void
 	setSegment(xpcc::sab::Response& response, const uint16_t *newSegment)
 	{
-		loa::Led3::toggle();
-		XPCC_LOG_DEBUG << "segment=" << *newSegment << xpcc::endl;
-		
 		segment = *newSegment;
 		response.send();
 	}
@@ -46,17 +42,18 @@ public:
 	storeSegment(xpcc::sab::Response& response, const uint8_t *data)
 	{
 		loa::Led4::toggle();
-		XPCC_LOG_DEBUG << "store=" << segment << xpcc::endl;
 		
-		uint16_t offset = segment % 8;
+		uint16_t offset = segment % (256 / segmentBufferSize);
 		
 		loa::dataflash.waitUntilReady();
-		loa::dataflash.writeToBuffer(xpcc::at45db::BUFFER_0, offset * 32, data, 32);
+		loa::dataflash.writeToBuffer(xpcc::at45db::BUFFER_0,
+				offset * segmentBufferSize,
+				data,
+				segmentBufferSize);
 		
-		if (offset == 7) {
-			XPCC_LOG_DEBUG << "write page" << xpcc::endl;
+		if (offset == (256 / segmentBufferSize) - 1) {
 			// page finished
-			uint16_t pageAddress = segment / 8;
+			uint16_t pageAddress = segment / (256 / segmentBufferSize);
 			
 			loa::dataflash.waitUntilReady();
 			loa::dataflash.copyBufferToPage(xpcc::at45db::BUFFER_0, pageAddress);
@@ -64,6 +61,16 @@ public:
 		
 		response.send(segment);
 		segment++;
+	}
+	
+	void
+	reloadFpga(xpcc::sab::Response& response)
+	{
+		// TODO reload FPGA
+		//loa::configureFpga();
+		
+		response.send();
+		//response.error(xpcc::sab2::ERROR__GENERAL_ERROR);
 	}
 	
 private:
@@ -78,13 +85,14 @@ FLASH_STORAGE(xpcc::sab::Action actionList[]) =
 {
 	SAB__ACTION('b', dataFlashConnector,	DataFlashConnector::getBitfileSize, 0 ),
 	SAB__ACTION('s', dataFlashConnector,	DataFlashConnector::setSegment,		2 ),
-	SAB__ACTION('S', dataFlashConnector,	DataFlashConnector::storeSegment,	32 ),
+	SAB__ACTION('S', dataFlashConnector,	DataFlashConnector::storeSegment,	segmentBufferSize ),
+	SAB__ACTION('r', dataFlashConnector,	DataFlashConnector::reloadFpga, 	0 ),
 };
 
 static xpcc::stm32::BufferedUsart1 uart1(115200);
 
 // wrap the type definition inside a typedef to make the code more readable
-typedef xpcc::sab::Slave< xpcc::sab2::Interface< xpcc::stm32::BufferedUsart1 > > Slave;
+typedef xpcc::sab::Slave< xpcc::sab2::Interface< xpcc::stm32::BufferedUsart1, 256 > > Slave;
 
 // initialize ABP interface
 static Slave slave(0x02,
