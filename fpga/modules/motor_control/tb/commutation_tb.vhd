@@ -20,6 +20,7 @@ architecture behavior of commutation_tb is
    signal driver_stage : bldc_driver_stage_type;
    signal pwm          : half_bridge_type;
    signal sd           : std_logic        := '0';
+   signal dir          : std_logic        := '0';
    signal hall         : hall_sensor_type := ('0', '0', '0');
 begin
    clk   <= not clk  after 10 NS;       -- 50 Mhz clock
@@ -61,9 +62,10 @@ begin
       wait until falling_edge(reset);
 
       wait for 600 US;
-      sd <= '1';
+      sd  <= '1';
       wait for 20 US;
-      sd <= '0';
+      sd  <= '0';
+      dir <= '1';
    end process;
 
    pwm_generator : symmetric_pwm_deadtime
@@ -83,6 +85,7 @@ begin
          driver_stage_p => driver_stage,
          hall_p         => hall,
          pwm_p          => pwm,
+         dir_p          => dir,
          sd_p           => sd,
          clk            => clk);
 end;

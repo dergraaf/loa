@@ -1,11 +1,12 @@
 [timestart] 0
-[size] 1315 859
+[size] 1230 1000
 [pos] -1 -1
-*-37.595600 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-37.595600 251000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.bldc_motor_module_tb.
 [treeopen] top.bldc_motor_module_tb.bus_i.
 [treeopen] top.bldc_motor_module_tb.bus_o.
+[treeopen] top.bldc_motor_module_tb.driver_stage.
 @28
 top.bldc_motor_module_tb.clk
 top.bldc_motor_module_tb.reset
@@ -21,18 +22,18 @@ top.bldc_motor_module_tb.bus_i.re
 @200
 -
 @28
-top.bldc_motor_module_tb.hall_sensors.a
-top.bldc_motor_module_tb.hall_sensors.b
-top.bldc_motor_module_tb.hall_sensors.c
+top.bldc_motor_module_tb.hall.a
+top.bldc_motor_module_tb.hall.b
+top.bldc_motor_module_tb.hall.c
 @200
 -
 @28
-top.bldc_motor_module_tb.driver_stage.u.high
-top.bldc_motor_module_tb.driver_stage.u.low
-top.bldc_motor_module_tb.driver_stage.v.high
-top.bldc_motor_module_tb.driver_stage.v.low
-top.bldc_motor_module_tb.driver_stage.w.high
+top.bldc_motor_module_tb.driver_stage.a.high
+top.bldc_motor_module_tb.driver_stage.a.low
+top.bldc_motor_module_tb.driver_stage.b.high
+top.bldc_motor_module_tb.driver_stage.b.low
+top.bldc_motor_module_tb.driver_stage.c.high
 @29
-top.bldc_motor_module_tb.driver_stage.w.low
+top.bldc_motor_module_tb.driver_stage.c.low
 [pattern_trace] 1
 [pattern_trace] 0

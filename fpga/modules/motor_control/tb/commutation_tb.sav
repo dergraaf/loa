@@ -1,37 +1,40 @@
-[timestart] 0
-[size] 1353 894
+[timestart] 385800000000
+[size] 1150 758
 [pos] -1 -1
-*-37.539768 36900000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-37.539768 621300000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.commutation_tb.
+[treeopen] top.commutation_tb.driver_stage.
 @28
 top.commutation_tb.clk
 top.commutation_tb.reset
 @200
 -
 @28
-top.commutation_tb.hall.ha
-top.commutation_tb.hall.hb
-top.commutation_tb.hall.hc
+top.commutation_tb.hall.a
+top.commutation_tb.hall.b
+top.commutation_tb.hall.c
 @200
 -
 -U
 @28
-top.commutation_tb.driver_stage.u.high
-top.commutation_tb.driver_stage.u.low
+top.commutation_tb.driver_stage.a.high
+top.commutation_tb.driver_stage.a.low
 @200
 -V
 @28
-top.commutation_tb.driver_stage.v.high
-top.commutation_tb.driver_stage.v.low
+top.commutation_tb.driver_stage.b.high
+top.commutation_tb.driver_stage.b.low
 @200
 -W
 @28
-top.commutation_tb.driver_stage.w.high
-top.commutation_tb.driver_stage.w.low
+top.commutation_tb.driver_stage.c.high
+@29
+top.commutation_tb.driver_stage.c.low
 @200
 -
 @28
+top.commutation_tb.dir
 top.commutation_tb.sd
 [pattern_trace] 1
 [pattern_trace] 0

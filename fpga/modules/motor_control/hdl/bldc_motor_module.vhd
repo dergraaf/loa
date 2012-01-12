@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2011-12-20
+-- Last update: 2012-01-12
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -76,13 +76,19 @@ architecture behavioral of bldc_motor_module is
       data_out  : std_logic_vector(15 downto 0);         -- currently not used
       pwm_value : std_logic_vector(WIDTH - 1 downto 0);  -- PWM value
       sd        : std_logic;                             -- Shutdown
+      dir       : std_logic;
    end record;
 
    signal clk_en : std_logic := '1';
    signal center : std_logic;           -- currently not used
    signal pwm    : half_bridge_type;
 
-   signal r, rin : bldc_motor_module_type;
+   signal r, rin : bldc_motor_module_type := (
+      data_out  => (others => '0'),
+      pwm_value => (others => '0'),
+      sd        => '1',
+      dir       => '0'
+      );
 begin
 
    seq_proc : process(reset, clk)
@@ -92,6 +98,7 @@ begin
             r.data_out  <= (others => '0');
             r.pwm_value <= (others => '0');
             r.sd        <= '1';
+            r.dir       <= '0';
          else
             r <= rin;
          end if;
@@ -112,6 +119,7 @@ begin
          if bus_i.we = '1' then
             v.pwm_value := bus_i.data(WIDTH - 1 downto 0);
             v.sd        := bus_i.data(15);
+            v.dir       := bus_i.data(14);
          elsif bus_i.re = '1' then
          -- v.data_out := r.counter;
          end if;
@@ -150,6 +158,7 @@ begin
          driver_stage_p => driver_stage_p,
          hall_p         => hall_p,
          pwm_p          => pwm,
+         dir_p          => r.dir,
          sd_p           => r.sd,
          clk            => clk);
 

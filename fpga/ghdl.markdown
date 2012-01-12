@@ -39,3 +39,9 @@ an executable to run the simulation.
 The simulation is ran executing ghdl with the -r option or by running the
 generated executable.
 
+
+FAQ
+---
+
+Code triggers "error: bound check failed (#0)":
+   Perhaps a generic without a value

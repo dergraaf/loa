@@ -23,7 +23,7 @@ FILES = \
 	../hdl/symmetric_pwm_deadtime.vhd \
 	../hdl/symmetric_pwm.vhd \
 	../hdl/deadtime.vhd
-GHDL_SIM_OPT = --stop-time=1000us
+GHDL_SIM_OPT = --stop-time=1200us
 else
 FILES =  \
 	../../spislave/hdl/bus_pkg.vhd \
