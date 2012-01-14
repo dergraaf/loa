@@ -4,6 +4,9 @@ rootpath = '../../../xpcc/trunk'
 
 env = Environment(tools = ['xpcc'], toolpath = [rootpath + '/scons'])
 
+#env['CXXFLAGS'].remove("-std=gnu++98")
+#env['CXXFLAGS'].append("-std=gnu++0x")
+
 # find all source files
 files = env.FindFiles('.')
 

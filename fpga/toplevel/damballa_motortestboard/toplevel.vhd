@@ -254,7 +254,7 @@ begin
          reset          => reset,
          clk            => clk);
 
-   bldc1_encoder : encoder_module
+   bldc1_encoder : encoder_module_extended
       generic map (
          BASE_ADDRESS => 16#0012#)
       port map (
@@ -279,7 +279,7 @@ begin
          reset          => reset,
          clk            => clk);
 
-   bldc2_encoder : encoder_module
+   bldc2_encoder : encoder_module_extended
       generic map (
          BASE_ADDRESS => 16#0022#)
       port map (

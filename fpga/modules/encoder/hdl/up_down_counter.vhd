@@ -6,6 +6,24 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+
+package up_down_counter_pkg is
+
+   component up_down_counter is
+      generic (
+         WIDTH : positive);
+      port (
+         clk_en_p  : in  std_logic;
+         up_down_p : in  std_logic;
+         value_p   : out std_logic_vector(WIDTH - 1 downto 0);
+         reset     : in  std_logic;
+         clk       : in  std_logic);
+   end component up_down_counter;
+
+end package up_down_counter_pkg;
+
+library ieee;
+use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity up_down_counter is

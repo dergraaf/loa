@@ -1,7 +1,6 @@
 
 #include <xpcc/architecture.hpp>
 #include <xpcc/utils/template_metaprogramming.hpp>
-#include <xpcc/workflow.hpp>
 
 #include "loa/damballa.hpp"
 #include "fpga.hpp"
@@ -10,10 +9,12 @@
 const uint16_t Fpga::fromFpgaAddress[] = {
 	0x0000,		// 0: Buttons
 	0x0012,		// 1: Encoder BLDC1
-	0x0022,		// 2: Encoder BLDC2
-	0x0032,		// 3: Encoder DC3
-	0x0042,		// 4: Encoder DC4
-	0x0060,		// 5: Encoder 6
+	0x0013,		// 2: Encoder Timing BLDC1
+	0x0022,		// 3: Encoder BLDC2
+	0x0023,		// 4: Encoder Timing BLDC2
+	0x0032,		// 5: Encoder DC3
+	0x0042,		// 6: Encoder DC4
+	0x0060,		// 7: Encoder 6
 };
 static const uint16_t fpgaReadEntries = sizeof(Fpga::fromFpgaAddress) / sizeof(Fpga::fromFpgaAddress[0]);
 
@@ -35,6 +36,8 @@ Fpga::SpiWriteFormat Fpga::toFpgaBuffer[] = {
 };
 static const uint16_t fpgaWriteEntries = sizeof(Fpga::toFpgaBuffer) / sizeof(Fpga::toFpgaBuffer[0]);
 
+using namespace xpcc::stm32;
+
 // ----------------------------------------------------------------------------
 static void
 dummyHandler()
@@ -42,27 +45,24 @@ dummyHandler()
 	// do nothing
 }
 
-Fpga::Handler controlHandler = dummyHandler;
+Fpga::Handler controlHandler = &dummyHandler;
 
-// TODO replace this with an Interrupt
-static xpcc::PeriodicTimer<> timer(1);
-void
-Fpga::update()
+extern "C" void
+TIM6_DAC_IRQHandler(void)
 {
-	if (timer.isExpired())
-	{
-		// Sample Encoder values
-		loa::Damballa::load();
-		
-		for (uint32_t i = 0; i < fpgaReadEntries; ++i) {
-			fromFpgaBuffer[i] = loa::Damballa::readWord(fromFpgaAddress[i]);
-		}
-		
-		controlHandler();
-		
-		for (uint32_t i = 0; i < fpgaWriteEntries; ++i) {
-			loa::Damballa::writeWord(toFpgaBuffer[i].address, toFpgaBuffer[i].value);
-		}
+	Timer6::resetInterruptFlag(Timer6::FLAG_UPDATE);
+	
+	// Sample Encoder values
+	loa::Damballa::load();
+	
+	for (uint32_t i = 0; i < fpgaReadEntries; ++i) {
+		Fpga::fromFpgaBuffer[i] = loa::Damballa::readWord(Fpga::fromFpgaAddress[i]);
+	}
+	
+	controlHandler();
+	
+	for (uint32_t i = 0; i < fpgaWriteEntries; ++i) {
+		loa::Damballa::writeWord(Fpga::toFpgaBuffer[i].address, Fpga::toFpgaBuffer[i].value);
 	}
 }
 
@@ -70,9 +70,30 @@ Fpga::update()
 void
 Fpga::initialize()
 {
-	XPCC__STATIC_ASSERT(sizeof(fromFpgaAddress) == sizeof(fromFpgaBuffer), "Check buffer size!");
+	XPCC__STATIC_ASSERT(sizeof(fromFpgaAddress) == sizeof(fromFpgaBuffer),
+			"Check buffer size!");
 	
+	// Set Timer 6 to generate interrupts every 1ms
+	Timer6::enable();
+	Timer6::setMode(Timer6::UP_COUNTER);
+	Timer6::setPeriod(1000);
 	
+	Timer6::enableInterruptVector(true, 10);
+	Timer6::enableInterrupt(Timer6::INTERRUPT_UPDATE);
+	
+	Timer6::start();
+}
+
+// ----------------------------------------------------------------------------
+void
+Fpga::enable(bool enable)
+{
+	if (enable) {
+		Timer6::enableInterrupt(Timer6::INTERRUPT_UPDATE);
+	}
+	else {
+		Timer6::disableInterrupt(Timer6::INTERRUPT_UPDATE);
+	}
 }
 
 // ----------------------------------------------------------------------------

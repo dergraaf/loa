@@ -1,9 +1,16 @@
 -------------------------------------------------------------------------------
--- PWM Module
---
--- Connects the pwm entity to the internal bus system.
--- 
--- @author    Fabian Greif
+-- Title      : Encoder Module
+-- Project    : Loa
+-------------------------------------------------------------------------------
+-- File       : encoder_module.vhd
+-- Author     : Fabian Greif  <fabian@kleinvieh>
+-- Company    : Roboterclub Aachen e.V.
+-- Created    : 2012-01-13
+-- Last update: 2012-01-13
+-- Platform   : Spartan 3
+-------------------------------------------------------------------------------
+-- Description: Connectes a quadrature decoder with a 16-bit counter to
+--              the internal bus system.
 -------------------------------------------------------------------------------
 
 library ieee;

@@ -1,7 +1,16 @@
--- ----------------------------------------------------------------------------
--- Quadrature Decoder
+-------------------------------------------------------------------------------
+-- Title      : Quadrature Decoder
+-- Project    : Loa
+-------------------------------------------------------------------------------
+-- File       : quadrature_decoder.vhd
+-- Author     : Fabian Greif  <fabian@kleinvieh>
+-- Company    : Roboterclub Aachen e.V.
+-- Created    : 2012-01-13
+-- Last update: 2012-01-13
+-- Platform   : 
+-------------------------------------------------------------------------------
+-- Description: 
 -- 
--- @code
 --           ___     ___         ___     ___
 -- A     ___|   |___|   |_______|   |___|
 --             ___     ___     ___     ___
@@ -9,7 +18,6 @@
 -- 
 -- step_p   1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1
 -- dir_p    1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 
--- @endcode
 --
 
 library ieee;
@@ -19,6 +27,7 @@ library work;
 use work.encoder_module_pkg.all;
 
 package quadrature_decoder_pkg is
+   
    component quadrature_decoder
       port (
          encoder_p : in encoder_type;
@@ -29,6 +38,7 @@ package quadrature_decoder_pkg is
 
          clk : in std_logic);
    end component;
+   
 end quadrature_decoder_pkg;
 
 -------------------------------------------------------------------------------

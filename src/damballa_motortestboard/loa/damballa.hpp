@@ -104,6 +104,15 @@ namespace loa
 		static uint16_t
 		readWord(uint16_t address);
 		
+		/**
+		 * Reloads the FPGA configuration from the dataflash into
+		 * the FPGA.
+		 * 
+		 * \return 	\c true if the configuration was successful loaded.
+		 */
+		static bool
+		reconfigureFpga();
+		
 	private:
 		/// Configure the SPI interface to the FPGA
 		static void

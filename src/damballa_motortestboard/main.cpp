@@ -9,10 +9,8 @@
 #include "uplink.hpp"
 #include "fpga.hpp"
 #include "led.hpp"
-#include "control.hpp"
 #include "ui.hpp"
 
-#include "gold_bar_collector.hpp"
 
 xpcc::stm32::Uart5 uart5(115200);
 xpcc::IODeviceWrapper<xpcc::stm32::Uart5> loggerDevice(uart5);
@@ -25,8 +23,6 @@ xpcc::log::Logger xpcc::log::error(loggerDevice);
 
 using namespace xpcc::stm32;
 
-GoldBarCollector collector;
-
 // ----------------------------------------------------------------------------
 MAIN_FUNCTION
 {
@@ -37,13 +33,10 @@ MAIN_FUNCTION
 	
 	xpcc::stm32::SysTickTimer::enable();
 	
-	Fpga::initialize();
 	Uplink::initialize();
 	Led::initialize();
 	Ui::initialize();
-	Control::initialize();
-	
-	collector.initialize();
+	Fpga::initialize();
 	
 	XPCC_LOG_INFO << "Motortestboard ready ..." << xpcc::endl;
 	
@@ -75,32 +68,21 @@ MAIN_FUNCTION
 			//XPCC_LOG_DEBUG << "l=" << static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_6) - 12) << xpcc::endl;
 			//XPCC_LOG_DEBUG << "r=" << static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_7) - 12) << xpcc::endl;
 			
-			//XPCC_LOG_DEBUG << "l=" << Control::getSpeed(Control::DRIVE_LEFT) << xpcc::endl;
-			//XPCC_LOG_DEBUG << "r=" << Control::getSpeed(Control::DRIVE_RIGHT) << xpcc::endl;
-			
-			int16_t indexLeft = static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_6) - 12);
-			int16_t servo1 = indexLeft * 2730;
+			//int16_t indexLeft = static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_6) - 12);
+			//int16_t servo1 = indexLeft * 2730;
 			
 			//XPCC_LOG_DEBUG.printf("servo  =%d\n", servo1);
 			//XPCC_LOG_DEBUG.printf("buttons=%04x\n", Ui::button.isPressed(0xffff));
 			
 			if (Ui::button.isPressed(Ui::BUTTON1))
 			{
-				collector.collect();
 			}
 			
 			// set PWM for BLDC2
 			//loa::Damballa::writeWord(0x0020, 512 + speed);
 		}
 		
-		loa::Led4::set(pin::GoldBarDetector::read());
-		
 		Uplink::update();
 		Ui::update();
-		
-		collector.run();
-		
-		// TODO remove this
-		Fpga::update();
 	}
 }

@@ -48,26 +48,11 @@ loa::Damballa::initialize()
 	spiFlash.configureCkPin(spiFlash.REMAP_PD10);*/
 	success &= dataflash.initialize();
 	
-	configureSpiFpga();
-	
 	// Check if the FPGA is already configured
+	configureSpiFpga();
 	if ((readWord(0x0000) & 0xfff0) != 0xabc0)
 	{
-		if (success) {
-			success &= configureFpga();
-		}
-		
-		deassertFpgaConfiguration();
-		
-		// The FPGA configuration uses Pins from the FPGA interface and
-		// therefore changes their settings. Reconfigure them here to
-		// be able to use the SPI interface again.
-		configureSpiFpga();
-		
-		// check if we could read a fixed value from the FPGA
-		if ((readWord(0x0000) & 0xfff0) != 0xabc0) {
-			success = false;
-		}
+		success &= reconfigureFpga();
 	}
 	
 	//can.configurePins(can.REMAP_PD0_PD1);
@@ -105,12 +90,23 @@ loa::Damballa::initialize()
 }
 
 // ----------------------------------------------------------------------------
-void
-loa::Damballa::configureSpiFpga()
+bool
+loa::Damballa::reconfigureFpga()
 {
-	fpga::Cs::setOutput(xpcc::gpio::HIGH);
-	fpga::spi.configurePins(xpcc::stm32::Spi1::REMAP_PA5_PA6_PA7);
-	fpga::spi.initialize(xpcc::stm32::Spi1::MODE_0, xpcc::stm32::Spi1::PRESCALER_8);	// 10.5 MHz
+	bool success = configureFpga();
+	deassertFpgaConfiguration();
+	
+	// The FPGA configuration uses Pins from the FPGA interface and
+	// therefore changes their settings. Reconfigure them here to
+	// be able to use the SPI interface again.
+	configureSpiFpga();
+	
+	// check if we could read a fixed value from the FPGA
+	if ((readWord(0x0000) & 0xfff0) != 0xabc0) {
+		success = false;
+	}
+	
+	return success;
 }
 
 // ----------------------------------------------------------------------------
@@ -310,4 +306,12 @@ loa::Damballa::deassertFpgaConfiguration()
 	// Cclk has an internal Pull-up to 2,5V => set Cclk to Open-Drain Output
 	Cclk::setOutput(xpcc::stm32::OPEN_DRAIN);
 	Cclk::set();
+}
+
+void
+loa::Damballa::configureSpiFpga()
+{
+	fpga::Cs::setOutput(xpcc::gpio::HIGH);
+	fpga::spi.configurePins(xpcc::stm32::Spi1::REMAP_PA5_PA6_PA7);
+	fpga::spi.initialize(xpcc::stm32::Spi1::MODE_0, xpcc::stm32::Spi1::PRESCALER_8);	// 10.5 MHz
 }

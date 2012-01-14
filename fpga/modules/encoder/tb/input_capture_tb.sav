@@ -1,0 +1,16 @@
+[timestart] 0
+[size] 1141 783
+[pos] -1 -1
+*-39.518311 279000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.input_capture_tb.
+[treeopen] top.input_capture_tb.input_capture_1.
+@28
+top.input_capture_tb.clk
+top.input_capture_tb.reset
+top.input_capture_tb.dir
+top.input_capture_tb.step
+@22
+#{top.input_capture_tb.value[15:0]} top.input_capture_tb.value[15] top.input_capture_tb.value[14] top.input_capture_tb.value[13] top.input_capture_tb.value[12] top.input_capture_tb.value[11] top.input_capture_tb.value[10] top.input_capture_tb.value[9] top.input_capture_tb.value[8] top.input_capture_tb.value[7] top.input_capture_tb.value[6] top.input_capture_tb.value[5] top.input_capture_tb.value[4] top.input_capture_tb.value[3] top.input_capture_tb.value[2] top.input_capture_tb.value[1] top.input_capture_tb.value[0]
+[pattern_trace] 1
+[pattern_trace] 0

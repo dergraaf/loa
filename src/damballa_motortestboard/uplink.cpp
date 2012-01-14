@@ -66,11 +66,15 @@ public:
 	void
 	reloadFpga(xpcc::sab::Response& response)
 	{
-		// TODO reload FPGA
-		//loa::configureFpga();
+		// reload FPGA
+		bool success = loa::Damballa::reconfigureFpga();
 		
-		response.send();
-		//response.error(xpcc::sab2::ERROR__GENERAL_ERROR);
+		if (success) {
+			response.send();
+		}
+		else {
+			response.error(xpcc::sab2::ERROR__GENERAL_ERROR);
+		}
 	}
 	
 private:
@@ -89,7 +93,7 @@ FLASH_STORAGE(xpcc::sab::Action actionList[]) =
 	SAB__ACTION('r', dataFlashConnector,	DataFlashConnector::reloadFpga, 	0 ),
 };
 
-static xpcc::stm32::BufferedUsart1 uart1(115200);
+static xpcc::stm32::BufferedUsart1 uart1(115200, 5);
 
 // wrap the type definition inside a typedef to make the code more readable
 typedef xpcc::sab::Slave< xpcc::sab2::Interface< xpcc::stm32::BufferedUsart1, 256 > > Slave;
