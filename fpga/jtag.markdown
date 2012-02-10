@@ -34,12 +34,27 @@ get UrJtag at http://sourceforge.net/projects/urjtag/files/latest/download?sourc
     $ make
     $ sudo make install
 
+you can also use the git repository:
+    $ git clone git://urjtag.git.sourceforge.net/gitroot/urjtag/urjtag urjtag
+    $ cd urjtag/urjtag
+    $ sudo apt-get install autoconf autopoint libtool libusb-dev libftdi-dev python-dev flex bison
+    $ autoreconf -i -s -v -f
+    $ ./configure
+    $ make
+    $ sudo make install
+
+And for Ubuntu users:
+    $ sudo su
+    $ echo "/usr/local/lib" > /etc/ld.so.conf.d/other.conf
+    $ exit
+
+
 
 Connect to your FPGA
 --------------------
 
     $ jtag
-    jtag> cable jtagkey vid=0403 pid=6010 driver=ftdi-mpsse
+    jtag> cable jtagkey vid=0x0403 pid=0x6010 driver=ftdi-mpsse
     Connected to libftdi driver.
     jtag> detect
     IR length: 6
