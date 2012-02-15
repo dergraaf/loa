@@ -1,0 +1,36 @@
+[timestart] 0
+[size] 1920 1004
+[pos] 0 30
+*-29.319311 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.adc_mcp3008_tb.
+[treeopen] top.adc_mcp3008_tb.dut.
+[treeopen] top.adc_mcp3008_tb.dut.r.
+[treeopen] top.adc_mcp3008_tb.dut.rin.
+@28
+top.adc_mcp3008_tb.clk
+top.adc_mcp3008_tb.reset
+top.adc_mcp3008_tb.start_p
+top.adc_mcp3008_tb.done_p
+top.adc_mcp3008_tb.csn_p
+top.adc_mcp3008_tb.sck_p
+top.adc_mcp3008_tb.mosi_p
+#{top.adc_mcp3008_tb.channel_p[2:0]} top.adc_mcp3008_tb.channel_p[2] top.adc_mcp3008_tb.channel_p[1] top.adc_mcp3008_tb.channel_p[0]
+@c00023
+#{top.adc_mcp3008_tb.value_p[9:0]} top.adc_mcp3008_tb.value_p[9] top.adc_mcp3008_tb.value_p[8] top.adc_mcp3008_tb.value_p[7] top.adc_mcp3008_tb.value_p[6] top.adc_mcp3008_tb.value_p[5] top.adc_mcp3008_tb.value_p[4] top.adc_mcp3008_tb.value_p[3] top.adc_mcp3008_tb.value_p[2] top.adc_mcp3008_tb.value_p[1] top.adc_mcp3008_tb.value_p[0]
+@28
+top.adc_mcp3008_tb.value_p[9]
+top.adc_mcp3008_tb.value_p[8]
+top.adc_mcp3008_tb.value_p[7]
+top.adc_mcp3008_tb.value_p[6]
+top.adc_mcp3008_tb.value_p[5]
+top.adc_mcp3008_tb.value_p[4]
+top.adc_mcp3008_tb.value_p[3]
+top.adc_mcp3008_tb.value_p[2]
+top.adc_mcp3008_tb.value_p[1]
+top.adc_mcp3008_tb.value_p[0]
+@1401201
+-group_end
+@28
+top.adc_mcp3008_tb.dut.r.countdown_delay
+top.adc_mcp3008_tb.miso_p
