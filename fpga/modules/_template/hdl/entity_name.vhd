@@ -30,7 +30,7 @@ entity entity_name is
    generic (
     );
    port (
-      reset : in std_logic,
+      reset : in std_logic;
       clk   : in std_logic
       );
 
