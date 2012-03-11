@@ -6,13 +6,11 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-02-11
--- Last update: 2012-02-12
+-- Last update: 2012-02-16
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
--- Description: 
--------------------------------------------------------------------------------
--- Copyright (c) 2012 
+-- Description: Simulates a single cycle measurement. Is not self-checking.
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
@@ -80,7 +78,9 @@ begin  -- tb
   cs_np      <= adc_o.cs_n;
   sck_p      <= adc_o.sck;
 
-  -- clock generation
+  -----------------------------------------------------------------------------
+  -- clock and reset generation
+  -----------------------------------------------------------------------------
   Clk <= not Clk after 10 ns;
 
   process
@@ -91,6 +91,10 @@ begin  -- tb
     wait for 1 ms;
   end process;
 
+
+  -----------------------------------------------------------------------------
+  -- this is the bus/command side of the ADC I/F
+  -----------------------------------------------------------------------------
 
   -- waveform generation
   WaveGen_Proc : process
@@ -111,6 +115,11 @@ begin  -- tb
   end process WaveGen_Proc;
 
 
+
+  -----------------------------------------------------------------------------
+  -- ADC side stimulus
+  -----------------------------------------------------------------------------
+  
   process
   begin
     miso_p <= 'Z';
@@ -155,7 +164,6 @@ begin  -- tb
 
     wait for 1 ms;
   end process;
-
   
 end tb;
 

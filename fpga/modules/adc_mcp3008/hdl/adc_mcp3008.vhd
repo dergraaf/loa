@@ -1,18 +1,18 @@
 -------------------------------------------------------------------------------
--- Title      : Title String
--- Project    : 
+-- Title      : Interface for Microchip MCP3008 ADC
+-- Project    : Loa
 -------------------------------------------------------------------------------
 -- File       : adc_mcp3008.vhd
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2012-02-12
+-- Last update: 2012-02-16
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
--- Description: 
--------------------------------------------------------------------------------
--- Copyright (c) 2011 
+-- Description: Interface to Microchip's 8 channel 10-bit ADC.
+--              Converversion started by logical 1 on start_p. '1' on done_p
+--              signals completetd conversion. 
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
@@ -31,14 +31,10 @@ entity adc_mcp3008 is
 
   generic (
     DELAY : natural := 39               -- waitstates between toggling the
-                                        -- SCK line (MCP3008 max: about 1.3 MHz)
+                                        -- SCK line (MCP3008 max: about 1.3
+                                        -- MHz) 
     );
   port (
-    --adc_in.miso : in  std_logic;
-    --adc_out.mosi : out std_logic;
-    --adc_out.cs_n  : out std_logic;
-    --adc_out.sck  : out std_logic;
-
     adc_out : out adc_mcp3008_spi_out_type;
     adc_in  : in  adc_mcp3008_spi_in_type;
 
@@ -58,7 +54,7 @@ end adc_mcp3008;
 
 architecture behavioral of adc_mcp3008 is
 
-  type adc_mcp3008_state_type is (IDLE, SCK_LOW, SCK_HIGH);
+  type adc_mcp3008_state_type is (IDLE, SCK_LOW, SCK_HIGH, HOLD_OFF);
 
   type adc_mcp3008_type is record
     state           : adc_mcp3008_state_type;
@@ -66,7 +62,7 @@ architecture behavioral of adc_mcp3008 is
     sck             : std_logic;
     din             : std_logic_vector(9 downto 0);
     done            : std_logic;
-    countdown_delay : integer range 0 to DELAY;
+    countdown_delay : integer range 0 to (DELAY * 16);
     countdown_bit   : integer range 0 to 16;
     dout            : std_logic_vector(4 downto 0);
   end record;
@@ -114,53 +110,69 @@ begin
     v := r;
 
     case v.state is
+      -------------------------------------------------------------------------
+      -- Idle State
+      -------------------------------------------------------------------------
       when IDLE =>
         v.csn  := '1';
         v.done := '0';
         if start_p = '1' then
-          v.state := SCK_LOW;
-          v.sck   := '0';
-
+          v.state           := SCK_LOW;
+          v.sck             := '0';
           v.countdown_delay := DELAY;
           v.countdown_bit   := 16;
           v.dout            := '1' & adc_mode_p & channel_p;
         end if;
 
+        -------------------------------------------------------------------------
+        -- Low period of SCK cycle
+        -------------------------------------------------------------------------
       when SCK_LOW =>
         v.csn := '0';
         if r.countdown_delay = 0 then
           v.state           := SCK_HIGH;
           v.sck             := '1';
           v.countdown_delay := DELAY;
-          v.din             := r.din(8 downto 0) & adc_in.miso;  --    no need to synchronize
-                                        --    this signal, as it is
-                                        --    already in sync with
-                                        --    adc_out.sck and clk.
+          -- fpga external signal, but in sync with SCK
+          v.din             := r.din(8 downto 0) & adc_in.miso;
         else
           v.countdown_delay := v.countdown_delay -1;
         end if;
 
+
+        -------------------------------------------------------------------------
+        -- High period of SCK cycle
+        -------------------------------------------------------------------------
       when SCK_HIGH =>
         if r.countdown_delay = 0 then
-          v.state := SCK_LOW;
-          v.sck   := '0';
-
+          v.state           := SCK_LOW;
+          v.sck             := '0';
           v.countdown_delay := DELAY;
           v.dout            := r.dout(3 downto 0) & '0';
-
           if r.countdown_bit = 0 then
-            v.state := IDLE;
-            v.sck   := '0';
-            v.done  := '1';
+            v.state           := HOLD_OFF;
+            v.sck             := '0';
+            v.countdown_delay := DELAY * 4;
           else
             v.countdown_bit := v.countdown_bit - 1;
-            
           end if;
-          
         else
           v.countdown_delay := v.countdown_delay -1;
         end if;
-        
+
+
+        -----------------------------------------------------------------------
+        -- Hold Off State
+        -----------------------------------------------------------------------
+      when HOLD_OFF =>
+        -- this state is required as the ADC can't handle a 20ns pulse on chipselect
+        v.csn := '1';
+        if r.countdown_delay = 0 then
+          v.state := IDLE;
+          v.done  := '1';
+        else
+          v.countdown_delay := v.countdown_delay -1;
+        end if;
     end case;
 
     rin <= v;
