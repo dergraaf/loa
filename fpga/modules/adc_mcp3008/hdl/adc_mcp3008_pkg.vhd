@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-02-12
--- Last update: 2012-02-16
+-- Last update: 2012-03-12
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -22,6 +22,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+
+use work.bus_pkg.all;
 
 -------------------------------------------------------------------------------
 
@@ -53,6 +55,19 @@ package adc_mcp3008_pkg is
       done_p     : out std_logic;
       reset      : in  std_logic;
       clk        : in  std_logic);
+  end component;
+
+
+  component adc_mcp3008_module
+    generic (
+      BASE_ADDRESS : integer range 0 to 32767);
+    port (
+      adc_out_p : out adc_mcp3008_spi_out_type;
+      adc_in_p  : in  adc_mcp3008_spi_in_type;
+      bus_o     : out busdevice_out_type;
+      bus_i     : in  busdevice_in_type;
+      reset     : in  std_logic;
+      clk       : in  std_logic);
   end component;
 
 end adc_mcp3008_pkg;
