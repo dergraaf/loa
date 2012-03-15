@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2012-03-12
+-- Last update: 2012-03-15
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -40,6 +40,8 @@ entity adc_mcp3008_module is
     bus_o : out busdevice_out_type;
     bus_i : in  busdevice_in_type;
 
+    adc_values_o : out adc_values_type(7 downto 0);
+
     reset : in std_logic;
     clk   : in std_logic
     );
@@ -56,7 +58,7 @@ architecture behavioral of adc_mcp3008_module is
     state      : adc_mcp3008_module_state_type;
     start      : std_logic;
     current_ch : integer range 0 to 7;
-    reg        : reg_file_type(15 downto 0);
+    reg        : reg_file_type(7 downto 0);
   end record;
 
 
@@ -75,8 +77,12 @@ architecture behavioral of adc_mcp3008_module is
 
   --signal bus_o : busdevice_out_type;
   --signal bus_i : busdevice_in_type;
-  signal reg_o : reg_file_type(15 downto 0);
-  signal reg_i : reg_file_type(15 downto 0);
+  signal reg_o : reg_file_type(7 downto 0);
+  signal reg_i : reg_file_type(7 downto 0);
+
+
+  signal mask_s : std_logic_vector(7 downto 0);
+  --signal values_s: adc_values_type(7 downto 0);
 
   -----------------------------------------------------------------------------
   -- Component declarations
@@ -84,12 +90,23 @@ architecture behavioral of adc_mcp3008_module is
 
 begin
 
-  adc_mode_s <= '1';                    -- we don't use differential mode
+  adc_mode_s   <= '1';                  -- we don't use differential mode
+  channel_s    <= std_logic_vector(to_unsigned(r.current_ch, 3));
+  reg_i        <= r.reg;
+  adc_values_o(0) <= r.reg(0)(9 downto 0);
+  adc_values_o(1) <= r.reg(1)(9 downto 0);
+  adc_values_o(2) <= r.reg(2)(9 downto 0);
+  adc_values_o(3) <= r.reg(3)(9 downto 0);
+  adc_values_o(4) <= r.reg(4)(9 downto 0);
+  adc_values_o(5) <= r.reg(5)(9 downto 0);
+  adc_values_o(6) <= r.reg(6)(9 downto 0);
+  adc_values_o(7) <= r.reg(7)(9 downto 0);
+  mask_s       <= reg_o(0)(7 downto 0);
 
   reg_file_1 : reg_file
     generic map (
       BASE_ADDRESS => BASE_ADDRESS,
-      REG_ADDR_BIT => 4)
+      REG_ADDR_BIT => 3)
     port map (
       bus_o => bus_o,
       bus_i => bus_i,
@@ -113,10 +130,6 @@ begin
       reset      => reset,
       clk        => clk);
 
-  channel_s <= std_logic_vector(to_unsigned(r.current_ch, 3));
-  reg_i     <= r.reg;
-
-
   seq_proc : process(clk)
   begin
     if rising_edge(clk) then
@@ -132,7 +145,7 @@ begin
   end process seq_proc;
 
 
-  comb_proc : process(done_s, r, value_s)
+  comb_proc : process(done_s, mask_s, r, value_s)
     variable v : adc_mcp3008_module_type;
     
   begin
@@ -145,10 +158,11 @@ begin
         else
           v.current_ch := v.current_ch + 1;
         end if;
-        
-        v.start := '1';
-        v.state := WAIT_FOR_ADC;
-        -- todo: check for channel_enable set
+
+        if mask_s(v.current_ch) = '0' then
+          v.start := '1';
+          v.state := WAIT_FOR_ADC;
+        end if;
 
       when WAIT_FOR_ADC =>
         v.start := '0';

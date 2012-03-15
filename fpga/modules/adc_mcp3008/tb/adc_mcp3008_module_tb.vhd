@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-12
--- Last update: 2012-03-12
+-- Last update: 2012-03-15
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -76,12 +76,14 @@ begin  -- tb
     generic map (
       BASE_ADDRESS => BASE_ADDRESS)
     port map (
-      adc_out_p => adc_out_p,
-      adc_in_p  => adc_in_p,
-      bus_o     => bus_o,
-      bus_i     => bus_i,
-      reset     => reset,
-      clk       => clk);
+      adc_out_p    => adc_out_p,
+      adc_in_p     => adc_in_p,
+      bus_o        => bus_o,
+      bus_i        => bus_i,
+      adc_values_o => open,
+      reset        => reset,
+      clk          => clk);
+
 
   -- clock generation
   Clk <= not Clk after 10 ns;
@@ -112,7 +114,7 @@ begin  -- tb
     bus_i.we   <= '0';
 
     wait until Clk = '1';
-    
+
 
     wait until Clk = '1';
     bus_i.addr <= (others => '0');
@@ -231,7 +233,7 @@ begin  -- tb
 
 
 
-        miso_p <= 'Z';
+    miso_p <= 'Z';
 
     wait until cs_np = '0';
 
