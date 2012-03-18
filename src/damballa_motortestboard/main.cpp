@@ -62,8 +62,8 @@ MAIN_FUNCTION
 		{
 			loa::Led1::toggle();
 			
-			//uint16_t buttons = Fpga::getButtons() & 0x000f;
-			//XPCC_LOG_DEBUG << "but=" << buttons << xpcc::endl;
+			uint16_t buttons = Fpga::getButtons() & 0x000f;
+			XPCC_LOG_DEBUG << "but=" << buttons << xpcc::endl;
 			
 			//XPCC_LOG_DEBUG << "l=" << static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_6) - 12) << xpcc::endl;
 			//XPCC_LOG_DEBUG << "r=" << static_cast<int16_t>(Ui::getEncoder(Ui::ENCODER_7) - 12) << xpcc::endl;
@@ -73,7 +73,17 @@ MAIN_FUNCTION
 			
 			//XPCC_LOG_DEBUG.printf("servo  =%d\n", servo1);
 			//XPCC_LOG_DEBUG.printf("buttons=%04x\n", Ui::button.isPressed(0xffff));
-			
+
+			XPCC_LOG_INFO << "CH0: " << Fpga::getAdc(Fpga::ADC_0);
+			XPCC_LOG_INFO << " CH1: " << Fpga::getAdc(Fpga::ADC_1);
+			XPCC_LOG_INFO << " CH2: " << Fpga::getAdc(Fpga::ADC_2);
+			XPCC_LOG_INFO << " CH3: " << Fpga::getAdc(Fpga::ADC_3);
+			XPCC_LOG_INFO << " CH4: " << Fpga::getAdc(Fpga::ADC_4);
+			XPCC_LOG_INFO << " CH5: " << Fpga::getAdc(Fpga::ADC_5);
+			XPCC_LOG_INFO << " CH6: " << Fpga::getAdc(Fpga::ADC_6);
+			XPCC_LOG_INFO << " CH7: " << Fpga::getAdc(Fpga::ADC_7) << xpcc::endl;
+
+
 			if (Ui::button.isPressed(Ui::BUTTON1))
 			{
 			}

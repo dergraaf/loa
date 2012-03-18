@@ -56,7 +56,7 @@ architecture str of reg_file is
   -- Internal signal declarations
   -----------------------------------------------------------------------------
   signal reg : reg_file_type(2**REG_ADDR_BIT-1 downto 0);
-
+  signal data_out : std_logic_vector(15 downto 0);
 
 begin  -- str
 
@@ -88,17 +88,25 @@ begin  -- str
   -- Output mux
   -- (output (others => '0') if we are not selected)
   -----------------------------------------------------------------------------
-  process (bus_i, reg_i)
+  
+  bus_o.data <= data_out;
+  
+  process (reset, clk, bus_i, reg_i)
     variable index : integer := 0;
   begin  -- process
     index := to_integer(unsigned(bus_i.addr(REG_ADDR_BIT downto 0)));
     
-    if (bus_i.addr(14 downto REG_ADDR_BIT) = BASE_ADDRESS_VECTOR(14 downto REG_ADDR_BIT)) and bus_i.re = '1' then
-      bus_o.data <= reg_i(index);
-    else
-      bus_o.data <= (others => '0');
-    end if;
-
+	 if rising_edge(clk) then 
+		 if reset = '1' then 
+			data_out <= (others => '0');
+		 else
+			 if (bus_i.addr(14 downto REG_ADDR_BIT) = BASE_ADDRESS_VECTOR(14 downto REG_ADDR_BIT)) and bus_i.re = '1' then
+				data_out <= reg_i(index);
+			 else
+				data_out <= (others => '0');
+			 end if;
+	    end if;
+	 end if;
     -- is there a problem with using a varibale in a assignment of a signal??
     --bus_o.data <= (others => '0') when bus_i.re = '0' else reg_i(index);
   end process;

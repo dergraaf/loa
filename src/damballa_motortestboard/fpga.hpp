@@ -16,7 +16,7 @@
  * An additional array provides access to optional values (e.g. Servo values or
  * current limites). This is array is only transfered on request.
  * 
- * \author	Fabian Greif
+ * \author	Fabian Greif, cjt
  */
 class Fpga
 {
@@ -45,6 +45,19 @@ public:
 		SERVO2 = 9,
 		SERVO3 = 10,
 	};
+
+	enum Adc
+	{
+		ADC_0 = 8,
+		ADC_1 = 9,
+		ADC_2 = 10,
+		ADC_3 = 11,
+		ADC_4 = 12,
+		ADC_5 = 13,
+		ADC_6 = 14,
+		ADC_7 = 15,
+	};
+
 	
 	enum Encoder
 	{
@@ -64,7 +77,8 @@ public:
 		MOTOR3 = 6,
 		MOTOR4 = 7,
 	};
-	
+
+
 	static inline void
 	setServo(Servo servo, int16_t value)
 	{
@@ -94,6 +108,12 @@ public:
 		}
 	}
 	
+	static inline uint16_t
+	getAdc(Adc ch) {
+		xpcc::atomic::Lock lock;
+		return fromFpgaBuffer[ch];
+	}
+
 	static inline void
 	setRgbLed(uint16_t r, uint16_t g, uint16_t b)
 	{

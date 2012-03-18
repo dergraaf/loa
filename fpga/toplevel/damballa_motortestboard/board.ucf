@@ -28,6 +28,12 @@ NET "sw_np<1>"	LOC = P20;	# Button 4
 # ADC (connected via SPI)
 # ...
 
+NET "adc_out_p_mosi"	LOC = P122;
+NET "adc_out_p_cs_n"	LOC = P125;
+NET "adc_out_p_sck"	LOC = P124;
+NET "adc_in_p_miso"	LOC = P123;
+
+
 # Clock (connected to a 50 MHz oscillator)
 NET "clk"		LOC = P127;
 NET "clk"		TNM_NET = clk;

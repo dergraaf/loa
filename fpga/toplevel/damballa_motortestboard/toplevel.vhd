@@ -35,6 +35,8 @@ use work.dc_motor_module_pkg.all;
 use work.bldc_motor_module_pkg.all;
 use work.encoder_module_pkg.all;
 use work.servo_module_pkg.all;
+use work.adc_mcp3008_pkg.all;
+use work.reg_file_pkg.all;
 
 -------------------------------------------------------------------------------
 entity toplevel is
@@ -89,6 +91,9 @@ entity toplevel is
       led_np : out std_logic_vector (3 downto 0);
       sw_np  : in  std_logic_vector (1 downto 0);
 
+		adc_out_p : out adc_mcp3008_spi_out_type;
+		adc_in_p  : in adc_mcp3008_spi_in_type;
+
       clk : in std_logic
       );
 end toplevel;
@@ -117,6 +122,7 @@ architecture structural of toplevel is
 
    -- Outputs form the Bus devices
    signal bus_register_out : busdevice_out_type;
+	signal bus_adc_out : busdevice_out_type;
 
    signal bus_pwm1_out : busdevice_out_type;
    signal bus_pwm2_out : busdevice_out_type;
@@ -165,7 +171,7 @@ begin
          reset => reset,
          clk   => clk);
 	
-   bus_i.data <= bus_register_out.data or
+   bus_i.data <= bus_register_out.data or bus_adc_out.data or
                  bus_pwm1_out.data or bus_pwm2_out.data or bus_pwm3_out.data or
                  bus_bldc1_out.data or bus_bldc1_encoder_out.data or
                  bus_bldc2_out.data or bus_bldc2_encoder_out.data or
@@ -199,6 +205,19 @@ begin
 
    register_in <= x"abc" & "0" & encoder6_index_r(1) & sw_2r;
    led_np <= not register_out(3 downto 0);
+
+   -- component instantiation
+	adc : adc_mcp3008_module
+    generic map (
+      BASE_ADDRESS => 16#0080#)
+    port map (
+      adc_out_p    => adc_out_p,
+      adc_in_p     => adc_in_p,
+      bus_o        => bus_adc_out,
+      bus_i        => bus_o,
+      adc_values_o => open,
+      reset        => reset,
+      clk          => clk);
 
    ----------------------------------------------------------------------------
    -- Bus devices

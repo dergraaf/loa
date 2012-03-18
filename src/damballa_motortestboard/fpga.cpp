@@ -15,6 +15,14 @@ const uint16_t Fpga::fromFpgaAddress[] = {
 	0x0032,		// 5: Encoder DC3
 	0x0042,		// 6: Encoder DC4
 	0x0060,		// 7: Encoder 6
+	0x0080,     // 8: ADC ch 0
+	0x0081,     // 9: ADC ch 1
+	0x0082,     // 10: ADC ch 2
+	0x0083,     // 11: ADC ch 3
+	0x0084,     // 12: ADC ch 4
+	0x0085,     // 13: ADC ch 5
+	0x0086,     // 14: ADC ch 6
+	0x0087,     // 15: ADC ch 7
 };
 static const uint16_t fpgaReadEntries = sizeof(Fpga::fromFpgaAddress) / sizeof(Fpga::fromFpgaAddress[0]);
 
@@ -33,6 +41,7 @@ Fpga::SpiWriteFormat Fpga::toFpgaBuffer[] = {
 	{ 0x0070 | 0x8000, 0 },	// 8: Servo 1
 	{ 0x0071 | 0x8000, 0 },	// 9: Servo 2
 	{ 0x0072 | 0x8000, 0 },	// 10: Servo 3
+	{ 0x0080 | 0x8000, 0 }, // 11: ADC mask
 };
 static const uint16_t fpgaWriteEntries = sizeof(Fpga::toFpgaBuffer) / sizeof(Fpga::toFpgaBuffer[0]);
 
