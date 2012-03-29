@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdtprojectproperties>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+<language name="C Source File">
+<includepath>/opt/arm-none-eabi/arm-none-eabi/include</includepath>
+<includepath>/opt/arm-none-eabi/lib/gcc/arm-none-eabi/4.5.2/include/</includepath>
+
+</language>
+<language name="C++ Source File">
+<includepath>/opt/arm-none-eabi/arm-none-eabi/include</includepath>
+<includepath>/opt/arm-none-eabi/lib/gcc/arm-none-eabi/4.5.2/include/</includepath>
+
+</language>
+<language name="Object File">
+
+</language>
+<language name="Assembly Source File">
+<includepath>/opt/arm-none-eabi/arm-none-eabi/include</includepath>
+<includepath>/opt/arm-none-eabi/lib/gcc/arm-none-eabi/4.5.2/include/</includepath>
+
+</language>
+</section>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+<language name="C Source File">
+<macro>
+<name>STM32F4XX</name><value>1</value>
+</macro>
+<macro>
+<name>__ARM_STM32F407VG__</name><value>1</value>
+</macro>
+<macro>
+<name>__ARM_STM32__</name><value>1</value>
+</macro>
+<macro>
+<name>__STM32F407__</name><value>1</value>
+</macro>
+<macro>
+<name>__ARM_ARCH_7EM__</name><value>1</value>
+</macro>
+<macro>
+<name>__arm__</name><value>1</value>
+</macro>
+
+</language>
+<language name="C++ Source File">
+<macro>
+<name>STM32F4XX</name><value>1</value>
+</macro>
+<macro>
+<name>__ARM_STM32F407VG__</name><value>1</value>
+</macro>
+<macro>
+<name>__ARM_STM32__</name><value>1</value>
+</macro>
+<macro>
+<name>__STM32F407__</name><value>1</value>
+</macro>
+<macro>
+<name>__ARM_ARCH_7EM__</name><value>1</value>
+</macro>
+<macro>
+<name>__arm__</name><value>1</value>
+</macro>
+
+</language>
+<language name="Object File">
+
+</language>
+<language name="Assembly Source File">
+
+</language>
+</section>
+</cdtprojectproperties>

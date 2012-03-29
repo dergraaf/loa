@@ -15,139 +15,123 @@
   <version xil_pn:ise_version="13.3" xil_pn:schema_version="2"/>
 
   <files>
-    <file xil_pn:name="../board.ucf" xil_pn:type="FILE_UCF">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
     <file xil_pn:name="../toplevel.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="55"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="32"/>
-    </file>
-    <file xil_pn:name="../carrier.ucf" xil_pn:type="FILE_UCF">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="../../../modules/spislave/hdl/bus_pkg.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="57"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="1"/>
-    </file>
-    <file xil_pn:name="../../../modules/spislave/hdl/spislave_pkg.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="58"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="10"/>
-    </file>
-    <file xil_pn:name="../../../modules/spislave/hdl/spislave.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="59"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="22"/>
-    </file>
-    <file xil_pn:name="../../../modules/pwm/hdl/pwm_module_pkg.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="60"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="24"/>
-    </file>
-    <file xil_pn:name="../../../modules/pwm/hdl/pwm_module.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="61"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="25"/>
-    </file>
-    <file xil_pn:name="../../../modules/pwm/hdl/pwm_pkg.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="62"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="13"/>
-    </file>
-    <file xil_pn:name="../../../modules/pwm/hdl/pwm.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="63"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="14"/>
-    </file>
-    <file xil_pn:name="../../../modules/utils/hdl/clock_divider.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="64"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="9"/>
-    </file>
-    <file xil_pn:name="../../../modules/utils/hdl/utils_pkg.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="65"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="8"/>
-    </file>
-    <file xil_pn:name="../../../modules/motor_control/hdl/symmetric_pwm.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="63"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="2"/>
-    </file>
-    <file xil_pn:name="../../../modules/motor_control/hdl/commutation.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="64"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="16"/>
-    </file>
-    <file xil_pn:name="../../../modules/motor_control/hdl/deadtime.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="65"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="4"/>
-    </file>
-    <file xil_pn:name="../../../modules/motor_control/hdl/motor_control_pkg.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="66"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="3"/>
-    </file>
-    <file xil_pn:name="../../../modules/motor_control/hdl/symmetric_pwm_deadtime.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="67"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="15"/>
-    </file>
-    <file xil_pn:name="../../../modules/motor_control/hdl/bldc_motor_module.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="149"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="1"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="28"/>
     </file>
-    <file xil_pn:name="../../../modules/encoder/hdl/encoder_module_pkg.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="150"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="5"/>
+    <file xil_pn:name="../../../modules/utils/hdl/utils_pkg.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="2"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="8"/>
     </file>
-    <file xil_pn:name="../../../modules/encoder/hdl/encoder_module.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="151"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="30"/>
+    <file xil_pn:name="../../../modules/utils/hdl/clock_divider.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="4"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="9"/>
     </file>
-    <file xil_pn:name="../../../modules/encoder/hdl/quadrature_decoder.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="152"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="18"/>
+    <file xil_pn:name="../../../modules/spislave/hdl/bus_pkg.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="5"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="1"/>
     </file>
-    <file xil_pn:name="../../../modules/encoder/hdl/up_down_counter.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="154"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="17"/>
+    <file xil_pn:name="../../../modules/spislave/hdl/spislave.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="6"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="20"/>
     </file>
-    <file xil_pn:name="../../../modules/motor_control/hdl/dc_motor_module.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="205"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="27"/>
+    <file xil_pn:name="../../../modules/spislave/hdl/spislave_pkg.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="7"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="10"/>
     </file>
     <file xil_pn:name="../../../modules/peripheral_register/hdl/peripheral_register.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="209"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="26"/>
-    </file>
-    <file xil_pn:name="../../../modules/servo/hdl/servo_channel.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="78"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="12"/>
-    </file>
-    <file xil_pn:name="../../../modules/servo/hdl/servo_module.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="79"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="8"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="23"/>
     </file>
-    <file xil_pn:name="../../../modules/servo/hdl/servo_sequencer.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="80"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="11"/>
-    </file>
     <file xil_pn:name="../../../modules/encoder/hdl/encoder_module_extended.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="81"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="29"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="9"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="26"/>
+    </file>
+    <file xil_pn:name="../../../modules/encoder/hdl/encoder_module_pkg.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="10"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="5"/>
     </file>
     <file xil_pn:name="../../../modules/encoder/hdl/input_capture.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="82"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="19"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="12"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="17"/>
+    </file>
+    <file xil_pn:name="../../../modules/encoder/hdl/quadrature_decoder.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="13"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="16"/>
+    </file>
+    <file xil_pn:name="../../../modules/encoder/hdl/up_down_counter.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="14"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="15"/>
     </file>
     <file xil_pn:name="../../../modules/adc_mcp3008/hdl/adc_mcp3008_module.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="81"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="31"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="15"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="27"/>
     </file>
     <file xil_pn:name="../../../modules/adc_mcp3008/hdl/adc_mcp3008_pkg.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="82"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="16"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="7"/>
     </file>
     <file xil_pn:name="../../../modules/adc_mcp3008/hdl/adc_mcp3008.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="83"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="21"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="17"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="19"/>
     </file>
     <file xil_pn:name="../../../modules/adc_mcp3008/hdl/reg_file_pkg.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="84"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="18"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="6"/>
     </file>
     <file xil_pn:name="../../../modules/adc_mcp3008/hdl/reg_file.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="85"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="20"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="19"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="18"/>
+    </file>
+    <file xil_pn:name="../../../modules/motor_control/hdl/bldc_motor_module.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="20"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="25"/>
+    </file>
+    <file xil_pn:name="../../../modules/motor_control/hdl/commutation.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="21"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="14"/>
+    </file>
+    <file xil_pn:name="../../../modules/motor_control/hdl/dc_motor_module.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="22"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="24"/>
+    </file>
+    <file xil_pn:name="../../../modules/motor_control/hdl/deadtime.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="23"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="4"/>
+    </file>
+    <file xil_pn:name="../../../modules/motor_control/hdl/motor_control_pkg.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="24"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="3"/>
+    </file>
+    <file xil_pn:name="../../../modules/motor_control/hdl/symmetric_pwm_deadtime.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="25"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="13"/>
+    </file>
+    <file xil_pn:name="../../../modules/motor_control/hdl/symmetric_pwm.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="26"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="2"/>
+    </file>
+    <file xil_pn:name="../../../modules/pwm/hdl/pwm_module_pkg.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="27"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="22"/>
+    </file>
+    <file xil_pn:name="../../../modules/servo/hdl/servo_channel.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="31"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="12"/>
+    </file>
+    <file xil_pn:name="../../../modules/servo/hdl/servo_module.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="32"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="21"/>
+    </file>
+    <file xil_pn:name="../../../modules/servo/hdl/servo_sequencer.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="33"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="11"/>
+    </file>
+    <file xil_pn:name="../board.ucf" xil_pn:type="FILE_UCF">
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+    </file>
+    <file xil_pn:name="../carrier.ucf" xil_pn:type="FILE_UCF">
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
   </files>
 
@@ -160,7 +144,7 @@
     <property xil_pn:name="Allow Unmatched Timing Group Constraints" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Asynchronous To Synchronous" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Auto Implementation Compile Order" xil_pn:value="true" xil_pn:valueState="default"/>
-    <property xil_pn:name="Auto Implementation Top" xil_pn:value="false" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Auto Implementation Top" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="Automatic BRAM Packing" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Automatically Insert glbl Module in the Netlist" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="Automatically Run Generate Target PROM/ACE File" xil_pn:value="false" xil_pn:valueState="default"/>
@@ -251,9 +235,9 @@
     <property xil_pn:name="ISim UUT Instance Name" xil_pn:value="UUT" xil_pn:valueState="default"/>
     <property xil_pn:name="Ignore User Timing Constraints Map" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Ignore User Timing Constraints Par" xil_pn:value="false" xil_pn:valueState="default"/>
-    <property xil_pn:name="Implementation Top" xil_pn:value="Architecture|toplevel|behavioral" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Implementation Top" xil_pn:value="Architecture|toplevel|structural" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Implementation Top File" xil_pn:value="../toplevel.vhd" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Implementation Top Instance Path" xil_pn:value="" xil_pn:valueState="default"/>
+    <property xil_pn:name="Implementation Top Instance Path" xil_pn:value="/toplevel" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Include 'uselib Directive in Verilog File" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Include SIMPRIM Models in Verilog File" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Include UNISIM Models in Verilog File" xil_pn:value="false" xil_pn:valueState="default"/>
@@ -394,7 +378,6 @@
     <property xil_pn:name="Starting Placer Cost Table (1-100) Par" xil_pn:value="1" xil_pn:valueState="default"/>
     <property xil_pn:name="Synthesis Tool" xil_pn:value="XST (VHDL/Verilog)" xil_pn:valueState="default"/>
     <property xil_pn:name="Target Simulator" xil_pn:value="Please Specify" xil_pn:valueState="default"/>
-    <property xil_pn:name="Target UCF File Name" xil_pn:value="../board.ucf" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Timing Mode Map" xil_pn:value="Non Timing Driven" xil_pn:valueState="default"/>
     <property xil_pn:name="Timing Mode Par" xil_pn:value="Performance Evaluation" xil_pn:valueState="default"/>
     <property xil_pn:name="Top-Level Module Name in Output Netlist" xil_pn:value="" xil_pn:valueState="default"/>
@@ -437,7 +420,7 @@
     <!-- The following properties are for internal use only. These should not be modified.-->
     <!--                                                                                  -->
     <property xil_pn:name="PROP_BehavioralSimTop" xil_pn:value="" xil_pn:valueState="default"/>
-    <property xil_pn:name="PROP_DesignName" xil_pn:value="damballa_test" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="PROP_DesignName" xil_pn:value="captain_drive" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_DevFamilyPMName" xil_pn:value="spartan3" xil_pn:valueState="default"/>
     <property xil_pn:name="PROP_FPGAConfiguration" xil_pn:value="FPGAConfiguration" xil_pn:valueState="default"/>
     <property xil_pn:name="PROP_PostFitSimTop" xil_pn:value="" xil_pn:valueState="default"/>
@@ -446,16 +429,13 @@
     <property xil_pn:name="PROP_PostSynthSimTop" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="PROP_PostXlateSimTop" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="PROP_PreSynthesis" xil_pn:value="PreSynthesis" xil_pn:valueState="default"/>
-    <property xil_pn:name="PROP_intProjectCreationTimestamp" xil_pn:value="2011-12-08T13:07:48" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="PROP_intWbtProjectID" xil_pn:value="5E48F3132EE8D27830D162AB19280B9C" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="PROP_intProjectCreationTimestamp" xil_pn:value="2012-03-28T21:16:16" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="PROP_intWbtProjectID" xil_pn:value="80498448EE7B60B9F7A50A15E8DC7DA3" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_intWorkingDirLocWRTProjDir" xil_pn:value="Same" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_intWorkingDirUsed" xil_pn:value="No" xil_pn:valueState="non-default"/>
   </properties>
 
-  <bindings>
-    <binding xil_pn:location="/toplevel" xil_pn:name="../board.ucf"/>
-    <binding xil_pn:location="/toplevel" xil_pn:name="../carrier.ucf"/>
-  </bindings>
+  <bindings/>
 
   <libraries/>
 

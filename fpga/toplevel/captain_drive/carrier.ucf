@@ -1,0 +1,61 @@
+
+# all IO-Pins are 3,3V
+NET "*"			IOSTANDARD = LVCMOS33;
+
+# ----------------------------------------------------------------------------
+# Servos
+NET "servo_p<1>"	LOC = P96;
+NET "servo_p<2>"	LOC = P97;
+NET "servo_p<3>"	LOC = P98;
+NET "servo_p<4>"	LOC = P99;
+NET "servo_p<5>"	LOC = P100;
+NET "servo_p<6>"	LOC = P102;
+NET "servo_p<7>"	LOC = P103;
+NET "servo_p<8>"	LOC = P104;
+NET "servo_p<9>"	LOC = P105;
+NET "servo_p<10>"	LOC = P107;
+NET "servo_p<11>"	LOC = P108;
+NET "servo_p<12>"	LOC = P112;
+NET "servo_p<13>"	LOC = P113;
+NET "servo_p<14>"	LOC = P116;
+NET "servo_p<15>"	LOC = P118;
+NET "servo_p<16>"	LOC = P119;
+
+# ----------------------------------------------------------------------------
+# BLDC 1 & 2
+
+NET "bldc1_driver_p_a_high"	LOC = P33;
+NET "bldc1_driver_p_a_low"		LOC = P36;
+NET "bldc1_driver_p_b_high"	LOC = P31;
+NET "bldc1_driver_p_b_low"		LOC = P30;
+NET "bldc1_driver_p_c_high"	LOC = P35;
+NET "bldc1_driver_p_c_low"		LOC = P32;
+
+NET "bldc1_hall_p_a"				LOC = P1;
+NET "bldc1_hall_p_b"				LOC = P2;
+NET "bldc1_hall_p_c"				LOC = P4;
+
+NET "bldc1_encoder_p_a"			LOC = P90;
+NET "bldc1_encoder_p_b"			LOC = P92;
+
+NET "bldc2_driver_p_a_high"	LOC = P28;
+NET "bldc2_driver_p_a_low"		LOC = P27;
+NET "bldc2_driver_p_b_high"	LOC = P24;
+NET "bldc2_driver_p_b_low"		LOC = P23;
+NET "bldc2_driver_p_c_high"	LOC = P26;
+NET "bldc2_driver_p_c_low"		LOC = P25;
+
+NET "bldc2_hall_p_a"				LOC = P5;
+NET "bldc2_hall_p_b"				LOC = P6;
+NET "bldc2_hall_p_c"				LOC = P7;
+
+NET "bldc2_encoder_p_a"			LOC = P93;
+NET "bldc2_encoder_p_b"			LOC = P95;
+
+# ----------------------------------------------------------------------------
+# Motor 3
+
+NET "motor3_pwm1_p"			LOC = P10;
+NET "motor3_pwm2_p"			LOC = P11;
+NET "motor3_sd_np"			LOC = P12;
+
