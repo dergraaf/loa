@@ -1,0 +1,40 @@
+
+# all IO-Pins are 3,3V
+NET "*"			IOSTANDARD = LVCMOS33;
+
+# ----------------------------------------------------------------------------
+# Connections to the STM32F407
+NET "cs_np"		LOC = P65;	# <- PA4
+NET "sck_p"		LOC = P64;	# <- PA5
+NET "miso_p"	LOC = P62;	# -> PA6
+NET "mosi_p"	LOC = P61;	# <- PA7
+
+NET "reset_n"	LOC = P57;	# TODO
+
+# P57		# -- PE13
+# P59		# -- PE12
+# P60		# -- PE11
+
+# P48		# Init B -> PB11 (pullup needed)
+# P51		# Din    <- PB10
+# P53		# CCLK   <- PE15
+# Prog B	(dedicated for configuration) <- PE10
+# Done   (dedicated for configuration) -> PE14
+
+# ----------------------------------------------------------------------------
+# SRAM
+#D0..7
+#A0..18
+#CE,WE,OE
+
+# ----------------------------------------------------------------------------
+# US
+
+# ----------------------------------------------------------------------------
+# IR
+
+# ----------------------------------------------------------------------------
+# Clock (connected to a 50 MHz oscillator)
+NET "clk"		LOC = P83;
+NET "clk"		TNM_NET = clk;
+TIMESPEC TS_clk = PERIOD "clk" 50 MHz HIGH 50%;
