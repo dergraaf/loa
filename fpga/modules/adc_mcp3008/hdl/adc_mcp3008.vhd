@@ -3,20 +3,17 @@
 -- Project    : Loa
 -------------------------------------------------------------------------------
 -- File       : adc_mcp3008.vhd
--- Author     : Calle  <calle@Alukiste>
--- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2012-02-16
--- Platform   : 
--- Standard   : VHDL'87
+-- Last update: 2012-03-31
 -------------------------------------------------------------------------------
--- Description: Interface to Microchip's 8 channel 10-bit ADC.
+-- Description: Interface to Microchip's 8 channel 10-bit ADC (MCP3008).
 --              Converversion started by logical 1 on start_p. '1' on done_p
 --              signals completetd conversion. 
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
 -- 2011-09-27  1.0      calle   Created
+-- 2012-03-31           calle   clean up work
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -38,11 +35,11 @@ entity adc_mcp3008 is
     adc_out : out adc_mcp3008_spi_out_type;
     adc_in  : in  adc_mcp3008_spi_in_type;
 
-    start_p    : in  std_logic;
-    adc_mode_p : in  std_logic;
-    channel_p  : in  std_logic_vector(2 downto 0);
-    value_p    : out std_logic_vector(9 downto 0);
-    done_p     : out std_logic;
+    start_p    : in  std_logic;         -- starts the acquisition cycle
+    adc_mode_p : in  std_logic;  -- single-ended or differential mode of ADC
+    channel_p  : in  std_logic_vector(2 downto 0);  -- select channel of ADC
+    value_p    : out std_logic_vector(9 downto 0);  -- last value from  ADC
+    done_p     : out std_logic;         -- conversion reads
 
     reset : in std_logic;
     clk   : in std_logic
@@ -54,6 +51,10 @@ end adc_mcp3008;
 
 architecture behavioral of adc_mcp3008 is
 
+  -----------------------------------------------------------------------------
+  -- FSM Type declaration
+  -----------------------------------------------------------------------------
+  
   type adc_mcp3008_state_type is (IDLE, SCK_LOW, SCK_HIGH, HOLD_OFF);
 
   type adc_mcp3008_type is record
@@ -73,12 +74,28 @@ architecture behavioral of adc_mcp3008 is
   -----------------------------------------------------------------------------
   signal r, rin : adc_mcp3008_type;
 
+begin
+
   -----------------------------------------------------------------------------
-  -- Component declarations
+  -- patch signals to outside of moudle 
   -----------------------------------------------------------------------------
 
-begin
-  
+  -- outputs to adc
+  adc_out.cs_n <= r.csn;
+  adc_out.sck  <= r.sck;
+  adc_out.mosi <= r.dout(4);
+
+  -- outputs
+  done_p  <= r.done;                    -- signals valid data on value_p
+  value_p <= r.din;                     -- value of the last conversion fetched
+                                        -- from the ADC
+
+
+  -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
+  -- Sequential proc of FSM
+  -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
   seq_proc : process(clk)
   begin
     if rising_edge(clk) then
@@ -97,13 +114,11 @@ begin
     end if;
   end process seq_proc;
 
-  adc_out.cs_n <= r.csn;
-  adc_out.sck  <= r.sck;
-  adc_out.mosi <= r.dout(4);
-
-  done_p  <= r.done;
-  value_p <= r.din;
-
+  -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
+  -- Transitons and actions of FSM
+  -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
   comb_proc : process(adc_mode_p, channel_p, adc_in.miso, r, start_p)
     variable v : adc_mcp3008_type;
   begin
@@ -133,7 +148,9 @@ begin
           v.state           := SCK_HIGH;
           v.sck             := '1';
           v.countdown_delay := DELAY;
-          -- fpga external signal, but in sync with SCK
+          -- shift in data from ADC
+          -- miso is external signal, but is assumed to be in sync with SCK
+          -- so no synchronization needed here.
           v.din             := r.din(8 downto 0) & adc_in.miso;
         else
           v.countdown_delay := v.countdown_delay -1;
@@ -177,9 +194,5 @@ begin
 
     rin <= v;
   end process comb_proc;
-
-  -----------------------------------------------------------------------------
-  -- Component instantiations
-  -----------------------------------------------------------------------------
 
 end behavioral;

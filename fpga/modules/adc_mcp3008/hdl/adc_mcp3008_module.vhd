@@ -1,22 +1,17 @@
 -------------------------------------------------------------------------------
--- Title      : Title String
--- Project    : 
+-- Title      : Bus Module for ADC MCP3008
+-- Project    : Loa
 -------------------------------------------------------------------------------
 -- File       : adc_mcp3008_module.vhd
--- Author     : Calle  <calle@Alukiste>
--- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2012-03-15
--- Platform   : 
--- Standard   : VHDL'87
+-- Last update: 2012-04-01
 -------------------------------------------------------------------------------
--- Description: 
--------------------------------------------------------------------------------
--- Copyright (c) 2011 
+-- Copyright (c) 2012
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
 -- 2011-09-27  1.0      calle   Created
+-- 2012-04-01                   clean up work
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -40,6 +35,7 @@ entity adc_mcp3008_module is
     bus_o : out busdevice_out_type;
     bus_i : in  busdevice_in_type;
 
+    -- direct access to the read adc samples
     adc_values_o : out adc_values_type(7 downto 0);
 
     reset : in std_logic;
@@ -67,22 +63,17 @@ architecture behavioral of adc_mcp3008_module is
   -----------------------------------------------------------------------------
   signal r, rin : adc_mcp3008_module_type;
 
-  --signal adc_out    : adc_mcp3008_spi_out_type;
-  --signal adc_in     : adc_mcp3008_spi_in_type;
   signal start_s    : std_logic;
   signal adc_mode_s : std_logic;
   signal channel_s  : std_logic_vector(2 downto 0);
   signal value_s    : std_logic_vector(9 downto 0);
   signal done_s     : std_logic;
 
-  --signal bus_o : busdevice_out_type;
-  --signal bus_i : busdevice_in_type;
   signal reg_o : reg_file_type(7 downto 0);
   signal reg_i : reg_file_type(7 downto 0);
 
 
   signal mask_s : std_logic_vector(7 downto 0);
-  --signal values_s: adc_values_type(7 downto 0);
 
   -----------------------------------------------------------------------------
   -- Component declarations
@@ -90,9 +81,12 @@ architecture behavioral of adc_mcp3008_module is
 
 begin
 
+  -- mapping signals to adc i/f
   adc_mode_s   <= '1';                  -- we don't use differential mode
   channel_s    <= std_logic_vector(to_unsigned(r.current_ch, 3));
   reg_i        <= r.reg;
+
+  -- present last value of each channel on this modules ports
   adc_values_o(0) <= r.reg(0)(9 downto 0);
   adc_values_o(1) <= r.reg(1)(9 downto 0);
   adc_values_o(2) <= r.reg(2)(9 downto 0);
@@ -101,8 +95,14 @@ begin
   adc_values_o(5) <= r.reg(5)(9 downto 0);
   adc_values_o(6) <= r.reg(6)(9 downto 0);
   adc_values_o(7) <= r.reg(7)(9 downto 0);
+
+  -- register for channel mask
   mask_s       <= reg_o(0)(7 downto 0);
 
+  -----------------------------------------------------------------------------
+  -- Register file to present ADC values to bus
+  -- and configuration
+  -----------------------------------------------------------------------------
   reg_file_1 : reg_file
     generic map (
       BASE_ADDRESS => BASE_ADDRESS,
@@ -116,6 +116,9 @@ begin
       clk   => clk);
 
 
+  -----------------------------------------------------------------------------
+  -- ADC interface module 
+  -----------------------------------------------------------------------------
   adc_mcp3008_1 : adc_mcp3008
     generic map (
       DELAY => 39)
@@ -130,6 +133,10 @@ begin
       reset      => reset,
       clk        => clk);
 
+
+  -----------------------------------------------------------------------------
+  -- seq part of FSM
+  -----------------------------------------------------------------------------
   seq_proc : process(clk)
   begin
     if rising_edge(clk) then
@@ -145,6 +152,9 @@ begin
   end process seq_proc;
 
 
+  -----------------------------------------------------------------------------
+  -- transitions and actiosn of FSM
+  -----------------------------------------------------------------------------
   comb_proc : process(done_s, mask_s, r, value_s)
     variable v : adc_mcp3008_module_type;
     
@@ -153,20 +163,29 @@ begin
 
     case v.state is
       when IDLE =>
+        -- in this state we iterate over the channels
+ 
         if v.current_ch = 7 then
+          -- we wrap around (to 0)
           v.current_ch := 0;
         else
+          -- or increment the currently selected channel
           v.current_ch := v.current_ch + 1;
         end if;
 
+        -- if the channel isn't masked out, we take a sample
         if mask_s(v.current_ch) = '0' then
           v.start := '1';
           v.state := WAIT_FOR_ADC;
         end if;
 
       when WAIT_FOR_ADC =>
+        -- adc i/f has already started conversion, we stay in this state until
+        -- the conversion is over.
         v.start := '0';
         if done_s = '1' then
+          -- if the conversion is done we put its result in the right register,
+          -- and return to the "idle" state.
           v.reg(v.current_ch) := "000000" & value_s;
           v.state             := IDLE;
         end if;
