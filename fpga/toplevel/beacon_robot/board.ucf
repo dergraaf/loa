@@ -29,9 +29,16 @@ NET "reset_n"	LOC = P57;	# TODO
 
 # ----------------------------------------------------------------------------
 # US
+NET "us_tx0_p_high"	LOC = P93;
+NET "us_tx0_p_low"	LOC = P94;
+NET "us_tx1_p_high"	LOC = P98;
+NET "us_tx1_p_low"	LOC = P99;
+NET "us_tx2_p_high"	LOC = P3;
+NET "us_tx2_p_low"	LOC = P4;
 
 # ----------------------------------------------------------------------------
 # IR
+NET "ir_tx_p"			LOC = P5;
 
 # ----------------------------------------------------------------------------
 # Clock (connected to a 50 MHz oscillator)

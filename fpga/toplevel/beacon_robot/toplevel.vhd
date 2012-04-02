@@ -21,10 +21,21 @@ use work.bus_pkg.all;
 use work.spislave_pkg.all;
 
 use work.peripheral_register_pkg.all;
+use work.motor_control_pkg.all;
+use work.deadtime_pkg.all;
+use work.utils_pkg.all;
 
 -------------------------------------------------------------------------------
 entity toplevel is
    port (
+		-- US
+		us_tx0_p : out half_bridge_type;
+		us_tx1_p : out half_bridge_type;
+		us_tx2_p : out half_bridge_type;
+		
+		-- IR
+		ir_tx_p : out std_logic;
+		
       -- Connections to the STM32F407
       cs_np  : in  std_logic;
       sck_p  : in  std_logic;
@@ -39,7 +50,13 @@ end toplevel;
 architecture structural of toplevel is
    signal reset_r : std_logic_vector(1 downto 0) := (others => '0');
    signal reset   : std_logic;
-
+	
+	signal uss_clock   : std_logic;		-- 32.8kHz * 2
+	signal uss_clock_n : std_logic;
+	
+	signal uss_tx_high : std_logic;
+	signal uss_tx_low  : std_logic;
+	
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
    
@@ -93,5 +110,46 @@ begin
 	
    register_in <= x"abc" & "0000";
    --led_np <= not register_out(3 downto 0);
+	
+	----------------------------------------------------------------------------
+	-- US Sensors
+	
+	uss_clock_generator : fractional_clock_divider
+      generic map (
+         MUL => 41,
+         DIV => 31250)
+      port map(
+         clk_out_p => uss_clock,
+         clk       => clk);
+	
+	uss_clock_n <= not uss_clock;
 
+   deadtime_on : deadtime
+      generic map (
+         T_DEAD => 2000)	-- 100ns
+      port map (
+         in_p  => uss_clock_n,
+         out_p => uss_tx_low,
+         clk   => clk);
+
+   deadtime_off : deadtime
+      generic map (
+         T_DEAD => 2000)	-- 100ns
+      port map (
+         in_p  => uss_clock,
+         out_p => uss_tx_high,
+         clk   => clk);
+	
+	us_tx0_p.high <= uss_tx_high;
+	us_tx1_p.high <= uss_tx_high;
+	us_tx2_p.high <= uss_tx_high;
+	
+	us_tx0_p.low <= uss_tx_low;
+	us_tx1_p.low <= uss_tx_low;
+	us_tx2_p.low <= uss_tx_low;
+	
+	----------------------------------------------------------------------------
+	-- IR 
+	-- TODO
+	ir_tx_p <= '0';
 end structural;
