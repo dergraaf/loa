@@ -1,0 +1,12 @@
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-34.816559 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.toplevel_tb.
+@28
+top.toplevel_tb.us_tx0.high
+@29
+top.toplevel_tb.us_tx0.low
+[pattern_trace] 1
+[pattern_trace] 0

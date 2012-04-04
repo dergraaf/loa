@@ -8,5 +8,7 @@
 .sconsign.dblite
 .cproject
 .project
+.pydevproject
 .settings
 .classpath
+*.gise
