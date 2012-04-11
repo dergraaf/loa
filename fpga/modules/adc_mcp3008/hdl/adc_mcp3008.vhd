@@ -77,7 +77,7 @@ architecture behavioral of adc_mcp3008 is
 begin
 
   -----------------------------------------------------------------------------
-  -- patch signals to outside of moudle 
+  -- patch signals to outside of module 
   -----------------------------------------------------------------------------
 
   -- outputs to adc
@@ -149,7 +149,7 @@ begin
           v.sck             := '1';
           v.countdown_delay := DELAY;
           -- shift in data from ADC
-          -- miso is external signal, but is assumed to be in sync with SCK
+          -- miso is an external signal but is assumed to be in sync with SCK
           -- so no synchronization needed here.
           v.din             := r.din(8 downto 0) & adc_in.miso;
         else

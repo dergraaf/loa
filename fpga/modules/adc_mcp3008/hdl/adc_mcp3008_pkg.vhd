@@ -48,8 +48,11 @@ package adc_mcp3008_pkg is
     generic (
       DELAY : natural);
     port (
+      -- signals to and from real hardware
       adc_out    : out adc_mcp3008_spi_out_type;
       adc_in     : in  adc_mcp3008_spi_in_type;
+
+      -- signals to other logic in FPGA
       start_p    : in  std_logic;
       adc_mode_p : in  std_logic;
       channel_p  : in  std_logic_vector(2 downto 0);
