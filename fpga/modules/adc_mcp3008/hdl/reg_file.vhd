@@ -6,11 +6,13 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-03-11
+-- Last update: 2012-04-12
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
--- Description: 
+-- Description:
+-- 16-bit registers at the internal parallel data bus with address
+-- decoding. 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012 
 -------------------------------------------------------------------------------
@@ -33,8 +35,10 @@ use work.reg_file_pkg.all;
 entity reg_file is
 
   generic (
-    BASE_ADDRESS : integer range 0 to 32767;
-    REG_ADDR_BIT : natural := 0);
+    BASE_ADDRESS : integer range 0 to 32767;  -- Base address of the registers
+    REG_ADDR_BIT : natural := 0         -- number of bits not to compare in
+                                        -- address. Gives 2**n registers
+    );
 
   port (
     bus_o : out busdevice_out_type;
@@ -55,7 +59,7 @@ architecture str of reg_file is
   -----------------------------------------------------------------------------
   -- Internal signal declarations
   -----------------------------------------------------------------------------
-  signal reg : reg_file_type(2**REG_ADDR_BIT-1 downto 0);
+  signal reg      : reg_file_type(2**REG_ADDR_BIT-1 downto 0);
   signal data_out : std_logic_vector(15 downto 0);
 
 begin  -- str
@@ -88,25 +92,25 @@ begin  -- str
   -- Output mux
   -- (output (others => '0') if we are not selected)
   -----------------------------------------------------------------------------
-  
+
   bus_o.data <= data_out;
-  
+
   process (reset, clk, bus_i, reg_i)
     variable index : integer := 0;
   begin  -- process
     index := to_integer(unsigned(bus_i.addr(REG_ADDR_BIT downto 0)));
-    
-	 if rising_edge(clk) then 
-		 if reset = '1' then 
-			data_out <= (others => '0');
-		 else
-			 if (bus_i.addr(14 downto REG_ADDR_BIT) = BASE_ADDRESS_VECTOR(14 downto REG_ADDR_BIT)) and bus_i.re = '1' then
-				data_out <= reg_i(index);
-			 else
-				data_out <= (others => '0');
-			 end if;
-	    end if;
-	 end if;
+
+    if rising_edge(clk) then
+      if reset = '1' then
+        data_out <= (others => '0');
+      else
+        if (bus_i.addr(14 downto REG_ADDR_BIT) = BASE_ADDRESS_VECTOR(14 downto REG_ADDR_BIT)) and bus_i.re = '1' then
+          data_out <= reg_i(index);
+        else
+          data_out <= (others => '0');
+        end if;
+      end if;
+    end if;
     -- is there a problem with using a varibale in a assignment of a signal??
     --bus_o.data <= (others => '0') when bus_i.re = '0' else reg_i(index);
   end process;
