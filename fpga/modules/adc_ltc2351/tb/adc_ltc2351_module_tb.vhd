@@ -9,11 +9,13 @@
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
--- Description: 
+-- Description:
+-- Tests the ADC LTC2351 module including a simulation of the ADC.
+-- It is not self checking. The expected result after an ADC cycle (when done
+-- went '1' is that the register file (reg_i(0) to reg_i(5)) contains the
+-- predefined ADC values from adc_ltc2351_model.vhd
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012 
--------------------------------------------------------------------------------
--- Revisions  :
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -33,19 +35,6 @@ architecture tb of adc_ltc2351_module_tb is
   use work.reg_file_pkg.all;
   use work.bus_pkg.all;
 
-
-  --component adc_ltc2351_module
-  --  generic (
-  --    BASE_ADDRESS : integer range 0 to 32767);
-  --  port (
-  --    adc_out_p : out adc_ltc2351_spi_out_type;
-  --    adc_in_p  : in  adc_ltc2351_spi_in_type;
-  --    bus_o     : out busdevice_out_type;
-  --    bus_i     : in  busdevice_in_type;
-  --    reset     : in  std_logic;
-  --    clk       : in  std_logic);
-  --end component;
-
   -- component generics
   constant BASE_ADDRESS : integer range 0 to 32767 := 0;
 
@@ -55,48 +44,57 @@ architecture tb of adc_ltc2351_module_tb is
   signal bus_o     : busdevice_out_type;
   signal bus_i     : busdevice_in_type;
   signal reset     : std_logic;
-  --signal clk       : std_logic;
 
-
-  signal miso_p : std_logic;
-  signal mosi_p : std_logic;
-  signal cs_np  : std_logic;
   signal sck_p  : std_logic;
+  signal conv_p : std_logic;
+  signal sdo_p  : std_logic;
 
   -- clock
-  signal Clk : std_logic := '1';
+  signal clk : std_logic := '1';
 
 begin  -- tb
 
   -- component instantiation
   DUT : adc_ltc2351_module
     generic map (
-      BASE_ADDRESS => BASE_ADDRESS)
+      BASE_ADDRESS => BASE_ADDRESS
+      )
     port map (
       adc_out_p    => adc_out_p,
       adc_in_p     => adc_in_p,
       bus_o        => bus_o,
       bus_i        => bus_i,
       adc_values_o => open,
+      done_o       => open,
       reset        => reset,
-      clk          => clk);
+      clk          => clk
+      );
 
+  STIM : adc_ltc2351_model
+    port map (
+      sck  => sck_p,
+      conv => conv_p,
+      sdo  => sdo_p
+      );
 
+  -- --------------------------------------------------------------------------
   -- clock generation
-  Clk <= not Clk after 10 ns;
+  -----------------------------------------------------------------------------
 
---  adc_in_p.miso <= miso_p;
---  mosi_p        <= adc_out_p.mosi;
---  cs_np         <= adc_out_p.cs_n;
-  sck_p         <= adc_out_P.sck;
+  clk <= not clk after 10 ns;
 
+  sck_p        <= adc_out_P.sck;
+  conv_p       <= adc_out_p.conv;
+  adc_in_p.sdo <= sdo_p;
 
+  -- --------------------------------------------------------------------------
   -- waveform generation
+  -- --------------------------------------------------------------------------
   WaveGen_Proc : process
   begin
     -- insert signal assignments here
     reset <= '1';
-    wait until Clk = '1';
+    wait until clk = '1';
     reset <= '0';
     wait for 100000 ms;
   end process WaveGen_Proc;
@@ -112,7 +110,7 @@ begin  -- tb
 
     wait until Clk = '1';
 
-
+    -- write 0x01 to 0x00
     wait until Clk = '1';
     bus_i.addr <= (others => '0');
     bus_i.data <= "0000" & "0000" & "0000" & "0001";
@@ -125,7 +123,7 @@ begin  -- tb
     wait until Clk = '1';
     wait until Clk = '1';
 
-
+    -- write 0x01 to 0x01
     wait until Clk = '1';
     bus_i.addr(0) <= '1';
     bus_i.data    <= "0000" & "0000" & "0000" & "0001";
@@ -179,101 +177,6 @@ begin  -- tb
     wait for 10000 ns;
     
   end process bus_stimulus_proc;
-
-  -----------------------------------------------------------------------------
-  -- ADC side stimulus
-  -----------------------------------------------------------------------------
-
-  process
-  begin
-    miso_p <= 'Z';
-
-    wait until cs_np = '0';
-
-    wait until sck_p = '1';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-
-    -- leading zero of ltc2351
-    miso_p <= '0';
-    wait until sck_p = '0';
-
-    -- actual MSB of conversion
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '0';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '0';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '0';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-
-    wait until sck_p = '0';
-    miso_p <= 'Z';
-
-
-
-
-
-    miso_p <= 'Z';
-
-    wait until cs_np = '0';
-
-    wait until sck_p = '1';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-    wait until sck_p = '0';
-
-    -- leading zero of ltc2351
-    miso_p <= '0';
-    wait until sck_p = '0';
-
-    -- actual MSB of conversion
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-    wait until sck_p = '0';
-    miso_p <= '1';
-
-    wait until sck_p = '0';
-    miso_p <= 'Z';
-
-
-  end process;
-
-  
 
 end tb;
 

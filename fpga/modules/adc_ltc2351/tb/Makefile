@@ -2,6 +2,7 @@
 # Name of the testbench without extenstion
 #TESTBENCH = adc_ltc2351_tb
 TESTBENCH = adc_ltc2351_module_tb
+#TESTBENCH = adc_ltc2351_model_tb
 #TESTBENCH = adc_ltc2351_2_tb
 
 # VHDL files
@@ -12,6 +13,11 @@ FILES = \
 ../hdl/adc_ltc2351_pkg.vhd 
 else ifeq ($(TESTBENCH), adc_ltc2351_2_tb)
 FILES = ../hdl/*.vhd
+else ifeq ($(TESTBENCH), adc_ltc2351_model_tb)
+FILES = \
+../../spislave/hdl/bus_pkg.vhd \
+../hdl/adc_ltc2351_model.vhd \
+../hdl/adc_ltc2351_pkg.vhd
 else ifeq ($(TESTBENCH), adc_ltc2351_module_tb)
 FILES = \
 ../../spislave/hdl/bus_pkg.vhd \
@@ -19,6 +25,7 @@ FILES = \
 ../../adc_mcp3008/hdl/reg_file.vhd \
 ../hdl/adc_ltc2351.vhd \
 ../hdl/adc_ltc2351_pkg.vhd \
+../hdl/adc_ltc2351_model.vhd \
 ../hdl/adc_ltc2351_module.vhd \
 ../../adc_mcp3008/tb/reg_file_tb.vhd 
 endif

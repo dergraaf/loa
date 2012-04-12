@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-10
--- Last update: 
+-- Last update: 2012-04-12
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -40,8 +40,9 @@ package adc_ltc2351_pkg is
     sdo  : std_logic;
   end record;
 
-  -----------------------------------------------------------------------------
-  -- Component declarations -----------------------------------------------------------------------------
+  -- ---------------------------------------------------------------------------
+  -- Component declarations
+  -- ---------------------------------------------------------------------------
   component adc_ltc2351
     generic (
       APFEL : natural);
@@ -61,6 +62,20 @@ package adc_ltc2351_pkg is
     );
   end component;
 
+  component adc_ltc2351_model
+-- this overwrites the init from adc_ltc2351_model.vhd
+--     generic (
+--        DATA_CH1 : std_logic_vector(13 downto 0);
+--        DATA_CH2 : std_logic_vector(13 downto 0);
+--        DATA_CH3 : std_logic_vector(13 downto 0);
+--        DATA_CH4 : std_logic_vector(13 downto 0);
+--        DATA_CH5 : std_logic_vector(13 downto 0);
+--        DATA_CH6 : std_logic_vector(13 downto 0));
+     port (
+        sck  : in  std_logic;
+        conv : in  std_logic;
+        sdo  : out std_logic := 'Z');
+  end component;
 
   component adc_ltc2351_module
     generic (
@@ -71,6 +86,7 @@ package adc_ltc2351_pkg is
       bus_o        : out busdevice_out_type;
       bus_i        : in  busdevice_in_type;
       adc_values_o : out adc_values_type(5 downto 0);
+      done_o       : out std_logic;
       reset        : in  std_logic;
       clk          : in  std_logic);
   end component;
