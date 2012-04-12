@@ -4,7 +4,7 @@
 -------------------------------------------------------------------------------
 -- File       : adc_mcp3008_module.vhd
 -- Created    : 2011-09-27
--- Last update: 2012-04-01
+-- Last update: 2012-04-12
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012
 -------------------------------------------------------------------------------
@@ -87,15 +87,10 @@ begin
   reg_i        <= r.reg;
 
   -- present last value of each channel on this modules ports
-  adc_values_o(0) <= r.reg(0)(9 downto 0);
-  adc_values_o(1) <= r.reg(1)(9 downto 0);
-  adc_values_o(2) <= r.reg(2)(9 downto 0);
-  adc_values_o(3) <= r.reg(3)(9 downto 0);
-  adc_values_o(4) <= r.reg(4)(9 downto 0);
-  adc_values_o(5) <= r.reg(5)(9 downto 0);
-  adc_values_o(6) <= r.reg(6)(9 downto 0);
-  adc_values_o(7) <= r.reg(7)(9 downto 0);
-
+  copy_loop: for ii in 0 to 7 generate
+     adc_values_o(ii) <= r.reg(ii)(9 downto 0);
+  end generate copy_loop;
+  
   -- register for channel mask
   mask_s       <= reg_o(0)(7 downto 0);
 
@@ -189,9 +184,7 @@ begin
           v.reg(v.current_ch) := "000000" & value_s;
           v.state             := IDLE;
         end if;
-        
-      when others =>
-        null;
+
     end case;
 
     rin <= v;
