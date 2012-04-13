@@ -8,13 +8,16 @@ NET "cs_np"		LOC = P65;	# <- PA4
 NET "sck_p"		LOC = P64;	# <- PA5
 NET "miso_p"	LOC = P62;	# -> PA6
 NET "mosi_p"	LOC = P61;	# <- PA7
+
+
 NET "irq_p"	LOC = P60;	# -> PE11
 
-NET "reset_n"	LOC = P57;	# TODO
+NET "reset_n"	LOC = P57;	# <-> PE13 (not Reset)
 
 # P57		# -- PE13
 # P59		# -- PE12
 # P60		# -- PE11
+# P44		# -- unconnected
 
 # P48		# Init B -> PB11 (pullup needed)
 # P51		# Din    <- PB10
@@ -23,10 +26,39 @@ NET "reset_n"	LOC = P57;	# TODO
 # Done   (dedicated for configuration) -> PE14
 
 # ----------------------------------------------------------------------------
-# SRAM
-#D0..7
-#A0..18
-#CE,WE,OE
+# 4 MBit SRAM CY7C1049DV33-10ZSXI (428-1982-ND)
+NET "sram_addr_p<0>"	LOC P56;
+NET "sram_addr_p<1>"	LOC P52;
+NET "sram_addr_p<2>"	LOC P50;
+NET "sram_addr_p<3>"	LOC P49;
+NET "sram_addr_p<4>"	LOC P46;
+NET "sram_addr_p<5>"	LOC P34;
+NET "sram_addr_p<6>"	LOC P33;
+NET "sram_addr_p<7>"	LOC P32;
+NET "sram_addr_p<8>"	LOC P31;
+NET "sram_addr_p<9>"	LOC P30;
+NET "sram_addr_p<10>"	LOC P78;
+NET "sram_addr_p<11>"	LOC P10;
+NET "sram_addr_p<12>"	LOC P12;
+NET "sram_addr_p<13>"	LOC P13;
+NET "sram_addr_p<14>"	LOC P15;
+NET "sram_addr_p<15>"	LOC P25;
+NET "sram_addr_p<16>"	LOC P27;
+NET "sram_addr_p<17>"	LOC P28;
+NET "sram_addr_p<18>"	LOC P29;
+
+NET "sram_d_p<0>"	LOC P41;
+NET "sram_d_p<1>"	LOC P40;
+NET "sram_d_p<2>"	LOC P37;
+NET "sram_d_p<3>"	LOC P36;
+NET "sram_d_p<4>"	LOC P16;
+NET "sram_d_p<5>"	LOC P19;
+NET "sram_d_p<6>"	LOC P20;
+NET "sram_d_p<7>"	LOC P23;
+
+NET "sram_oe_p"	LOC P24;
+NET "sram_we_p"	LOC P35;
+NET "sram_ce_p"	LOC P43;
 
 # ----------------------------------------------------------------------------
 # US TX
@@ -38,12 +70,19 @@ NET "us_tx2_p_high"	LOC = P3;
 NET "us_tx2_p_low"	LOC = P4;
 
 # ----------------------------------------------------------------------------
+# US RX: one LTC2351 ADC
+NET "us_rx_spi_in_p_sdo"		LOC = P85 | PULLDOWN;
+NET "us_rx_spi_out_p_sck"		LOC = P88 | SLOW | DRIVE = 2;
+NET "us_rx_spi_out_p_conv"		LOC = P77 | SLOW | DRIVE = 2;
+
+# ----------------------------------------------------------------------------
 # IR TX
 NET "ir_tx_p"			LOC = P5;
 
 # ----------------------------------------------------------------------------
-# IR RX ADC 1
-NET "ir_rx_spi_in_p_sdo"		LOC = P89 | PULLDOWN;
+# IR RX ADCs: two LTC2351 ADCs with common SCK and CONV
+NET "ir_rx0_spi_in_p_sdo"		LOC = P89 | PULLDOWN;
+NET "ir_rx1_spi_in_p_sdo"		LOC = P90 | PULLDOWN;
 NET "ir_rx_spi_out_p_sck"		LOC = P88 | SLOW | DRIVE = 2;
 NET "ir_rx_spi_out_p_conv"		LOC = P86 | SLOW | DRIVE = 2;
 

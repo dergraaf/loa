@@ -1,0 +1,64 @@
+[timestart] 0
+[size] 1178 878
+[pos] -1 -1
+*-36.790604 305800000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.uss_tx_module_tb.
+[treeopen] top.uss_tx_module_tb.uss_tx_module_1.
+[treeopen] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.
+@28
+top.uss_tx_module_tb.clk
+@200
+-Bus
+@22
+#{top.uss_tx_module_tb.bus_i.addr[14:0]} top.uss_tx_module_tb.bus_i.addr[14] top.uss_tx_module_tb.bus_i.addr[13] top.uss_tx_module_tb.bus_i.addr[12] top.uss_tx_module_tb.bus_i.addr[11] top.uss_tx_module_tb.bus_i.addr[10] top.uss_tx_module_tb.bus_i.addr[9] top.uss_tx_module_tb.bus_i.addr[8] top.uss_tx_module_tb.bus_i.addr[7] top.uss_tx_module_tb.bus_i.addr[6] top.uss_tx_module_tb.bus_i.addr[5] top.uss_tx_module_tb.bus_i.addr[4] top.uss_tx_module_tb.bus_i.addr[3] top.uss_tx_module_tb.bus_i.addr[2] top.uss_tx_module_tb.bus_i.addr[1] top.uss_tx_module_tb.bus_i.addr[0]
+#{top.uss_tx_module_tb.bus_i.data[15:0]} top.uss_tx_module_tb.bus_i.data[15] top.uss_tx_module_tb.bus_i.data[14] top.uss_tx_module_tb.bus_i.data[13] top.uss_tx_module_tb.bus_i.data[12] top.uss_tx_module_tb.bus_i.data[11] top.uss_tx_module_tb.bus_i.data[10] top.uss_tx_module_tb.bus_i.data[9] top.uss_tx_module_tb.bus_i.data[8] top.uss_tx_module_tb.bus_i.data[7] top.uss_tx_module_tb.bus_i.data[6] top.uss_tx_module_tb.bus_i.data[5] top.uss_tx_module_tb.bus_i.data[4] top.uss_tx_module_tb.bus_i.data[3] top.uss_tx_module_tb.bus_i.data[2] top.uss_tx_module_tb.bus_i.data[1] top.uss_tx_module_tb.bus_i.data[0]
+@28
+top.uss_tx_module_tb.bus_i.we
+top.uss_tx_module_tb.bus_i.re
+@22
+#{top.uss_tx_module_tb.bus_o.data[15:0]} top.uss_tx_module_tb.bus_o.data[15] top.uss_tx_module_tb.bus_o.data[14] top.uss_tx_module_tb.bus_o.data[13] top.uss_tx_module_tb.bus_o.data[12] top.uss_tx_module_tb.bus_o.data[11] top.uss_tx_module_tb.bus_o.data[10] top.uss_tx_module_tb.bus_o.data[9] top.uss_tx_module_tb.bus_o.data[8] top.uss_tx_module_tb.bus_o.data[7] top.uss_tx_module_tb.bus_o.data[6] top.uss_tx_module_tb.bus_o.data[5] top.uss_tx_module_tb.bus_o.data[4] top.uss_tx_module_tb.bus_o.data[3] top.uss_tx_module_tb.bus_o.data[2] top.uss_tx_module_tb.bus_o.data[1] top.uss_tx_module_tb.bus_o.data[0]
+@200
+-Clock
+@28
+#{top.uss_tx_module_tb.modulation_p[2:0]} top.uss_tx_module_tb.modulation_p[2] top.uss_tx_module_tb.modulation_p[1] top.uss_tx_module_tb.modulation_p[0]
+@22
+#{top.uss_tx_module_tb.uss_tx_module_1.clk_div[15:0]} top.uss_tx_module_tb.uss_tx_module_1.clk_div[15] top.uss_tx_module_tb.uss_tx_module_1.clk_div[14] top.uss_tx_module_tb.uss_tx_module_1.clk_div[13] top.uss_tx_module_tb.uss_tx_module_1.clk_div[12] top.uss_tx_module_tb.uss_tx_module_1.clk_div[11] top.uss_tx_module_tb.uss_tx_module_1.clk_div[10] top.uss_tx_module_tb.uss_tx_module_1.clk_div[9] top.uss_tx_module_tb.uss_tx_module_1.clk_div[8] top.uss_tx_module_tb.uss_tx_module_1.clk_div[7] top.uss_tx_module_tb.uss_tx_module_1.clk_div[6] top.uss_tx_module_tb.uss_tx_module_1.clk_div[5] top.uss_tx_module_tb.uss_tx_module_1.clk_div[4] top.uss_tx_module_tb.uss_tx_module_1.clk_div[3] top.uss_tx_module_tb.uss_tx_module_1.clk_div[2] top.uss_tx_module_tb.uss_tx_module_1.clk_div[1] top.uss_tx_module_tb.uss_tx_module_1.clk_div[0]
+#{top.uss_tx_module_tb.uss_tx_module_1.clk_mul[15:0]} top.uss_tx_module_tb.uss_tx_module_1.clk_mul[15] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[14] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[13] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[12] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[11] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[10] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[9] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[8] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[7] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[6] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[5] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[4] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[3] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[2] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[1] top.uss_tx_module_tb.uss_tx_module_1.clk_mul[0]
+@c08022
+#{top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[16:0]} top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[16] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[15] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[14] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[13] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[12] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[11] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[10] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[9] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[8] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[7] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[6] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[5] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[4] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[3] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[2] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[1] top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[0]
+@28
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[16]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[15]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[14]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[13]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[12]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[11]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[10]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[9]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[8]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[7]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[6]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[5]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[4]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[3]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[2]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[1]
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.cnt[0]
+@1401200
+-group_end
+@20000
+-
+-
+@28
+top.uss_tx_module_tb.uss_tx_module_1.fractional_clock_divider_variable_1.clk_out_p
+@200
+-USS
+@28
+top.uss_tx_module_tb.uss_tx2_out_s.high
+top.uss_tx_module_tb.uss_tx2_out_s.low
+top.uss_tx_module_tb.uss_tx1_out_s.low
+top.uss_tx_module_tb.uss_tx0_out_s.high
+top.uss_tx_module_tb.uss_tx0_out_s.low
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,12 +1,15 @@
 [timestart] 0
-[size] 1000 600
+[size] 1178 878
 [pos] -1 -1
-*-34.816559 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-38.773979 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.toplevel_tb.
+[treeopen] top.toplevel_tb.toplevel_1.
+[treeopen] top.toplevel_tb.toplevel_1.uss_tx_module_1.
 @28
-top.toplevel_tb.us_tx0.high
-@29
-top.toplevel_tb.us_tx0.low
+top.toplevel_tb.clk
+top.toplevel_tb.reset_n
+top.toplevel_tb.toplevel_1.ir_clock
+top.toplevel_tb.toplevel_1.ir_clock_enable
 [pattern_trace] 1
 [pattern_trace] 0

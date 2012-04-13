@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-04-12
+-- Last update: 2012-04-13
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -59,7 +59,7 @@ architecture str of reg_file is
   -----------------------------------------------------------------------------
   -- Internal signal declarations
   -----------------------------------------------------------------------------
-  signal reg      : reg_file_type(2**REG_ADDR_BIT-1 downto 0);
+  signal reg      : reg_file_type(2**REG_ADDR_BIT-1 downto 0) := (others => (others => '0'));
   signal data_out : std_logic_vector(15 downto 0);
 
 begin  -- str

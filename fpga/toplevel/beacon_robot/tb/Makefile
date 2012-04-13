@@ -8,7 +8,10 @@ FILES =  \
 	../../../modules/spislave/hdl/*.vhd \
 	../../../modules/peripheral_register/hdl/*.vhd \
 	../../../modules/motor_control/hdl/*.vhd \
-	../../../modules/utils/hdl/*.vhd
+	../../../modules/utils/hdl/*.vhd \
+	../../../modules/adc_ltc2351/hdl/*.vhd \
+	../../../modules/uss_tx/hdl/*.vhd \
+	../../../modules/adc_mcp3008/hdl/*.vhd
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file

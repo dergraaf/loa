@@ -10,7 +10,9 @@
 -- Platform   : Spartan 3
 -------------------------------------------------------------------------------
 -- Description:
--- Generates an clock enable signal.
+-- Generates a clock enable signal.
+--
+-- MUL must be smaller than DIV. 
 -- 
 -- Example:
 -- @code

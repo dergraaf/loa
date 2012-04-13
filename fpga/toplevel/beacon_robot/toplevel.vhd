@@ -5,7 +5,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-12
+-- Last update: 2012-04-13
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -24,29 +24,47 @@ use work.peripheral_register_pkg.all;
 use work.motor_control_pkg.all;
 use work.deadtime_pkg.all;
 use work.adc_ltc2351_pkg.all;
+use work.uss_tx_pkg.all;
 use work.utils_pkg.all;
 
 -------------------------------------------------------------------------------
 entity toplevel is
    port (
-      -- US
-      us_tx0_p : out half_bridge_type;
-      us_tx1_p : out half_bridge_type;
-      us_tx2_p : out half_bridge_type;
-
-      -- IR TX
-      ir_tx_p : out std_logic;
-
-      -- IR RX ADC 1
-      ir_rx_spi_in_p  : in  adc_ltc2351_spi_in_type;
-      ir_rx_spi_out_p : out adc_ltc2351_spi_out_type;
-
       -- Connections to the STM32F407
+      -- SPI
       cs_np  : in  std_logic;
       sck_p  : in  std_logic;
       miso_p : out std_logic;
       mosi_p : in  std_logic;
-      irq_p  : out std_logic;           -- Inform STM about new data
+
+      irq_p : out std_logic;            -- Inform STM about new data
+
+      -- hardwired
+      -- tbd
+
+      -- 4 MBit SRAM CY7C1049DV33-10ZSXI (428-1982-ND)
+      sram_addr_p : out   std_logic_vector(18 downto 0);
+      sram_data_p : inout std_logic_vector(7 downto 0);
+      sram_oe_p   : out   std_logic;
+      sram_we_p   : out   std_logic;
+      sram_ce_p   : out   std_logic;
+
+      -- US TX
+      us_tx0_p : out half_bridge_type;
+      us_tx1_p : out half_bridge_type;
+      us_tx2_p : out half_bridge_type;
+
+      -- US RX: one LTC2351 ADC
+      us_rx_spi_in_p  : in  adc_ltc2351_spi_in_type;
+      us_rx_spi_out_p : out adc_ltc2351_spi_out_type;
+
+      -- IR TX
+      ir_tx_p : out std_logic;
+
+      -- IR RX: two LTC2351 ADC
+      ir_rx_spi_out_p : out adc_ltc2351_spi_out_type;
+      ir_rx0_spi_in_p : in  adc_ltc2351_spi_in_type;
+      ir_rx1_spi_in_p : in  adc_ltc2351_spi_in_type;
 
       reset_n : in std_logic;
       clk     : in std_logic
@@ -56,15 +74,6 @@ end toplevel;
 architecture structural of toplevel is
    signal reset_r : std_logic_vector(1 downto 0) := (others => '0');
    signal reset   : std_logic;
-
-   signal uss_clock_enable     : std_logic;         -- 32.8kHz * 2
-   signal uss_clock            : std_logic := '0';
-   signal uss_clock_n          : std_logic := '1';
-   signal uss_adc_clock        : std_logic := '0';
-   signal uss_adc_clock_enable : std_logic := '1';  -- slower clock for ADC readout
-
-   signal uss_tx_high : std_logic;
-   signal uss_tx_low  : std_logic;
 
    signal ir_clock_enable : std_logic;
    signal ir_clock        : std_logic := '0';
@@ -80,7 +89,9 @@ architecture structural of toplevel is
 
    -- Outputs form the Bus devices
    signal bus_register_out : busdevice_out_type;
-   signal bus_adc_ir1_out  : busdevice_out_type;
+   signal bus_adc_ir0_out  : busdevice_out_type;
+   signal bus_adc_ir1_out : busdevice_out_type;
+   signal bus_adc_us_out : busdevice_out_type;
    
 begin
    -- synchronize reset and other signals
@@ -110,7 +121,9 @@ begin
          clk   => clk);
 
    bus_i.data <= bus_register_out.data or
-                 bus_adc_ir1_out.data;
+                 bus_adc_ir0_out.data or
+ --                bus_adc_ir1_out.data or
+                 bus_adc_us_out.data;
 
    ----------------------------------------------------------------------------
    -- Register
@@ -126,61 +139,27 @@ begin
          clk    => clk);
 
    register_in <= x"abc" & "0000";
+
+   -- no LEDs at FPGA at beacon-digi.brd
    --led_np <= not register_out(3 downto 0);
 
    ----------------------------------------------------------------------------
-   -- US Sensors
-
-   -- generates 32.8Khz * 2 (times two because it's a enable signal and
-   -- we need to generate a 50% duty-cycle signal later)
-   -- 
-   -- 50 MHz / 31250 * 41 = 65600 Hz
-   uss_clock_generator : fractional_clock_divider
+   -- US TX
+   uss_tx_module_1: uss_tx_module
       generic map (
-         MUL => 41,
-         DIV => 31250)
-      port map(
-         clk_out_p => uss_clock_enable,
-         clk       => clk);
-
-   -- generate a signal with a 50% duty-cycle from the enable signal
-   process (clk, uss_clock_enable)
-   begin
-      if rising_edge(clk) then
-         if uss_clock_enable = '1' then
-            uss_clock <= not uss_clock;
-         end if;
-      end if;
-   end process;
-
-   uss_clock_n <= not uss_clock;
-
-   deadtime_on : deadtime
-      generic map (
-         T_DEAD => 250)                 -- 5000ns
+         BASE_ADDRESS => 16#0010#)
       port map (
-         in_p  => uss_clock_n,
-         out_p => uss_tx_low,
-         clk   => clk);
-
-   deadtime_off : deadtime
-      generic map (
-         T_DEAD => 250)                 -- 5000ns
-      port map (
-         in_p  => uss_clock,
-         out_p => uss_tx_high,
-         clk   => clk);
-
-   us_tx0_p.high <= uss_tx_high;
-   us_tx1_p.high <= uss_tx_high;
-   us_tx2_p.high <= uss_tx_high;
-
-   us_tx0_p.low <= uss_tx_low;
-   us_tx1_p.low <= uss_tx_low;
-   us_tx2_p.low <= uss_tx_low;
+         uss_tx0_out_p    => us_tx0_p,
+         uss_tx1_out_p    => us_tx1_p,
+         uss_tx2_out_p    => us_tx2_p,
+         modulation_p     => "111", -- modulation_p,
+         clk_uss_enable_p => open,
+         bus_o            => bus_adc_us_out,
+         bus_i            => bus_o,
+         clk              => clk);
 
    ----------------------------------------------------------------------------
-   -- IR 
+   -- IR TX
    -- generates 10Khz * 2 (times two because it's a enable signal and
    -- we need to generate a 50% duty-cycle signal later)
    -- 
@@ -206,38 +185,19 @@ begin
    ir_tx_p <= ir_clock;
 
    ----------------------------------------------------------------------------
-   -- IR RX ADC readout
-   adc_ir_rx_1 : adc_ltc2351_module
+   -- IR RX ADC readout 0
+   adc_ir_rx_0 : adc_ltc2351_module
       generic map (
-         BASE_ADDRESS => 16#0000#)
+         BASE_ADDRESS => 16#0020#)
       port map (
          adc_out_p    => ir_rx_spi_out_p,
-         adc_in_p     => ir_rx_spi_in_p,
-         bus_o        => bus_adc_ir1_out,
+         adc_in_p     => ir_rx0_spi_in_p,
+         bus_o        => bus_adc_ir0_out,
          bus_i        => bus_o,
          adc_values_o => open,
          done_o       => irq_p,
          reset        => reset,
---         clk          => uss_adc_clock);
-			clk          => clk);
-
-   -- 50 MHz / 5 * 1 = 5 MHz
-   clock_divider_2 : clock_divider
-      generic map (
-         DIV => 5)
-      port map (
-         clk_out_p => uss_adc_clock_enable,
-         clk       => clk);
-
-   -- generate a signal with a 50% duty-cycle from the enable signal
-   process (clk, uss_adc_clock_enable)
-   begin
-      if rising_edge(clk) then
-         if uss_adc_clock_enable = '1' then
-            uss_adc_clock <= not uss_adc_clock;
-         end if;
-      end if;
-   end process;
+         clk          => clk);
 
    
 end structural;

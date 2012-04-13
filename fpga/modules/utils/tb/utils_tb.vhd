@@ -54,7 +54,7 @@ architecture behavior of utils_tb is
    signal clk : std_logic := '0';
    signal reset : std_logic := '1';
 begin
-   clk <= not clk after 10 NS;          -- 50 Mhz clock
+   clk <= not clk after 10 ns;          -- 50 Mhz clock
    reset <= '1', '0' after 40 ns;
 
    wave : process

@@ -1,7 +1,8 @@
 
 # Name of the testbench without extenstion
 #TESTBENCH = clock_divider_tb
-TESTBENCH = fractional_clock_divider_tb
+#TESTBENCH = fractional_clock_divider_tb
+TESTBENCH = fractional_clock_divider_variable_tb
 #TESTBENCH = utils_tb
 
 # VHDL files
@@ -15,6 +16,11 @@ FILES = \
 	../hdl/utils_pkg.vhd \
 	../hdl/fractional_clock_divider.vhd
 GHDL_SIM_OPT = --stop-time=10ms
+else ifeq ($(TESTBENCH),fractional_clock_divider_variable_tb)
+FILES = \
+    ../hdl/utils_pkg.vhd \
+    ../hdl/fractional_clock_divider_variable.vhd
+GHDL_SIM_OPT = --stop-time=10ms    
 else ifeq ($(TESTBENCH),utils_tb)
 FILES = ../hdl/utils_pkg.vhd \
 	../hdl/text_pkg.vhd
