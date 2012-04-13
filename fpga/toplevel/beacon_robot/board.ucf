@@ -8,6 +8,7 @@ NET "cs_np"		LOC = P65;	# <- PA4
 NET "sck_p"		LOC = P64;	# <- PA5
 NET "miso_p"	LOC = P62;	# -> PA6
 NET "mosi_p"	LOC = P61;	# <- PA7
+NET "irq_p"	LOC = P60;	# -> PE11
 
 NET "reset_n"	LOC = P57;	# TODO
 
@@ -28,7 +29,7 @@ NET "reset_n"	LOC = P57;	# TODO
 #CE,WE,OE
 
 # ----------------------------------------------------------------------------
-# US
+# US TX
 NET "us_tx0_p_high"	LOC = P93;
 NET "us_tx0_p_low"	LOC = P94;
 NET "us_tx1_p_high"	LOC = P98;
@@ -37,8 +38,16 @@ NET "us_tx2_p_high"	LOC = P3;
 NET "us_tx2_p_low"	LOC = P4;
 
 # ----------------------------------------------------------------------------
-# IR
+# IR TX
 NET "ir_tx_p"			LOC = P5;
+
+# ----------------------------------------------------------------------------
+# IR RX ADC 1
+NET "ir_rx_spi_in_p_sdo"		LOC = P89 | PULLDOWN;
+NET "ir_rx_spi_out_p_sck"		LOC = P88 | SLOW | DRIVE = 2;
+NET "ir_rx_spi_out_p_conv"		LOC = P86 | SLOW | DRIVE = 2;
+
+
 
 # ----------------------------------------------------------------------------
 # Clock (connected to a 50 MHz oscillator)

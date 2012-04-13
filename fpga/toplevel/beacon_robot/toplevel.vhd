@@ -5,7 +5,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-03
+-- Last update: 2012-04-12
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -23,6 +23,7 @@ use work.spislave_pkg.all;
 use work.peripheral_register_pkg.all;
 use work.motor_control_pkg.all;
 use work.deadtime_pkg.all;
+use work.adc_ltc2351_pkg.all;
 use work.utils_pkg.all;
 
 -------------------------------------------------------------------------------
@@ -33,14 +34,19 @@ entity toplevel is
       us_tx1_p : out half_bridge_type;
       us_tx2_p : out half_bridge_type;
 
-      -- IR
+      -- IR TX
       ir_tx_p : out std_logic;
+
+      -- IR RX ADC 1
+      ir_rx_spi_in_p  : in  adc_ltc2351_spi_in_type;
+      ir_rx_spi_out_p : out adc_ltc2351_spi_out_type;
 
       -- Connections to the STM32F407
       cs_np  : in  std_logic;
       sck_p  : in  std_logic;
       miso_p : out std_logic;
       mosi_p : in  std_logic;
+      irq_p  : out std_logic;           -- Inform STM about new data
 
       reset_n : in std_logic;
       clk     : in std_logic
@@ -51,18 +57,22 @@ architecture structural of toplevel is
    signal reset_r : std_logic_vector(1 downto 0) := (others => '0');
    signal reset   : std_logic;
 
-   signal uss_clock_enable : std_logic;  -- 32.8kHz * 2
-   signal uss_clock        : std_logic := '0';
-   signal uss_clock_n      : std_logic := '1';
+   signal uss_clock_enable     : std_logic;         -- 32.8kHz * 2
+   signal uss_clock            : std_logic := '0';
+   signal uss_clock_n          : std_logic := '1';
+   signal uss_adc_clock        : std_logic := '0';
+   signal uss_adc_clock_enable : std_logic := '1';  -- slower clock for ADC readout
 
    signal uss_tx_high : std_logic;
    signal uss_tx_low  : std_logic;
-   
+
    signal ir_clock_enable : std_logic;
    signal ir_clock        : std_logic := '0';
-   
+
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
+
+   signal irq : std_logic := '0';
 
    -- Connection to the Busmaster
    signal bus_o : busmaster_out_type;
@@ -70,6 +80,8 @@ architecture structural of toplevel is
 
    -- Outputs form the Bus devices
    signal bus_register_out : busdevice_out_type;
+   signal bus_adc_ir1_out  : busdevice_out_type;
+   
 begin
    -- synchronize reset and other signals
    process (clk)
@@ -97,7 +109,8 @@ begin
          reset => reset,
          clk   => clk);
 
-   bus_i.data <= bus_register_out.data;
+   bus_i.data <= bus_register_out.data or
+                 bus_adc_ir1_out.data;
 
    ----------------------------------------------------------------------------
    -- Register
@@ -144,7 +157,7 @@ begin
 
    deadtime_on : deadtime
       generic map (
-         T_DEAD => 250)                  -- 5000ns
+         T_DEAD => 250)                 -- 5000ns
       port map (
          in_p  => uss_clock_n,
          out_p => uss_tx_low,
@@ -152,7 +165,7 @@ begin
 
    deadtime_off : deadtime
       generic map (
-         T_DEAD => 250)                  -- 5000ns
+         T_DEAD => 250)                 -- 5000ns
       port map (
          in_p  => uss_clock,
          out_p => uss_tx_high,
@@ -179,7 +192,7 @@ begin
       port map(
          clk_out_p => ir_clock_enable,
          clk       => clk);
-   
+
    -- generate a signal with a 50% duty-cycle from the enable signal
    process (clk, ir_clock_enable)
    begin
@@ -189,6 +202,42 @@ begin
          end if;
       end if;
    end process;
-   
+
    ir_tx_p <= ir_clock;
+
+   ----------------------------------------------------------------------------
+   -- IR RX ADC readout
+   adc_ir_rx_1 : adc_ltc2351_module
+      generic map (
+         BASE_ADDRESS => 16#0000#)
+      port map (
+         adc_out_p    => ir_rx_spi_out_p,
+         adc_in_p     => ir_rx_spi_in_p,
+         bus_o        => bus_adc_ir1_out,
+         bus_i        => bus_o,
+         adc_values_o => open,
+         done_o       => irq_p,
+         reset        => reset,
+--         clk          => uss_adc_clock);
+			clk          => clk);
+
+   -- 50 MHz / 5 * 1 = 5 MHz
+   clock_divider_2 : clock_divider
+      generic map (
+         DIV => 5)
+      port map (
+         clk_out_p => uss_adc_clock_enable,
+         clk       => clk);
+
+   -- generate a signal with a 50% duty-cycle from the enable signal
+   process (clk, uss_adc_clock_enable)
+   begin
+      if rising_edge(clk) then
+         if uss_adc_clock_enable = '1' then
+            uss_adc_clock <= not uss_adc_clock;
+         end if;
+      end if;
+   end process;
+
+   
 end structural;
