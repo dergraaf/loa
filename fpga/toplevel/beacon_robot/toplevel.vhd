@@ -5,7 +5,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-13
+-- Last update: 2012-04-14
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -25,6 +25,7 @@ use work.motor_control_pkg.all;
 use work.deadtime_pkg.all;
 use work.adc_ltc2351_pkg.all;
 use work.uss_tx_pkg.all;
+use work.ir_tx_pkg.all;
 use work.utils_pkg.all;
 
 -------------------------------------------------------------------------------
@@ -45,9 +46,9 @@ entity toplevel is
       -- 4 MBit SRAM CY7C1049DV33-10ZSXI (428-1982-ND)
       sram_addr_p : out   std_logic_vector(18 downto 0);
       sram_data_p : inout std_logic_vector(7 downto 0);
-      sram_oe_p   : out   std_logic;
-      sram_we_p   : out   std_logic;
-      sram_ce_p   : out   std_logic;
+      sram_oe_np  : out   std_logic;
+      sram_we_np  : out   std_logic;
+      sram_ce_np  : out   std_logic;
 
       -- US TX
       us_tx0_p : out half_bridge_type;
@@ -72,11 +73,16 @@ entity toplevel is
 end toplevel;
 
 architecture structural of toplevel is
+
+   constant BASE_ADDR_REG    : natural := 16#0000#;
+   constant BASE_ADDR_US_TX  : natural := 16#0010#;
+   constant BASE_ADDR_IR_TX  : natural := 16#0020#;
+   constant BASE_ADDR_IR0_RX : natural := 16#0030#;
+   constant BASE_ADDR_IR1_RX : natural := 16#0040#;
+   constant BASE_ADDR_US_RX  : natural := 16#0050#;
+
    signal reset_r : std_logic_vector(1 downto 0) := (others => '0');
    signal reset   : std_logic;
-
-   signal ir_clock_enable : std_logic;
-   signal ir_clock        : std_logic := '0';
 
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
@@ -90,19 +96,21 @@ architecture structural of toplevel is
    -- Outputs form the Bus devices
    signal bus_register_out : busdevice_out_type;
    signal bus_adc_ir0_out  : busdevice_out_type;
-   signal bus_adc_ir1_out : busdevice_out_type;
-   signal bus_adc_us_out : busdevice_out_type;
+   signal bus_adc_ir1_out  : busdevice_out_type;
+   signal bus_adc_us_out   : busdevice_out_type;
+   signal bus_ir_tx_out    : busdevice_out_type;
    
-begin
-   -- synchronize reset and other signals
-   process (clk)
-   begin
-      if rising_edge(clk) then
-         reset_r <= reset_r(0) & reset_n;
-      end if;
-   end process;
 
-   reset <= not reset_r(1);
+   
+
+begin
+
+   ----------------------------------------------------------------------------
+   bus_i.data <= bus_register_out.data or
+                 bus_adc_ir0_out.data or
+                 -- bus_adc_ir1_out.data or
+                 bus_adc_us_out.data or
+                 bus_ir_tx_out.data;
 
    ----------------------------------------------------------------------------
    -- SPI connection to the STM32F4xx and Busmaster
@@ -120,16 +128,19 @@ begin
          reset => reset,
          clk   => clk);
 
-   bus_i.data <= bus_register_out.data or
-                 bus_adc_ir0_out.data or
- --                bus_adc_ir1_out.data or
-                 bus_adc_us_out.data;
+   ----------------------------------------------------------------------------
+   -- 4 MBit SRAM CY7C1049DV33-10ZSXI (428-1982-ND)
+   sram_data_p <= (others => 'Z');
+   sram_addr_p <= (others => 'Z');
+   sram_ce_np  <= 'Z';
+   sram_we_np  <= 'Z';
+   sram_oe_np  <= 'Z';
 
    ----------------------------------------------------------------------------
    -- Register
    preg : peripheral_register
       generic map (
-         BASE_ADDRESS => 16#0000#)
+         BASE_ADDRESS => BASE_ADDR_REG)
       port map (
          dout_p => register_out,
          din_p  => register_in,
@@ -145,14 +156,14 @@ begin
 
    ----------------------------------------------------------------------------
    -- US TX
-   uss_tx_module_1: uss_tx_module
+   uss_tx_module_1 : uss_tx_module
       generic map (
-         BASE_ADDRESS => 16#0010#)
+         BASE_ADDRESS => BASE_ADDR_US_TX)
       port map (
          uss_tx0_out_p    => us_tx0_p,
          uss_tx1_out_p    => us_tx1_p,
          uss_tx2_out_p    => us_tx2_p,
-         modulation_p     => "111", -- modulation_p,
+         modulation_p     => "111",     -- uss_modulation,
          clk_uss_enable_p => open,
          bus_o            => bus_adc_us_out,
          bus_i            => bus_o,
@@ -160,35 +171,22 @@ begin
 
    ----------------------------------------------------------------------------
    -- IR TX
-   -- generates 10Khz * 2 (times two because it's a enable signal and
-   -- we need to generate a 50% duty-cycle signal later)
-   -- 
-   -- 50 MHz / 5000 * 1 = 20000 Hz
-   ir_clock_generator : fractional_clock_divider
+   ir_tx_module_1 : ir_tx_module
       generic map (
-         MUL => 1,
-         DIV => 5000)
-      port map(
-         clk_out_p => ir_clock_enable,
-         clk       => clk);
-
-   -- generate a signal with a 50% duty-cycle from the enable signal
-   process (clk, ir_clock_enable)
-   begin
-      if rising_edge(clk) then
-         if ir_clock_enable = '1' then
-            ir_clock <= not ir_clock;
-         end if;
-      end if;
-   end process;
-
-   ir_tx_p <= ir_clock;
+         BASE_ADDRESS => BASE_ADDR_IR_TX)
+      port map (
+         ir_tx_p         => ir_tx_p,
+         modulation_p    => '1',        -- modulation_p,
+         clk_ir_enable_p => open,
+         bus_o           => bus_ir_tx_out,
+         bus_i           => bus_o,
+         clk             => clk);
 
    ----------------------------------------------------------------------------
    -- IR RX ADC readout 0
    adc_ir_rx_0 : adc_ltc2351_module
       generic map (
-         BASE_ADDRESS => 16#0020#)
+         BASE_ADDRESS => BASE_ADDR_IR0_RX)
       port map (
          adc_out_p    => ir_rx_spi_out_p,
          adc_in_p     => ir_rx0_spi_in_p,
@@ -199,5 +197,17 @@ begin
          reset        => reset,
          clk          => clk);
 
-   
+   ----------------------------------------------------------------------------
+   -- IR RX ADC readout 1
+   us_rx_spi_out_p.sck <= 'Z';
+   us_rx_spi_out_p.conv <= 'Z';
+
+   ----------------------------------------------------------------------------
+   -- US RX ADC readout
+
+   ----------------------------------------------------------------------------
+   -- Modulation
+
+
+
 end structural;

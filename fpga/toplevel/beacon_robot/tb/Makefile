@@ -11,6 +11,7 @@ FILES =  \
 	../../../modules/utils/hdl/*.vhd \
 	../../../modules/adc_ltc2351/hdl/*.vhd \
 	../../../modules/uss_tx/hdl/*.vhd \
+	../../../modules/ir_tx/hdl/*.vhd \
 	../../../modules/adc_mcp3008/hdl/*.vhd
 
 # Default settings for gtkwave (visable signal etc.)
