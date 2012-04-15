@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-02-12
--- Last update: 2012-03-15
+-- Last update: 2012-04-15
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ use work.bus_pkg.all;
 
 package adc_mcp3008_pkg is
 
-  type adc_values_type is array (natural range <>) of std_logic_vector(9 downto 0);
+  type adc_mcp3008_values_type is array (natural range <>) of std_logic_vector(9 downto 0);
 
   type adc_mcp3008_spi_out_type is record
     mosi : std_logic;
@@ -71,7 +71,7 @@ package adc_mcp3008_pkg is
       adc_in_p     : in  adc_mcp3008_spi_in_type;
       bus_o        : out busdevice_out_type;
       bus_i        : in  busdevice_in_type;
-      adc_values_o : out adc_values_type(7 downto 0);
+      adc_values_o : out adc_mcp3008_values_type(7 downto 0);
       reset        : in  std_logic;
       clk          : in  std_logic);
   end component;

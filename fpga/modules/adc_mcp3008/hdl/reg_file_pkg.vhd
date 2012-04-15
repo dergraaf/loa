@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-03-11
+-- Last update: 2012-04-15
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -31,25 +31,25 @@ use work.bus_pkg.all;
 
 package reg_file_pkg is
 
-  type reg_file_type is array (natural range <>) of std_logic_vector(15 downto 0);
+   type reg_file_type is array (natural range <>) of std_logic_vector(15 downto 0);
 
-  -----------------------------------------------------------------------------
-  -- Component declarations
-  -----------------------------------------------------------------------------
+   -----------------------------------------------------------------------------
+   -- Component declarations
+   -----------------------------------------------------------------------------
 
-  component reg_file
-    generic (
-      BASE_ADDRESS : integer range 0 to 32767;
-      REG_ADDR_BIT : natural);
-    port (
-      bus_o : out busdevice_out_type;
-      bus_i : in  busdevice_in_type;
-      reg_o : out reg_file_type;
-      reg_i : in  reg_file_type;
-      reset : in  std_logic;
-      clk   : in  std_logic);
-  end component;
+   component reg_file
+      generic (
+         BASE_ADDRESS : integer range 0 to 32767;
+         REG_ADDR_BIT : natural);
+      port (
+         bus_o : out busdevice_out_type;
+         bus_i : in  busdevice_in_type;
+         reg_o : out reg_file_type;
+         reg_i : in  reg_file_type;
+         reset : in  std_logic;
+         clk   : in  std_logic);
+   end component;
 
-  end reg_file_pkg;
+end reg_file_pkg;
 
 -------------------------------------------------------------------------------

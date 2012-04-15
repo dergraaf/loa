@@ -4,7 +4,7 @@
 -------------------------------------------------------------------------------
 -- File       : adc_mcp3008_module.vhd
 -- Created    : 2011-09-27
--- Last update: 2012-04-12
+-- Last update: 2012-04-15
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012
 -------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ entity adc_mcp3008_module is
     bus_i : in  busdevice_in_type;
 
     -- direct access to the read adc samples
-    adc_values_o : out adc_values_type(7 downto 0);
+    adc_values_o : out adc_mcp3008_values_type(7 downto 0);
 
     reset : in std_logic;
     clk   : in std_logic
