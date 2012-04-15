@@ -65,7 +65,7 @@ begin  -- tb
       bus_o        => bus_o,
       bus_i        => bus_i,
       adc_values_o => open,
-      done_o       => open,
+      done_p       => open,
       reset        => reset,
       clk          => clk
       );

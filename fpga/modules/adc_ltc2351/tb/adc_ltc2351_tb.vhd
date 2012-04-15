@@ -3,7 +3,7 @@
 -------------------------------------------------------------------------------
 -- Author     : strongly-typed
 -- Created    : 2012-04-10
--- Last update: 2012-04-12
+-- Last update: 2012-04-15
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -46,9 +46,6 @@ architecture tb of adc_ltc2351_tb is
 begin
   -- component instantiation
   DUT : adc_ltc2351
-    generic map (
-      APFEL => 5
-      )
     port map (
       -- connection between component's signals (left) and 
       -- testbench's signals (right)

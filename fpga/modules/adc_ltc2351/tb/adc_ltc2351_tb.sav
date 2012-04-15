@@ -1,39 +1,140 @@
-[timestart] 3924000000
+[timestart] 143300000
 [size] 1024 744
 [pos] -1 -1
-*-28.089998 4216000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-27.000000 370000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.adc_ltc2351_tb.
 [treeopen] top.adc_ltc2351_tb.dut.
 [treeopen] top.adc_ltc2351_tb.dut.r.
+[treeopen] top.adc_ltc2351_tb.dut.values_p.
 @28
-top.adc_ltc2351_tb.clk
 top.adc_ltc2351_tb.reset
+top.adc_ltc2351_tb.clk
 @200
--
+-ADC
+@28
+top.adc_ltc2351_tb.sck_p
+top.adc_ltc2351_tb.conv_p
+top.adc_ltc2351_tb.sdo_p
+@200
+-Module
 @28
 top.adc_ltc2351_tb.start_p
 top.adc_ltc2351_tb.done_p
 @200
--ADC HW
-@28
-top.adc_ltc2351_tb.conv_p
-top.adc_ltc2351_tb.sck_p
-top.adc_ltc2351_tb.adc_i.sdo
-@200
 -Internal
-@22
-#{top.adc_ltc2351_tb.dut.r.din[1:98]} top.adc_ltc2351_tb.dut.r.din[1] top.adc_ltc2351_tb.dut.r.din[2] top.adc_ltc2351_tb.dut.r.din[3] top.adc_ltc2351_tb.dut.r.din[4] top.adc_ltc2351_tb.dut.r.din[5] top.adc_ltc2351_tb.dut.r.din[6] top.adc_ltc2351_tb.dut.r.din[7] top.adc_ltc2351_tb.dut.r.din[8] top.adc_ltc2351_tb.dut.r.din[9] top.adc_ltc2351_tb.dut.r.din[10] top.adc_ltc2351_tb.dut.r.din[11] top.adc_ltc2351_tb.dut.r.din[12] top.adc_ltc2351_tb.dut.r.din[13] top.adc_ltc2351_tb.dut.r.din[14] top.adc_ltc2351_tb.dut.r.din[15] top.adc_ltc2351_tb.dut.r.din[16] top.adc_ltc2351_tb.dut.r.din[17] top.adc_ltc2351_tb.dut.r.din[18] top.adc_ltc2351_tb.dut.r.din[19] top.adc_ltc2351_tb.dut.r.din[20] top.adc_ltc2351_tb.dut.r.din[21] top.adc_ltc2351_tb.dut.r.din[22] top.adc_ltc2351_tb.dut.r.din[23] top.adc_ltc2351_tb.dut.r.din[24] top.adc_ltc2351_tb.dut.r.din[25] top.adc_ltc2351_tb.dut.r.din[26] top.adc_ltc2351_tb.dut.r.din[27] top.adc_ltc2351_tb.dut.r.din[28] top.adc_ltc2351_tb.dut.r.din[29] top.adc_ltc2351_tb.dut.r.din[30] top.adc_ltc2351_tb.dut.r.din[31] top.adc_ltc2351_tb.dut.r.din[32] top.adc_ltc2351_tb.dut.r.din[33] top.adc_ltc2351_tb.dut.r.din[34] top.adc_ltc2351_tb.dut.r.din[35] top.adc_ltc2351_tb.dut.r.din[36] top.adc_ltc2351_tb.dut.r.din[37] top.adc_ltc2351_tb.dut.r.din[38] top.adc_ltc2351_tb.dut.r.din[39] top.adc_ltc2351_tb.dut.r.din[40] top.adc_ltc2351_tb.dut.r.din[41] top.adc_ltc2351_tb.dut.r.din[42] top.adc_ltc2351_tb.dut.r.din[43] top.adc_ltc2351_tb.dut.r.din[44] top.adc_ltc2351_tb.dut.r.din[45] top.adc_ltc2351_tb.dut.r.din[46] top.adc_ltc2351_tb.dut.r.din[47] top.adc_ltc2351_tb.dut.r.din[48] top.adc_ltc2351_tb.dut.r.din[49] top.adc_ltc2351_tb.dut.r.din[50] top.adc_ltc2351_tb.dut.r.din[51] top.adc_ltc2351_tb.dut.r.din[52] top.adc_ltc2351_tb.dut.r.din[53] top.adc_ltc2351_tb.dut.r.din[54] top.adc_ltc2351_tb.dut.r.din[55] top.adc_ltc2351_tb.dut.r.din[56] top.adc_ltc2351_tb.dut.r.din[57] top.adc_ltc2351_tb.dut.r.din[58] top.adc_ltc2351_tb.dut.r.din[59] top.adc_ltc2351_tb.dut.r.din[60] top.adc_ltc2351_tb.dut.r.din[61] top.adc_ltc2351_tb.dut.r.din[62] top.adc_ltc2351_tb.dut.r.din[63] top.adc_ltc2351_tb.dut.r.din[64] top.adc_ltc2351_tb.dut.r.din[65] top.adc_ltc2351_tb.dut.r.din[66] top.adc_ltc2351_tb.dut.r.din[67] top.adc_ltc2351_tb.dut.r.din[68] top.adc_ltc2351_tb.dut.r.din[69] top.adc_ltc2351_tb.dut.r.din[70] top.adc_ltc2351_tb.dut.r.din[71] top.adc_ltc2351_tb.dut.r.din[72] top.adc_ltc2351_tb.dut.r.din[73] top.adc_ltc2351_tb.dut.r.din[74] top.adc_ltc2351_tb.dut.r.din[75] top.adc_ltc2351_tb.dut.r.din[76] top.adc_ltc2351_tb.dut.r.din[77] top.adc_ltc2351_tb.dut.r.din[78] top.adc_ltc2351_tb.dut.r.din[79] top.adc_ltc2351_tb.dut.r.din[80] top.adc_ltc2351_tb.dut.r.din[81] top.adc_ltc2351_tb.dut.r.din[82] top.adc_ltc2351_tb.dut.r.din[83] top.adc_ltc2351_tb.dut.r.din[84] top.adc_ltc2351_tb.dut.r.din[85] top.adc_ltc2351_tb.dut.r.din[86] top.adc_ltc2351_tb.dut.r.din[87] top.adc_ltc2351_tb.dut.r.din[88] top.adc_ltc2351_tb.dut.r.din[89] top.adc_ltc2351_tb.dut.r.din[90] top.adc_ltc2351_tb.dut.r.din[91] top.adc_ltc2351_tb.dut.r.din[92] top.adc_ltc2351_tb.dut.r.din[93] top.adc_ltc2351_tb.dut.r.din[94] top.adc_ltc2351_tb.dut.r.din[95] top.adc_ltc2351_tb.dut.r.din[96] top.adc_ltc2351_tb.dut.r.din[97] top.adc_ltc2351_tb.dut.r.din[98]
 @28
 top.adc_ltc2351_tb.dut.r.state
-top.adc_ltc2351_tb.dut.r.countdown_delay
-top.adc_ltc2351_tb.dut.r.countdown_bit
+top.adc_ltc2351_tb.dut.r.count_bit
+@c00023
+#{top.adc_ltc2351_tb.dut.r.din[1:98]} top.adc_ltc2351_tb.dut.r.din[1] top.adc_ltc2351_tb.dut.r.din[2] top.adc_ltc2351_tb.dut.r.din[3] top.adc_ltc2351_tb.dut.r.din[4] top.adc_ltc2351_tb.dut.r.din[5] top.adc_ltc2351_tb.dut.r.din[6] top.adc_ltc2351_tb.dut.r.din[7] top.adc_ltc2351_tb.dut.r.din[8] top.adc_ltc2351_tb.dut.r.din[9] top.adc_ltc2351_tb.dut.r.din[10] top.adc_ltc2351_tb.dut.r.din[11] top.adc_ltc2351_tb.dut.r.din[12] top.adc_ltc2351_tb.dut.r.din[13] top.adc_ltc2351_tb.dut.r.din[14] top.adc_ltc2351_tb.dut.r.din[15] top.adc_ltc2351_tb.dut.r.din[16] top.adc_ltc2351_tb.dut.r.din[17] top.adc_ltc2351_tb.dut.r.din[18] top.adc_ltc2351_tb.dut.r.din[19] top.adc_ltc2351_tb.dut.r.din[20] top.adc_ltc2351_tb.dut.r.din[21] top.adc_ltc2351_tb.dut.r.din[22] top.adc_ltc2351_tb.dut.r.din[23] top.adc_ltc2351_tb.dut.r.din[24] top.adc_ltc2351_tb.dut.r.din[25] top.adc_ltc2351_tb.dut.r.din[26] top.adc_ltc2351_tb.dut.r.din[27] top.adc_ltc2351_tb.dut.r.din[28] top.adc_ltc2351_tb.dut.r.din[29] top.adc_ltc2351_tb.dut.r.din[30] top.adc_ltc2351_tb.dut.r.din[31] top.adc_ltc2351_tb.dut.r.din[32] top.adc_ltc2351_tb.dut.r.din[33] top.adc_ltc2351_tb.dut.r.din[34] top.adc_ltc2351_tb.dut.r.din[35] top.adc_ltc2351_tb.dut.r.din[36] top.adc_ltc2351_tb.dut.r.din[37] top.adc_ltc2351_tb.dut.r.din[38] top.adc_ltc2351_tb.dut.r.din[39] top.adc_ltc2351_tb.dut.r.din[40] top.adc_ltc2351_tb.dut.r.din[41] top.adc_ltc2351_tb.dut.r.din[42] top.adc_ltc2351_tb.dut.r.din[43] top.adc_ltc2351_tb.dut.r.din[44] top.adc_ltc2351_tb.dut.r.din[45] top.adc_ltc2351_tb.dut.r.din[46] top.adc_ltc2351_tb.dut.r.din[47] top.adc_ltc2351_tb.dut.r.din[48] top.adc_ltc2351_tb.dut.r.din[49] top.adc_ltc2351_tb.dut.r.din[50] top.adc_ltc2351_tb.dut.r.din[51] top.adc_ltc2351_tb.dut.r.din[52] top.adc_ltc2351_tb.dut.r.din[53] top.adc_ltc2351_tb.dut.r.din[54] top.adc_ltc2351_tb.dut.r.din[55] top.adc_ltc2351_tb.dut.r.din[56] top.adc_ltc2351_tb.dut.r.din[57] top.adc_ltc2351_tb.dut.r.din[58] top.adc_ltc2351_tb.dut.r.din[59] top.adc_ltc2351_tb.dut.r.din[60] top.adc_ltc2351_tb.dut.r.din[61] top.adc_ltc2351_tb.dut.r.din[62] top.adc_ltc2351_tb.dut.r.din[63] top.adc_ltc2351_tb.dut.r.din[64] top.adc_ltc2351_tb.dut.r.din[65] top.adc_ltc2351_tb.dut.r.din[66] top.adc_ltc2351_tb.dut.r.din[67] top.adc_ltc2351_tb.dut.r.din[68] top.adc_ltc2351_tb.dut.r.din[69] top.adc_ltc2351_tb.dut.r.din[70] top.adc_ltc2351_tb.dut.r.din[71] top.adc_ltc2351_tb.dut.r.din[72] top.adc_ltc2351_tb.dut.r.din[73] top.adc_ltc2351_tb.dut.r.din[74] top.adc_ltc2351_tb.dut.r.din[75] top.adc_ltc2351_tb.dut.r.din[76] top.adc_ltc2351_tb.dut.r.din[77] top.adc_ltc2351_tb.dut.r.din[78] top.adc_ltc2351_tb.dut.r.din[79] top.adc_ltc2351_tb.dut.r.din[80] top.adc_ltc2351_tb.dut.r.din[81] top.adc_ltc2351_tb.dut.r.din[82] top.adc_ltc2351_tb.dut.r.din[83] top.adc_ltc2351_tb.dut.r.din[84] top.adc_ltc2351_tb.dut.r.din[85] top.adc_ltc2351_tb.dut.r.din[86] top.adc_ltc2351_tb.dut.r.din[87] top.adc_ltc2351_tb.dut.r.din[88] top.adc_ltc2351_tb.dut.r.din[89] top.adc_ltc2351_tb.dut.r.din[90] top.adc_ltc2351_tb.dut.r.din[91] top.adc_ltc2351_tb.dut.r.din[92] top.adc_ltc2351_tb.dut.r.din[93] top.adc_ltc2351_tb.dut.r.din[94] top.adc_ltc2351_tb.dut.r.din[95] top.adc_ltc2351_tb.dut.r.din[96] top.adc_ltc2351_tb.dut.r.din[97] top.adc_ltc2351_tb.dut.r.din[98]
+@28
+top.adc_ltc2351_tb.dut.r.din[1]
+top.adc_ltc2351_tb.dut.r.din[2]
+top.adc_ltc2351_tb.dut.r.din[3]
+top.adc_ltc2351_tb.dut.r.din[4]
+top.adc_ltc2351_tb.dut.r.din[5]
+top.adc_ltc2351_tb.dut.r.din[6]
+top.adc_ltc2351_tb.dut.r.din[7]
+top.adc_ltc2351_tb.dut.r.din[8]
+top.adc_ltc2351_tb.dut.r.din[9]
+top.adc_ltc2351_tb.dut.r.din[10]
+top.adc_ltc2351_tb.dut.r.din[11]
+top.adc_ltc2351_tb.dut.r.din[12]
+top.adc_ltc2351_tb.dut.r.din[13]
+top.adc_ltc2351_tb.dut.r.din[14]
+top.adc_ltc2351_tb.dut.r.din[15]
+top.adc_ltc2351_tb.dut.r.din[16]
+top.adc_ltc2351_tb.dut.r.din[17]
+top.adc_ltc2351_tb.dut.r.din[18]
+top.adc_ltc2351_tb.dut.r.din[19]
+top.adc_ltc2351_tb.dut.r.din[20]
+top.adc_ltc2351_tb.dut.r.din[21]
+top.adc_ltc2351_tb.dut.r.din[22]
+top.adc_ltc2351_tb.dut.r.din[23]
+top.adc_ltc2351_tb.dut.r.din[24]
+top.adc_ltc2351_tb.dut.r.din[25]
+top.adc_ltc2351_tb.dut.r.din[26]
+top.adc_ltc2351_tb.dut.r.din[27]
+top.adc_ltc2351_tb.dut.r.din[28]
+top.adc_ltc2351_tb.dut.r.din[29]
+top.adc_ltc2351_tb.dut.r.din[30]
+top.adc_ltc2351_tb.dut.r.din[31]
+top.adc_ltc2351_tb.dut.r.din[32]
+top.adc_ltc2351_tb.dut.r.din[33]
+top.adc_ltc2351_tb.dut.r.din[34]
+top.adc_ltc2351_tb.dut.r.din[35]
+top.adc_ltc2351_tb.dut.r.din[36]
+top.adc_ltc2351_tb.dut.r.din[37]
+top.adc_ltc2351_tb.dut.r.din[38]
+top.adc_ltc2351_tb.dut.r.din[39]
+top.adc_ltc2351_tb.dut.r.din[40]
+top.adc_ltc2351_tb.dut.r.din[41]
+top.adc_ltc2351_tb.dut.r.din[42]
+top.adc_ltc2351_tb.dut.r.din[43]
+top.adc_ltc2351_tb.dut.r.din[44]
+top.adc_ltc2351_tb.dut.r.din[45]
+top.adc_ltc2351_tb.dut.r.din[46]
+top.adc_ltc2351_tb.dut.r.din[47]
+top.adc_ltc2351_tb.dut.r.din[48]
+top.adc_ltc2351_tb.dut.r.din[49]
+top.adc_ltc2351_tb.dut.r.din[50]
+top.adc_ltc2351_tb.dut.r.din[51]
+top.adc_ltc2351_tb.dut.r.din[52]
+top.adc_ltc2351_tb.dut.r.din[53]
+top.adc_ltc2351_tb.dut.r.din[54]
+top.adc_ltc2351_tb.dut.r.din[55]
+top.adc_ltc2351_tb.dut.r.din[56]
+top.adc_ltc2351_tb.dut.r.din[57]
+top.adc_ltc2351_tb.dut.r.din[58]
+top.adc_ltc2351_tb.dut.r.din[59]
+top.adc_ltc2351_tb.dut.r.din[60]
+top.adc_ltc2351_tb.dut.r.din[61]
+top.adc_ltc2351_tb.dut.r.din[62]
+top.adc_ltc2351_tb.dut.r.din[63]
+top.adc_ltc2351_tb.dut.r.din[64]
+top.adc_ltc2351_tb.dut.r.din[65]
+top.adc_ltc2351_tb.dut.r.din[66]
+top.adc_ltc2351_tb.dut.r.din[67]
+top.adc_ltc2351_tb.dut.r.din[68]
+top.adc_ltc2351_tb.dut.r.din[69]
+top.adc_ltc2351_tb.dut.r.din[70]
+top.adc_ltc2351_tb.dut.r.din[71]
+top.adc_ltc2351_tb.dut.r.din[72]
+top.adc_ltc2351_tb.dut.r.din[73]
+top.adc_ltc2351_tb.dut.r.din[74]
+top.adc_ltc2351_tb.dut.r.din[75]
+top.adc_ltc2351_tb.dut.r.din[76]
+top.adc_ltc2351_tb.dut.r.din[77]
+top.adc_ltc2351_tb.dut.r.din[78]
+top.adc_ltc2351_tb.dut.r.din[79]
+top.adc_ltc2351_tb.dut.r.din[80]
+top.adc_ltc2351_tb.dut.r.din[81]
+top.adc_ltc2351_tb.dut.r.din[82]
+top.adc_ltc2351_tb.dut.r.din[83]
+top.adc_ltc2351_tb.dut.r.din[84]
+top.adc_ltc2351_tb.dut.r.din[85]
+top.adc_ltc2351_tb.dut.r.din[86]
+top.adc_ltc2351_tb.dut.r.din[87]
+top.adc_ltc2351_tb.dut.r.din[88]
+top.adc_ltc2351_tb.dut.r.din[89]
+top.adc_ltc2351_tb.dut.r.din[90]
+top.adc_ltc2351_tb.dut.r.din[91]
+top.adc_ltc2351_tb.dut.r.din[92]
+top.adc_ltc2351_tb.dut.r.din[93]
+top.adc_ltc2351_tb.dut.r.din[94]
+top.adc_ltc2351_tb.dut.r.din[95]
+top.adc_ltc2351_tb.dut.r.din[96]
+top.adc_ltc2351_tb.dut.r.din[97]
+top.adc_ltc2351_tb.dut.r.din[98]
+@1401201
+-group_end
 @22
-#{top.adc_ltc2351_tb.dut.value_p[0][13:0]} top.adc_ltc2351_tb.dut.value_p[0][13] top.adc_ltc2351_tb.dut.value_p[0][12] top.adc_ltc2351_tb.dut.value_p[0][11] top.adc_ltc2351_tb.dut.value_p[0][10] top.adc_ltc2351_tb.dut.value_p[0][9] top.adc_ltc2351_tb.dut.value_p[0][8] top.adc_ltc2351_tb.dut.value_p[0][7] top.adc_ltc2351_tb.dut.value_p[0][6] top.adc_ltc2351_tb.dut.value_p[0][5] top.adc_ltc2351_tb.dut.value_p[0][4] top.adc_ltc2351_tb.dut.value_p[0][3] top.adc_ltc2351_tb.dut.value_p[0][2] top.adc_ltc2351_tb.dut.value_p[0][1] top.adc_ltc2351_tb.dut.value_p[0][0]
-#{top.adc_ltc2351_tb.dut.value_p[1][13:0]} top.adc_ltc2351_tb.dut.value_p[1][13] top.adc_ltc2351_tb.dut.value_p[1][12] top.adc_ltc2351_tb.dut.value_p[1][11] top.adc_ltc2351_tb.dut.value_p[1][10] top.adc_ltc2351_tb.dut.value_p[1][9] top.adc_ltc2351_tb.dut.value_p[1][8] top.adc_ltc2351_tb.dut.value_p[1][7] top.adc_ltc2351_tb.dut.value_p[1][6] top.adc_ltc2351_tb.dut.value_p[1][5] top.adc_ltc2351_tb.dut.value_p[1][4] top.adc_ltc2351_tb.dut.value_p[1][3] top.adc_ltc2351_tb.dut.value_p[1][2] top.adc_ltc2351_tb.dut.value_p[1][1] top.adc_ltc2351_tb.dut.value_p[1][0]
-#{top.adc_ltc2351_tb.dut.value_p[2][13:0]} top.adc_ltc2351_tb.dut.value_p[2][13] top.adc_ltc2351_tb.dut.value_p[2][12] top.adc_ltc2351_tb.dut.value_p[2][11] top.adc_ltc2351_tb.dut.value_p[2][10] top.adc_ltc2351_tb.dut.value_p[2][9] top.adc_ltc2351_tb.dut.value_p[2][8] top.adc_ltc2351_tb.dut.value_p[2][7] top.adc_ltc2351_tb.dut.value_p[2][6] top.adc_ltc2351_tb.dut.value_p[2][5] top.adc_ltc2351_tb.dut.value_p[2][4] top.adc_ltc2351_tb.dut.value_p[2][3] top.adc_ltc2351_tb.dut.value_p[2][2] top.adc_ltc2351_tb.dut.value_p[2][1] top.adc_ltc2351_tb.dut.value_p[2][0]
-#{top.adc_ltc2351_tb.dut.value_p[3][13:0]} top.adc_ltc2351_tb.dut.value_p[3][13] top.adc_ltc2351_tb.dut.value_p[3][12] top.adc_ltc2351_tb.dut.value_p[3][11] top.adc_ltc2351_tb.dut.value_p[3][10] top.adc_ltc2351_tb.dut.value_p[3][9] top.adc_ltc2351_tb.dut.value_p[3][8] top.adc_ltc2351_tb.dut.value_p[3][7] top.adc_ltc2351_tb.dut.value_p[3][6] top.adc_ltc2351_tb.dut.value_p[3][5] top.adc_ltc2351_tb.dut.value_p[3][4] top.adc_ltc2351_tb.dut.value_p[3][3] top.adc_ltc2351_tb.dut.value_p[3][2] top.adc_ltc2351_tb.dut.value_p[3][1] top.adc_ltc2351_tb.dut.value_p[3][0]
-#{top.adc_ltc2351_tb.dut.value_p[4][13:0]} top.adc_ltc2351_tb.dut.value_p[4][13] top.adc_ltc2351_tb.dut.value_p[4][12] top.adc_ltc2351_tb.dut.value_p[4][11] top.adc_ltc2351_tb.dut.value_p[4][10] top.adc_ltc2351_tb.dut.value_p[4][9] top.adc_ltc2351_tb.dut.value_p[4][8] top.adc_ltc2351_tb.dut.value_p[4][7] top.adc_ltc2351_tb.dut.value_p[4][6] top.adc_ltc2351_tb.dut.value_p[4][5] top.adc_ltc2351_tb.dut.value_p[4][4] top.adc_ltc2351_tb.dut.value_p[4][3] top.adc_ltc2351_tb.dut.value_p[4][2] top.adc_ltc2351_tb.dut.value_p[4][1] top.adc_ltc2351_tb.dut.value_p[4][0]
-#{top.adc_ltc2351_tb.dut.value_p[5][13:0]} top.adc_ltc2351_tb.dut.value_p[5][13] top.adc_ltc2351_tb.dut.value_p[5][12] top.adc_ltc2351_tb.dut.value_p[5][11] top.adc_ltc2351_tb.dut.value_p[5][10] top.adc_ltc2351_tb.dut.value_p[5][9] top.adc_ltc2351_tb.dut.value_p[5][8] top.adc_ltc2351_tb.dut.value_p[5][7] top.adc_ltc2351_tb.dut.value_p[5][6] top.adc_ltc2351_tb.dut.value_p[5][5] top.adc_ltc2351_tb.dut.value_p[5][4] top.adc_ltc2351_tb.dut.value_p[5][3] top.adc_ltc2351_tb.dut.value_p[5][2] top.adc_ltc2351_tb.dut.value_p[5][1] top.adc_ltc2351_tb.dut.value_p[5][0]
+#{top.adc_ltc2351_tb.dut.values_p[0][13:0]} top.adc_ltc2351_tb.dut.values_p[0][13] top.adc_ltc2351_tb.dut.values_p[0][12] top.adc_ltc2351_tb.dut.values_p[0][11] top.adc_ltc2351_tb.dut.values_p[0][10] top.adc_ltc2351_tb.dut.values_p[0][9] top.adc_ltc2351_tb.dut.values_p[0][8] top.adc_ltc2351_tb.dut.values_p[0][7] top.adc_ltc2351_tb.dut.values_p[0][6] top.adc_ltc2351_tb.dut.values_p[0][5] top.adc_ltc2351_tb.dut.values_p[0][4] top.adc_ltc2351_tb.dut.values_p[0][3] top.adc_ltc2351_tb.dut.values_p[0][2] top.adc_ltc2351_tb.dut.values_p[0][1] top.adc_ltc2351_tb.dut.values_p[0][0]
+#{top.adc_ltc2351_tb.dut.values_p[1][13:0]} top.adc_ltc2351_tb.dut.values_p[1][13] top.adc_ltc2351_tb.dut.values_p[1][12] top.adc_ltc2351_tb.dut.values_p[1][11] top.adc_ltc2351_tb.dut.values_p[1][10] top.adc_ltc2351_tb.dut.values_p[1][9] top.adc_ltc2351_tb.dut.values_p[1][8] top.adc_ltc2351_tb.dut.values_p[1][7] top.adc_ltc2351_tb.dut.values_p[1][6] top.adc_ltc2351_tb.dut.values_p[1][5] top.adc_ltc2351_tb.dut.values_p[1][4] top.adc_ltc2351_tb.dut.values_p[1][3] top.adc_ltc2351_tb.dut.values_p[1][2] top.adc_ltc2351_tb.dut.values_p[1][1] top.adc_ltc2351_tb.dut.values_p[1][0]
+#{top.adc_ltc2351_tb.dut.values_p[2][13:0]} top.adc_ltc2351_tb.dut.values_p[2][13] top.adc_ltc2351_tb.dut.values_p[2][12] top.adc_ltc2351_tb.dut.values_p[2][11] top.adc_ltc2351_tb.dut.values_p[2][10] top.adc_ltc2351_tb.dut.values_p[2][9] top.adc_ltc2351_tb.dut.values_p[2][8] top.adc_ltc2351_tb.dut.values_p[2][7] top.adc_ltc2351_tb.dut.values_p[2][6] top.adc_ltc2351_tb.dut.values_p[2][5] top.adc_ltc2351_tb.dut.values_p[2][4] top.adc_ltc2351_tb.dut.values_p[2][3] top.adc_ltc2351_tb.dut.values_p[2][2] top.adc_ltc2351_tb.dut.values_p[2][1] top.adc_ltc2351_tb.dut.values_p[2][0]
+#{top.adc_ltc2351_tb.dut.values_p[3][13:0]} top.adc_ltc2351_tb.dut.values_p[3][13] top.adc_ltc2351_tb.dut.values_p[3][12] top.adc_ltc2351_tb.dut.values_p[3][11] top.adc_ltc2351_tb.dut.values_p[3][10] top.adc_ltc2351_tb.dut.values_p[3][9] top.adc_ltc2351_tb.dut.values_p[3][8] top.adc_ltc2351_tb.dut.values_p[3][7] top.adc_ltc2351_tb.dut.values_p[3][6] top.adc_ltc2351_tb.dut.values_p[3][5] top.adc_ltc2351_tb.dut.values_p[3][4] top.adc_ltc2351_tb.dut.values_p[3][3] top.adc_ltc2351_tb.dut.values_p[3][2] top.adc_ltc2351_tb.dut.values_p[3][1] top.adc_ltc2351_tb.dut.values_p[3][0]
+#{top.adc_ltc2351_tb.dut.values_p[4][13:0]} top.adc_ltc2351_tb.dut.values_p[4][13] top.adc_ltc2351_tb.dut.values_p[4][12] top.adc_ltc2351_tb.dut.values_p[4][11] top.adc_ltc2351_tb.dut.values_p[4][10] top.adc_ltc2351_tb.dut.values_p[4][9] top.adc_ltc2351_tb.dut.values_p[4][8] top.adc_ltc2351_tb.dut.values_p[4][7] top.adc_ltc2351_tb.dut.values_p[4][6] top.adc_ltc2351_tb.dut.values_p[4][5] top.adc_ltc2351_tb.dut.values_p[4][4] top.adc_ltc2351_tb.dut.values_p[4][3] top.adc_ltc2351_tb.dut.values_p[4][2] top.adc_ltc2351_tb.dut.values_p[4][1] top.adc_ltc2351_tb.dut.values_p[4][0]
+#{top.adc_ltc2351_tb.dut.values_p[5][13:0]} top.adc_ltc2351_tb.dut.values_p[5][13] top.adc_ltc2351_tb.dut.values_p[5][12] top.adc_ltc2351_tb.dut.values_p[5][11] top.adc_ltc2351_tb.dut.values_p[5][10] top.adc_ltc2351_tb.dut.values_p[5][9] top.adc_ltc2351_tb.dut.values_p[5][8] top.adc_ltc2351_tb.dut.values_p[5][7] top.adc_ltc2351_tb.dut.values_p[5][6] top.adc_ltc2351_tb.dut.values_p[5][5] top.adc_ltc2351_tb.dut.values_p[5][4] top.adc_ltc2351_tb.dut.values_p[5][3] top.adc_ltc2351_tb.dut.values_p[5][2] top.adc_ltc2351_tb.dut.values_p[5][1] top.adc_ltc2351_tb.dut.values_p[5][0]
 [pattern_trace] 1
 [pattern_trace] 0
