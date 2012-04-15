@@ -11,7 +11,7 @@
 -------------------------------------------------------------------------------
 -- Description:
 --
--- Generates a symmetric (center-aligned) PWM with deadtime
+-- Generates a symmetric (center-aligned) PWM without deadtime
 -------------------------------------------------------------------------------
 
 library ieee;
