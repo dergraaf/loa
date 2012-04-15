@@ -88,9 +88,9 @@ begin
    begin
       if rising_edge(clk) then
          if reset = '1' then
-            r.data_out <= (others => '0');
-            r.counter  <= (others => '0');
-            r.timer    <= (others => '1');
+            r <= (counter  => (others => '0'),
+                  timer    => (others => '1'),
+                  data_out => (others => '0'));
          else
             r <= rin;
          end if;
