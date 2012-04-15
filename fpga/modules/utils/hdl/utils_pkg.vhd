@@ -64,7 +64,7 @@ package body utils_pkg is
          return integer(ceil(log2(real(value))));
       else
          -- FIXME: Why is this hack necessary?
-         -- Otherwise the values for 2**x (x >= 3) is calculated wrong.
+         -- Otherwise the values for 2**x (x >= 3) are calculated wrong.
          -- E.g.:
          -- required_bits(8) = 3 != 4
          -- required_bits(16) = 4 != 5

@@ -1,0 +1,42 @@
+[timestart] 0
+[size] 1000 600
+[pos] 109 58
+*-37.063530 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.comparator_module_tb.
+[treeopen] top.comparator_module_tb.dut.
+[treeopen] top.comparator_module_tb.dut.r.
+[treeopen] top.comparator_module_tb.dut.rin.
+@28
+top.comparator_module_tb.clk
+top.comparator_module_tb.reset
+@200
+-
+@22
+#{top.comparator_module_tb.dut.value_p[0][9:0]} top.comparator_module_tb.dut.value_p[0][9] top.comparator_module_tb.dut.value_p[0][8] top.comparator_module_tb.dut.value_p[0][7] top.comparator_module_tb.dut.value_p[0][6] top.comparator_module_tb.dut.value_p[0][5] top.comparator_module_tb.dut.value_p[0][4] top.comparator_module_tb.dut.value_p[0][3] top.comparator_module_tb.dut.value_p[0][2] top.comparator_module_tb.dut.value_p[0][1] top.comparator_module_tb.dut.value_p[0][0]
+#{top.comparator_module_tb.dut.limit_upper[0][9:0]} top.comparator_module_tb.dut.limit_upper[0][9] top.comparator_module_tb.dut.limit_upper[0][8] top.comparator_module_tb.dut.limit_upper[0][7] top.comparator_module_tb.dut.limit_upper[0][6] top.comparator_module_tb.dut.limit_upper[0][5] top.comparator_module_tb.dut.limit_upper[0][4] top.comparator_module_tb.dut.limit_upper[0][3] top.comparator_module_tb.dut.limit_upper[0][2] top.comparator_module_tb.dut.limit_upper[0][1] top.comparator_module_tb.dut.limit_upper[0][0]
+#{top.comparator_module_tb.dut.limit_lower[0][9:0]} top.comparator_module_tb.dut.limit_lower[0][9] top.comparator_module_tb.dut.limit_lower[0][8] top.comparator_module_tb.dut.limit_lower[0][7] top.comparator_module_tb.dut.limit_lower[0][6] top.comparator_module_tb.dut.limit_lower[0][5] top.comparator_module_tb.dut.limit_lower[0][4] top.comparator_module_tb.dut.limit_lower[0][3] top.comparator_module_tb.dut.limit_lower[0][2] top.comparator_module_tb.dut.limit_lower[0][1] top.comparator_module_tb.dut.limit_lower[0][0]
+@200
+-
+@22
+#{top.comparator_module_tb.dut.value_p[1][9:0]} top.comparator_module_tb.dut.value_p[1][9] top.comparator_module_tb.dut.value_p[1][8] top.comparator_module_tb.dut.value_p[1][7] top.comparator_module_tb.dut.value_p[1][6] top.comparator_module_tb.dut.value_p[1][5] top.comparator_module_tb.dut.value_p[1][4] top.comparator_module_tb.dut.value_p[1][3] top.comparator_module_tb.dut.value_p[1][2] top.comparator_module_tb.dut.value_p[1][1] top.comparator_module_tb.dut.value_p[1][0]
+#{top.comparator_module_tb.dut.limit_upper[1][9:0]} top.comparator_module_tb.dut.limit_upper[1][9] top.comparator_module_tb.dut.limit_upper[1][8] top.comparator_module_tb.dut.limit_upper[1][7] top.comparator_module_tb.dut.limit_upper[1][6] top.comparator_module_tb.dut.limit_upper[1][5] top.comparator_module_tb.dut.limit_upper[1][4] top.comparator_module_tb.dut.limit_upper[1][3] top.comparator_module_tb.dut.limit_upper[1][2] top.comparator_module_tb.dut.limit_upper[1][1] top.comparator_module_tb.dut.limit_upper[1][0]
+#{top.comparator_module_tb.dut.limit_lower[1][9:0]} top.comparator_module_tb.dut.limit_lower[1][9] top.comparator_module_tb.dut.limit_lower[1][8] top.comparator_module_tb.dut.limit_lower[1][7] top.comparator_module_tb.dut.limit_lower[1][6] top.comparator_module_tb.dut.limit_lower[1][5] top.comparator_module_tb.dut.limit_lower[1][4] top.comparator_module_tb.dut.limit_lower[1][3] top.comparator_module_tb.dut.limit_lower[1][2] top.comparator_module_tb.dut.limit_lower[1][1] top.comparator_module_tb.dut.limit_lower[1][0]
+@200
+-
+@22
+#{top.comparator_module_tb.dut.value_p[2][9:0]} top.comparator_module_tb.dut.value_p[2][9] top.comparator_module_tb.dut.value_p[2][8] top.comparator_module_tb.dut.value_p[2][7] top.comparator_module_tb.dut.value_p[2][6] top.comparator_module_tb.dut.value_p[2][5] top.comparator_module_tb.dut.value_p[2][4] top.comparator_module_tb.dut.value_p[2][3] top.comparator_module_tb.dut.value_p[2][2] top.comparator_module_tb.dut.value_p[2][1] top.comparator_module_tb.dut.value_p[2][0]
+#{top.comparator_module_tb.dut.limit_upper[2][9:0]} top.comparator_module_tb.dut.limit_upper[2][9] top.comparator_module_tb.dut.limit_upper[2][8] top.comparator_module_tb.dut.limit_upper[2][7] top.comparator_module_tb.dut.limit_upper[2][6] top.comparator_module_tb.dut.limit_upper[2][5] top.comparator_module_tb.dut.limit_upper[2][4] top.comparator_module_tb.dut.limit_upper[2][3] top.comparator_module_tb.dut.limit_upper[2][2] top.comparator_module_tb.dut.limit_upper[2][1] top.comparator_module_tb.dut.limit_upper[2][0]
+#{top.comparator_module_tb.dut.limit_lower[2][9:0]} top.comparator_module_tb.dut.limit_lower[2][9] top.comparator_module_tb.dut.limit_lower[2][8] top.comparator_module_tb.dut.limit_lower[2][7] top.comparator_module_tb.dut.limit_lower[2][6] top.comparator_module_tb.dut.limit_lower[2][5] top.comparator_module_tb.dut.limit_lower[2][4] top.comparator_module_tb.dut.limit_lower[2][3] top.comparator_module_tb.dut.limit_lower[2][2] top.comparator_module_tb.dut.limit_lower[2][1] top.comparator_module_tb.dut.limit_lower[2][0]
+@200
+-
+@800029
+#{top.comparator_module_tb.dut.overflow_p[2:0]} top.comparator_module_tb.dut.overflow_p[2] top.comparator_module_tb.dut.overflow_p[1] top.comparator_module_tb.dut.overflow_p[0]
+@29
+top.comparator_module_tb.dut.overflow_p[2]
+top.comparator_module_tb.dut.overflow_p[1]
+top.comparator_module_tb.dut.overflow_p[0]
+@1001201
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0

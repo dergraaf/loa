@@ -67,4 +67,19 @@ package motor_control_pkg is
          clk            : in  std_logic);
    end component bldc_motor_module;
 
+   type comparator_values_type is array (natural range <>) of std_logic_vector(9 downto 0);
+   
+   component comparator_module is
+      generic (
+         BASE_ADDRESS : integer range 0 to 32767;
+         CHANNELS     : positive := 8);
+      port (
+         value_p    : in  comparator_values_type(CHANNELS-1 downto 0);
+         overflow_p : out std_logic_vector(CHANNELS-1 downto 0);
+         bus_o      : out busdevice_out_type;
+         bus_i      : in  busdevice_in_type;
+         reset      : in  std_logic;
+         clk        : in  std_logic);
+   end component comparator_module;
+
 end package motor_control_pkg;

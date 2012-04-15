@@ -3,7 +3,8 @@
 #TESTBENCH = symmetric_pwm_tb
 #TESTBENCH = symmetric_pwm_deadtime_tb
 #TESTBENCH = commutation_tb
-TESTBENCH = bldc_motor_module_tb
+TESTBENCH = comparator_module_tb
+#TESTBENCH = bldc_motor_module_tb
 
 # VHDL files
 ifeq ($(TESTBENCH),symmetric_pwm_tb)
@@ -24,6 +25,13 @@ FILES = \
 	../hdl/symmetric_pwm.vhd \
 	../hdl/deadtime.vhd
 GHDL_SIM_OPT = --stop-time=1200us
+else ifeq ($(TESTBENCH),comparator_module_tb)
+FILES = \
+	../../spislave/hdl/bus_pkg.vhd \
+	../../utils/hdl/*.vhd \
+	../../peripheral_register/hdl/*.vhd \
+	../hdl/*.vhd
+GHDL_SIM_OPT = --stop-time=400us
 else
 FILES =  \
 	../../spislave/hdl/bus_pkg.vhd \

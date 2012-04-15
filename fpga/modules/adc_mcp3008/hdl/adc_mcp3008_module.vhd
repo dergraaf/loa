@@ -72,13 +72,7 @@ architecture behavioral of adc_mcp3008_module is
    signal reg_o : reg_file_type(7 downto 0);
    signal reg_i : reg_file_type(7 downto 0);
 
-
    signal mask_s : std_logic_vector(7 downto 0);
-
-   -----------------------------------------------------------------------------
-   -- Component declarations
-   -----------------------------------------------------------------------------
-
 begin
 
    -- mapping signals to adc i/f
@@ -93,40 +87,6 @@ begin
 
    -- register for channel mask
    mask_s <= reg_o(0)(7 downto 0);
-
-   -----------------------------------------------------------------------------
-   -- Register file to present ADC values to bus
-   -- and configuration
-   -----------------------------------------------------------------------------
-   reg_file_1 : reg_file
-      generic map (
-         BASE_ADDRESS => BASE_ADDRESS,
-         REG_ADDR_BIT => 3)
-      port map (
-         bus_o => bus_o,
-         bus_i => bus_i,
-         reg_o => reg_o,
-         reg_i => reg_i,
-         reset => reset,
-         clk   => clk);
-
-
-   -----------------------------------------------------------------------------
-   -- ADC interface module 
-   -----------------------------------------------------------------------------
-   adc_mcp3008_1 : adc_mcp3008
-      generic map (
-         DELAY => 39)
-      port map (
-         adc_out    => adc_out_p,
-         adc_in     => adc_in_p,
-         start_p    => r.start,
-         adc_mode_p => adc_mode_s,
-         channel_p  => channel_s,
-         value_p    => value_s,
-         done_p     => done_s,
-         reset      => reset,
-         clk        => clk);
 
 
    -----------------------------------------------------------------------------
@@ -193,7 +153,35 @@ begin
    -----------------------------------------------------------------------------
    -- Component instantiations
    -----------------------------------------------------------------------------
+   
+   -- Register file to present ADC values to bus
+   -- and configuration
+   reg_file_1 : reg_file
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS,
+         REG_ADDR_BIT => 3)
+      port map (
+         bus_o => bus_o,
+         bus_i => bus_i,
+         reg_o => reg_o,
+         reg_i => reg_i,
+         reset => reset,
+         clk   => clk);
 
+   -- ADC interface module 
+   adc_mcp3008_1 : adc_mcp3008
+      generic map (
+         DELAY => 39)
+      port map (
+         adc_out    => adc_out_p,
+         adc_in     => adc_in_p,
+         start_p    => r.start,
+         adc_mode_p => adc_mode_s,
+         channel_p  => channel_s,
+         value_p    => value_s,
+         done_p     => done_s,
+         reset      => reset,
+         clk        => clk);
 end behavioral;
 
 
