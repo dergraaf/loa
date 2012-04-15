@@ -14,8 +14,8 @@ begin
 
    uut : fractional_clock_divider
       generic map (
-         MUL => 3,
-         DIV => 5)
+         MUL => 41,
+         DIV => 31250)
       port map(
          clk_out_p => output,
          clk       => clk);

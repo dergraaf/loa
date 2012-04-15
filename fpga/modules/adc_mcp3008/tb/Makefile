@@ -8,6 +8,7 @@ TESTBENCH = adc_mcp3008_module_tb
 # VHDL files
 ifeq ($(TESTBENCH), adc_mcp3008_tb)
 FILES = \
+../../spislave/hdl/bus_pkg.vhd \
 ../hdl/adc_mcp3008.vhd \
 ../hdl/adc_mcp3008_pkg.vhd 
 else ifeq ($(TESTBENCH), reg_file_tb)

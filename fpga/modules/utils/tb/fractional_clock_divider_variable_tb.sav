@@ -1,0 +1,38 @@
+[timestart] 0
+[size] 1178 878
+[pos] -1 -1
+*-38.434460 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.fractional_clock_divider_variable_tb.
+[treeopen] top.fractional_clock_divider_variable_tb.uut.
+@28
+top.fractional_clock_divider_variable_tb.clk
+top.fractional_clock_divider_variable_tb.output
+@c08022
+#{top.fractional_clock_divider_variable_tb.uut.cnt[16:0]} top.fractional_clock_divider_variable_tb.uut.cnt[16] top.fractional_clock_divider_variable_tb.uut.cnt[15] top.fractional_clock_divider_variable_tb.uut.cnt[14] top.fractional_clock_divider_variable_tb.uut.cnt[13] top.fractional_clock_divider_variable_tb.uut.cnt[12] top.fractional_clock_divider_variable_tb.uut.cnt[11] top.fractional_clock_divider_variable_tb.uut.cnt[10] top.fractional_clock_divider_variable_tb.uut.cnt[9] top.fractional_clock_divider_variable_tb.uut.cnt[8] top.fractional_clock_divider_variable_tb.uut.cnt[7] top.fractional_clock_divider_variable_tb.uut.cnt[6] top.fractional_clock_divider_variable_tb.uut.cnt[5] top.fractional_clock_divider_variable_tb.uut.cnt[4] top.fractional_clock_divider_variable_tb.uut.cnt[3] top.fractional_clock_divider_variable_tb.uut.cnt[2] top.fractional_clock_divider_variable_tb.uut.cnt[1] top.fractional_clock_divider_variable_tb.uut.cnt[0]
+@28
+top.fractional_clock_divider_variable_tb.uut.cnt[16]
+top.fractional_clock_divider_variable_tb.uut.cnt[15]
+top.fractional_clock_divider_variable_tb.uut.cnt[14]
+top.fractional_clock_divider_variable_tb.uut.cnt[13]
+top.fractional_clock_divider_variable_tb.uut.cnt[12]
+top.fractional_clock_divider_variable_tb.uut.cnt[11]
+top.fractional_clock_divider_variable_tb.uut.cnt[10]
+top.fractional_clock_divider_variable_tb.uut.cnt[9]
+top.fractional_clock_divider_variable_tb.uut.cnt[8]
+top.fractional_clock_divider_variable_tb.uut.cnt[7]
+top.fractional_clock_divider_variable_tb.uut.cnt[6]
+top.fractional_clock_divider_variable_tb.uut.cnt[5]
+top.fractional_clock_divider_variable_tb.uut.cnt[4]
+top.fractional_clock_divider_variable_tb.uut.cnt[3]
+top.fractional_clock_divider_variable_tb.uut.cnt[2]
+top.fractional_clock_divider_variable_tb.uut.cnt[1]
+top.fractional_clock_divider_variable_tb.uut.cnt[0]
+@1401200
+-group_end
+@20000
+-
+@20001
+-
+[pattern_trace] 1
+[pattern_trace] 0

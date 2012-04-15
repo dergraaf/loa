@@ -1,0 +1,12 @@
+[timestart] 0
+[size] 1539 842
+[pos] -540 -2
+*-32.634319 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.fractional_clock_divider_tb.
+@28
+top.fractional_clock_divider_tb.clk
+@29
+top.fractional_clock_divider_tb.output
+[pattern_trace] 1
+[pattern_trace] 0

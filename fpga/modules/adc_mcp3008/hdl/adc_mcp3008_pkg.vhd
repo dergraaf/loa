@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-02-12
--- Last update: 2012-03-15
+-- Last update: 2012-04-15
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -29,49 +29,52 @@ use work.bus_pkg.all;
 
 package adc_mcp3008_pkg is
 
-  type adc_values_type is array (natural range <>) of std_logic_vector(9 downto 0);
+   type adc_mcp3008_values_type is array (natural range <>) of std_logic_vector(9 downto 0);
 
-  type adc_mcp3008_spi_out_type is record
-    mosi : std_logic;
-    cs_n : std_logic;
-    sck  : std_logic;
-  end record;
+   type adc_mcp3008_spi_out_type is record
+      mosi : std_logic;
+      cs_n : std_logic;
+      sck  : std_logic;
+   end record;
 
-  type adc_mcp3008_spi_in_type is record
-    miso : std_logic;
-  end record;
+   type adc_mcp3008_spi_in_type is record
+      miso : std_logic;
+   end record;
 
-  -----------------------------------------------------------------------------
-  -- Component declarations
-  -----------------------------------------------------------------------------
-  component adc_mcp3008
-    generic (
-      DELAY : natural);
-    port (
-      adc_out    : out adc_mcp3008_spi_out_type;
-      adc_in     : in  adc_mcp3008_spi_in_type;
-      start_p    : in  std_logic;
-      adc_mode_p : in  std_logic;
-      channel_p  : in  std_logic_vector(2 downto 0);
-      value_p    : out std_logic_vector(9 downto 0);
-      done_p     : out std_logic;
-      reset      : in  std_logic;
-      clk        : in  std_logic);
-  end component;
+   -----------------------------------------------------------------------------
+   -- Component declarations
+   -----------------------------------------------------------------------------
+   component adc_mcp3008
+      generic (
+         DELAY : natural);
+      port (
+         -- signals to and from real hardware
+         adc_out : out adc_mcp3008_spi_out_type;
+         adc_in  : in  adc_mcp3008_spi_in_type;
+
+         -- signals to other logic in FPGA
+         start_p    : in  std_logic;
+         adc_mode_p : in  std_logic;
+         channel_p  : in  std_logic_vector(2 downto 0);
+         value_p    : out std_logic_vector(9 downto 0);
+         done_p     : out std_logic;
+         reset      : in  std_logic;
+         clk        : in  std_logic);
+   end component;
 
 
-  component adc_mcp3008_module
-    generic (
-      BASE_ADDRESS : integer range 0 to 32767);
-    port (
-      adc_out_p    : out adc_mcp3008_spi_out_type;
-      adc_in_p     : in  adc_mcp3008_spi_in_type;
-      bus_o        : out busdevice_out_type;
-      bus_i        : in  busdevice_in_type;
-      adc_values_o : out adc_values_type(7 downto 0);
-      reset        : in  std_logic;
-      clk          : in  std_logic);
-  end component;
+   component adc_mcp3008_module
+      generic (
+         BASE_ADDRESS : integer range 0 to 32767);
+      port (
+         adc_out_p    : out adc_mcp3008_spi_out_type;
+         adc_in_p     : in  adc_mcp3008_spi_in_type;
+         bus_o        : out busdevice_out_type;
+         bus_i        : in  busdevice_in_type;
+         adc_values_o : out adc_mcp3008_values_type(7 downto 0);
+         reset        : in  std_logic;
+         clk          : in  std_logic);
+   end component;
 
 end adc_mcp3008_pkg;
 
