@@ -1,0 +1,34 @@
+[timestart] 0
+[size] 1023 768
+[pos] -1 -1
+*-36.430595 44900000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.goertzel_tb.
+[treeopen] top.goertzel_tb.dut.
+[treeopen] top.goertzel_tb.dut.result_p.
+@28
+top.goertzel_tb.clk
+top.goertzel_tb.start_p
+@420
+#{top.goertzel_tb.dut.adc_value_p[13:0]} top.goertzel_tb.dut.adc_value_p[13] top.goertzel_tb.dut.adc_value_p[12] top.goertzel_tb.dut.adc_value_p[11] top.goertzel_tb.dut.adc_value_p[10] top.goertzel_tb.dut.adc_value_p[9] top.goertzel_tb.dut.adc_value_p[8] top.goertzel_tb.dut.adc_value_p[7] top.goertzel_tb.dut.adc_value_p[6] top.goertzel_tb.dut.adc_value_p[5] top.goertzel_tb.dut.adc_value_p[4] top.goertzel_tb.dut.adc_value_p[3] top.goertzel_tb.dut.adc_value_p[2] top.goertzel_tb.dut.adc_value_p[1] top.goertzel_tb.dut.adc_value_p[0]
+@24
+#{top.goertzel_tb.dut.coef_p[17:0]} top.goertzel_tb.dut.coef_p[17] top.goertzel_tb.dut.coef_p[16] top.goertzel_tb.dut.coef_p[15] top.goertzel_tb.dut.coef_p[14] top.goertzel_tb.dut.coef_p[13] top.goertzel_tb.dut.coef_p[12] top.goertzel_tb.dut.coef_p[11] top.goertzel_tb.dut.coef_p[10] top.goertzel_tb.dut.coef_p[9] top.goertzel_tb.dut.coef_p[8] top.goertzel_tb.dut.coef_p[7] top.goertzel_tb.dut.coef_p[6] top.goertzel_tb.dut.coef_p[5] top.goertzel_tb.dut.coef_p[4] top.goertzel_tb.dut.coef_p[3] top.goertzel_tb.dut.coef_p[2] top.goertzel_tb.dut.coef_p[1] top.goertzel_tb.dut.coef_p[0]
+@28
+top.goertzel_tb.dut.r.state
+top.goertzel_tb.dut.r.sample_count
+@420
+#{top.goertzel_tb.adc_value_p[13:0]} top.goertzel_tb.adc_value_p[13] top.goertzel_tb.adc_value_p[12] top.goertzel_tb.adc_value_p[11] top.goertzel_tb.adc_value_p[10] top.goertzel_tb.adc_value_p[9] top.goertzel_tb.adc_value_p[8] top.goertzel_tb.adc_value_p[7] top.goertzel_tb.adc_value_p[6] top.goertzel_tb.adc_value_p[5] top.goertzel_tb.adc_value_p[4] top.goertzel_tb.adc_value_p[3] top.goertzel_tb.adc_value_p[2] top.goertzel_tb.adc_value_p[1] top.goertzel_tb.adc_value_p[0]
+@8420
+#{top.goertzel_tb.adc_value_p[13:0]} top.goertzel_tb.adc_value_p[13] top.goertzel_tb.adc_value_p[12] top.goertzel_tb.adc_value_p[11] top.goertzel_tb.adc_value_p[10] top.goertzel_tb.adc_value_p[9] top.goertzel_tb.adc_value_p[8] top.goertzel_tb.adc_value_p[7] top.goertzel_tb.adc_value_p[6] top.goertzel_tb.adc_value_p[5] top.goertzel_tb.adc_value_p[4] top.goertzel_tb.adc_value_p[3] top.goertzel_tb.adc_value_p[2] top.goertzel_tb.adc_value_p[1] top.goertzel_tb.adc_value_p[0]
+@20000
+-
+-
+-
+@28
+top.goertzel_tb.done_s
+@22
+#{top.goertzel_tb.dut.result_p[0][15:0]} top.goertzel_tb.dut.result_p[0][15] top.goertzel_tb.dut.result_p[0][14] top.goertzel_tb.dut.result_p[0][13] top.goertzel_tb.dut.result_p[0][12] top.goertzel_tb.dut.result_p[0][11] top.goertzel_tb.dut.result_p[0][10] top.goertzel_tb.dut.result_p[0][9] top.goertzel_tb.dut.result_p[0][8] top.goertzel_tb.dut.result_p[0][7] top.goertzel_tb.dut.result_p[0][6] top.goertzel_tb.dut.result_p[0][5] top.goertzel_tb.dut.result_p[0][4] top.goertzel_tb.dut.result_p[0][3] top.goertzel_tb.dut.result_p[0][2] top.goertzel_tb.dut.result_p[0][1] top.goertzel_tb.dut.result_p[0][0]
+@29
+top.goertzel_tb.goertzel_value_s
+[pattern_trace] 1
+[pattern_trace] 0
