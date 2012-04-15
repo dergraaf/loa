@@ -1,31 +1,23 @@
 
 # Name of the testbench without extenstion
 #TESTBENCH = adc_mcp3008_tb
-#TESTBENCH = reg_file_tb
 TESTBENCH = adc_mcp3008_module_tb
-
 
 # VHDL files
 ifeq ($(TESTBENCH), adc_mcp3008_tb)
 FILES = \
-../../spislave/hdl/bus_pkg.vhd \
-../hdl/adc_mcp3008.vhd \
-../hdl/adc_mcp3008_pkg.vhd 
-else ifeq ($(TESTBENCH), reg_file_tb)
-FILES = \
-../../spislave/hdl/bus_pkg.vhd \
-../hdl/reg_file_pkg.vhd \
-../hdl/reg_file.vhd \
-../tb/reg_file_tb.vhd 
+	../../spislave/hdl/bus_pkg.vhd \
+	../hdl/adc_mcp3008.vhd \
+	../hdl/adc_mcp3008_pkg.vhd 
 else ifeq ($(TESTBENCH), adc_mcp3008_module_tb)
 FILES = \
-../../spislave/hdl/bus_pkg.vhd \
-../hdl/reg_file_pkg.vhd \
-../hdl/reg_file.vhd \
-../hdl/adc_mcp3008.vhd \
-../hdl/adc_mcp3008_pkg.vhd \
-../hdl/adc_mcp3008_module.vhd \
-../tb/reg_file_tb.vhd 
+	../../spislave/hdl/bus_pkg.vhd \
+	../../peripheral_register/hdl/reg_file_pkg.vhd \
+	../../peripheral_register/hdl/reg_file.vhd \
+	../hdl/adc_mcp3008.vhd \
+	../hdl/adc_mcp3008_pkg.vhd \
+	../hdl/adc_mcp3008_module.vhd \
+	../tb/adc_mcp3008_module_tb.vhd 
 endif
 
 # Default settings for gtkwave (visable signal etc.)

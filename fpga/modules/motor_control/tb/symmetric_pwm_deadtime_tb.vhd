@@ -19,6 +19,8 @@ architecture behavior of symmetric_pwm_deadtime_tb is
    signal value  : std_logic_vector(WIDTH - 1 downto 0) := (others => '0');
    signal pwm    : half_bridge_type;
    signal center : std_logic;           -- Center of the 'on'-periode
+
+   signal break : std_logic := '0';
 begin
    clk   <= not clk  after 10 NS;       -- 50 Mhz clock
    reset <= '1', '0' after 50 NS;       -- erzeugt Resetsignal
@@ -41,6 +43,21 @@ begin
       wait for 100 US;
    end process;
 
+   tb2 : process
+   begin
+      wait until falling_edge(reset);
+
+      wait for 40 US;
+      break <= '1';
+      wait for 30 US;
+      break <= '0';
+      
+      wait for 150 US;
+      break <= '1';
+      wait for 30 US;
+      break <= '0';
+   end process;
+
    uut : symmetric_pwm_deadtime
       generic map (
          WIDTH  => WIDTH,
@@ -50,6 +67,7 @@ begin
          center_p => center,
          clk_en_p => clk_en,
          value_p  => value,
+         break_p  => break,
          reset    => reset,
          clk      => clk);
 end;

@@ -1,10 +1,19 @@
 
 # Name of the testbench without extenstion
-TESTBENCH = peripheral_register_tb
+#TESTBENCH = peripheral_register_tb
+TESTBENCH = reg_file_tb
 
 # VHDL files
+ifeq ($(TESTBENCH), peripheral_register_tb)
 FILES = ../../spislave/hdl/bus_pkg.vhd \
-		../hdl/peripheral_register.vhd 
+		../hdl/peripheral_register.vhd
+else ifeq ($(TESTBENCH), reg_file_tb)
+FILES = \
+	../../spislave/hdl/bus_pkg.vhd \
+	../hdl/reg_file_pkg.vhd \
+	../hdl/reg_file.vhd \
+	../tb/reg_file_tb.vhd
+endif
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file
