@@ -38,17 +38,28 @@ package utils_pkg is
          clk_out_p : out std_logic;
          clk       : in  std_logic);
    end component fractional_clock_divider;
-   
+
    -- Requires mul <= div
    component fractional_clock_divider_variable is
       generic (
          WIDTH : positive);
       port (
-         div : in std_logic_vector(WIDTH-1 downto 0);
-         mul : in std_logic_vector(WIDTH-1 downto 0);
+         div       : in  std_logic_vector(WIDTH-1 downto 0);
+         mul       : in  std_logic_vector(WIDTH-1 downto 0);
          clk_out_p : out std_logic;
          clk       : in  std_logic);
    end component fractional_clock_divider_variable;
+
+   ----------------------------------------------------------------------------
+   component dff is
+      port (
+         dout_p  : out std_logic;
+         din_p   : in  std_logic;
+         set_p   : in  std_logic;
+         reset_p : in  std_logic;
+         ce_p    : in  std_logic;
+         clk     : in  std_logic);
+   end component dff;
    
 end package utils_pkg;
 
@@ -64,7 +75,7 @@ package body utils_pkg is
          return integer(ceil(log2(real(value))));
       else
          -- FIXME: Why is this hack necessary?
-         -- Otherwise the values for 2**x (x >= 3) is calculated wrong.
+         -- Otherwise the values for 2**x (x >= 3) are calculated wrong.
          -- E.g.:
          -- required_bits(8) = 3 != 4
          -- required_bits(16) = 4 != 5

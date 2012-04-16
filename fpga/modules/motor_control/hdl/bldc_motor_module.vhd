@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2012-01-12
+-- Last update: 2012-04-15
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -14,32 +14,6 @@
 -- Generates a symmetric (center-aligned) PWM with deadtime
 -------------------------------------------------------------------------------
 
-library ieee;
-use ieee.std_logic_1164.all;
-
-library work;
-use work.bus_pkg.all;
-use work.motor_control_pkg.all;
-
-package bldc_motor_module_pkg is
-
-   component bldc_motor_module is
-      generic (
-         BASE_ADDRESS : integer range 0 to 32767;
-         WIDTH        : positive;
-         PRESCALER    : positive);
-      port (
-         driver_stage_p : out bldc_driver_stage_type;
-         hall_p         : in  hall_sensor_type;
-         bus_o          : out busdevice_out_type;
-         bus_i          : in  busdevice_in_type;
-         reset          : in  std_logic;
-         clk            : in  std_logic);
-   end component bldc_motor_module;
-
-end package bldc_motor_module_pkg;
-
--------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -54,12 +28,17 @@ use work.commutation_pkg.all;
 entity bldc_motor_module is
    generic (
       BASE_ADDRESS : integer range 0 to 32767;
-      WIDTH        : positive := 12;  -- Number of bits for the PWM generation (e.g. 12 => 0..4095)
-      PRESCALER    : positive
+
+      -- Number of bits for the PWM generation (e.g. 12 => 0..4095)
+      WIDTH     : positive := 12;
+      PRESCALER : positive
       );
    port (
       driver_stage_p : out bldc_driver_stage_type;
       hall_p         : in  hall_sensor_type;
+
+      -- Disable switching
+      break_p : in std_logic := '0';
 
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
@@ -150,6 +129,7 @@ begin
          center_p => center,
          clk_en_p => clk_en,
          value_p  => r.pwm_value,
+         break_p  => break_p,
          reset    => reset,
          clk      => clk);
 

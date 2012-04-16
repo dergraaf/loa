@@ -6,41 +6,14 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2011-12-18
+-- Last update: 2012-04-15
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
 --
--- Generates a symmetric (center-aligned) PWM with deadtime
+-- Generates a symmetric (center-aligned) PWM without deadtime
 -------------------------------------------------------------------------------
 
-library ieee;
-use ieee.std_logic_1164.all;
-
-library work;
-use work.bus_pkg.all;
-use work.motor_control_pkg.all;
-
-package dc_motor_module_pkg is
-
-   component dc_motor_module is
-      generic (
-         BASE_ADDRESS : integer range 0 to 32767;
-         WIDTH        : positive;
-         PRESCALER    : positive);
-      port (
-         pwm1_p : out std_logic;
-         pwm2_p : out std_logic;
-         sd_p   : out std_logic;
-         bus_o  : out busdevice_out_type;
-         bus_i  : in  busdevice_in_type;
-         reset  : in  std_logic;
-         clk    : in  std_logic);
-   end component dc_motor_module;
-
-end package dc_motor_module_pkg;
-
--------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -60,7 +33,10 @@ entity dc_motor_module is
    port (
       pwm1_p : out std_logic;           -- Halfbridge 1
       pwm2_p : out std_logic;           -- Halfbridge 2
-      sd_p   : out std_logic;
+      sd_p   : out std_logic;           -- Shutdown
+
+      -- Disable switching
+      break_p : in std_logic := '0';
 
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
@@ -126,9 +102,14 @@ begin
          pwm2_p <= '0';
          sd_p   <= '1';
       else
-         pwm1_p <= pwm;
-         pwm2_p <= not pwm;
-         sd_p   <= '0';
+         if break_p = '1' then
+            pwm1_p <= '0';
+            pwm2_p <= '0';
+         else
+            pwm1_p <= pwm;
+            pwm2_p <= not pwm;
+         end if;
+         sd_p <= '0';
       end if;
 
       rin <= v;

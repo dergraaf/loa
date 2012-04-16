@@ -1,0 +1,18 @@
+[timestart] 0
+[size] 1000 600
+[pos] 112 0
+*-32.826965 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.toplevel_tb.
+[treeopen] top.toplevel_tb.toplevel_1.
+@28
+top.toplevel_tb.clk
+top.toplevel_tb.reset_n
+top.toplevel_tb.load
+top.toplevel_tb.toplevel_1.current_hold[0].dff_1.dout_p
+top.toplevel_tb.toplevel_1.current_hold[1].dff_1.dout_p
+top.toplevel_tb.toplevel_1.current_hold[2].dff_1.dout_p
+@29
+#{top.toplevel_tb.toplevel_1.current_limit_hold[2:0]} top.toplevel_tb.toplevel_1.current_limit_hold[2] top.toplevel_tb.toplevel_1.current_limit_hold[1] top.toplevel_tb.toplevel_1.current_limit_hold[0]
+[pattern_trace] 1
+[pattern_trace] 0

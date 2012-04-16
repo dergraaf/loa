@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian@kleinvieh>
 -- Company    : 
 -- Created    : 2011-12-13
--- Last update: 2011-12-14
+-- Last update: 2012-04-15
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -26,7 +26,6 @@ use ieee.numeric_std.all;
 library work;
 use work.bus_pkg.all;
 use work.motor_control_pkg.all;
-use work.bldc_motor_module_pkg.all;
 
 -------------------------------------------------------------------------------
 entity bldc_motor_module_tb is
@@ -43,6 +42,7 @@ architecture tb of bldc_motor_module_tb is
    -- component ports
    signal driver_stage : bldc_driver_stage_type;
    signal hall         : hall_sensor_type := ('0', '0', '0');
+   signal break        : std_logic        := '0';
 
    signal bus_o : busdevice_out_type;
    signal bus_i : busdevice_in_type :=
@@ -64,6 +64,7 @@ begin
       port map (
          driver_stage_p => driver_stage,
          hall_p         => hall,
+         break_p        => break,
          bus_o          => bus_o,
          bus_i          => bus_i,
          reset          => reset,
@@ -109,7 +110,7 @@ begin
       bus_i.we   <= '0';
 
       wait for 630 US;
-      
+
       wait until rising_edge(clk);
       bus_i.addr <= std_logic_vector(unsigned'(resize(x"0100", bus_i.addr'length)));
       bus_i.data <= x"000f";
@@ -126,8 +127,6 @@ begin
       bus_i.we   <= '1';
       wait until rising_edge(clk);
       bus_i.we   <= '0';
-
-      
    end process;
 
    hall_sensor_waveform : process
@@ -159,5 +158,16 @@ begin
       hall <= ('0', '1', '1');
       wait for 100 US;
       hall <= ('0', '0', '1');
+   end process;
+
+   -- Test break signal
+   process
+   begin
+      wait until falling_edge(reset);
+
+      wait for 220 US;
+      break <= '1';
+      wait for 50 US;
+      break <= '0';
    end process;
 end tb;

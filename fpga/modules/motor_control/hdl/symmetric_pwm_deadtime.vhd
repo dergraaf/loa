@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2011-12-18
+-- Last update: 2012-04-15
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -32,6 +32,7 @@ package symmetric_pwm_deadtime_pkg is
          center_p : out std_logic;
          clk_en_p : in  std_logic;
          value_p  : in  std_logic_vector (WIDTH - 1 downto 0);
+         break_p  : in  std_logic := '0';
          reset    : in  std_logic;
          clk      : in  std_logic);
    end component;
@@ -63,14 +64,18 @@ entity symmetric_pwm_deadtime is
       clk_en_p : in  std_logic;         -- clock enable
       value_p  : in  std_logic_vector (WIDTH - 1 downto 0);
 
+      -- Disable PWM generation (sets pwm.low = '1' and pwm.high = '0')
+      break_p : in std_logic := '0';
+
       reset : in std_logic;             -- High active, Restarts the PWM period
       clk   : in std_logic
       );
 end symmetric_pwm_deadtime;
 
 architecture structural of symmetric_pwm_deadtime is
-   signal pwm   : std_logic;
-   signal pwm_n : std_logic;
+   signal pwm_raw : std_logic := '0';  -- PWM signal from the Symmetric PWM generator
+   signal pwm     : std_logic;
+   signal pwm_n   : std_logic;
 
    signal lowside_center  : std_logic;
    signal highside_center : std_logic;
@@ -80,7 +85,7 @@ begin
       generic map (
          WIDTH => WIDTH)
       port map (
-         pwm_p       => pwm,
+         pwm_p       => pwm_raw,
          underflow_p => lowside_center,
          overflow_p  => highside_center,
          clk_en_p    => clk_en_p,
@@ -88,6 +93,7 @@ begin
          reset       => reset,
          clk         => clk);
 
+   pwm <= '0' when break_p = '1' else pwm_raw;
    pwm_n <= not pwm;
 
    deadtime_on : deadtime

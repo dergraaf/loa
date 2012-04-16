@@ -191,7 +191,7 @@ public class Upload implements Communicatable {
 		//System.out.println("< " + transmittedFrame.toString());
 		
 		try {
-			if (receiveSemaphore.tryAcquire(500, TimeUnit.MILLISECONDS))
+			if (receiveSemaphore.tryAcquire(1000, TimeUnit.MILLISECONDS))
 			{
 				ByteBuffer b;
 				synchronized (this) {
