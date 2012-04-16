@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-15
+-- Last update: 2012-04-16
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ package ir_rx_module_pkg is
       port (
          adc_out_p     : out ir_rx_module_spi_out_type;
          adc_in_p      : in  ir_rx_module_spi_in_type;
-         adc_values    : out adc_ltc2351_values_type(11 downto 0);
+         adc_values_p  : out adc_ltc2351_values_type(11 downto 0);
          sync_p        : out std_logic;
          bus_o         : out busdevice_out_type;
          bus_i         : in  busdevice_in_type;

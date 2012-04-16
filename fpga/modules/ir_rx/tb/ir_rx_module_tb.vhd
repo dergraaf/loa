@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-15
+-- Last update: 2012-04-16
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ architecture tb of ir_rx_module_tb is
    -- component ports
    signal adc_out_p     : ir_rx_module_spi_out_type;
    signal adc_in_p      : ir_rx_module_spi_in_type;
-   signal adc_values    : adc_ltc2351_values_type(11 downto 0);
+   signal adc_values_s  : adc_ltc2351_values_type(11 downto 0);
    signal sync_p        : std_logic;
    signal bus_o         : busdevice_out_type;
    signal bus_i         : busdevice_in_type;
@@ -60,7 +60,7 @@ begin  -- tb
       port map (
          adc_out_p     => adc_out_p,
          adc_in_p      => adc_in_p,
-         adc_values    => adc_values,
+         adc_values_p  => adc_values_s,
          sync_p        => sync_p,
          bus_o         => bus_o,
          bus_i         => bus_i,

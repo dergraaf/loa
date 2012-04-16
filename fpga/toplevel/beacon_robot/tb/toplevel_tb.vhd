@@ -48,9 +48,9 @@ architecture tb of toplevel_tb is
          
          sram_addr_p     : out   std_logic_vector(18 downto 0);
          sram_data_p     : inout std_logic_vector(7 downto 0);
-         sram_oe_p       : out   std_logic;
-         sram_we_p       : out   std_logic;
-         sram_ce_p       : out   std_logic;
+         sram_oe_np      : out   std_logic;
+         sram_we_np      : out   std_logic;
+         sram_ce_np      : out   std_logic;
          
          us_tx0_p        : out   half_bridge_type;
          us_tx1_p        : out   half_bridge_type;
@@ -82,9 +82,9 @@ architecture tb of toplevel_tb is
 
    signal sram_addr : std_logic_vector(18 downto 0) := (others => '0');
    signal sram_data : std_logic_vector(7 downto 0) := (others => '0');
-   signal sram_oe : std_logic := '0';
-   signal sram_we : std_logic := '0';
-   signal sram_ce : std_logic := '0';
+   signal sram_oe_n : std_logic := '1';
+   signal sram_we_n : std_logic := '1';
+   signal sram_ce_n : std_logic := '1';
 
    signal us_rx_spi_in : adc_ltc2351_spi_in_type;
    signal us_rx_spi_out : adc_ltc2351_spi_out_type;
@@ -109,9 +109,9 @@ begin  -- tb
 
          sram_addr_p => sram_addr,
          sram_data_p => sram_data,
-         sram_oe_p   => sram_oe,
-         sram_we_p   => sram_we,
-         sram_ce_p   => sram_ce,
+         sram_oe_np   => sram_oe_n,
+         sram_we_np   => sram_we_n,
+         sram_ce_np   => sram_ce_n,
 
          us_tx0_p        => us_tx0,
          us_tx1_p        => us_tx1,

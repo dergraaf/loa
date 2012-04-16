@@ -97,16 +97,6 @@ architecture behavioural of goertzel is
       result       => (others => (others => '0'))
       );
 
-   -- for debugging (signals are viewable in gtkwave, variables are not)
-   --signal prod1_s    : signed(35 downto 0) := (others => '0');
-   --signal delay0_s   : signed(17 downto 0) := (others => '0');
-   --signal delay1_s   : signed(17 downto 0) := (others => '0');
-   --signal delay2_s   : signed(17 downto 0) := (others => '0');
-   --signal goertzel_s : real                := 0.0;
-   --signal p1_s       : real                := 0.0;
-
-
-
 begin  -- behavioural
    ----------------------------------------------------------------------------
    -- Mapping of signals
@@ -149,8 +139,6 @@ begin  -- behavioural
                prod1    := v.delay1 * coef;
                prod1_sc := prod1((Q + CALC_WIDTH - 1) downto Q);
 
-               --p1       := real(to_integer(prod1_sc)) / 2.0**Q;
-
                -- self.history[0]   = float(self.input.get())/(2**self.Q) + prod1   - self.history[2]
                v.delay0 := adc_value_p + prod1_sc - v.delay2;
 
@@ -173,23 +161,13 @@ begin  -- behavioural
                else
                   v.sample_count := v.sample_count + 1;
                end if;
-               
-
             end if;
          when CALC1 =>
             v.state := IDLE;
       end case;
 
       rin <= v;
-
-      -- for debugging purposes only
-      --prod1_s    <= prod1;
-      --delay0_s   <= v.delay0;
-      --delay1_s   <= v.delay1;
-      --delay2_s   <= v.delay2;
-      --goertzel_s <= goertzel;
-      --p1_s       <= p1;
-      
+     
    end process comb_proc;
 
 end behavioural;

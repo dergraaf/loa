@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-15
+-- Last update: 2012-04-16
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ architecture tb of goertzel_tb is
 
    -- calculate Goertzel Coefficient
    -- TODO
-   constant coef : unsigned := to_unsigned(4760, 18);
+   constant COEF : unsigned := to_unsigned(4760, CALC_WIDTH);
 
    -- debugging signal for goertzel
    signal goertzel_value_s : real := 0.0;
@@ -79,7 +79,7 @@ begin  -- tb
          )
       port map (
          clk         => clk,
-         coef_p      => coef,
+         coef_p      => COEF,
          start_p     => start_p,
          adc_value_p => adc_value_p,
          result_p    => result_p,

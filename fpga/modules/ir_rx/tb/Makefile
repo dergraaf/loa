@@ -12,6 +12,8 @@ FILES = \
 ../../adc_ltc2351/hdl/adc_ltc2351.vhd \
 ../../adc_ltc2351/hdl/adc_ltc2351_pkg.vhd \
 ../../adc_ltc2351/hdl/adc_ltc2351_model.vhd \
+../../signalprocessing/hdl/signalprocessing_pkg.vhd \
+../../signalprocessing/hdl/goertzel.vhd \
 ../hdl/ir_rx_module_pkg.vhd \
 ../hdl/ir_rx_module.vhd 
 else ifeq ($(TESTBENCH), adc_ltc2351_module_tb)

@@ -5,7 +5,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-14
+-- Last update: 2012-04-16
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -27,6 +27,8 @@ use work.adc_ltc2351_pkg.all;
 use work.uss_tx_pkg.all;
 use work.ir_tx_pkg.all;
 use work.utils_pkg.all;
+use work.signalprocessing_pkg.all;
+use work.ir_rx_module_pkg.all;
 
 -------------------------------------------------------------------------------
 entity toplevel is
@@ -80,6 +82,7 @@ architecture structural of toplevel is
    constant BASE_ADDR_IR0_RX : natural := 16#0030#;
    constant BASE_ADDR_IR1_RX : natural := 16#0040#;
    constant BASE_ADDR_US_RX  : natural := 16#0050#;
+   constant BASE_ADDR_IR_RX  : natural := 16#0080#;
 
    signal reset_r : std_logic_vector(1 downto 0) := (others => '0');
    signal reset   : std_logic;
@@ -99,6 +102,11 @@ architecture structural of toplevel is
    signal bus_adc_ir1_out  : busdevice_out_type;
    signal bus_adc_us_out   : busdevice_out_type;
    signal bus_ir_tx_out    : busdevice_out_type;
+   signal bus_ir_rx_out    : busdevice_out_type;
+
+   -- Connections to and from the IR ADCs
+   signal ir_rx_module_spi_out : ir_rx_module_spi_out_type;
+   signal ir_rx_module_spi_in  : ir_rx_module_spi_in_type;
    
 
    
@@ -109,6 +117,7 @@ begin
    bus_i.data <= bus_register_out.data or
                  bus_adc_ir0_out.data or
                  -- bus_adc_ir1_out.data or
+                 -- bus_ir_rx_out.data or
                  bus_adc_us_out.data or
                  bus_ir_tx_out.data;
 
@@ -182,8 +191,8 @@ begin
          bus_i           => bus_o,
          clk             => clk);
 
-   ----------------------------------------------------------------------------
-   -- IR RX ADC readout 0
+   ------------------------------------------------------------------------------
+   ---- IR RX ADC readout 0
    adc_ir_rx_0 : adc_ltc2351_module
       generic map (
          BASE_ADDRESS => BASE_ADDR_IR0_RX)
@@ -193,14 +202,36 @@ begin
          bus_o        => bus_adc_ir0_out,
          bus_i        => bus_o,
          adc_values_o => open,
-         done_o       => irq_p,
+         done_p       => irq_p,
          reset        => reset,
          clk          => clk);
 
-   ----------------------------------------------------------------------------
-   -- IR RX ADC readout 1
+   ------------------------------------------------------------------------------
+   ---- US RX ADC readout
    us_rx_spi_out_p.sck <= 'Z';
    us_rx_spi_out_p.conv <= 'Z';
+
+   -- SPI of both ADCs has common CONV and SCK
+   --ir_rx_spi_out_p <= ir_rx_module_spi_out(0);
+   --ir_rx_module_spi_in(0) <= ir_rx0_spi_in_p;
+   --ir_rx_module_spi_in(1) <= ir_rx1_spi_in_p;
+
+
+   --ir_rx_module_1 : ir_rx_module
+   --   generic map (
+   --      BASE_ADDRESS => BASE_ADDR_IR_RX)
+   --   port map (
+   --      adc_out_p     => ir_rx_module_spi_out,
+   --      adc_in_p      => ir_rx_module_spi_in,
+   --      adc_values_p  => open,
+   --      sync_p        => open,
+   --      bus_o         => bus_ir_rx_out,
+   --      bus_i         => bus_o,
+   --      done_p        => irq_p,
+   --      ack_p         => '0',
+   --      clk_sample_en => '0',          -- TODO driven by clock divider
+   --                                     -- together with US RX
+   --      clk           => clk);
 
    ----------------------------------------------------------------------------
    -- US RX ADC readout
