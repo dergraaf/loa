@@ -2,10 +2,10 @@
 -- Title      : Mobile Beacon
 -------------------------------------------------------------------------------
 -- File       : toplevel.vhd
--- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
+-- Authors    : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-16
+-- Last update: 2012-04-18
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -40,10 +40,12 @@ entity toplevel is
       miso_p : out std_logic;
       mosi_p : in  std_logic;
 
-      irq_p : out std_logic;            -- Inform STM about new data
-
       -- hardwired
-      -- tbd
+      ir_irq_p : out std_logic;
+      us_irq_p : out std_logic;
+
+      ir_ack_p : in std_logic;
+      us_ack_p : in std_logic;
 
       -- 4 MBit SRAM CY7C1049DV33-10ZSXI (428-1982-ND)
       sram_addr_p : out   std_logic_vector(18 downto 0);
@@ -67,10 +69,10 @@ entity toplevel is
       -- IR RX: two LTC2351 ADC
       ir_rx_spi_out_p : out adc_ltc2351_spi_out_type;
       ir_rx0_spi_in_p : in  adc_ltc2351_spi_in_type;
-      ir_rx1_spi_in_p : in  adc_ltc2351_spi_in_type;
 
-      reset_n : in std_logic;
-      clk     : in std_logic
+      ir_rx1_spi_in_p : in adc_ltc2351_spi_in_type;
+
+      clk : in std_logic
       );
 end toplevel;
 
@@ -90,7 +92,12 @@ architecture structural of toplevel is
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
 
-   signal irq : std_logic := '0';
+   -- Synchronise inputs
+   signal ir_ack_r : std_logic_vector(1 downto 0) := (others => '0');
+   signal ir_ack   : std_logic;
+
+   signal us_ack_r : std_logic_vector(1 downto 0) := (others => '0');
+   signal us_ack : std_logic;
 
    -- Connection to the Busmaster
    signal bus_o : busmaster_out_type;
@@ -103,6 +110,10 @@ architecture structural of toplevel is
    signal bus_adc_us_out   : busdevice_out_type;
    signal bus_ir_tx_out    : busdevice_out_type;
    signal bus_ir_rx_out    : busdevice_out_type;
+
+
+   -- Common clock enable for ADCs
+   signal clk_adc_en_s : std_logic;
 
    -- Connections to and from the IR ADCs
    signal ir_rx_module_spi_out : ir_rx_module_spi_out_type;
@@ -117,11 +128,12 @@ begin
    bus_i.data <= bus_register_out.data or
                  bus_adc_ir0_out.data or
                  -- bus_adc_ir1_out.data or
-                 -- bus_ir_rx_out.data or
+                 bus_ir_rx_out.data or
                  bus_adc_us_out.data or
                  bus_ir_tx_out.data;
 
    ----------------------------------------------------------------------------
+
    -- SPI connection to the STM32F4xx and Busmaster
    -- for the internal bus
    spi : spi_slave
@@ -192,53 +204,84 @@ begin
          clk             => clk);
 
    ------------------------------------------------------------------------------
-   ---- IR RX ADC readout 0
-   adc_ir_rx_0 : adc_ltc2351_module
-      generic map (
-         BASE_ADDRESS => BASE_ADDR_IR0_RX)
-      port map (
-         adc_out_p    => ir_rx_spi_out_p,
-         adc_in_p     => ir_rx0_spi_in_p,
-         bus_o        => bus_adc_ir0_out,
-         bus_i        => bus_o,
-         adc_values_o => open,
-         done_p       => irq_p,
-         reset        => reset,
-         clk          => clk);
+   -- IR RX ADC readout 0
+   --adc_ir_rx_0 : adc_ltc2351_module
+   --   generic map (
+   --      BASE_ADDRESS => BASE_ADDR_IR0_RX)
+   --   port map (
+   --      adc_out_p    => ir_rx_spi_out_p,
+   --      adc_in_p     => ir_rx0_spi_in_p,
+   --      bus_o        => bus_adc_ir0_out,
+   --      bus_i        => bus_o,
+   --      adc_values_o => open,
+   --      done_p       => irq_p,
+   --      reset        => reset,
+   --      clk          => clk);
 
    ------------------------------------------------------------------------------
-   ---- US RX ADC readout
-   us_rx_spi_out_p.sck <= 'Z';
-   us_rx_spi_out_p.conv <= 'Z';
+   ----------------------------------------------------------------------------
+   -- Common sample Clock for US RX and IR RX
+   -- 50 MHz / 200 = 250 kHz
+   -- 50 MHz / 500 = 100 kHz
+   -- 50 MHz / 667 =  75 kHz
+   ----------------------------------------------------------------------------
 
-   -- SPI of both ADCs has common CONV and SCK
-   --ir_rx_spi_out_p <= ir_rx_module_spi_out(0);
-   --ir_rx_module_spi_in(0) <= ir_rx0_spi_in_p;
-   --ir_rx_module_spi_in(1) <= ir_rx1_spi_in_p;
+   clock_divider_adc : clock_divider
+      generic map (
+         DIV => 667)
+      port map (
+         clk_out_p => clk_adc_en_s,
+         clk       => clk);
 
-
-   --ir_rx_module_1 : ir_rx_module
-   --   generic map (
-   --      BASE_ADDRESS => BASE_ADDR_IR_RX)
-   --   port map (
-   --      adc_out_p     => ir_rx_module_spi_out,
-   --      adc_in_p      => ir_rx_module_spi_in,
-   --      adc_values_p  => open,
-   --      sync_p        => open,
-   --      bus_o         => bus_ir_rx_out,
-   --      bus_i         => bus_o,
-   --      done_p        => irq_p,
-   --      ack_p         => '0',
-   --      clk_sample_en => '0',          -- TODO driven by clock divider
-   --                                     -- together with US RX
-   --      clk           => clk);
 
    ----------------------------------------------------------------------------
    -- US RX ADC readout
+   ----------------------------------------------------------------------------
+   us_rx_spi_out_p.sck  <= 'Z';
+   us_rx_spi_out_p.conv <= 'Z';
+
+   us_irq_p <= 'Z';
+
+   -- SPI of both ADCs has common CONV and SCK
+   ir_rx_spi_out_p        <= ir_rx_module_spi_out(0);
+   ir_rx_module_spi_in(0) <= ir_rx0_spi_in_p;
+   ir_rx_module_spi_in(1) <= ir_rx1_spi_in_p;
+
+   ir_rx_module_0 : ir_rx_module
+      generic map (
+         BASE_ADDRESS => BASE_ADDR_IR_RX)
+      port map (
+         adc_out_p     => ir_rx_module_spi_out,
+         adc_in_p      => ir_rx_module_spi_in,
+         adc_values_p  => open,
+         sync_p        => open,
+         bus_o         => bus_ir_rx_out,
+         bus_i         => bus_o,
+         done_p        => ir_irq_p,
+         ack_p         => ir_ack,
+         clk_sample_en => clk_adc_en_s,
+         clk           => clk);
+
+
 
    ----------------------------------------------------------------------------
    -- Modulation
+   ----------------------------------------------------------------------------
 
 
 
+   ----------------------------------------------------------------------------
+   -- synchronize acknowledge signals
+   ----------------------------------------------------------------------------
+   process (clk)
+   begin
+      if rising_edge(clk) then
+         ir_ack_r <= ir_ack_r(0) & ir_ack_p;
+         us_ack_r <= us_ack_r(0) & us_ack_p;
+      end if;
+   end process;
+
+   ir_ack <= ir_ack_r(1);
+   us_ack <= us_ack_r(1);
+   
 end structural;

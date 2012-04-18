@@ -7,8 +7,8 @@ ifeq ($(TESTBENCH), goertzel_tb)
 FILES = \
 ../../utils/hdl/utils_pkg.vhd \
 ../../spislave/hdl/bus_pkg.vhd \
-../../adc_mcp3008/hdl/reg_file_pkg.vhd \
-../../adc_mcp3008/hdl/reg_file.vhd \
+../../peripheral_register/hdl/reg_file_pkg.vhd \
+../../peripheral_register/hdl/reg_file.vhd \
 ../../adc_ltc2351/hdl/adc_ltc2351.vhd \
 ../../adc_ltc2351/hdl/adc_ltc2351_pkg.vhd \
 ../../adc_ltc2351/hdl/adc_ltc2351_model.vhd \

@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-04-16
+-- Last update: 2012-04-18
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ entity ir_rx_module is
       done_p : out std_logic;
       ack_p  : in  std_logic;
 
-      -- Sampling clock enable (expected to be 250 kHz)
+      -- Sampling clock enable (expected to be 250 kHz or less)
       clk_sample_en : in std_logic;
 
       clk : in std_logic
@@ -87,7 +87,7 @@ architecture structural of ir_rx_module is
    constant Q           : natural := 13;
    constant SAMPLES     : natural := 250;
 
-   constant COEF : unsigned := to_unsigned(4760, CALC_WIDTH);
+   constant COEF : unsigned := to_unsigned(2732, CALC_WIDTH);
 
    ----------------------------------------------------------------------------
    -- Internal signal declaration
@@ -99,6 +99,8 @@ architecture structural of ir_rx_module is
    signal adc_value_signed_s : signed(INPUT_WIDTH-1 downto 0);
    signal results_s          : goertzel_result_type;
 
+   signal module_done : std_logic := '0';
+
    -- TODO Twelve results from Goertzel
    -- TODO: search for two frequencies
 
@@ -108,19 +110,21 @@ architecture structural of ir_rx_module is
 
    signal reg_o : reg_file_type(7 downto 0);
    signal reg_i : reg_file_type(7 downto 0);
+
+   signal goertzel_done_s : std_logic;
    
 begin  -- structural
 
    ----------------------------------------------------------------------------
    -- Connect components
    ----------------------------------------------------------------------------
-   -- adc_start_s  <= clk_sample_en;
    adc_values_p <= adc_values_s;
 
    reg_i(0) <= std_logic_vector(results_s(0));
    reg_i(1) <= std_logic_vector(results_s(1));
+   reg_i(2) <= "00" & std_logic_vector(adc_value_signed_s(13 downto 0));
 
-   
+   done_p <= module_done;
 
    ----------------------------------------------------------------------------
    -- Component Instantiation
@@ -141,22 +145,12 @@ begin  -- structural
          clk   => clk
          );
 
-
-   -- TODO move to toplevel.vhd
-   -- Clock generation for ADC
-   clock_divider_adc : clock_divider
-      generic map (
-         DIV => 5)
-      port map (
-         clk_out_p => adc_start_s,
-         clk       => clk);
-
    -- Two ADCs
    adc_ltc2351_0 : adc_ltc2351
       port map (
          adc_out  => adc_out_p(0),
          adc_in   => adc_in_p(0),
-         start_p  => adc_start_s,
+         start_p  => clk_sample_en,
          values_p => adc_values_s(5 downto 0),
          done_p   => adc_done_s,
          reset    => '0',
@@ -167,7 +161,7 @@ begin  -- structural
       port map (
          adc_out  => adc_out_p(1),
          adc_in   => adc_in_p(1),
-         start_p  => adc_start_s,
+         start_p  => clk_sample_en,
          values_p => adc_values_s(11 downto 6),
          done_p   => open,
          reset    => '0',
@@ -192,12 +186,23 @@ begin  -- structural
          start_p     => adc_done_s,
          adc_value_p => adc_value_signed_s,
          result_p    => results_s,
-         done_p      => done_p
+         done_p      => goertzel_done_s
          );
-
-
 
    -- Sync extraction
    -- TODO
+
+   handshake_proc : process (clk)
+   begin  -- process handshake_proc
+      if rising_edge(clk) then
+         if goertzel_done_s = '1' then
+            module_done <= '1';
+         elsif ack_p = '1' then
+            module_done <= '0';
+         end if;
+      end if;
+   end process handshake_proc;
+
+
 
 end structural;

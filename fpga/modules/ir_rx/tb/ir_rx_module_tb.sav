@@ -1,9 +1,24 @@
-[timestart] 4684200000
-[size] 1023 768
+[timestart] 0
+[size] 1024 744
 [pos] -1 -1
-*-27.413988 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.413986 92040000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
+[treeopen] top.ir_rx_module_tb.
+[treeopen] top.ir_rx_module_tb.adc_out_p.
 @28
 top.ir_rx_module_tb.clk
+top.ir_rx_module_tb.clk_sample_en
+top.ir_rx_module_tb.adc_out_p[0].sck
+top.ir_rx_module_tb.adc_out_p[0].conv
+top.ir_rx_module_tb.dut.adc_done_s
+top.ir_rx_module_tb.dut.goertzel_5.start_p
+top.ir_rx_module_tb.dut.goertzel_5.done_p
+top.ir_rx_module_tb.dut.goertzel_done_s
+top.ir_rx_module_tb.dut.module_done
+top.ir_rx_module_tb.ack_p
+@22
+#{top.ir_rx_module_tb.adc_values_test[13:0]} top.ir_rx_module_tb.adc_values_test[13] top.ir_rx_module_tb.adc_values_test[12] top.ir_rx_module_tb.adc_values_test[11] top.ir_rx_module_tb.adc_values_test[10] top.ir_rx_module_tb.adc_values_test[9] top.ir_rx_module_tb.adc_values_test[8] top.ir_rx_module_tb.adc_values_test[7] top.ir_rx_module_tb.adc_values_test[6] top.ir_rx_module_tb.adc_values_test[5] top.ir_rx_module_tb.adc_values_test[4] top.ir_rx_module_tb.adc_values_test[3] top.ir_rx_module_tb.adc_values_test[2] top.ir_rx_module_tb.adc_values_test[1] top.ir_rx_module_tb.adc_values_test[0]
+@421
+#{top.ir_rx_module_tb.adc_values_test_signed[13:0]} top.ir_rx_module_tb.adc_values_test_signed[13] top.ir_rx_module_tb.adc_values_test_signed[12] top.ir_rx_module_tb.adc_values_test_signed[11] top.ir_rx_module_tb.adc_values_test_signed[10] top.ir_rx_module_tb.adc_values_test_signed[9] top.ir_rx_module_tb.adc_values_test_signed[8] top.ir_rx_module_tb.adc_values_test_signed[7] top.ir_rx_module_tb.adc_values_test_signed[6] top.ir_rx_module_tb.adc_values_test_signed[5] top.ir_rx_module_tb.adc_values_test_signed[4] top.ir_rx_module_tb.adc_values_test_signed[3] top.ir_rx_module_tb.adc_values_test_signed[2] top.ir_rx_module_tb.adc_values_test_signed[1] top.ir_rx_module_tb.adc_values_test_signed[0]
 [pattern_trace] 1
 [pattern_trace] 0

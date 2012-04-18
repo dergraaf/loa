@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-16
+-- Last update: 2012-04-18
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -51,17 +51,17 @@ architecture tb of goertzel_tb is
    -- signal generation
    signal PHASE : real := 0.0;
 
-   constant SCALE  : real := 2.0**10 - 10.0;
+   constant SCALE  : real := 2.0**7 - 10.0;
    constant OFFSET : real := 2.0**13;
 
-   constant FSAMPLE : real := 25000.0;  -- Sample Frequency in Hertz
-   constant FSIGNAL : real := 5077.0;   -- Signal Frequency in Hertz
+   constant FSAMPLE : real := 75000.0;  -- Sample Frequency in Hertz
+   constant FSIGNAL : real := 16750.0;  -- Signal Frequency in Hertz
 
    signal PHASE_INCREMENT : real := 2.0 * 3.1415 * FSIGNAL / FSAMPLE;
 
    -- calculate Goertzel Coefficient
    -- TODO
-   constant COEF : unsigned := to_unsigned(4760, CALC_WIDTH);
+   constant COEF : unsigned := to_unsigned(2732, CALC_WIDTH);
 
    -- debugging signal for goertzel
    signal goertzel_value_s : real := 0.0;
@@ -132,16 +132,17 @@ begin  -- tb
       variable d1 : real := 0.0;
       variable d2 : real := 0.0;
       variable c  : real := 0.0;
-      variable p1 : real := 0.0;
       
    begin  -- process GoertzelCheck_proc
       wait until done_s = '1';
 
       -- new values are available in the result registers
       -- convert results from Q-format to real
+      -- only the upper 16 bits of result_p are stored, so do not shift by 18
+      -- bits. 
 
-      d1 := real(to_integer(result_p(0))) / 2.0**Q;
-      d2 := real(to_integer(result_p(1))) / 2.0**Q;
+      d1 := real(to_integer(result_p(0))) / 2.0**(Q-2);
+      d2 := real(to_integer(result_p(1))) / 2.0**(Q-2);
       c  := real(to_integer(coef)) / 2.0**Q;
 
       -- calculate goertzel value

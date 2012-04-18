@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-10
--- Last update: 2012-04-15
+-- Last update: 2012-04-18
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ entity adc_ltc2351 is
 
       -- signals to other logic in FPGA
       start_p  : in  std_logic;
-      values_p : out adc_ltc2351_values_type(0 to 5);
+      values_p : out adc_ltc2351_values_type(5 downto 0);
       done_p   : out std_logic;
 
       -- reset and clock
@@ -66,7 +66,7 @@ architecture behavioral of adc_ltc2351 is
       count_bit       : integer range 1 to BITCOUNT + 1;
       countdown_delay : integer range 0 to 1;
       -- register results of last conversion
-      values          : adc_ltc2351_values_type(0 to CHANNEL_COUNT-1);
+      values          : adc_ltc2351_values_type(CHANNEL_COUNT-1 downto 0);
    end record;
 
 

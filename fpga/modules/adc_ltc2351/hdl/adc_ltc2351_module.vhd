@@ -66,7 +66,7 @@ architecture behavioral of adc_ltc2351_module is
    -----------------------------------------------------------------------------
    signal r, rin : adc_ltc2351_module_type;
 
-   signal value_s : adc_ltc2351_values_type(0 to 5);  -- TODO use generic for channel number
+   signal value_s : adc_ltc2351_values_type(5 downto 0);  -- TODO use generic for channel number
    signal done_s : std_logic := '0';
 
    signal reg_o : reg_file_type(7 downto 0);

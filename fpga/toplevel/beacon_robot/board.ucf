@@ -6,24 +6,27 @@ NET "*"			IOSTANDARD = LVCMOS33;
 # Connections to the STM32F407
 NET "cs_np"		LOC = P65;	# <- PA4
 NET "sck_p"		LOC = P64;	# <- PA5
-NET "miso_p"	LOC = P62;	# -> PA6
-NET "mosi_p"	LOC = P61;	# <- PA7
+NET "miso_p"		LOC = P62;	# -> PA6
+NET "mosi_p"		LOC = P61;	# <- PA7
+
+# two-way handshake between FPGA and STM when new IR and US data is available
+NET "ir_irq_p"	LOC = P60;	     	 # -> PE11
+NET "ir_ack_p"	LOC = P51 | PULLDOWN;	 # <- PB10
+
+NET "us_irq_p"	LOC = P57;		 # -- PE13
+NET "us_ack_p" 	LOC = P59 | PULLDOWN;	 # -- PE12
 
 
-NET "irq_p"	LOC = P60;	# -> PE11
-
-NET "reset_n"	LOC = P57;	# <-> PE13 (not Reset)
-
-# P57		# -- PE13
-# P59		# -- PE12
-# P60		# -- PE11
-# P44		# -- unconnected
+# P44		# -- unconnected FPGA pin
 
 # P48		# Init B -> PB11 (pullup needed)
 # P51		# Din    <- PB10
 # P53		# CCLK   <- PE15
 # Prog B	(dedicated for configuration) <- PE10
-# Done   (dedicated for configuration) -> PE14
+# Done   	(dedicated for configuration) -> PE14
+
+# User I/O after configuration:
+# DIN, CCLK, DOUT
 
 # ----------------------------------------------------------------------------
 # 4 MBit SRAM CY7C1049DV33-10ZSXI (428-1982-ND)

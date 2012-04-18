@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-15
+-- Last update: 2012-04-18
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -117,36 +117,34 @@ begin  -- behavioural
    ----------------------------------------------------------------------------
    -- Transitions and actions of FSM
    ----------------------------------------------------------------------------
-   comb_proc : process (start_p)
+   comb_proc : process (adc_value_p, coef_p, r, rin, start_p)
       variable v        : goertzel_type;
       variable prod1    : signed(2*CALC_WIDTH-1 downto 0) := (others => '0');
       variable prod1_sc : signed(CALC_WIDTH-1 downto 0)   := (others => '0');
       variable coef     : signed(CALC_WIDTH-1 downto 0);
 
-      -- only for development, non-sythesisable
-      
    begin  -- process comb_proc
       v    := r;
       coef := signed(coef_p);
 
-      case v.state is
+      case r.state is
          when IDLE =>
             v.done := '0';
             if start_p = '1' then
                v.state := CALC1;
 
                -- prod1 := (self.history[1] * coef);
-               prod1    := v.delay1 * coef;
+               prod1    := r.delay1 * coef;
                prod1_sc := prod1((Q + CALC_WIDTH - 1) downto Q);
 
                -- self.history[0]   = float(self.input.get())/(2**self.Q) + prod1   - self.history[2]
-               v.delay0 := adc_value_p + prod1_sc - v.delay2;
+               v.delay0 := adc_value_p + prod1_sc - r.delay2;
 
                -- remember old values
-               v.delay2 := v.delay1;
                v.delay1 := v.delay0;
+               v.delay2 := r.delay1;
 
-               if rin.sample_count = SAMPLES then
+               if r.sample_count = SAMPLES then
                   v.sample_count := 0;
 
                   -- store results of current packet, only the upper 16 bits
@@ -159,7 +157,7 @@ begin  -- behavioural
                   v.delay1 := (others => '0');
                   v.delay2 := (others => '0');
                else
-                  v.sample_count := v.sample_count + 1;
+                  v.sample_count := r.sample_count + 1;
                end if;
             end if;
          when CALC1 =>

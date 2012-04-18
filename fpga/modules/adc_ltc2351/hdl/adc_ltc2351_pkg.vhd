@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-10
--- Last update: 2012-04-15
+-- Last update: 2012-04-18
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ package adc_ltc2351_pkg is
 
          -- signals to other logic in FPGA
          start_p  : in  std_logic;
-         values_p : out adc_ltc2351_values_type(0 to 5);
+         values_p : out adc_ltc2351_values_type(5 downto 0);
          done_p   : out std_logic;
 
          -- reset and clock

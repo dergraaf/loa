@@ -6,7 +6,7 @@
 -- Author     : 
 -- Company    : 
 -- Created    : 2012-04-03
--- Last update: 2012-04-13
+-- Last update: 2012-04-17
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -44,7 +44,6 @@ architecture tb of toplevel_tb is
          sck_p           : in    std_logic;
          miso_p          : out   std_logic;
          mosi_p          : in    std_logic;
-         irq_p           : out   std_logic;
          
          sram_addr_p     : out   std_logic_vector(18 downto 0);
          sram_data_p     : inout std_logic_vector(7 downto 0);
@@ -58,11 +57,18 @@ architecture tb of toplevel_tb is
          
          us_rx_spi_in_p  : in    adc_ltc2351_spi_in_type;
          us_rx_spi_out_p : out   adc_ltc2351_spi_out_type;
+         
          ir_tx_p         : out   std_logic;
+         
          ir_rx_spi_out_p : out   adc_ltc2351_spi_out_type;
          ir_rx0_spi_in_p : in    adc_ltc2351_spi_in_type;
          ir_rx1_spi_in_p : in    adc_ltc2351_spi_in_type;
-         reset_n         : in    std_logic;
+
+         ir_ack_p : in std_logic;
+         ir_irq_p : out std_logic;
+
+         us_ack_p : in std_logic;
+         us_irq_p : out std_logic;
          
          clk             : in    std_logic);
    end component;
@@ -105,7 +111,6 @@ begin  -- tb
          sck_p  => sck,
          miso_p => miso,
          mosi_p => mosi,
-         irq_p  => irq,
 
          sram_addr_p => sram_addr,
          sram_data_p => sram_data,
@@ -124,8 +129,13 @@ begin  -- tb
          ir_rx_spi_out_p => ir_rx_spi_out,
          ir_rx0_spi_in_p => ir_rx0_spi_in,
          ir_rx1_spi_in_p => ir_rx1_spi_in,
+
+         ir_ack_p => '0',
+         ir_irq_p => open,
+
+         us_ack_p => '0',
+         us_irq_p => open,
          
-         reset_n         => reset_n,
          clk             => clk);
 
    -- clock generation
