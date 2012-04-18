@@ -1,0 +1,12 @@
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-28.172703 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+@28
+top.event_hold_stage_tb.clk
+top.event_hold_stage_tb.periode
+top.event_hold_stage_tb.din
+top.event_hold_stage_tb.dout
+[pattern_trace] 1
+[pattern_trace] 0

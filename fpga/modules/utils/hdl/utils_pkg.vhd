@@ -51,6 +51,15 @@ package utils_pkg is
    end component fractional_clock_divider_variable;
 
    ----------------------------------------------------------------------------
+   component event_hold_stage is
+      port (
+         dout_p   : out std_logic;
+         din_p    : in  std_logic;
+         period_p : in  std_logic;
+         clk      : in  std_logic);
+   end component event_hold_stage;
+
+   ----------------------------------------------------------------------------
    component dff is
       port (
          dout_p  : out std_logic;
