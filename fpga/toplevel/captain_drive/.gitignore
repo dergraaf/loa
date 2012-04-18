@@ -9,3 +9,4 @@ ise/xst/
 ise/xlnx_auto_0_xdb/
 toplevel.svf
 _impactbatch.log
+tb/simulation

@@ -5,7 +5,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-28
--- Last update: 2012-04-15
+-- Last update: 2012-04-16
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -70,10 +70,10 @@ entity toplevel is
 end toplevel;
 
 architecture structural of toplevel is
-   signal reset_r     : std_logic_vector(1 downto 0) := (others => '0');
-   signal reset       : std_logic;
-   signal load_r      : std_logic_vector(1 downto 0) := (others => '0');
-   signal load        : std_logic;
+   signal reset_r : std_logic_vector(1 downto 0) := (others => '0');
+   signal reset   : std_logic;
+   signal load_r  : std_logic_vector(1 downto 0) := (others => '0');
+   signal load    : std_logic;
 
    signal sw_1r        : std_logic_vector(1 downto 0);
    signal sw_2r        : std_logic_vector(1 downto 0);
@@ -84,8 +84,7 @@ architecture structural of toplevel is
    signal comparator_values_in : comparator_values_type(2 downto 0);
    signal current_limit        : std_logic_vector(2 downto 0) := (others => '0');
    signal current_limit_hold   : std_logic_vector(2 downto 0) := (others => '0');
-   signal current_limit_hold_n : std_logic_vector(2 downto 0) := (others => '1');
-   signal reset_current : std_logic                    := '1';
+   signal current_next_period  : std_logic                    := '1';
 
    signal motor3_sd     : std_logic := '1';
    signal encoder_index : std_logic := '0';
@@ -124,16 +123,12 @@ begin
    load  <= load_r(1);
 
    current_hold : for n in 2 downto 0 generate
-      dff_1 : dff
+      event_hold_stage_1 : event_hold_stage
          port map (
-            dout_p  => current_limit_hold_n(n),
-            din_p   => '1',
-            set_p   => reset,   -- = '0' during normal operation
-            reset_p => current_limit(n),
-            ce_p    => reset_current,
-            clk     => clk);
-
-      current_limit_hold(n) <= not current_limit_hold_n(n);
+            dout_p   => current_limit_hold(n),
+            din_p    => current_limit(n),
+            period_p => current_next_period,
+            clk      => clk);
    end generate;
 
    process (clk) is
@@ -141,9 +136,9 @@ begin
       if rising_edge(clk) then
          if load_r = "01" then
             -- rising edge of the load signal
-            reset_current <= '1';
+            current_next_period <= '1';
          else
-            reset_current <= '0';
+            current_next_period <= '0';
          end if;
       end if;
    end process;
@@ -196,6 +191,7 @@ begin
    register_in <= x"46" & "0" & current_limit_hold & "00" & sw_2r;
    led_np      <= not register_out(3 downto 0);
 
+   ----------------------------------------------------------------------------
    -- component instantiation
    adc : adc_mcp3008_module
       generic map (
@@ -211,7 +207,6 @@ begin
 
    -----------------------------------------------------------------------------
    -- BLDC motors 1 & 2
-
    bldc1 : bldc_motor_module
       generic map (
          BASE_ADDRESS => 16#0010#,
@@ -220,6 +215,7 @@ begin
       port map (
          driver_stage_p => bldc1_driver_p,
          hall_p         => bldc1_hall_p,
+         break_p        => current_limit(0),
          bus_o          => bus_bldc1_out,
          bus_i          => bus_o,
          reset          => reset,
@@ -245,6 +241,7 @@ begin
       port map (
          driver_stage_p => bldc2_driver_p,
          hall_p         => bldc2_hall_p,
+         break_p        => current_limit(1),
          bus_o          => bus_bldc2_out,
          bus_i          => bus_o,
          reset          => reset,
@@ -264,20 +261,20 @@ begin
 
    ----------------------------------------------------------------------------
    -- DC Motors 3
-
    motor3_pwm_module : dc_motor_module
       generic map (
          BASE_ADDRESS => 16#0030#,
          WIDTH        => 12,
          PRESCALER    => 2)
       port map (
-         pwm1_p => motor3_pwm1_p,
-         pwm2_p => motor3_pwm2_p,
-         sd_p   => motor3_sd,
-         bus_o  => bus_motor3_pwm_out,
-         bus_i  => bus_o,
-         reset  => reset,
-         clk    => clk);
+         pwm1_p  => motor3_pwm1_p,
+         pwm2_p  => motor3_pwm2_p,
+         sd_p    => motor3_sd,
+         break_p => current_limit(2),
+         bus_o   => bus_motor3_pwm_out,
+         bus_i   => bus_o,
+         reset   => reset,
+         clk     => clk);
 
    motor3_sd_np <= not motor3_sd;
 

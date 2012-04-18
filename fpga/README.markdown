@@ -46,4 +46,6 @@ Naming & Coding Conventions
 - Use the 'two-process' method whenever possible, see [A structured VHDL design method][two-process]
 - Use records types to group associated signals
 
+- Use 3 spaces for indention (Emacs default VHDL style)
+
 [two-process]: www.gaisler.com/doc/vhdl2proc.pdf

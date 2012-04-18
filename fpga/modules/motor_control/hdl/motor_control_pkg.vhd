@@ -45,7 +45,7 @@ package motor_control_pkg is
          pwm1_p  : out std_logic;
          pwm2_p  : out std_logic;
          sd_p    : out std_logic;
-         break_p : in  std_logic := '0';
+         break_p : in  std_logic;
          bus_o   : out busdevice_out_type;
          bus_i   : in  busdevice_in_type;
          reset   : in  std_logic;
@@ -60,7 +60,7 @@ package motor_control_pkg is
       port (
          driver_stage_p : out bldc_driver_stage_type;
          hall_p         : in  hall_sensor_type;
-         break_p        : in  std_logic := '0';
+         break_p        : in  std_logic;
          bus_o          : out busdevice_out_type;
          bus_i          : in  busdevice_in_type;
          reset          : in  std_logic;

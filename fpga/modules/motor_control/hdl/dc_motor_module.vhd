@@ -36,7 +36,7 @@ entity dc_motor_module is
       sd_p   : out std_logic;           -- Shutdown
 
       -- Disable switching
-      break_p : in std_logic := '0';
+      break_p : in std_logic;
 
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
