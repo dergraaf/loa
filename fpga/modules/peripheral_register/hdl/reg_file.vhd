@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-04-15
+-- Last update: 2012-04-18
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -54,13 +54,14 @@ end reg_file;
 
 architecture str of reg_file is
 
-   constant BASE_ADDRESS_VECTOR : std_logic_vector(14 downto 0) := std_logic_vector(to_unsigned(BASE_ADDRESS, 15));
+   constant BASE_ADDRESS_VECTOR : std_logic_vector(14 downto 0) :=
+      std_logic_vector(to_unsigned(BASE_ADDRESS, 15));
 
    -----------------------------------------------------------------------------
    -- Internal signal declarations
    -----------------------------------------------------------------------------
    signal reg      : reg_file_type(2**REG_ADDR_BIT-1 downto 0) := (others => (others => '0'));
-   signal data_out : std_logic_vector(15 downto 0);
+   signal data_out : std_logic_vector(15 downto 0)             := (others => '0');
 
 begin  -- str
 
