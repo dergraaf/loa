@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-18
+-- Last update: 2012-04-20
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -149,8 +149,8 @@ begin  -- behavioural
 
                   -- store results of current packet, only the upper 16 bits
                   -- for STM. 
-                  v.result(0) := v.delay1(CALC_WIDTH-1 downto CALC_WIDTH-1-15);
-                  v.result(1) := v.delay2(CALC_WIDTH-1 downto CALC_WIDTH-1-15);
+                  v.result(0) := v.delay1;
+                  v.result(1) := v.delay2;
                   v.done      := '1';
 
                   -- reset delay registers

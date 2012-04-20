@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-18
+-- Last update: 2012-04-20
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -72,8 +72,6 @@ begin  -- tb
    -- component instantiation
    DUT : goertzel
       generic map (
-         INPUT_WIDTH => INPUT_WIDTH,
-         CALC_WIDTH  => CALC_WIDTH,
          Q           => Q,
          SAMPLES     => SAMPLES
          )

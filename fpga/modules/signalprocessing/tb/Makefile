@@ -1,6 +1,7 @@
 
 # Name of the testbench without extenstion
-TESTBENCH = goertzel_tb
+#TESTBENCH = goertzel_tb
+TESTBENCH = goertzel_pipelined_tb
 
 # VHDL files
 ifeq ($(TESTBENCH), goertzel_tb)
@@ -14,9 +15,17 @@ FILES = \
 ../../adc_ltc2351/hdl/adc_ltc2351_model.vhd \
 ../hdl/signalprocessing_pkg.vhd \
 ../hdl/goertzel.vhd 
-else ifeq ($(TESTBENCH), adc_ltc2351_module_tb)
+else ifeq ($(TESTBENCH), goertzel_pipelined_tb)
 FILES = \
-../../adc_mcp3008/tb/reg_file_tb.vhd 
+../../utils/hdl/utils_pkg.vhd \
+../../spislave/hdl/bus_pkg.vhd \
+../../peripheral_register/hdl/reg_file_pkg.vhd \
+../../peripheral_register/hdl/reg_file.vhd \
+../../adc_ltc2351/hdl/adc_ltc2351.vhd \
+../../adc_ltc2351/hdl/adc_ltc2351_pkg.vhd \
+../../adc_ltc2351/hdl/adc_ltc2351_model.vhd \
+../hdl/signalprocessing_pkg.vhd \
+../hdl/goertzel_pipelined.vhd 
 endif
 
 # Default settings for gtkwave (visable signal etc.)

@@ -1,7 +1,7 @@
 [timestart] 0
 [size] 1024 744
 [pos] -1 -1
-*-36.430595 44900000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-36.430595 68000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.goertzel_tb.
 [treeopen] top.goertzel_tb.dut.
@@ -26,11 +26,10 @@ top.goertzel_tb.dut.r.sample_count
 -
 @28
 top.goertzel_tb.done_s
-@421
-#{top.goertzel_tb.dut.result_p[0][15:0]} top.goertzel_tb.dut.result_p[0][15] top.goertzel_tb.dut.result_p[0][14] top.goertzel_tb.dut.result_p[0][13] top.goertzel_tb.dut.result_p[0][12] top.goertzel_tb.dut.result_p[0][11] top.goertzel_tb.dut.result_p[0][10] top.goertzel_tb.dut.result_p[0][9] top.goertzel_tb.dut.result_p[0][8] top.goertzel_tb.dut.result_p[0][7] top.goertzel_tb.dut.result_p[0][6] top.goertzel_tb.dut.result_p[0][5] top.goertzel_tb.dut.result_p[0][4] top.goertzel_tb.dut.result_p[0][3] top.goertzel_tb.dut.result_p[0][2] top.goertzel_tb.dut.result_p[0][1] top.goertzel_tb.dut.result_p[0][0]
 @420
-#{top.goertzel_tb.dut.result_p[1][15:0]} top.goertzel_tb.dut.result_p[1][15] top.goertzel_tb.dut.result_p[1][14] top.goertzel_tb.dut.result_p[1][13] top.goertzel_tb.dut.result_p[1][12] top.goertzel_tb.dut.result_p[1][11] top.goertzel_tb.dut.result_p[1][10] top.goertzel_tb.dut.result_p[1][9] top.goertzel_tb.dut.result_p[1][8] top.goertzel_tb.dut.result_p[1][7] top.goertzel_tb.dut.result_p[1][6] top.goertzel_tb.dut.result_p[1][5] top.goertzel_tb.dut.result_p[1][4] top.goertzel_tb.dut.result_p[1][3] top.goertzel_tb.dut.result_p[1][2] top.goertzel_tb.dut.result_p[1][1] top.goertzel_tb.dut.result_p[1][0]
-@28
+#{top.goertzel_tb.dut.result_p[0][17:0]} top.goertzel_tb.dut.result_p[0][17] top.goertzel_tb.dut.result_p[0][16] top.goertzel_tb.dut.result_p[0][15] top.goertzel_tb.dut.result_p[0][14] top.goertzel_tb.dut.result_p[0][13] top.goertzel_tb.dut.result_p[0][12] top.goertzel_tb.dut.result_p[0][11] top.goertzel_tb.dut.result_p[0][10] top.goertzel_tb.dut.result_p[0][9] top.goertzel_tb.dut.result_p[0][8] top.goertzel_tb.dut.result_p[0][7] top.goertzel_tb.dut.result_p[0][6] top.goertzel_tb.dut.result_p[0][5] top.goertzel_tb.dut.result_p[0][4] top.goertzel_tb.dut.result_p[0][3] top.goertzel_tb.dut.result_p[0][2] top.goertzel_tb.dut.result_p[0][1] top.goertzel_tb.dut.result_p[0][0]
+#{top.goertzel_tb.dut.result_p[1][17:0]} top.goertzel_tb.dut.result_p[1][17] top.goertzel_tb.dut.result_p[1][16] top.goertzel_tb.dut.result_p[1][15] top.goertzel_tb.dut.result_p[1][14] top.goertzel_tb.dut.result_p[1][13] top.goertzel_tb.dut.result_p[1][12] top.goertzel_tb.dut.result_p[1][11] top.goertzel_tb.dut.result_p[1][10] top.goertzel_tb.dut.result_p[1][9] top.goertzel_tb.dut.result_p[1][8] top.goertzel_tb.dut.result_p[1][7] top.goertzel_tb.dut.result_p[1][6] top.goertzel_tb.dut.result_p[1][5] top.goertzel_tb.dut.result_p[1][4] top.goertzel_tb.dut.result_p[1][3] top.goertzel_tb.dut.result_p[1][2] top.goertzel_tb.dut.result_p[1][1] top.goertzel_tb.dut.result_p[1][0]
+@29
 top.goertzel_tb.goertzel_value_s
 [pattern_trace] 1
 [pattern_trace] 0
