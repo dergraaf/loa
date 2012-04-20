@@ -61,7 +61,7 @@ entity goertzel_pipelined is
       coefs_p : in goertzel_coefs_type(FREQUENCIES-1 downto 0);
 
       -- Values from ADC
-      inputs_p : in goertzel_inputs_type(CHANNELS-1 downto 0)
+      inputs_p : in goertzel_inputs_type(CHANNELS-1 downto 0);
 
       -- clock enable input, is high when new value from ADC is available.
       start_p : in std_logic;
