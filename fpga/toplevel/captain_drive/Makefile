@@ -1,5 +1,5 @@
 
-PORT = /dev/ttyUSB1
+PORT = /dev/ttyUSB0
 
 toplevel.svf: ise/toplevel.bit
 	impact -batch impact.cmd

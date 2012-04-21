@@ -5,7 +5,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-28
--- Last update: 2012-04-16
+-- Last update: 2012-04-21
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -291,7 +291,7 @@ begin
          reset   => reset,
          clk     => clk);
 
-   servo_p <= servo_signals;
+   servo_p <= not servo_signals;
 
    ----------------------------------------------------------------------------
    -- Current limiter

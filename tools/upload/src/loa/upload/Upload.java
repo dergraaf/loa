@@ -30,6 +30,7 @@ public class Upload implements Communicatable {
 	private Semaphore receiveSemaphore = new Semaphore(0);
 	private String animation = "|/-\\";
 	private int lastPercent = -1;
+	private int defaultTimeout = 500;
 	
 	private final int segmentBufferSize = 256;
 	
@@ -104,7 +105,7 @@ public class Upload implements Communicatable {
 	}
 	
 	private int getBitstreamSize() {
-		ByteBuffer b = send(0x02, 'b', new byte[0], 4);
+		ByteBuffer b = send(0x02, 'b', new byte[0], 4, defaultTimeout);
 		return b.getInt();
 	}
 	
@@ -121,7 +122,7 @@ public class Upload implements Communicatable {
 		while (true)
 		{
 			try {
-				ByteBuffer b = send(0x02, 'S', data, 2);
+				ByteBuffer b = send(0x02, 'S', data, 2, defaultTimeout);
 				return b.getShort();
 			}
 			catch (TimeoutException e) {
@@ -137,7 +138,7 @@ public class Upload implements Communicatable {
 	}
 	
 	private void reloadFpga() {
-		send(0x02, 'r', new byte[0], 0);
+		send(0x02, 'r', new byte[0], 0, 3000);
 	}
 	
 	/**
@@ -176,11 +177,12 @@ public class Upload implements Communicatable {
 	 * @param command	Command
 	 * @param data		Data array
 	 * @param expectedSize	Expected size of the response
+	 * @param timeout	Time until the response has to arrive
 	 * @return	Received data wrapped into a ByteBuffer
 	 * @throws TimeoutException
 	 */
 	private ByteBuffer send(int address, int command, byte[] data,
-			int expectedSize) throws TimeoutException {
+			int expectedSize, int timeout) throws TimeoutException {
 		synchronized (this) {
 			transmittedFrame = new Frame(address, command, data);
 			this.expectedSize = expectedSize;
@@ -191,7 +193,7 @@ public class Upload implements Communicatable {
 		//System.out.println("< " + transmittedFrame.toString());
 		
 		try {
-			if (receiveSemaphore.tryAcquire(1000, TimeUnit.MILLISECONDS))
+			if (receiveSemaphore.tryAcquire(timeout, TimeUnit.MILLISECONDS))
 			{
 				ByteBuffer b;
 				synchronized (this) {
@@ -212,7 +214,7 @@ public class Upload implements Communicatable {
 	
 	private ByteBuffer send(int address, int command, byte[] data)
 			throws TimeoutException {
-		return send(address, command, data, 0);
+		return send(address, command, data, 0, defaultTimeout);
 	}
 	
 	@Override
