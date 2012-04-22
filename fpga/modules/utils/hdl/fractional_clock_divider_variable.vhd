@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-22
--- Last update: 2012-04-13
+-- Last update: 2012-04-20
 -- Platform   : Spartan 3
 -------------------------------------------------------------------------------
 -- Description:
@@ -47,7 +47,7 @@ end fractional_clock_divider_variable;
 architecture behavior of fractional_clock_divider_variable is
 
     -- variable cnt : integer range 0 to (MUL + DIV - 1) := 0;
-    signal cnt : std_logic_vector(WIDTH downto 0) := (others => '0');
+    signal cnt : std_logic_vector(WIDTH-1 downto 0) := (others => '0');
     
 begin 
    process begin

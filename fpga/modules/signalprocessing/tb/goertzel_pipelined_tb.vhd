@@ -36,7 +36,7 @@ architecture tb of goertzel_pipelined_tb is
    -- component generics
    constant SAMPLES     : natural := 250;
 
-   constant CHANNELS    : natural := 3;
+   constant CHANNELS    : natural := 12;
    constant FREQUENCIES : natural := 2;
    constant Q           : natural := 13;
 
@@ -87,7 +87,7 @@ begin  -- tb
    goertzel_pipelined_1 : goertzel_pipelined
       generic map (
          Q           => 13,
-         SAMPLES     => 1000,
+         SAMPLES     => SAMPLES,
          CHANNELS    => CHANNELS,
          FREQUENCIES => FREQUENCIES)
       port map (

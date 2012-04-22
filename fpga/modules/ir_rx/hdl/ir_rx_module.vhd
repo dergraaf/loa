@@ -180,7 +180,7 @@ begin  -- structural
 
    -- only the upper bits that fit in in the register
    copy_freq_loop : for fr in FREQUENCIES-1 downto 0 generate
-      copy_channel_loop : for ii in 0 to (CHANNELS*2 - 1) generate         
+      copy_channel_loop : for ii in 0 to (CHANNELS*2 - 1) generate
          reg_i(ii + fr * 16#0020#) <=
             std_logic_vector(
                --        |-ch-|     |-  0/1 -|
@@ -242,10 +242,10 @@ begin  -- structural
    -- 12 Goertzel algorithms
 
    -- 14-bit ADC value, 0x0000 to 0x3fff, 0x2000 on average
---   adc_values_loop: for ch in CHANNELS-1 downto 0 generate
-      adc_values_signed_s(5) <= signed(adc_values_s(5)) - to_signed(16#2000#, 16)(INPUT_WIDTH-1 downto 0);
---   end generate adc_values_loop;
-  
+   adc_values_loop : for ch in CHANNELS-1 downto 0 generate
+      adc_values_signed_s(ch) <= signed(adc_values_s(ch)) - to_signed(16#2000#, 16)(INPUT_WIDTH-1 downto 0);
+   end generate adc_values_loop;
+
    goertzel_pipelined_1 : goertzel_pipelined
       generic map (
          Q           => Q,

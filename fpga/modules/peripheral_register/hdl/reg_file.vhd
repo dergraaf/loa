@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-04-18
+-- Last update: 2012-04-20
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ begin  -- str
    process (clk, bus_i)
       variable index : integer := 0;
    begin  -- process
-      index := to_integer(unsigned (bus_i.addr(REG_ADDR_BIT downto 0)));
+      index := to_integer(unsigned (bus_i.addr(REG_ADDR_BIT-1 downto 0)));
       if rising_edge(clk) then
          if reset = '1' then
             reg <= (others => (others => '0'));
@@ -99,7 +99,7 @@ begin  -- str
    process (reset, clk, bus_i, reg_i)
       variable index : integer := 0;
    begin  -- process
-      index := to_integer(unsigned(bus_i.addr(REG_ADDR_BIT downto 0)));
+      index := to_integer(unsigned(bus_i.addr(REG_ADDR_BIT-1 downto 0)));
 
       if rising_edge(clk) then
          if reset = '1' then

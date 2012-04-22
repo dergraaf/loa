@@ -5,7 +5,7 @@
 -- Authors    : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-18
+-- Last update: 2012-04-20
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -92,12 +92,17 @@ architecture structural of toplevel is
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
 
+   -- Modulation
+   signal mod_cnt             : natural                      := 0;
+   signal modulation_us       : std_logic_vector(2 downto 0) := (others => '0');
+   signal clk_modulation_us_s : std_logic                    := '0';
+
    -- Synchronise inputs
    signal ir_ack_r : std_logic_vector(1 downto 0) := (others => '0');
    signal ir_ack   : std_logic;
 
    signal us_ack_r : std_logic_vector(1 downto 0) := (others => '0');
-   signal us_ack : std_logic;
+   signal us_ack   : std_logic;
 
    -- Connection to the Busmaster
    signal bus_o : busmaster_out_type;
@@ -175,8 +180,42 @@ begin
    -- no LEDs at FPGA at beacon-digi.brd
    --led_np <= not register_out(3 downto 0);
 
+
+   ----------------------------------------------------------------------------
+   -- Modulation
+   ----------------------------------------------------------------------------
+   clock_divider_mod : clock_divider
+      generic map (
+         DIV => 5000)                   -- 10 kHz <> 100 usec
+      port map (
+         clk_out_p => clk_modulation_us_s,
+         clk       => clk);
+
+   us_modulation_proc : process (clk)
+      variable cnt : natural := 0;
+
+
+      
+   begin  -- process us_modulation_proc
+      if rising_edge(clk) then
+         if clk_modulation_us_s = '1' then            
+            if cnt = 100 then
+               cnt := 0;
+            else
+               cnt := cnt + 1;
+            end if;
+         end if;
+      end if;
+
+      mod_cnt <= cnt;
+   end process us_modulation_proc;
+
+   Modulation_us <= "111" when (mod_cnt < 3) else "000";
+
+
    ----------------------------------------------------------------------------
    -- US TX
+   ----------------------------------------------------------------------------
    uss_tx_module_1 : uss_tx_module
       generic map (
          BASE_ADDRESS => BASE_ADDR_US_TX)
@@ -184,7 +223,7 @@ begin
          uss_tx0_out_p    => us_tx0_p,
          uss_tx1_out_p    => us_tx1_p,
          uss_tx2_out_p    => us_tx2_p,
-         modulation_p     => "111",     -- uss_modulation,
+         modulation_p     => modulation_us,
          clk_uss_enable_p => open,
          bus_o            => bus_adc_us_out,
          bus_i            => bus_o,
