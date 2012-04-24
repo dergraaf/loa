@@ -14,17 +14,24 @@ package signalprocessing_pkg is
    constant CALC_WIDTH  : natural := 18;  -- Width of all calculations.
    constant INPUT_WIDTH : natural := 14;  -- Width of ADC values
 
-   -- The result of the Goertzel Algorithm are two values
-   type goertzel_result_type is array (1 downto 0) of signed(CALC_WIDTH-1 downto 0);
+   -- All calculations are based on that type:
+   subtype goertzel_data_type is signed(CALC_WIDTH-1 downto 0);
+
+   -- The result of the Goertzel Algorithm are always a pair of two values
+   type goertzel_result_type is array (1 downto 0) of goertzel_data_type;
 
    -- The result for more channels and frequencies:
    type goertzel_results_type is array (natural range <>, natural range <>) of goertzel_result_type;
 
-   -- The input for different channels
-   type goertzel_inputs_type is array (natural range <>) of signed(INPUT_WIDTH-1 downto 0);
+   -- One input to the algorithm. 
+   subtype goertzel_input_type is signed(INPUT_WIDTH-1 downto 0);
+   -- The input for many different channels
+   type goertzel_inputs_type is array (natural range <>) of goertzel_input_type;
 
+   -- One goertzel coefficient corresponds to a certain frequency.
+   subtype goertzel_coef_type is signed(CALC_WIDTH-1 downto 0);
    -- The input for different frequencies
-   type goertzel_coefs_type is array (natural range <>) of unsigned(CALC_WIDTH-1 downto 0);
+   type goertzel_coefs_type is array (natural range <>) of goertzel_coef_type;
 
    component goertzel
       generic (
@@ -57,5 +64,55 @@ package signalprocessing_pkg is
 
          clk : in std_logic);
    end component;
+
+
+   ----------------------------------------------------------------------------
+   -- New version, consists of pipeline, muxes and control_unit
+   ----------------------------------------------------------------------------
+   component goertzel_pipeline is
+      generic (
+         Q : natural);
+      port (
+         coef_p   : in  goertzel_coef_type;
+         input_p  : in  goertzel_input_type;
+         delay_p  : in  goertzel_result_type;
+         result_p : out goertzel_result_type;
+         clk      : in  std_logic);
+   end component goertzel_pipeline;
+
+   component goertzel_muxes is
+      generic (
+         CHANNELS    : positive;
+         FREQUENCIES : positive);
+      port (
+         mux_delay1_p : in  std_logic;
+         mux_delay2_p : in  std_logic;
+         mux_coef     : in  natural range FREQUENCIES-1 downto 0;
+         mux_input    : in  natural range CHANNELS-1 downto 0;
+         bram_data    : in  goertzel_result_type;
+         coefs_p      : in  goertzel_coefs_type;
+         inputs_p     : in  goertzel_inputs_type;
+         delay1_p     : out goertzel_data_type;
+         delay2_p     : out goertzel_data_type;
+         coef_p       : out goertzel_coef_type;
+         input_p      : out goertzel_input_type);
+   end component goertzel_muxes;
+
+   component goertzel_control_unit is
+      generic (
+         SAMPLES     : positive;
+         FREQUENCIES : positive;
+         CHANNELS    : positive);
+      port (
+         start_p      : in  std_logic;
+         ready_p      : out std_logic                            := '0';
+         bram_addr_p  : out std_logic_vector(7 downto 0)         := (others => '0');
+         bram_we_p    : out std_logic                            := '0';
+         mux_delay1_p : out std_logic                            := '0';
+         mux_delay2_p : out std_logic                            := '0';
+         mux_coef_p   : out natural range FREQUENCIES-1 downto 0 := 0;
+         mux_input_p  : out natural range CHANNELS-1 downto 0    := 0;
+         clk          : in  std_logic);
+   end component goertzel_control_unit;
    
 end signalprocessing_pkg;

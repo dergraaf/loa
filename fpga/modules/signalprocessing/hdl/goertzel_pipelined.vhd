@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-21
+-- Last update: 2012-04-24
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
 -- of the magnitude of the signal at the end of one block.
 -- Mind overflows!
 -------------------------------------------------------------------------------
--- Copyright (c) 2012 
+2-- Copyright (c) 2012 
 -------------------------------------------------------------------------------
 
 library ieee;

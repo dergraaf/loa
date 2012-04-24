@@ -1,0 +1,36 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Tue Apr 24 04:35:36 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/modules/signalprocessing/tb/simulation/goertzel_control_unit_tb.ghw"
+[dumpfile_mtime] "Tue Apr 24 04:32:28 2012"
+[dumpfile_size] 9370
+[savefile] "/home/rca/rca/loa/fpga/modules/signalprocessing/tb/goertzel_control_unit_tb.sav"
+[timestart] 0
+[size] 1188 608
+[pos] 0 507
+*-29.490086 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.goertzel_control_unit_tb.
+[treeopen] top.goertzel_control_unit_tb.dut.
+[sst_width] 196
+[signals_width] 142
+[sst_expanded] 1
+[sst_vpaned_height] 156
+@28
+top.goertzel_control_unit_tb.clk
+top.goertzel_control_unit_tb.start_p
+top.goertzel_control_unit_tb.mux_delay1
+top.goertzel_control_unit_tb.mux_delay2
+top.goertzel_control_unit_tb.mux_coef
+top.goertzel_control_unit_tb.mux_input
+top.goertzel_control_unit_tb.ready_p
+@22
+#{top.goertzel_control_unit_tb.bram_addr[7:0]} top.goertzel_control_unit_tb.bram_addr[7] top.goertzel_control_unit_tb.bram_addr[6] top.goertzel_control_unit_tb.bram_addr[5] top.goertzel_control_unit_tb.bram_addr[4] top.goertzel_control_unit_tb.bram_addr[3] top.goertzel_control_unit_tb.bram_addr[2] top.goertzel_control_unit_tb.bram_addr[1] top.goertzel_control_unit_tb.bram_addr[0]
+@28
+top.goertzel_control_unit_tb.dut.bram_we_p
+top.goertzel_control_unit_tb.dut.r.state
+@29
+top.goertzel_control_unit_tb.dut.r.samples
+[pattern_trace] 1
+[pattern_trace] 0
