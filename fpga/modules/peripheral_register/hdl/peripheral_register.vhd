@@ -6,11 +6,12 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2011-12-19
+-- Last update: 2012-04-22
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
--- Description: 
+-- Description: A single 16-bit register that can be read and written to and
+--              from the internal parallel bus. 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2011 
 -------------------------------------------------------------------------------
