@@ -1,0 +1,33 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Mon Apr 23 20:19:44 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/modules/peripheral_register/tb/simulation/double_buffering_tb.ghw"
+[dumpfile_mtime] "Mon Apr 23 20:00:30 2012"
+[dumpfile_size] 2115
+[savefile] "/home/rca/rca/loa/fpga/modules/peripheral_register/tb/double_buffering_tb.sav"
+[timestart] 0
+[size] 1192 600
+[pos] 0 150
+*-29.133942 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.double_buffering_tb.
+[sst_width] 196
+[signals_width] 118
+[sst_expanded] 1
+[sst_vpaned_height] 156
+@28
+top.double_buffering_tb.clk
+@29
+top.double_buffering_tb.ready_p
+@28
+top.double_buffering_tb.irq_p
+top.double_buffering_tb.ack_p
+top.double_buffering_tb.enable_p
+@200
+-Edge detect
+@28
+top.double_buffering_tb.dut.ack_rise_s
+top.double_buffering_tb.bank_p
+[pattern_trace] 1
+[pattern_trace] 0

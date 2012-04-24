@@ -6,12 +6,12 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-04-20
+-- Last update: 2012-04-22
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description:
--- 16-bit registers at the internal parallel data bus with address
+-- Multiple 16-bit registers at the internal parallel data bus with address
 -- decoding. 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012 
