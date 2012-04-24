@@ -4,7 +4,7 @@
 -------------------------------------------------------------------------------
 -- File       : adc_mcp3008.vhd
 -- Created    : 2011-09-27
--- Last update: 2012-04-15
+-- Last update: 2012-04-24
 -------------------------------------------------------------------------------
 -- Description: Interface to Microchip's 8 channel 10-bit ADC (MCP3008).
 --              Converversion started by logical 1 on start_p. '1' on done_p
@@ -119,12 +119,14 @@ begin
    -- Transitons and actions of FSM
    -----------------------------------------------------------------------------
    -----------------------------------------------------------------------------
-   comb_proc : process(adc_mode_p, channel_p, adc_in.miso, r, start_p)
+   comb_proc : process(adc_in.miso, adc_mode_p, channel_p, r, r.countdown_bit,
+                       r.countdown_delay, r.din(8 downto 0),
+                       r.dout(3 downto 0), r.state, start_p)
       variable v : adc_mcp3008_type;
    begin
       v := r;
 
-      case v.state is
+      case r.state is
          -------------------------------------------------------------------------
          -- Idle State
          -------------------------------------------------------------------------

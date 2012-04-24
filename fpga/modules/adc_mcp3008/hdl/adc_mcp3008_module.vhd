@@ -4,7 +4,7 @@
 -------------------------------------------------------------------------------
 -- File       : adc_mcp3008_module.vhd
 -- Created    : 2011-09-27
--- Last update: 2012-04-15
+-- Last update: 2012-04-24
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012
 -------------------------------------------------------------------------------
@@ -63,7 +63,6 @@ architecture behavioral of adc_mcp3008_module is
    -----------------------------------------------------------------------------
    signal r, rin : adc_mcp3008_module_type;
 
-   signal start_s    : std_logic;
    signal adc_mode_s : std_logic;
    signal channel_s  : std_logic_vector(2 downto 0);
    signal value_s    : std_logic_vector(9 downto 0);

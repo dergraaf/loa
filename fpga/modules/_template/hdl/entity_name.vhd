@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2011-12-23
+-- Last update: 2012-04-24
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -76,11 +76,11 @@ begin
    begin
       v := r;
 
-      case v.state is
+      case r.state is
          when IDLE =>
             null;
          when others =>
-            null;
+            v.state := IDLE;
       end case;
 
       rin <= v;
