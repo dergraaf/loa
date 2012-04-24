@@ -1,0 +1,39 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Mon Apr 23 03:06:51 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/modules/ram/tb/simulation/xilinx_block_ram_tb.ghw"
+[dumpfile_mtime] "Mon Apr 23 03:03:21 2012"
+[dumpfile_size] 701182
+[savefile] "/home/rca/rca/loa/fpga/modules/ram/tb/xilinx_block_ram_tb.sav"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-26.099726 20000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.xilinx_block_ram_tb.
+[sst_width] 196
+[signals_width] 126
+[sst_expanded] 1
+[sst_vpaned_height] 156
+@28
+top.xilinx_block_ram_tb.clk
+@200
+-
+@22
+#{top.xilinx_block_ram_tb.addr_a[10:0]} top.xilinx_block_ram_tb.addr_a[10] top.xilinx_block_ram_tb.addr_a[9] top.xilinx_block_ram_tb.addr_a[8] top.xilinx_block_ram_tb.addr_a[7] top.xilinx_block_ram_tb.addr_a[6] top.xilinx_block_ram_tb.addr_a[5] top.xilinx_block_ram_tb.addr_a[4] top.xilinx_block_ram_tb.addr_a[3] top.xilinx_block_ram_tb.addr_a[2] top.xilinx_block_ram_tb.addr_a[1] top.xilinx_block_ram_tb.addr_a[0]
+#{top.xilinx_block_ram_tb.din_a[7:0]} top.xilinx_block_ram_tb.din_a[7] top.xilinx_block_ram_tb.din_a[6] top.xilinx_block_ram_tb.din_a[5] top.xilinx_block_ram_tb.din_a[4] top.xilinx_block_ram_tb.din_a[3] top.xilinx_block_ram_tb.din_a[2] top.xilinx_block_ram_tb.din_a[1] top.xilinx_block_ram_tb.din_a[0]
+#{top.xilinx_block_ram_tb.dout_a[7:0]} top.xilinx_block_ram_tb.dout_a[7] top.xilinx_block_ram_tb.dout_a[6] top.xilinx_block_ram_tb.dout_a[5] top.xilinx_block_ram_tb.dout_a[4] top.xilinx_block_ram_tb.dout_a[3] top.xilinx_block_ram_tb.dout_a[2] top.xilinx_block_ram_tb.dout_a[1] top.xilinx_block_ram_tb.dout_a[0]
+@28
+top.xilinx_block_ram_tb.we_a
+@200
+-
+@22
+#{top.xilinx_block_ram_tb.addr_b[9:0]} top.xilinx_block_ram_tb.addr_b[9] top.xilinx_block_ram_tb.addr_b[8] top.xilinx_block_ram_tb.addr_b[7] top.xilinx_block_ram_tb.addr_b[6] top.xilinx_block_ram_tb.addr_b[5] top.xilinx_block_ram_tb.addr_b[4] top.xilinx_block_ram_tb.addr_b[3] top.xilinx_block_ram_tb.addr_b[2] top.xilinx_block_ram_tb.addr_b[1] top.xilinx_block_ram_tb.addr_b[0]
+#{top.xilinx_block_ram_tb.dout_b[15:0]} top.xilinx_block_ram_tb.dout_b[15] top.xilinx_block_ram_tb.dout_b[14] top.xilinx_block_ram_tb.dout_b[13] top.xilinx_block_ram_tb.dout_b[12] top.xilinx_block_ram_tb.dout_b[11] top.xilinx_block_ram_tb.dout_b[10] top.xilinx_block_ram_tb.dout_b[9] top.xilinx_block_ram_tb.dout_b[8] top.xilinx_block_ram_tb.dout_b[7] top.xilinx_block_ram_tb.dout_b[6] top.xilinx_block_ram_tb.dout_b[5] top.xilinx_block_ram_tb.dout_b[4] top.xilinx_block_ram_tb.dout_b[3] top.xilinx_block_ram_tb.dout_b[2] top.xilinx_block_ram_tb.dout_b[1] top.xilinx_block_ram_tb.dout_b[0]
+@23
+#{top.xilinx_block_ram_tb.din_b[15:0]} top.xilinx_block_ram_tb.din_b[15] top.xilinx_block_ram_tb.din_b[14] top.xilinx_block_ram_tb.din_b[13] top.xilinx_block_ram_tb.din_b[12] top.xilinx_block_ram_tb.din_b[11] top.xilinx_block_ram_tb.din_b[10] top.xilinx_block_ram_tb.din_b[9] top.xilinx_block_ram_tb.din_b[8] top.xilinx_block_ram_tb.din_b[7] top.xilinx_block_ram_tb.din_b[6] top.xilinx_block_ram_tb.din_b[5] top.xilinx_block_ram_tb.din_b[4] top.xilinx_block_ram_tb.din_b[3] top.xilinx_block_ram_tb.din_b[2] top.xilinx_block_ram_tb.din_b[1] top.xilinx_block_ram_tb.din_b[0]
+@28
+top.xilinx_block_ram_tb.we_b
+[pattern_trace] 1
+[pattern_trace] 0

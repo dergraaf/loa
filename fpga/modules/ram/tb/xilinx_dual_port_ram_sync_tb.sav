@@ -1,0 +1,38 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sun Apr 22 22:54:59 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/modules/ram/tb/simulation/xilinx_dual_port_ram_sync_tb.ghw"
+[dumpfile_mtime] "Sun Apr 22 22:47:57 2012"
+[dumpfile_size] 700599
+[savefile] "/home/rca/rca/loa/fpga/modules/ram/tb/xilinx_dual_port_ram_sync_tb.sav"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-27.099726 219331071 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.xilinx_dual_port_ram_sync_tb.
+[sst_width] 196
+[signals_width] 118
+[sst_expanded] 1
+[sst_vpaned_height] 194
+@28
+top.xilinx_dual_port_ram_sync_tb.clk
+@200
+-
+@28
+top.xilinx_dual_port_ram_sync_tb.we_a
+@22
+#{top.xilinx_dual_port_ram_sync_tb.addr_a[5:0]} top.xilinx_dual_port_ram_sync_tb.addr_a[5] top.xilinx_dual_port_ram_sync_tb.addr_a[4] top.xilinx_dual_port_ram_sync_tb.addr_a[3] top.xilinx_dual_port_ram_sync_tb.addr_a[2] top.xilinx_dual_port_ram_sync_tb.addr_a[1] top.xilinx_dual_port_ram_sync_tb.addr_a[0]
+#{top.xilinx_dual_port_ram_sync_tb.din_a[7:0]} top.xilinx_dual_port_ram_sync_tb.din_a[7] top.xilinx_dual_port_ram_sync_tb.din_a[6] top.xilinx_dual_port_ram_sync_tb.din_a[5] top.xilinx_dual_port_ram_sync_tb.din_a[4] top.xilinx_dual_port_ram_sync_tb.din_a[3] top.xilinx_dual_port_ram_sync_tb.din_a[2] top.xilinx_dual_port_ram_sync_tb.din_a[1] top.xilinx_dual_port_ram_sync_tb.din_a[0]
+#{top.xilinx_dual_port_ram_sync_tb.dout_a[7:0]} top.xilinx_dual_port_ram_sync_tb.dout_a[7] top.xilinx_dual_port_ram_sync_tb.dout_a[6] top.xilinx_dual_port_ram_sync_tb.dout_a[5] top.xilinx_dual_port_ram_sync_tb.dout_a[4] top.xilinx_dual_port_ram_sync_tb.dout_a[3] top.xilinx_dual_port_ram_sync_tb.dout_a[2] top.xilinx_dual_port_ram_sync_tb.dout_a[1] top.xilinx_dual_port_ram_sync_tb.dout_a[0]
+@200
+-
+@28
++{top.xilinx_dual_port_ram_sync_tb.we_b} top.xilinx_dual_port_ram_sync_tb.we_b
+@22
+#{top.xilinx_dual_port_ram_sync_tb.addr_b[5:0]} top.xilinx_dual_port_ram_sync_tb.addr_b[5] top.xilinx_dual_port_ram_sync_tb.addr_b[4] top.xilinx_dual_port_ram_sync_tb.addr_b[3] top.xilinx_dual_port_ram_sync_tb.addr_b[2] top.xilinx_dual_port_ram_sync_tb.addr_b[1] top.xilinx_dual_port_ram_sync_tb.addr_b[0]
+#{top.xilinx_dual_port_ram_sync_tb.din_b[7:0]} top.xilinx_dual_port_ram_sync_tb.din_b[7] top.xilinx_dual_port_ram_sync_tb.din_b[6] top.xilinx_dual_port_ram_sync_tb.din_b[5] top.xilinx_dual_port_ram_sync_tb.din_b[4] top.xilinx_dual_port_ram_sync_tb.din_b[3] top.xilinx_dual_port_ram_sync_tb.din_b[2] top.xilinx_dual_port_ram_sync_tb.din_b[1] top.xilinx_dual_port_ram_sync_tb.din_b[0]
+#{top.xilinx_dual_port_ram_sync_tb.dout_b[7:0]} top.xilinx_dual_port_ram_sync_tb.dout_b[7] top.xilinx_dual_port_ram_sync_tb.dout_b[6] top.xilinx_dual_port_ram_sync_tb.dout_b[5] top.xilinx_dual_port_ram_sync_tb.dout_b[4] top.xilinx_dual_port_ram_sync_tb.dout_b[3] top.xilinx_dual_port_ram_sync_tb.dout_b[2] top.xilinx_dual_port_ram_sync_tb.dout_b[1] top.xilinx_dual_port_ram_sync_tb.dout_b[0]
+[pattern_trace] 1
+[pattern_trace] 0
