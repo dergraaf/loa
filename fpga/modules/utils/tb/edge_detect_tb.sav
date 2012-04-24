@@ -1,0 +1,25 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Mon Apr 23 19:04:21 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/modules/utils/tb/simulation/edge_detect_tb.ghw"
+[dumpfile_mtime] "Mon Apr 23 19:03:35 2012"
+[dumpfile_size] 14981
+[savefile] "/home/rca/rca/loa/fpga/modules/utils/tb/edge_detect_tb.sav"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-28.133942 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[sst_width] 196
+[signals_width] 102
+[sst_expanded] 1
+[sst_vpaned_height] 156
+@28
+top.edge_detect_tb.clk
+top.edge_detect_tb.async_sig
+top.edge_detect_tb.rise
+@29
+top.edge_detect_tb.fall
+[pattern_trace] 1
+[pattern_trace] 0

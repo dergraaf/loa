@@ -4,7 +4,8 @@
 #TESTBENCH = fractional_clock_divider_tb
 #TESTBENCH = fractional_clock_divider_variable_tb
 #TESTBENCH = utils_tb
-TESTBENCH = event_hold_stage_tb
+#TESTBENCH = event_hold_stage_tb
+TESTBENCH = edge_detect_tb
 
 # VHDL files
 ifeq ($(TESTBENCH),clock_divider_tb)
@@ -29,6 +30,10 @@ else ifeq ($(TESTBENCH),utils_tb)
 FILES = ../hdl/utils_pkg.vhd \
 	../hdl/text_pkg.vhd
 GHDL_SIM_OPT = --stop-time=1us
+else ifeq ($(TESTBENCH),edge_detect_tb)
+FILES = ../hdl/utils_pkg.vhd \
+	../hdl/edge_detect.vhd
+GHDL_SIM_OPT = --stop-time=10us
 endif
 
 # Default settings for gtkwave (visable signal etc.)

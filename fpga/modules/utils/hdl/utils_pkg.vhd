@@ -1,6 +1,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use ieee.math_real.all;
 
 package utils_pkg is
@@ -19,6 +20,32 @@ package utils_pkg is
    --       xzy : out std_logic_vector(required_bits(ABC) downto 0));
    -- end foo;
    function required_bits (value : natural) return natural;
+
+   -- Another function which does the same, up to 32 bits
+   function log2 (val : integer) return natural;
+
+   ----------------------------------------------------------------------------
+   function max(L : integer;
+                R : integer)
+      return integer;
+
+   function minn(L : integer;
+                R : integer)
+      return integer;
+
+   ----------------------------------------------------------------------------
+   -- replacement for std_logic_arith
+   -- works with unsigneds
+   -- see http://www.lothar-miller.de/s9y/archives/14-Numeric_Std.html
+   
+   function conv_integer(
+      vec : std_logic_vector)
+      return integer;
+
+   function conv_std_logic_vector (
+      int : natural;
+      len : natural)
+      return std_logic_vector;
 
    ----------------------------------------------------------------------------
    component clock_divider is
@@ -56,8 +83,17 @@ package utils_pkg is
          dout_p   : out std_logic;
          din_p    : in  std_logic;
          period_p : in  std_logic;
-         clk      : in  std_logic);
+
+         clk : in std_logic);
    end component event_hold_stage;
+
+   component edge_detect is
+      port (
+         async_sig : in  std_logic;
+         clk       : in  std_logic;
+         rise      : out std_logic;
+         fall      : out std_logic);
+   end component edge_detect;
 
    ----------------------------------------------------------------------------
    component dff is
@@ -92,5 +128,60 @@ package body utils_pkg is
          return integer(ceil(log2(real(value) + 0.5)));
       end if;
    end function;
+
+   function log2 (val : integer) return natural is
+      variable res : positive;
+   begin  -- log2
+      for i in 1 to 31 loop
+         if (val <= (2**i)) then
+
+            res := i;
+            exit;
+         end if;
+      end loop;  -- i
+      return res;
+   end log2;
+
+   ----------------------------------------------------------------------------
+
+   function max(L : integer;
+                R : integer)
+      return integer is
+   begin  -- max
+      if L > R then
+         return L;
+      else
+         return R;
+      end if;
+   end max;
+
+   function minn(L : integer;
+                R : integer)
+      return integer is
+   begin  -- min
+      if L < R then
+         return L;
+      else
+         return R;
+      end if;
+   end minn;
+
+   ----------------------------------------------------------------------------
+
+   function conv_integer(
+      vec : std_logic_vector)
+      return integer is
+   begin
+      return to_integer(unsigned(vec));
+   end conv_integer;
+
+   function conv_std_logic_vector (
+      int : natural;
+      len : natural)
+      return std_logic_vector is
+   begin  -- conv_std_logic_vector
+      return std_logic_vector(to_unsigned(int, len));
+   end conv_std_logic_vector;
+
 
 end package body utils_pkg;
