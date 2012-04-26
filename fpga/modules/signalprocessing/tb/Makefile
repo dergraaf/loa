@@ -75,6 +75,7 @@ FILES = \
 ../../adc_ltc2351/hdl/adc_ltc2351_model.vhd \
 ../hdl/signalprocessing_pkg.vhd \
 ../hdl/goertzel_control_unit.vhd \
+../hdl/goertzel_muxes.vhd \
 ../hdl/goertzel_pipeline.vhd \
 ../hdl/goertzel_pipelined_v2.vhd
 endif

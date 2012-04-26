@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-04-20
+-- Last update: 2012-04-26
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -36,12 +36,16 @@ use work.signalprocessing_pkg.all;
 
 entity ir_rx_module is
 
-   -- Memory map
-   -- 
+   -- Memory maps
+   --
+   -- Coefficient Register
    -- offset | R/W | Description
    -- -------+-------------------------------------------------
    --    +00 |   W | Goertzel Coefficient           Frequency 0
    --    +01 |   W | Goertzel Coefficient           Frequency 1
+   -- 
+   -- Result Register
+   -- offset | R/W | Description
    -- -------+-----+-------------------------------------------
    --    +00 |   R | Goertzel Result 0, Channel  0, Frequency 0
    --    +01 |   R | Goertzel Result 1, Channel  0, Frequency 0
@@ -68,38 +72,55 @@ entity ir_rx_module is
    --    +16 |   R | Goertzel Result 0, Channel 11, Frequency 0
    --    +17 |   R | Goertzel Result 1, Channel 11, Frequency 0
    -- ---------------------------------------------------------
-   --    +20 |   R | Goertzel Result 0, Channel  0, Frequency 1
-   --    +21 |   R | Goertzel Result 1, Channel  0, Frequency 1
-   --    +22 |   R | Goertzel Result 0, Channel  1, Frequency 1
-   --    +23 |   R | Goertzel Result 1, Channel  1, Frequency 1
-   --    +24 |   R | Goertzel Result 0, Channel  2, Frequency 1
-   --    +25 |   R | Goertzel Result 1, Channel  2, Frequency 1
-   --    +26 |   R | Goertzel Result 0, Channel  3, Frequency 1
-   --    +27 |   R | Goertzel Result 1, Channel  3, Frequency 1
-   --    +28 |   R | Goertzel Result 0, Channel  4, Frequency 1
-   --    +29 |   R | Goertzel Result 1, Channel  4, Frequency 1
-   --    +2A |   R | Goertzel Result 0, Channel  5, Frequency 1
-   --    +2B |   R | Goertzel Result 1, Channel  5, Frequency 1
-   --    +2C |   R | Goertzel Result 0, Channel  6, Frequency 1
-   --    +2D |   R | Goertzel Result 1, Channel  6, Frequency 1
-   --    +2E |   R | Goertzel Result 0, Channel  7, Frequency 1
-   --    +2F |   R | Goertzel Result 1, Channel  7, Frequency 1
-   --    +30 |   R | Goertzel Result 0, Channel  8, Frequency 1
-   --    +31 |   R | Goertzel Result 1, Channel  8, Frequency 1 
-   --    +32 |   R | Goertzel Result 0, Channel  9, Frequency 1
-   --    +33 |   R | Goertzel Result 1, Channel  9, Frequency 1 
-   --    +34 |   R | Goertzel Result 0, Channel 10, Frequency 1
-   --    +35 |   R | Goertzel Result 1, Channel 10, Frequency 1
-   --    +36 |   R | Goertzel Result 0, Channel 11, Frequency 1
-   --    +37 |   R | Goertzel Result 1, Channel 11, Frequency 1
+   --    +18 |   R | Goertzel Result 0, Channel  0, Frequency 1
+   --    +19 |   R | Goertzel Result 1, Channel  0, Frequency 1
+   --    +1A |   R | Goertzel Result 0, Channel  1, Frequency 1
+   --    +1B |   R | Goertzel Result 1, Channel  1, Frequency 1
+   --    +1C |   R | Goertzel Result 0, Channel  2, Frequency 1
+   --    +1D |   R | Goertzel Result 1, Channel  2, Frequency 1
+   --    +1E |   R | Goertzel Result 0, Channel  3, Frequency 1
+   --    +1F |   R | Goertzel Result 1, Channel  3, Frequency 1
+   --    +20 |   R | Goertzel Result 0, Channel  4, Frequency 1
+   --    +21 |   R | Goertzel Result 1, Channel  4, Frequency 1
+   --    +22 |   R | Goertzel Result 0, Channel  5, Frequency 1
+   --    +23 |   R | Goertzel Result 1, Channel  5, Frequency 1
+   --    +24 |   R | Goertzel Result 0, Channel  6, Frequency 1
+   --    +25 |   R | Goertzel Result 1, Channel  6, Frequency 1
+   --    +26 |   R | Goertzel Result 0, Channel  7, Frequency 1
+   --    +27 |   R | Goertzel Result 1, Channel  7, Frequency 1
+   --    +28 |   R | Goertzel Result 0, Channel  8, Frequency 1
+   --    +29 |   R | Goertzel Result 1, Channel  8, Frequency 1 
+   --    +2A |   R | Goertzel Result 0, Channel  9, Frequency 1
+   --    +2B |   R | Goertzel Result 1, Channel  9, Frequency 1 
+   --    +2C |   R | Goertzel Result 0, Channel 10, Frequency 1
+   --    +2D |   R | Goertzel Result 1, Channel 10, Frequency 1
+   --    +2E |   R | Goertzel Result 0, Channel 11, Frequency 1
+   --    +2F |   R | Goertzel Result 1, Channel 11, Frequency 1
    --
    -- +000 to +03f = 6 Bits = 2^6 = 64 words
+   --
+   -- The Block RAM is bigger and other working sets up to
+   -- Channels * Frequenies <= 256 are possible.
+   --
+   -- Mind the execution time for big datasets:
+   -- 4 cycles per channel and frequency + 4 cycles to fill the pipeline
+   --
+   -- E.g.: 12 channels, 5 frequencies, f_clk = 50 MHz, f_sample = 250 kHz
+   --
+   -- 1/f_clk = 20 ns
+   -- 1/f_sample = 4 us
+   -- 12 * 5 * 4 = 240 * 20 ns = 4.8 us > 4.0 us (clash!)
+   --
 
    
    generic (
-      BASE_ADDRESS : integer range 0 to 32767  -- Base address at the internal data bus
-      );
+      -- Base address at the internal data bus of the register for the coefficients
+      BASE_ADDRESS_COEFS : integer range 0 to 32767;
 
+      -- Bas address at the internal data bus of the dual port block RAM register for
+      -- the  results
+      BASE_ADDRESS_RESULTS : integer range 0 to 32767
+      );
    port (
       -- Ports to two ADCs
       -- signals to and from real hardware
@@ -121,6 +142,7 @@ entity ir_rx_module is
       ack_p  : in  std_logic;
 
       -- Sampling clock enable (expected to be 250 kHz or less)
+      -- starts a new ADC conversion and starts processing with goertzel algorithm.
       clk_sample_en : in std_logic;
 
       clk : in std_logic
@@ -157,17 +179,19 @@ architecture structural of ir_rx_module is
 
    signal results_s : goertzel_results_type(CHANNELS-1 downto 0, FREQUENCIES-1 downto 0) := (others => (others => (others => (others => '0'))));
 
-   signal module_done : std_logic := '0';
+   signal module_done_s : std_logic := '0';
 
-   -- TODO Twelve results from Goertzel
-   -- TODO: search for two frequencies
+   -- Connection between bram and pipelined
+   signal bram_data_i : std_logic_vector(35 downto 0);
+   signal bram_data_o : std_logic_vector(35 downto 0);
+   signal bram_addr_s : std_logic_vector(7 downto 0);
+   signal bram_we_s   : std_logic;
 
 
    signal adc_start_s : std_logic := '0';
    signal adc_done_s  : std_logic := '0';
 
-   signal reg_o : reg_file_type(63 downto 0);
-   signal reg_i : reg_file_type(63 downto 0);
+   signal reg_coefs_s : reg_file_type(7 downto 0);
 
    signal goertzel_done_s : std_logic;
    
@@ -177,44 +201,54 @@ begin  -- structural
    -- Connect components
    ----------------------------------------------------------------------------
    adc_values_p <= adc_values_s;
+   done_p       <= module_done_s;
 
-   -- only the upper bits that fit in in the register
-   copy_freq_loop : for fr in FREQUENCIES-1 downto 0 generate
-      copy_channel_loop : for ii in 0 to (CHANNELS*2 - 1) generate
-         reg_i(ii + fr * 16#0020#) <=
-            std_logic_vector(
-               --        |-ch-|     |-  0/1 -|
-               results_s(ii / 2, fr)(ii mod 2)
-               -- adjust length, only the upper bits that fit in in the register
-               (results_s(0, 0)(0)'length-1 downto results_s(0, 0)(0)'length - reg_i(0)'length)
-               );
-      end generate copy_channel_loop;
-   end generate copy_freq_loop;
 
+   -- convert std_logic_vector to goertzel coefficients
    coef_loop : for ii in 0 to FREQUENCIES-1 generate
-      coefs_s(ii) <= "00" & unsigned(reg_o(ii));
+      coefs_s(ii) <= "00" & signed(reg_coefs_s(ii));
    end generate coef_loop;
 
-   done_p <= module_done;
 
    ----------------------------------------------------------------------------
    -- Component Instantiation
    ----------------------------------------------------------------------------
 
-   -- Register file to present Goertzel values to bus
-   reg_file_1 : reg_file
+   -- Register file for the goertzel coefficients,
+   -- write only
+   reg_file_coefs_1 : reg_file
       generic map (
-         BASE_ADDRESS => BASE_ADDRESS,
-         REG_ADDR_BIT => 6  -- 2**6 = 64 registers for goertzel values
+         BASE_ADDRESS => BASE_ADDRESS_COEFS,
+         REG_ADDR_BIT => 3  -- 2**3 = 8 registers of 16 bits for goertzel coefficients
          )
       port map (
-         bus_o => bus_o,
+         bus_o => open,
          bus_i => bus_i,
-         reg_o => reg_o,
-         reg_i => reg_i,
+         reg_o => reg_coefs_s,
+         reg_i => reg_coefs_s,
          reset => '0',
          clk   => clk
          );
+
+   -- Block RAM with double buffering for the results
+   -- read only
+   reg_file_results_1 : entity work.reg_file_bram_double_buffered
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_RESULTS)
+      port map (
+         bus_o => bus_o,
+         bus_i => bus_i,
+
+         bram_data_i => bram_data_i,
+         bram_data_o => bram_data_o,
+         bram_addr_i => bram_addr_s,
+         bram_we_p   => bram_we_s,
+
+         irq_p    => module_done_s,
+         ack_p    => ack_p,
+         ready_p  => goertzel_done_s,
+         enable_p => open,
+         clk      => clk);
 
    -- Two ADCs
    adc_ltc2351_0 : adc_ltc2351
@@ -239,54 +273,34 @@ begin  -- structural
          clk      => clk
          );
 
-   -- 12 Goertzel algorithms
-
+   -- translate raw ADC values to signed
    -- 14-bit ADC value, 0x0000 to 0x3fff, 0x2000 on average
    adc_values_loop : for ch in CHANNELS-1 downto 0 generate
       adc_values_signed_s(ch) <= signed(adc_values_s(ch)) - to_signed(16#2000#, 16)(INPUT_WIDTH-1 downto 0);
    end generate adc_values_loop;
 
-   goertzel_pipelined_1 : goertzel_pipelined
+   goertzel_pipelined_v2_1: entity work.goertzel_pipelined_v2
       generic map (
-         Q           => Q,
-         CHANNELS    => CHANNELS,
-         FREQUENCIES => FREQUENCIES,
-         SAMPLES     => SAMPLES)
+         FREQUENCIES  => FREQUENCIES,
+         CHANNELS     => CHANNELS,
+         SAMPLES      => SAMPLES,
+         Q            => Q,
+         BASE_ADDRESS => BASE_ADDRESS_RESULTS)
       port map (
-         coefs_p   => coefs_s,
-         inputs_p  => adc_values_signed_s,
-         start_p   => adc_done_s,
-         results_p => results_s,
-         done_p    => goertzel_done_s,
-         clk       => clk);
-
-   ---- Channel 5
-   --goertzel_5 : goertzel
-   --   generic map (
-   --      Q       => Q,
-   --      SAMPLES => SAMPLES)
-   --   port map (
-   --      clk         => clk,
-   --      coef_p      => COEF,
-   --      start_p     => adc_done_s,
-   --      adc_value_p => adc_value_signed_s,
-   --      result_p    => results_s,
-   --      done_p      => goertzel_done_s
-   --      );
-
+         start_p     => adc_done_s,     -- whenever ADC is done process a new sample
+         
+         bram_addr_p => bram_addr_s,
+         bram_data_i => bram_data_i,
+         bram_data_o => bram_data_o,
+         bram_we_p   => bram_we_s,
+         
+         ready_p     => goertzel_done_s,
+         enable_p    => '1',            -- not used yet
+         coefs_p     => coefs_s,
+         inputs_p    => adc_values_signed_s,
+         clk         => clk);
+   
    -- Sync extraction
    -- TODO
-
-   -- Handshake when new Goertzel values are available
-   handshake_proc : process (clk)
-   begin  -- process handshake_proc
-      if rising_edge(clk) then
-         if goertzel_done_s = '1' then
-            module_done <= '1';
-         elsif ack_p = '1' then
-            module_done <= '0';
-         end if;
-      end if;
-   end process handshake_proc;
 
 end structural;

@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-18
+-- Last update: 2012-04-26
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -36,7 +36,8 @@ end ir_rx_module_tb;
 architecture tb of ir_rx_module_tb is
 
    -- component generics
-   constant BASE_ADDRESS : integer := 16#0800#;
+   constant BASE_ADDRESS_RESULTS : integer := 16#0800#;
+   constant BASE_ADDRESS_COEFS   : integer := 16#0010#;
 
    -- component ports
    signal adc_out_p     : ir_rx_module_spi_out_type;
@@ -49,7 +50,7 @@ architecture tb of ir_rx_module_tb is
    signal ack_p         : std_logic;
    signal clk_sample_en : std_logic;
 
-   signal adc_values_test : std_logic_vector(13 downto 0);
+   signal adc_values_test        : std_logic_vector(13 downto 0);
    signal adc_values_test_signed : signed(13 downto 0);
 
    -- clock
@@ -57,14 +58,14 @@ architecture tb of ir_rx_module_tb is
 
 begin  -- tb
 
-   -- component instantiation
-   DUT : ir_rx_module
+   ir_rx_module_1 : entity work.ir_rx_module
       generic map (
-         BASE_ADDRESS => BASE_ADDRESS)
+         BASE_ADDRESS_COEFS   => BASE_ADDRESS_COEFS,
+         BASE_ADDRESS_RESULTS => BASE_ADDRESS_RESULTS)
       port map (
          adc_out_p     => adc_out_p,
          adc_in_p      => adc_in_p,
-         adc_values_p  => adc_values_s,
+         adc_values_p  => open,
          sync_p        => sync_p,
          bus_o         => bus_o,
          bus_i         => bus_i,

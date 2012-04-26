@@ -5,7 +5,7 @@
 -- Authors    : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-20
+-- Last update: 2012-04-26
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -78,16 +78,16 @@ end toplevel;
 
 architecture structural of toplevel is
 
-   constant BASE_ADDR_REG    : natural := 16#0000#;
-   constant BASE_ADDR_US_TX  : natural := 16#0010#;
-   constant BASE_ADDR_IR_TX  : natural := 16#0020#;
-   constant BASE_ADDR_IR0_RX : natural := 16#0030#;
-   constant BASE_ADDR_IR1_RX : natural := 16#0040#;
-   constant BASE_ADDR_US_RX  : natural := 16#0050#;
-   constant BASE_ADDR_IR_RX  : natural := 16#0080#;
+   constant BASE_ADDR_REG           : natural := 16#0000#;
+   constant BASE_ADDR_US_TX         : natural := 16#0010#;
+   constant BASE_ADDR_IR_TX         : natural := 16#0020#;
+   constant BASE_ADDR_IR0_RX        : natural := 16#0030#;
+   constant BASE_ADDR_IR1_RX        : natural := 16#0040#;
+   constant BASE_ADDR_US_RX         : natural := 16#0050#;
+   constant BASE_ADDR_IR_RX_COEFS   : natural := 16#0080#;
+   constant BASE_ADDR_IR_RX_RESULTS : natural := 16#0100#;
 
-   signal reset_r : std_logic_vector(1 downto 0) := (others => '0');
-   signal reset   : std_logic;
+   signal reset   : std_logic := '0';
 
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
@@ -198,7 +198,7 @@ begin
       
    begin  -- process us_modulation_proc
       if rising_edge(clk) then
-         if clk_modulation_us_s = '1' then            
+         if clk_modulation_us_s = '1' then
             if cnt = 100 then
                cnt := 0;
             else
@@ -288,7 +288,8 @@ begin
 
    ir_rx_module_0 : ir_rx_module
       generic map (
-         BASE_ADDRESS => BASE_ADDR_IR_RX)
+         BASE_ADDRESS_COEFS   => BASE_ADDR_IR_RX_COEFS,
+         BASE_ADDRESS_RESULTS => BASE_ADDR_IR_RX_RESULTS)
       port map (
          adc_out_p     => ir_rx_module_spi_out,
          adc_in_p      => ir_rx_module_spi_in,

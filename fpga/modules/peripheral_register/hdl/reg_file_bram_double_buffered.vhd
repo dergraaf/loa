@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-22
--- Last update: 2012-04-23
+-- Last update: 2012-04-26
 -- Platform   : Xilinx Spartan 3A
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ begin  -- str
       port map (
          addr_a => addr_a_s,
          addr_b => addr_b_s,
-         din_a  => (others => '0'),
+         din_a  => "000000000000000000",
          din_b  => din_b_s,
          dout_a => dout_a_s,
          dout_b => dout_b_s,

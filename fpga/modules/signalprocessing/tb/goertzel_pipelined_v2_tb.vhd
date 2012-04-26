@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-24
--- Last update: 2012-04-24
+-- Last update: 2012-04-26
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ architecture tb of goertzel_pipelined_v2_tb is
    constant SAMPLES     : positive := 250;
 
    -- component ports
-   signal start_p     : std_logic;
+   signal start_p     : std_logic := '0';
    signal bram_addr_p : std_logic_vector(7 downto 0);
    signal bram_data_i : std_logic_vector(35 downto 0);
    signal bram_data_o : std_logic_vector(35 downto 0);
@@ -54,7 +54,7 @@ architecture tb of goertzel_pipelined_v2_tb is
 begin  -- architecture tb
 
    -- component instantiation
-   DUT: entity work.goertzel_pipelined_v2
+   DUT : entity work.goertzel_pipelined_v2
       generic map (
          FREQUENCIES => FREQUENCIES,
          CHANNELS    => CHANNELS,
@@ -75,11 +75,44 @@ begin  -- architecture tb
    clk <= not clk after 10 ns;
 
    -- waveform generation
-   WaveGen_Proc: process
+   WaveGen_Proc : process
    begin
-      -- insert signal assignments here
-      
+      -- dummy data
+      bram_data_i <= "110111000000000000" & "010101010101010101";
+      coefs_p(0)  <= "000000000000000001";
+      coefs_p(1)  <= "000000000000000010";
+      coefs_p(2)  <= "000000000000000100";
+      coefs_p(3)  <= "000000000000001000";
+      coefs_p(4)  <= "000000000000010000";
+
+      inputs_p(0)  <= "00000000011010";
+      inputs_p(1)  <= "00000000101010";
+      inputs_p(2)  <= "00000000111010";
+      inputs_p(3)  <= "00000001001010";
+      inputs_p(4)  <= "00000011011010";
+      inputs_p(5)  <= "00000111011010";
+      inputs_p(6)  <= "00001111011010";
+      inputs_p(7)  <= "00011111011010";
+      inputs_p(8)  <= "00100111011010";
+      inputs_p(9)  <= "00110011011010";
+      inputs_p(10) <= "01010001011010";
+      inputs_p(11) <= "01100001011010";
+
+      wait until clk = '0';
       wait until clk = '1';
-   end process WaveGen_Proc;   
+      wait until clk = '0';
+
+      -- start the magic!
+      start_p <= '1';
+      wait until clk = '1';
+      wait until clk = '0';
+      start_p <= '0';
+
+      wait until clk = '1';
+
+
+      -- do not repeat
+      wait for 10 ms;
+   end process WaveGen_Proc;
 
 end architecture tb;
