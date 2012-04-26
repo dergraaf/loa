@@ -114,5 +114,26 @@ package signalprocessing_pkg is
          mux_input_p  : out natural range CHANNELS-1 downto 0    := 0;
          clk          : in  std_logic);
    end component goertzel_control_unit;
+
+   component goertzel_pipelined_v2 is
+      generic (
+         FREQUENCIES  : positive;
+         CHANNELS     : positive;
+         SAMPLES      : positive;
+         Q            : positive;
+         BASE_ADDRESS : natural);
+      port (
+         start_p     : in  std_logic;
+         bram_addr_p : out std_logic_vector(7 downto 0);
+         bram_data_i : in  std_logic_vector(35 downto 0);
+         bram_data_o : out std_logic_vector(35 downto 0);
+         bram_we_p   : out std_logic;
+         ready_p     : out std_logic;
+         enable_p    : in  std_logic;
+         coefs_p     : in  goertzel_coefs_type(FREQUENCIES-1 downto 0);
+         inputs_p    : in  goertzel_inputs_type(CHANNELS-1 downto 0);
+         clk         : in  std_logic);
+   end component goertzel_pipelined_v2;
+   
    
 end signalprocessing_pkg;

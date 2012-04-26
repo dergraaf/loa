@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-24
--- Last update: 2012-04-24
+-- Last update: 2012-04-26
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -56,8 +56,6 @@ architecture behavourial of goertzel_control_unit is
    type cu_type is record
       state      : cu_state_type;
       ready      : std_logic;
- --      mux_delay1 : std_logic;
- --      mux_delay2 : std_logic;
       mux_coef   : natural range FREQUENCIES-1 downto 0;
       mux_input  : natural range CHANNELS-1 downto 0;
       bram_addr  : unsigned(7 downto 0);
@@ -70,8 +68,6 @@ architecture behavourial of goertzel_control_unit is
    -----------------------------------------------------------------------------
    signal r, rin : cu_type := (state      => IDLE,
                                ready      => '0',
-                      --         mux_delay1 => '0',
-                      --         mux_delay2 => '0',
                                mux_coef   => 0,
                                mux_input  => 0,
                                bram_addr  => (others => '0'),
@@ -82,6 +78,7 @@ architecture behavourial of goertzel_control_unit is
    ----------------------------------------------------------------------------
    -- Component declarations
    ----------------------------------------------------------------------------
+   -- None here, if any: in package
 
 begin  -- architecture behavourial
 
@@ -89,8 +86,6 @@ begin  -- architecture behavourial
    -- Connections between ports and signals
    ----------------------------------------------------------------------------
    ready_p      <= r.ready;
---   mux_delay1_p <= r.mux_delay1;
---   mux_delay2_p <= r.mux_delay2;
    mux_coef_p   <= r.mux_coef;
    mux_input_p  <= r.mux_input;
    bram_we_p    <= r.bram_we;
@@ -107,7 +102,7 @@ begin  -- architecture behavourial
    end process seq_proc;
 
    ----------------------------------------------------------------------------
-   -- Combinatorial port of FSM
+   -- Combinatorial part of FSM
    ----------------------------------------------------------------------------
    comb_proc : process(r, r.bram_addr, r.mux_coef, r.mux_input, r.state,
                        start_p)
@@ -138,6 +133,10 @@ begin  -- architecture behavourial
          when WRITE1 =>
             v.state     := READ1;
             v.bram_we   := '0';
+            -- Three nested loops:
+            -- inner: channel
+            --        frequency
+            -- outer: sample
             v.bram_addr := r.bram_addr + 1;
             if r.mux_input = CHANNELS-1 then
                v.mux_input := 0;
@@ -162,16 +161,14 @@ begin  -- architecture behavourial
       end case;
 
       rin <= v;
-
-      
       
    end process comb_proc;
 
    -- For the first sample ignore the value in the BRAM  and overwrite it
    -- with zero. No special erase cycle is needed. At the end of the first
-   -- sample the old data is discarded. 
-   mux_delay1_p <= '1' when (r.samples = 0) else '0';
-   mux_delay2_p <= '1' when (r.samples = 0) else '0';
+   -- sample the old data is overwritten in the BRAM. 
+   mux_delay1_p <= '0' when (r.samples = 0) else '1';
+   mux_delay2_p <= '0' when (r.samples = 0) else '1';
 
    -----------------------------------------------------------------------------
    -- Component instantiations

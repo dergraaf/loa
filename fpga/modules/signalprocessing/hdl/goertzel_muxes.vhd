@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-24
--- Last update: 2012-04-24
+-- Last update: 2012-04-26
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -30,13 +30,18 @@ entity goertzel_muxes is
       CHANNELS    : positive := 12;
       FREQUENCIES : positive := 5);
    port (
+      -- control pins of the muxes, from control unit
       mux_delay1_p : in  std_logic;
       mux_delay2_p : in  std_logic;
       mux_coef     : in  natural range FREQUENCIES-1 downto 0;
       mux_input    : in  natural range CHANNELS-1 downto 0;
+
+      -- data to mux
       bram_data    : in  goertzel_result_type;
       coefs_p      : in  goertzel_coefs_type;
       inputs_p     : in  goertzel_inputs_type;
+
+      -- outputs of the mux
       delay1_p     : out goertzel_data_type;
       delay2_p     : out goertzel_data_type;
       coef_p       : out goertzel_coef_type;
