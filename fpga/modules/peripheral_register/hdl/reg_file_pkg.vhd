@@ -52,7 +52,7 @@ package reg_file_pkg is
    -- Several (2**(REG_ADDR_BIT)) 16-bit registers. 
    component reg_file
       generic (
-         BASE_ADDRESS : integer range 0 to 32767;
+         BASE_ADDRESS : integer range 0 to 2**15-1;
          REG_ADDR_BIT : natural);
       port (
          bus_o : out busdevice_out_type;
@@ -62,6 +62,19 @@ package reg_file_pkg is
          reset : in  std_logic;
          clk   : in  std_logic);
    end component;
+
+   component reg_file_bram is
+      generic (
+         BASE_ADDRESS : integer range 0 to 2**15-1);
+      port (
+         bus_o       : out busdevice_out_type;
+         bus_i       : in  busdevice_in_type;
+         bram_data_i : in  std_logic_vector(15 downto 0);
+         bram_data_o : out std_logic_vector(15 downto 0);
+         bram_addr_i : in  std_logic_vector(9 downto 0);
+         bram_we_p   : in  std_logic;
+         clk         : in  std_logic);
+   end component reg_file_bram;
 
    component reg_file_bram_double_buffered
       generic (
@@ -93,15 +106,15 @@ package reg_file_pkg is
    procedure readWord(
       constant addr :     natural range 0 to 2**15-1;
       signal bus_i  : out busdevice_in_type;
-      signal clk : in  std_logic);
+      signal clk    : in  std_logic);
 
    procedure writeWord (
       constant addr : in  natural range 0 to 2**15-1;
       constant data : in  natural range 0 to 2**16-1;
       signal bus_i  : out busdevice_in_type;
-      signal clk : in std_logic);
+      signal clk    : in  std_logic);
 
-   
+
 end reg_file_pkg;
 
 -------------------------------------------------------------------------------
@@ -114,14 +127,18 @@ package body reg_file_pkg is
    procedure readWord(
       constant addr :     natural range 0 to 2**15-1;
       signal bus_i  : out busdevice_in_type;
-      signal clk : in std_logic
+      signal clk    : in  std_logic
       ) is
    begin  -- procedure readWord
+      if (clk = '1') then
+         wait until falling_edge(clk);
+      end if;
       bus_i.addr <= std_logic_vector(to_unsigned(addr, bus_i.addr'length));
       bus_i.data <= x"1234";            -- dummy data in read cycle
       bus_i.re   <= '1';
       wait until rising_edge(clk);
       -- ret        := bus_o.data;
+      wait until falling_edge(clk);
       bus_i.re   <= '0';
    end procedure readWord;
 
@@ -129,12 +146,16 @@ package body reg_file_pkg is
       constant addr : in  natural range 0 to 2**15-1;
       constant data : in  natural range 0 to 2**16-1;
       signal bus_i  : out busdevice_in_type;
-      signal clk : in std_logic) is
+      signal clk    : in  std_logic) is
    begin  -- procedure writeWord
+      if (clk = '1') then
+         wait until falling_edge(clk);
+      end if;
       bus_i.addr <= std_logic_vector(to_unsigned(addr, bus_i.addr'length));
       bus_i.data <= std_logic_vector(to_unsigned(data, bus_i.data'length));
       bus_i.we   <= '1';
       wait until rising_edge(clk);
+      wait until falling_edge(clk);
       bus_i.we   <= '0';
    end procedure writeWord;
 
