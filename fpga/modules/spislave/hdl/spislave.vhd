@@ -2,20 +2,32 @@
 -- Title      : SPI Slave, synchronous
 -- Project    : 
 -------------------------------------------------------------------------------
--- File       : spi_Slave.vhd
+-- File       : spislave.vhd
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-08-27
--- Last update: 2011-12-19
+-- Last update: 2012-04-29
 -- Platform   : 
 -------------------------------------------------------------------------------
--- Description: 
+-- Description: This is an SPI slave that is a busmaster to the local bus.
+--              Data can be transfered to and from the bus slaves on the bus.
+--
+-- Protocol:    The SPI transfers are always 32 bits
+--              SPI mode 0, CPOL = 0, CPAH = 0
+--              The first 16 bits are the address and the second 16 bits are
+--              the data. 
+--
+--              If the MSB of the address is not set (MSB = '0') a read access
+--              to the parallel bus is performed. The result of this read access
+--              is retrieved while sending the next 16 bits. The contents of
+--              these bits can be used as the address for the next access (read
+--              or write).  
+--
+--              If the MSB of the address is set (MSB = '1') a write access to
+--              the parallel bus is performed. 
+--              
 -------------------------------------------------------------------------------
 -- Copyright (c) 2011 
--------------------------------------------------------------------------------
--- Revisions  :
--- Date        Version  Author  Description
--- 2011-08-27  1.0      calle   Created
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -81,7 +93,8 @@ architecture behavioral of spi_slave is
 
 begin
 
-   spi_cmb : process (bus_i, csn_p, mosi_p, r, sck_p)
+   spi_cmb : process (bus_i.data, csn_p, mosi_p, r, r.csn(1 downto 0),
+                      r.mosi(0), r.sck(1 downto 0), r.state, sck_p)
 
       variable v                       : spi_slave_state_type;
       variable rising_sck, falling_csn : std_logic;
@@ -140,13 +153,14 @@ begin
             v.state := RD;
             
          when RD =>
-            --v.oreg(31 downto 16) := bus_di_p;
             v.oreg(31 downto 16) := bus_i.data;
 
+            -- reset the bit counter to 31 to make sequential reads possible. 
             v.state   := SEL;
             v.bit_cnt := 31;
 
          when WR =>
+            -- reset the bit counter to 31 to make sequential writes possible.
             v.state   := SEL;
             v.bit_cnt := 31;
             

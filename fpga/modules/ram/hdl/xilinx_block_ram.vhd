@@ -5,7 +5,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-23
--- Last update: 2012-04-23
+-- Last update: 2012-04-29
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -168,12 +168,21 @@ begin  -- behavourial
    begin  -- process ram_b_proc
       if rising_edge(clk_b) then
          if en_b = '1' then
-            for i in 0 to RATIO-1 loop
-               read_b((i+1)*MIN_WIDTH-1 downto i*MIN_WIDTH) <= ram(conv_integer(addr_b & conv_std_logic_vector(i, log2(RATIO))));
+            if RATIO = 1 then
+               -- symmetrical width
+               read_b <= ram(conv_integer(addr_b));
                if we_b = '1' then
-                  ram(conv_integer(addr_b & conv_std_logic_vector(i, log2(RATIO)))) := din_b((i+1)*MIN_WIDTH-1 downto i*MIN_WIDTH);
+                  ram(conv_integer(addr_b)) := din_b;
                end if;
-            end loop;  -- i
+            else
+               -- asymmetrical
+               for i in 0 to RATIO-1 loop
+                  read_b((i+1)*MIN_WIDTH-1 downto i*MIN_WIDTH) <= ram(conv_integer(addr_b & conv_std_logic_vector(i, log2(RATIO))));
+                  if we_b = '1' then
+                     ram(conv_integer(addr_b & conv_std_logic_vector(i, log2(RATIO)))) := din_b((i+1)*MIN_WIDTH-1 downto i*MIN_WIDTH);
+                  end if;
+               end loop;  -- i
+            end if;  -- ratio = 1
          end if;  -- en_b = '1'
          reg_b <= read_b;
       end if;

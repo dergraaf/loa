@@ -28,7 +28,7 @@ WAVEFORM_VIEWER ?= gtkwave
 
 all: compile run
 
-simulation/$(TESTBENCH): $(FILES) $(TESTBENCH).vhd
+$(SIMDIR)/$(TESTBENCH): $(FILES) $(TESTBENCH).vhd
 	# check if TESTBENCH is empty
 ifeq ($(strip $(TESTBENCH)),)
 	@echo "TESTBENCH not set. Use TESTBENCH=value to set it."
