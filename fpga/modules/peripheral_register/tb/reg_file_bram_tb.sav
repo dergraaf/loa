@@ -1,0 +1,55 @@
+[*]
+[*] GTKWave Analyzer v3.3.35 (w)1999-2012 BSI
+[*] Sun Apr 29 20:03:53 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/modules/peripheral_register/tb/simulation/reg_file_bram_tb.ghw"
+[dumpfile_mtime] "Sun Apr 29 20:02:31 2012"
+[dumpfile_size] 159662
+[savefile] "/home/rca/rca/loa/fpga/modules/peripheral_register/tb/reg_file_bram_tb.sav"
+[timestart] 22581100000
+[size] 1192 611
+[pos] -1 -1
+*-26.774679 22760000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.reg_file_bram_tb.
+[treeopen] top.reg_file_bram_tb.bus_i.
+[treeopen] top.reg_file_bram_tb.bus_o.
+[treeopen] top.reg_file_bram_tb.dut.
+[sst_width] 245
+[signals_width] 237
+[sst_expanded] 1
+[sst_vpaned_height] 297
+@28
+top.reg_file_bram_tb.clk
+@200
+-bus_i
+@22
+#{top.reg_file_bram_tb.bus_i.addr[14:0]} top.reg_file_bram_tb.bus_i.addr[14] top.reg_file_bram_tb.bus_i.addr[13] top.reg_file_bram_tb.bus_i.addr[12] top.reg_file_bram_tb.bus_i.addr[11] top.reg_file_bram_tb.bus_i.addr[10] top.reg_file_bram_tb.bus_i.addr[9] top.reg_file_bram_tb.bus_i.addr[8] top.reg_file_bram_tb.bus_i.addr[7] top.reg_file_bram_tb.bus_i.addr[6] top.reg_file_bram_tb.bus_i.addr[5] top.reg_file_bram_tb.bus_i.addr[4] top.reg_file_bram_tb.bus_i.addr[3] top.reg_file_bram_tb.bus_i.addr[2] top.reg_file_bram_tb.bus_i.addr[1] top.reg_file_bram_tb.bus_i.addr[0]
+#{top.reg_file_bram_tb.bus_i.data[15:0]} top.reg_file_bram_tb.bus_i.data[15] top.reg_file_bram_tb.bus_i.data[14] top.reg_file_bram_tb.bus_i.data[13] top.reg_file_bram_tb.bus_i.data[12] top.reg_file_bram_tb.bus_i.data[11] top.reg_file_bram_tb.bus_i.data[10] top.reg_file_bram_tb.bus_i.data[9] top.reg_file_bram_tb.bus_i.data[8] top.reg_file_bram_tb.bus_i.data[7] top.reg_file_bram_tb.bus_i.data[6] top.reg_file_bram_tb.bus_i.data[5] top.reg_file_bram_tb.bus_i.data[4] top.reg_file_bram_tb.bus_i.data[3] top.reg_file_bram_tb.bus_i.data[2] top.reg_file_bram_tb.bus_i.data[1] top.reg_file_bram_tb.bus_i.data[0]
+@28
+top.reg_file_bram_tb.bus_i.we
+top.reg_file_bram_tb.bus_i.re
+@200
+-bus_o
+@23
+#{top.reg_file_bram_tb.bus_o.data[15:0]} top.reg_file_bram_tb.bus_o.data[15] top.reg_file_bram_tb.bus_o.data[14] top.reg_file_bram_tb.bus_o.data[13] top.reg_file_bram_tb.bus_o.data[12] top.reg_file_bram_tb.bus_o.data[11] top.reg_file_bram_tb.bus_o.data[10] top.reg_file_bram_tb.bus_o.data[9] top.reg_file_bram_tb.bus_o.data[8] top.reg_file_bram_tb.bus_o.data[7] top.reg_file_bram_tb.bus_o.data[6] top.reg_file_bram_tb.bus_o.data[5] top.reg_file_bram_tb.bus_o.data[4] top.reg_file_bram_tb.bus_o.data[3] top.reg_file_bram_tb.bus_o.data[2] top.reg_file_bram_tb.bus_o.data[1] top.reg_file_bram_tb.bus_o.data[0]
+@200
+-BRAM A
+@28
+top.reg_file_bram_tb.dut.ram_a_en
+top.reg_file_bram_tb.dut.ram_a_we
+@22
+#{top.reg_file_bram_tb.dut.ram_a_addr[9:0]} top.reg_file_bram_tb.dut.ram_a_addr[9] top.reg_file_bram_tb.dut.ram_a_addr[8] top.reg_file_bram_tb.dut.ram_a_addr[7] top.reg_file_bram_tb.dut.ram_a_addr[6] top.reg_file_bram_tb.dut.ram_a_addr[5] top.reg_file_bram_tb.dut.ram_a_addr[4] top.reg_file_bram_tb.dut.ram_a_addr[3] top.reg_file_bram_tb.dut.ram_a_addr[2] top.reg_file_bram_tb.dut.ram_a_addr[1] top.reg_file_bram_tb.dut.ram_a_addr[0]
+#{top.reg_file_bram_tb.dut.ram_a_in[15:0]} top.reg_file_bram_tb.dut.ram_a_in[15] top.reg_file_bram_tb.dut.ram_a_in[14] top.reg_file_bram_tb.dut.ram_a_in[13] top.reg_file_bram_tb.dut.ram_a_in[12] top.reg_file_bram_tb.dut.ram_a_in[11] top.reg_file_bram_tb.dut.ram_a_in[10] top.reg_file_bram_tb.dut.ram_a_in[9] top.reg_file_bram_tb.dut.ram_a_in[8] top.reg_file_bram_tb.dut.ram_a_in[7] top.reg_file_bram_tb.dut.ram_a_in[6] top.reg_file_bram_tb.dut.ram_a_in[5] top.reg_file_bram_tb.dut.ram_a_in[4] top.reg_file_bram_tb.dut.ram_a_in[3] top.reg_file_bram_tb.dut.ram_a_in[2] top.reg_file_bram_tb.dut.ram_a_in[1] top.reg_file_bram_tb.dut.ram_a_in[0]
+#{top.reg_file_bram_tb.dut.ram_a_out[15:0]} top.reg_file_bram_tb.dut.ram_a_out[15] top.reg_file_bram_tb.dut.ram_a_out[14] top.reg_file_bram_tb.dut.ram_a_out[13] top.reg_file_bram_tb.dut.ram_a_out[12] top.reg_file_bram_tb.dut.ram_a_out[11] top.reg_file_bram_tb.dut.ram_a_out[10] top.reg_file_bram_tb.dut.ram_a_out[9] top.reg_file_bram_tb.dut.ram_a_out[8] top.reg_file_bram_tb.dut.ram_a_out[7] top.reg_file_bram_tb.dut.ram_a_out[6] top.reg_file_bram_tb.dut.ram_a_out[5] top.reg_file_bram_tb.dut.ram_a_out[4] top.reg_file_bram_tb.dut.ram_a_out[3] top.reg_file_bram_tb.dut.ram_a_out[2] top.reg_file_bram_tb.dut.ram_a_out[1] top.reg_file_bram_tb.dut.ram_a_out[0]
+@200
+-BRAM B
+@28
+top.reg_file_bram_tb.dut.ram_b_en
+top.reg_file_bram_tb.dut.ram_b_we
+@22
+#{top.reg_file_bram_tb.dut.ram_b_addr[9:0]} top.reg_file_bram_tb.dut.ram_b_addr[9] top.reg_file_bram_tb.dut.ram_b_addr[8] top.reg_file_bram_tb.dut.ram_b_addr[7] top.reg_file_bram_tb.dut.ram_b_addr[6] top.reg_file_bram_tb.dut.ram_b_addr[5] top.reg_file_bram_tb.dut.ram_b_addr[4] top.reg_file_bram_tb.dut.ram_b_addr[3] top.reg_file_bram_tb.dut.ram_b_addr[2] top.reg_file_bram_tb.dut.ram_b_addr[1] top.reg_file_bram_tb.dut.ram_b_addr[0]
+#{top.reg_file_bram_tb.dut.ram_b_in[15:0]} top.reg_file_bram_tb.dut.ram_b_in[15] top.reg_file_bram_tb.dut.ram_b_in[14] top.reg_file_bram_tb.dut.ram_b_in[13] top.reg_file_bram_tb.dut.ram_b_in[12] top.reg_file_bram_tb.dut.ram_b_in[11] top.reg_file_bram_tb.dut.ram_b_in[10] top.reg_file_bram_tb.dut.ram_b_in[9] top.reg_file_bram_tb.dut.ram_b_in[8] top.reg_file_bram_tb.dut.ram_b_in[7] top.reg_file_bram_tb.dut.ram_b_in[6] top.reg_file_bram_tb.dut.ram_b_in[5] top.reg_file_bram_tb.dut.ram_b_in[4] top.reg_file_bram_tb.dut.ram_b_in[3] top.reg_file_bram_tb.dut.ram_b_in[2] top.reg_file_bram_tb.dut.ram_b_in[1] top.reg_file_bram_tb.dut.ram_b_in[0]
+#{top.reg_file_bram_tb.dut.ram_b_out[15:0]} top.reg_file_bram_tb.dut.ram_b_out[15] top.reg_file_bram_tb.dut.ram_b_out[14] top.reg_file_bram_tb.dut.ram_b_out[13] top.reg_file_bram_tb.dut.ram_b_out[12] top.reg_file_bram_tb.dut.ram_b_out[11] top.reg_file_bram_tb.dut.ram_b_out[10] top.reg_file_bram_tb.dut.ram_b_out[9] top.reg_file_bram_tb.dut.ram_b_out[8] top.reg_file_bram_tb.dut.ram_b_out[7] top.reg_file_bram_tb.dut.ram_b_out[6] top.reg_file_bram_tb.dut.ram_b_out[5] top.reg_file_bram_tb.dut.ram_b_out[4] top.reg_file_bram_tb.dut.ram_b_out[3] top.reg_file_bram_tb.dut.ram_b_out[2] top.reg_file_bram_tb.dut.ram_b_out[1] top.reg_file_bram_tb.dut.ram_b_out[0]
+[pattern_trace] 1
+[pattern_trace] 0
