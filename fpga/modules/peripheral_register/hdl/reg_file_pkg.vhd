@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-04-23
+-- Last update: 2012-04-29
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -21,11 +21,10 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
---use work.reg_file_pkg.all;
---use work.utils_pkg.all;
 
 -------------------------------------------------------------------------------
 
@@ -37,6 +36,20 @@ package reg_file_pkg is
    -- Component declarations
    -----------------------------------------------------------------------------
 
+   -- A single 16-bit register. 
+   component peripheral_register is
+      generic (
+         BASE_ADDRESS : integer range 0 to 32767);
+      port (
+         dout_p : out std_logic_vector(15 downto 0);
+         din_p  : in  std_logic_vector(15 downto 0);
+         bus_o  : out busdevice_out_type;
+         bus_i  : in  busdevice_in_type;
+         reset  : in  std_logic;
+         clk    : in  std_logic);
+   end component peripheral_register;
+
+   -- Several (2**(REG_ADDR_BIT)) 16-bit registers. 
    component reg_file
       generic (
          BASE_ADDRESS : integer range 0 to 32767;
@@ -76,7 +89,53 @@ package reg_file_pkg is
          bank_p   : out std_logic;
          clk      : in  std_logic);
    end component double_buffering;
+
+   procedure readWord(
+      constant addr :     natural range 0 to 2**15-1;
+      signal bus_i  : out busdevice_in_type;
+      signal clk : in  std_logic);
+
+   procedure writeWord (
+      constant addr : in  natural range 0 to 2**15-1;
+      constant data : in  natural range 0 to 2**16-1;
+      signal bus_i  : out busdevice_in_type;
+      signal clk : in std_logic);
+
    
 end reg_file_pkg;
 
 -------------------------------------------------------------------------------
+
+package body reg_file_pkg is
+
+   ----------------------------------------------------------------------------
+   -- Debug functions to simulate bus activity
+   ----------------------------------------------------------------------------
+   procedure readWord(
+      constant addr :     natural range 0 to 2**15-1;
+      signal bus_i  : out busdevice_in_type;
+      signal clk : in std_logic
+      ) is
+   begin  -- procedure readWord
+      bus_i.addr <= std_logic_vector(to_unsigned(addr, bus_i.addr'length));
+      bus_i.data <= x"1234";            -- dummy data in read cycle
+      bus_i.re   <= '1';
+      wait until rising_edge(clk);
+      -- ret        := bus_o.data;
+      bus_i.re   <= '0';
+   end procedure readWord;
+
+   procedure writeWord (
+      constant addr : in  natural range 0 to 2**15-1;
+      constant data : in  natural range 0 to 2**16-1;
+      signal bus_i  : out busdevice_in_type;
+      signal clk : in std_logic) is
+   begin  -- procedure writeWord
+      bus_i.addr <= std_logic_vector(to_unsigned(addr, bus_i.addr'length));
+      bus_i.data <= std_logic_vector(to_unsigned(data, bus_i.data'length));
+      bus_i.we   <= '1';
+      wait until rising_edge(clk);
+      bus_i.we   <= '0';
+   end procedure writeWord;
+
+end package body reg_file_pkg;
