@@ -1,13 +1,14 @@
 
 # Name of the testbench without extenstion
 #TESTBENCH = peripheral_register_tb
-#TESTBENCH = reg_file_tb
+TESTBENCH = reg_file_tb
 #TESTBENCH = double_buffering_tb
-TESTBENCH = reg_file_bram_double_buffered_tb
+#TESTBENCH = reg_file_bram_double_buffered_tb
 
 # VHDL files
 ifeq ($(TESTBENCH), peripheral_register_tb)
 FILES = ../../spislave/hdl/bus_pkg.vhd \
+		../hdl/reg_file_pkg.vhd \
 		../hdl/peripheral_register.vhd
 else ifeq ($(TESTBENCH), reg_file_tb)
 FILES = \
@@ -37,7 +38,7 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
-GHDL_SIM_OPT = --stop-time=2us
+GHDL_SIM_OPT = --stop-time=2us --disp-tree=inst
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]

@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2012-04-22
+-- Last update: 2012-04-29
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -25,22 +25,7 @@ use ieee.std_logic_1164.all;
 
 library work;
 use work.bus_pkg.all;
-
-package peripheral_register_pkg is
-
-   component peripheral_register is
-      generic (
-         BASE_ADDRESS : integer range 0 to 32767);
-      port (
-         dout_p : out std_logic_vector(15 downto 0);
-         din_p  : in  std_logic_vector(15 downto 0);
-         bus_o  : out busdevice_out_type;
-         bus_i  : in  busdevice_in_type;
-         reset  : in  std_logic;
-         clk    : in  std_logic);
-   end component peripheral_register;
-
-end package peripheral_register_pkg;
+use work.reg_file_pkg.all;
 
 -------------------------------------------------------------------------------
 library ieee;
