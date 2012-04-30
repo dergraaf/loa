@@ -160,34 +160,12 @@ begin  -- tb
       variable d : std_logic_vector(31 downto 0);
       
    begin
+      -- wait until BRAM is written
       wait for 10300 ns;
 
+      -- read a word from BRAM
       spiReadWord(16#0423#, sck => sck, mosi => mosi, cs_n => cs_n, clk => clk);
       
-      --cs_n  <= '1';
-      --sck  <= '0';
-      --mosi <= '0';
-      --wait for 50 ns;
-      --cs_n  <= '0';
-      --wait for 100 ns;
-
-      ---- read access to addr 0x0423 with 0x0000 as dummy data. 
-      --d := X"04230000";
-
-      --for i in 31 downto 0 loop
-      --   sck  <= '0';
-      --   mosi <= d(i);
-      --   wait for 50 ns;
-      --   sck  <= '1';
-      --   wait for 50 ns;
-         
-      --end loop;  -- i
-      --sck  <= '0';
-      --wait for 50 ns;
-      --cs_n  <= '1';
-      --sck  <= '0';
-      --mosi <= 'Z';
-
       -- do not repeat
       wait until false;
    end process;
