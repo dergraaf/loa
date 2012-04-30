@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-22
--- Last update: 2012-04-29
+-- Last update: 2012-04-30
 -- Platform   : Xilinx Spartan 3A
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ entity reg_file_bram is
       bram_data_i : in  std_logic_vector(15 downto 0) := (others => '0');
       bram_data_o : out std_logic_vector(15 downto 0) := (others => '0');
       bram_addr_i : in  std_logic_vector(9 downto 0)  := (others => '0');
-      bram_we_p   : in  std_logic := '0';
+      bram_we_p   : in  std_logic                     := '0';
 
       -- No reset, all signals are initialised.
 
@@ -142,6 +142,11 @@ begin  -- str
    ram_a_addr <= bus_i.addr(ADDR_A_WIDTH-1 downto 0);
    ram_a_in   <= bus_i.data;
 
+   -- ADDR_A_WIDTH = 10
+   --  14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
+   --                 |<---- match ---->|
+
+   -- bus_i.addr(14 downto ADDR_A_WIDTH) = BASE_ADDRESS_VECTOR(14 downto ADDR_A_WIDTH)
    addr_match_a <= '1' when (bus_i.addr(14 downto ADDR_A_WIDTH) = BASE_ADDRESS_VECTOR(14 downto ADDR_A_WIDTH)) else '0';
 
    ram_a_en <= '1' when (addr_match_a = '1') and ((bus_i.re = '1') or (bus_i.we = '1')) else '0';
@@ -164,7 +169,21 @@ begin  -- str
    end process;
 
    -- The parallel data bus is written when data is requested with re = '1'
-   bus_o.data <= ram_a_out when bus_o_enable_d2 = '1' else (others => '0');
+--   bus_o.data <= ram_a_out when bus_o_enable_d2 = '1' else (others => '0');
+--   bus_o.data <=  "1100110010101110" when bus_o_enable_d2 = '1' else (others => '0'); --bus_o_enable_d2 = '1' else (others => '0');
+
+
+   process (clk) is
+   begin
+      if rising_edge(clk) then
+         if (addr_match_a = '1') and (bus_i.re = '1') then
+            bus_o.data <= ram_a_out; --"1011110010101110";
+         else
+            bus_o.data <= (others => '0');
+         end if;
+      end if;
+   end process;
+
 
    ----------------------------------------------------------------------------
    -- Port B: internal device
