@@ -1,9 +1,9 @@
 
 # Name of the testbench without extenstion
 #TESTBENCH = peripheral_register_tb
-TESTBENCH = reg_file_tb
+#TESTBENCH = reg_file_tb
 #TESTBENCH = double_buffering_tb
-#TESTBENCH = reg_file_bram_double_buffered_tb
+TESTBENCH = reg_file_bram_double_buffered_tb
 
 # VHDL files
 

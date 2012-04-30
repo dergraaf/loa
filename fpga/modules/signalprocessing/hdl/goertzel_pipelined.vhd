@@ -6,6 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
+-- Last update: 2012-04-27
 -- Last update: 2012-04-30
 -- Platform   : 
 -- Standard   : VHDL'87

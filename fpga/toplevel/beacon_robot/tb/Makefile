@@ -5,7 +5,9 @@ TESTBENCH = toplevel_tb
 # VHDL files
 FILES =  \
 	../toplevel.vhd \
+	../fpga_memory_map.vhd \
 	../../../modules/spislave/hdl/*.vhd \
+	../../../modules/ram/hdl/*.vhd \
 	../../../modules/peripheral_register/hdl/*.vhd \
 	../../../modules/motor_control/hdl/*.vhd \
 	../../../modules/utils/hdl/*.vhd \

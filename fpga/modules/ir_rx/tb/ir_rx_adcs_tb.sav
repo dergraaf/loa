@@ -1,0 +1,20 @@
+[timestart] 0
+[size] 1024 768
+[pos] 0 999
+*-30.055782 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.ir_rx_adcs_tb.
+[treeopen] top.ir_rx_adcs_tb.adc_out_s.
+[treeopen] top.ir_rx_adcs_tb.adc_values_s.
+@28
+top.ir_rx_adcs_tb.clk
+top.ir_rx_adcs_tb.clk_sample_en
+top.ir_rx_adcs_tb.adc_done_s
+top.ir_rx_adcs_tb.adc_out_s[0].sck
+top.ir_rx_adcs_tb.adc_out_s[0].conv
+top.ir_rx_adcs_tb.adc_in_s[0].sdo
+top.ir_rx_adcs_tb.adc_in_s[1].sdo
+@23
+#{top.ir_rx_adcs_tb.adc_values_s[0][13:0]} top.ir_rx_adcs_tb.adc_values_s[0][13] top.ir_rx_adcs_tb.adc_values_s[0][12] top.ir_rx_adcs_tb.adc_values_s[0][11] top.ir_rx_adcs_tb.adc_values_s[0][10] top.ir_rx_adcs_tb.adc_values_s[0][9] top.ir_rx_adcs_tb.adc_values_s[0][8] top.ir_rx_adcs_tb.adc_values_s[0][7] top.ir_rx_adcs_tb.adc_values_s[0][6] top.ir_rx_adcs_tb.adc_values_s[0][5] top.ir_rx_adcs_tb.adc_values_s[0][4] top.ir_rx_adcs_tb.adc_values_s[0][3] top.ir_rx_adcs_tb.adc_values_s[0][2] top.ir_rx_adcs_tb.adc_values_s[0][1] top.ir_rx_adcs_tb.adc_values_s[0][0]
+[pattern_trace] 1
+[pattern_trace] 0

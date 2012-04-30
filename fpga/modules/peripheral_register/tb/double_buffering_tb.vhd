@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-23
--- Last update: 2012-04-23
+-- Last update: 2012-04-28
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -145,6 +145,47 @@ begin  -- architecture tb
       wait until clk = '0';
       ready_p <= '0';
 
+
+    -- separate test cases
+      for ii in 0 to 5 loop
+         wait until clk = '0';
+      end loop;  -- ii
+
+      ack_p <= '1';
+            wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+            wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+
+      ack_p <= '0';
+
+         -- separate test cases
+      for ii in 0 to 5 loop
+         wait until clk = '0';
+      end loop;  -- ii
+
+      -------------------------------------------------------------------------
+      -- Scenario 4: Ready_p high very long
+      -------------------------------------------------------------------------
+
+      ready_p <= '0';
+      wait until clk = '0';
+      ready_p <= '1';
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      ready_p <= '0';
+      
  
 
       -- do not repeat
