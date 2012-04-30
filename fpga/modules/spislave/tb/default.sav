@@ -1,25 +1,34 @@
+[*]
+[*] GTKWave Analyzer v3.3.35 (w)1999-2012 BSI
+[*] Mon Apr 30 01:29:17 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/modules/spislave/tb/simulation/spi_slave_tb.ghw"
+[dumpfile_mtime] "Mon Apr 30 01:27:30 2012"
+[dumpfile_size] 41113
+[savefile] "/home/rca/rca/loa/fpga/modules/spislave/tb/default.sav"
 [timestart] 0
-[size] 1230 1000
-[pos] -207 -1025
-*-31.310389 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1192 1000
+[pos] -1 -1
+*-30.735573 1761000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.spi_slave_tb.
 [treeopen] top.spi_slave_tb.bus_i.
 [treeopen] top.spi_slave_tb.bus_o.
 [treeopen] top.spi_slave_tb.dut.
-[treeopen] top.spi_slave_tb.dut.r.
-[treeopen] top.spi_slave_tb.dut.rin.
+[sst_width] 196
+[signals_width] 156
+[sst_expanded] 1
+[sst_vpaned_height] 297
 @28
 top.spi_slave_tb.dut.clk
 top.spi_slave_tb.dut.reset
 top.spi_slave_tb.dut.csn_p
-@29
 top.spi_slave_tb.dut.sck_p
-@28
 top.spi_slave_tb.dut.mosi_p
 top.spi_slave_tb.dut.miso_p
-top.spi_slave_tb.bus_o.we
 top.spi_slave_tb.bus_o.re
+@29
+top.spi_slave_tb.bus_o.we
 @22
 #{top.spi_slave_tb.bus_i.data[15:0]} top.spi_slave_tb.bus_i.data[15] top.spi_slave_tb.bus_i.data[14] top.spi_slave_tb.bus_i.data[13] top.spi_slave_tb.bus_i.data[12] top.spi_slave_tb.bus_i.data[11] top.spi_slave_tb.bus_i.data[10] top.spi_slave_tb.bus_i.data[9] top.spi_slave_tb.bus_i.data[8] top.spi_slave_tb.bus_i.data[7] top.spi_slave_tb.bus_i.data[6] top.spi_slave_tb.bus_i.data[5] top.spi_slave_tb.bus_i.data[4] top.spi_slave_tb.bus_i.data[3] top.spi_slave_tb.bus_i.data[2] top.spi_slave_tb.bus_i.data[1] top.spi_slave_tb.bus_i.data[0]
 #{top.spi_slave_tb.bus_o.data[15:0]} top.spi_slave_tb.bus_o.data[15] top.spi_slave_tb.bus_o.data[14] top.spi_slave_tb.bus_o.data[13] top.spi_slave_tb.bus_o.data[12] top.spi_slave_tb.bus_o.data[11] top.spi_slave_tb.bus_o.data[10] top.spi_slave_tb.bus_o.data[9] top.spi_slave_tb.bus_o.data[8] top.spi_slave_tb.bus_o.data[7] top.spi_slave_tb.bus_o.data[6] top.spi_slave_tb.bus_o.data[5] top.spi_slave_tb.bus_o.data[4] top.spi_slave_tb.bus_o.data[3] top.spi_slave_tb.bus_o.data[2] top.spi_slave_tb.bus_o.data[1] top.spi_slave_tb.bus_o.data[0]
