@@ -1,7 +1,7 @@
 
 # Name of the testbench without extenstion
-#TESTBENCH = adc_ltc2351_tb
-TESTBENCH = adc_ltc2351_module_tb
+TESTBENCH = adc_ltc2351_tb
+#TESTBENCH = adc_ltc2351_module_tb
 #TESTBENCH = adc_ltc2351_model_tb
 #TESTBENCH = adc_ltc2351_2_tb
 

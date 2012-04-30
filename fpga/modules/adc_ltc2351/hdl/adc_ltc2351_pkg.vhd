@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-10
--- Last update: 2012-04-18
+-- Last update: 2012-04-27
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -62,14 +62,6 @@ package adc_ltc2351_pkg is
    end component;
 
    component adc_ltc2351_model
--- this overwrites the init from adc_ltc2351_model.vhd
---     generic (
---        DATA_CH1 : std_logic_vector(13 downto 0);
---        DATA_CH2 : std_logic_vector(13 downto 0);
---        DATA_CH3 : std_logic_vector(13 downto 0);
---        DATA_CH4 : std_logic_vector(13 downto 0);
---        DATA_CH5 : std_logic_vector(13 downto 0);
---        DATA_CH6 : std_logic_vector(13 downto 0));
       port (
          sck  : in  std_logic;
          conv : in  std_logic;
@@ -89,7 +81,7 @@ package adc_ltc2351_pkg is
          reset        : in  std_logic;
          clk          : in  std_logic);
    end component;
-
+   
 end adc_ltc2351_pkg;
 
 -------------------------------------------------------------------------------

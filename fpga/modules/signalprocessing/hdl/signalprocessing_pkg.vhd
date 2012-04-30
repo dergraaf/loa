@@ -120,8 +120,7 @@ package signalprocessing_pkg is
          FREQUENCIES  : positive;
          CHANNELS     : positive;
          SAMPLES      : positive;
-         Q            : positive;
-         BASE_ADDRESS : natural);
+         Q            : positive);
       port (
          start_p     : in  std_logic;
          bram_addr_p : out std_logic_vector(7 downto 0);
