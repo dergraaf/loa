@@ -6,16 +6,12 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-08-27
--- Last update: 2011-12-14
+-- Last update: 2012-04-29
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2011 
--------------------------------------------------------------------------------
--- Revisions  :
--- Date        Version  Author  Description
--- 2011-08-27  1.0      calle   Created
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -31,22 +27,14 @@ package spislave_pkg is
   -----------------------------------------------------------------------------
   component spi_slave
     port (
-      --ireg    : out std_logic_vector(31 downto 0);
-      --bit_cnt : out integer;
-
       miso_p : out std_logic;
       mosi_p : in  std_logic;
       sck_p  : in  std_logic;
       csn_p  : in  std_logic;
 
       bus_o : out busmaster_out_type;
-      --bus_do_p   : out std_logic_vector(15 downto 0);
-      --bus_addr_p : out std_logic_vector(14 downto 0);
-      --bus_we_p   : out std_logic;
-      --bus_re_p   : out std_logic;
 
       bus_i : in busmaster_in_type;
-      --bus_di_p   : in  std_logic_vector(15 downto 0);
 
       reset : in std_logic;
       clk   : in std_logic);

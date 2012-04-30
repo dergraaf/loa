@@ -6,7 +6,7 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-07-31
--- Last update: 2011-12-14
+-- Last update: 2012-04-29
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -20,6 +20,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 library work;
 use work.spislave_pkg.all;
@@ -46,6 +47,8 @@ architecture tb of spi_slave_tb is
   signal bus_o : busmaster_out_type;
   signal bus_i : busmaster_in_type;
 
+  signal bus_data : unsigned(15 downto 0) := (others => '0');
+
 begin  -- tb
 
   DUT : spi_slave port map (
@@ -66,7 +69,14 @@ begin  -- tb
   -- clock generation
   Clk <= not Clk after 5.0 ns;
 
-  bus_i.data <= x"1234";
+  -- Change the bus data to find out when exactly the bus is sampled
+  process (clk) is
+  begin  -- process
+     if rising_edge(clk) then           -- rising clock edge
+          bus_i.data <= std_logic_vector(bus_data);
+          bus_data <= bus_data + 1;
+     end if;
+  end process;
 
   process
   begin
@@ -86,6 +96,7 @@ begin  -- tb
     csn  <= '0';
     wait for 100 ns;
 
+    -- read access to addr 0x7000 with 0x0000 as dummy data. 
     d := X"70000000";
 
     for i in 31 downto 0 loop
@@ -106,7 +117,8 @@ begin  -- tb
     csn <= '0';
     wait for 50 ns;
 
-    d := X"80ff" & X"ff55";
+    -- write access to addr 0x00ff with data 0xfe35
+    d := X"80ff" & X"fe35";
 
     for i in 31 downto 0 loop
       sck  <= '0';
@@ -117,7 +129,7 @@ begin  -- tb
       
     end loop;  -- i
 
-
+    -- no pause between two transfers: 
     if false then
       sck  <= '0';
       wait for 50 ns;
@@ -128,6 +140,7 @@ begin  -- tb
       wait for 50 ns;
     end if;
 
+    -- write access to addr 0xf0f with data 0x1234
     d := X"8f0f" & X"1234";
 
     for i in 31 downto 0 loop

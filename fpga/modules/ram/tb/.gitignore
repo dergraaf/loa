@@ -1,0 +1,12 @@
+ise/iseconfig/
+ise/ram_toplevel*
+ise/webtalk*
+ise/usage_statistics_webtalk.html
+ise/*.gise
+ise/_ngo/
+ise/_xmsgs/
+ise/xst/
+ise/xlnx_auto_0_xdb/
+toplevel.svf
+_impactbatch.log
+tb/simulation

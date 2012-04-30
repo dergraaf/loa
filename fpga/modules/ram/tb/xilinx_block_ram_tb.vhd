@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-23
--- Last update: 2012-04-23
+-- Last update: 2012-04-29
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ begin  -- tb
       -- Remember the effect of "read-first":
       -- When 0x21 is addressed the memory cell is read before 0xab is
       -- written to that cell. Thus 0x00 will appear at the output of dout_a.
-      -- 0xab will appear on cycle later on the output dout_a. 
+      -- 0xab will appear with the next rising clock edge on the output dout_a. 
 
       wait until clk = '0';
 
