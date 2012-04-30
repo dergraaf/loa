@@ -31,7 +31,7 @@ use work.spislave_pkg.all;
 
 use work.reg_file_pkg.all;
 use work.motor_control_pkg.all;
-use work.deadtime_pkg.all;
+-- use work.deadtime_pkg.all;
 use work.adc_ltc2351_pkg.all;
 -- use work.uss_tx_pkg.all;
 -- use work.ir_tx_pkg.all;
