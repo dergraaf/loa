@@ -1,0 +1,39 @@
+This is some effort to run ISE in command line mode:
+
+set up the environment variables:
+/opt/xilinx-ise-13-4/ISE_DS/settings64.sh
+
+go into the toplevel/$(PROEJECT)/ise directory and run
+
+xst -intstyle ise -ifn "/home/rca/rca/loa/fpga/toplevel/captain_drive/ise/toplevel.xst" -ofn "/home/rca/rca/loa/fpga/toplevel/captain_drive/ise/toplevel.syr"
+
+
+"Generate Post-Synthesis Simulation Model".
+netgen -intstyle ise -ar Structure -tm toplevel -w -dir netgen/synthesis -ofmt vhdl -sim toplevel.ngc toplevel_synthesis.vhd
+
+
+/opt/xilinx-ise-13-4/ISE_DS/ISE/bin/lin64/ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc /home/rca/rca/loa/fpga/toplevel/captain_drive/carrier.ucf -uc /home/rca/rca/loa/fpga/toplevel/captain_drive/board.ucf -p xc3s400-tq144-4 toplevel.ngc toplevel.ngd
+
+"Generate Post-Translate Simulation Model".
+netgen -intstyle ise -rpw 100 -tpw 0 -ar Structure -tm toplevel -w -dir netgen/translate -ofmt vhdl -sim toplevel.ngd toplevel_translate.vhd
+
+"Map"
+map -intstyle ise -p xc3s400-tq144-4 -cm area -ir off -pr off -c 100 -o toplevel_map.ncd toplevel.ngd toplevel.pcf
+
+
+"Generate Post-Map Static Timing".
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml toplevel_preroute.twx toplevel_map.ncd -o toplevel_preroute.twr toplevel.pcf -ucf /home/rca/rca/loa/fpga/toplevel/captain_drive/carrier.ucf -ucf /home/rca/rca/loa/fpga/toplevel/captain_drive/board.ucf
+
+"Generate Post-Map Simulation Model".
+netgen -intstyle ise -s 4  -pcf toplevel.pcf -rpw 100 -tpw 0 -ar Structure -tm toplevel -w -dir netgen/map -ofmt vhdl -sim toplevel_map.ncd toplevel_map.vhd
+
+"Place & Route".
+par -w -intstyle ise -ol high -t 1 toplevel_map.ncd toplevel.ncd toplevel.pcf
+
+
+"Generate Post-Place & Route Static Timing".
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml toplevel.twx toplevel.ncd -o toplevel.twr toplevel.pcf
+
+"Generate Programming File".
+bitgen -intstyle ise -f toplevel.ut toplevel.ncd
+

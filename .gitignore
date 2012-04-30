@@ -12,3 +12,4 @@
 .settings
 .classpath
 *.gise
+.DS_Store
