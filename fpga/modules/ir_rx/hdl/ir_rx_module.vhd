@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-04-26
+-- Last update: 2012-04-28
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -155,14 +155,10 @@ architecture structural of ir_rx_module is
    -- Constants
    ----------------------------------------------------------------------------
 
---   constant INPUT_WIDTH : natural := 14;
---   constant CALC_WIDTH  : natural := 18;
    constant Q           : natural := 13;
    constant SAMPLES     : natural := 250;
    constant CHANNELS    : natural := 12;
    constant FREQUENCIES : natural := 2;
-
-   constant COEF : unsigned := to_unsigned(2732, CALC_WIDTH);
 
    ----------------------------------------------------------------------------
    -- Internal signal declaration
@@ -181,28 +177,35 @@ architecture structural of ir_rx_module is
 
    signal module_done_s : std_logic := '0';
 
+   -- Merge internal bus
+   signal bus_coefs_s   : busdevice_out_type;
+   signal bus_results_s : busdevice_out_type;
+
    -- Connection between bram and pipelined
    signal bram_data_i : std_logic_vector(35 downto 0);
    signal bram_data_o : std_logic_vector(35 downto 0);
    signal bram_addr_s : std_logic_vector(7 downto 0);
    signal bram_we_s   : std_logic;
 
-
    signal adc_start_s : std_logic := '0';
    signal adc_done_s  : std_logic := '0';
 
-   signal reg_coefs_s : reg_file_type(7 downto 0);
+   signal reg_coefs_s : reg_file_type(FREQUENCIES-1 downto 0);
 
    signal goertzel_done_s : std_logic;
+   signal ack_s           : std_logic;
    
 begin  -- structural
 
    ----------------------------------------------------------------------------
    -- Connect components
    ----------------------------------------------------------------------------
+   bus_o.data <= bus_coefs_s.data or bus_results_s.data;
+
    adc_values_p <= adc_values_s;
    done_p       <= module_done_s;
 
+   ack_s <= ack_p;
 
    -- convert std_logic_vector to goertzel coefficients
    coef_loop : for ii in 0 to FREQUENCIES-1 generate
@@ -219,10 +222,10 @@ begin  -- structural
    reg_file_coefs_1 : reg_file
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_COEFS,
-         REG_ADDR_BIT => 3  -- 2**3 = 8 registers of 16 bits for goertzel coefficients
+         REG_ADDR_BIT => log2(FREQUENCIES)  -- 2**n = FREQUENCIES registers of 16 bits for goertzel coefficients
          )
       port map (
-         bus_o => open,
+         bus_o => bus_coefs_s,
          bus_i => bus_i,
          reg_o => reg_coefs_s,
          reg_i => reg_coefs_s,
@@ -236,7 +239,7 @@ begin  -- structural
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_RESULTS)
       port map (
-         bus_o => bus_o,
+         bus_o => bus_results_s,
          bus_i => bus_i,
 
          bram_data_i => bram_data_i,
@@ -245,61 +248,51 @@ begin  -- structural
          bram_we_p   => bram_we_s,
 
          irq_p    => module_done_s,
-         ack_p    => ack_p,
+         ack_p    => ack_s,
          ready_p  => goertzel_done_s,
          enable_p => open,
          clk      => clk);
 
-   -- Two ADCs
-   adc_ltc2351_0 : adc_ltc2351
+   ------------------------------------------------------------------------------
+   -- ADCs
+   -------------------------------------------------------------------------------
+   ir_rx_adcs_1: ir_rx_adcs
+      generic map (
+         CHANNELS => CHANNELS)
       port map (
-         adc_out  => adc_out_p(0),
-         adc_in   => adc_in_p(0),
-         start_p  => clk_sample_en,
-         values_p => adc_values_s(5 downto 0),
-         done_p   => adc_done_s,
-         reset    => '0',
-         clk      => clk
-         );
-
-   adc_ltc2351_1 : adc_ltc2351
-      port map (
-         adc_out  => adc_out_p(1),
-         adc_in   => adc_in_p(1),
-         start_p  => clk_sample_en,
-         values_p => adc_values_s(11 downto 6),
-         done_p   => open,
-         reset    => '0',
-         clk      => clk
-         );
-
+         clk_sample_en => clk_sample_en,
+         adc_out_p     => adc_out_p,
+         adc_in_p      => adc_in_p,
+         adc_values_p  => adc_values_s,
+         adc_done_p    => adc_done_s,
+         clk           => clk);
+   
    -- translate raw ADC values to signed
    -- 14-bit ADC value, 0x0000 to 0x3fff, 0x2000 on average
    adc_values_loop : for ch in CHANNELS-1 downto 0 generate
       adc_values_signed_s(ch) <= signed(adc_values_s(ch)) - to_signed(16#2000#, 16)(INPUT_WIDTH-1 downto 0);
    end generate adc_values_loop;
 
-   goertzel_pipelined_v2_1: entity work.goertzel_pipelined_v2
+   goertzel_pipelined_v2_1 : entity work.goertzel_pipelined_v2
       generic map (
          FREQUENCIES  => FREQUENCIES,
          CHANNELS     => CHANNELS,
          SAMPLES      => SAMPLES,
-         Q            => Q,
-         BASE_ADDRESS => BASE_ADDRESS_RESULTS)
+         Q            => Q)
       port map (
-         start_p     => adc_done_s,     -- whenever ADC is done process a new sample
-         
+         start_p => adc_done_s,  -- whenever ADC is done process a new sample
+
          bram_addr_p => bram_addr_s,
          bram_data_i => bram_data_i,
          bram_data_o => bram_data_o,
          bram_we_p   => bram_we_s,
-         
-         ready_p     => goertzel_done_s,
-         enable_p    => '1',            -- not used yet
-         coefs_p     => coefs_s,
-         inputs_p    => adc_values_signed_s,
-         clk         => clk);
-   
+
+         ready_p  => goertzel_done_s,
+         enable_p => '1',               -- not used yet
+         coefs_p  => coefs_s,
+         inputs_p => adc_values_signed_s,
+         clk      => clk);
+
    -- Sync extraction
    -- TODO
 

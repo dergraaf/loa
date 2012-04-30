@@ -5,7 +5,7 @@
 -- Authors    : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-26
+-- Last update: 2012-04-28
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -21,6 +21,7 @@ use work.bus_pkg.all;
 use work.spislave_pkg.all;
 
 use work.peripheral_register_pkg.all;
+use work.reg_file_pkg.all;
 use work.motor_control_pkg.all;
 use work.deadtime_pkg.all;
 use work.adc_ltc2351_pkg.all;
@@ -29,6 +30,8 @@ use work.ir_tx_pkg.all;
 use work.utils_pkg.all;
 use work.signalprocessing_pkg.all;
 use work.ir_rx_module_pkg.all;
+
+use work.memory_map_pkg.all;
 
 -------------------------------------------------------------------------------
 entity toplevel is
@@ -78,17 +81,6 @@ end toplevel;
 
 architecture structural of toplevel is
 
-   constant BASE_ADDR_REG           : natural := 16#0000#;
-   constant BASE_ADDR_US_TX         : natural := 16#0010#;
-   constant BASE_ADDR_IR_TX         : natural := 16#0020#;
-   constant BASE_ADDR_IR0_RX        : natural := 16#0030#;
-   constant BASE_ADDR_IR1_RX        : natural := 16#0040#;
-   constant BASE_ADDR_US_RX         : natural := 16#0050#;
-   constant BASE_ADDR_IR_RX_COEFS   : natural := 16#0080#;
-   constant BASE_ADDR_IR_RX_RESULTS : natural := 16#0100#;
-
-   signal reset   : std_logic := '0';
-
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
 
@@ -109,13 +101,13 @@ architecture structural of toplevel is
    signal bus_i : busmaster_in_type;
 
    -- Outputs form the Bus devices
-   signal bus_register_out : busdevice_out_type;
-   signal bus_adc_ir0_out  : busdevice_out_type;
-   signal bus_adc_ir1_out  : busdevice_out_type;
-   signal bus_adc_us_out   : busdevice_out_type;
-   signal bus_ir_tx_out    : busdevice_out_type;
-   signal bus_ir_rx_out    : busdevice_out_type;
-
+   signal bus_register_out         : busdevice_out_type;
+   signal bus_adc_ir0_out          : busdevice_out_type;
+   signal bus_adc_ir1_out          : busdevice_out_type;
+   signal bus_adc_us_out           : busdevice_out_type;
+   signal bus_ir_tx_out            : busdevice_out_type;
+   signal bus_ir_rx_out            : busdevice_out_type;
+   signal bus_ir_rx_adc_values_out : busdevice_out_type;
 
    -- Common clock enable for ADCs
    signal clk_adc_en_s : std_logic;
@@ -123,19 +115,26 @@ architecture structural of toplevel is
    -- Connections to and from the IR ADCs
    signal ir_rx_module_spi_out : ir_rx_module_spi_out_type;
    signal ir_rx_module_spi_in  : ir_rx_module_spi_in_type;
-   
 
-   
+   signal adc_values_ltc_s : adc_ltc2351_values_type(11 downto 0);
+   signal adc_values_reg_s : reg_file_type(15 downto 0);
 
 begin
 
    ----------------------------------------------------------------------------
    bus_i.data <= bus_register_out.data or
-                 bus_adc_ir0_out.data or
-                 -- bus_adc_ir1_out.data or
-                 bus_ir_rx_out.data or
-                 bus_adc_us_out.data or
-                 bus_ir_tx_out.data;
+                  bus_adc_ir0_out.data or
+                  --bus_adc_ir1_out.data or
+                  bus_ir_rx_out.data or
+                  bus_adc_us_out.data or
+                  bus_ir_rx_adc_values_out.data or
+                  bus_ir_tx_out.data;
+   ----------------------------------------------------------------------------
+
+   -- TODO generic CHANNELS
+   copy_values : for ii in 0 to 11 generate
+      adc_values_reg_s(ii) <= "00" & adc_values_ltc_s(ii);
+   end generate copy_values;
 
    ----------------------------------------------------------------------------
 
@@ -151,7 +150,7 @@ begin
          bus_o => bus_o,
          bus_i => bus_i,
 
-         reset => reset,
+         reset => '0',
          clk   => clk);
 
    ----------------------------------------------------------------------------
@@ -164,6 +163,7 @@ begin
 
    ----------------------------------------------------------------------------
    -- Register
+   -- some test data to test FPGA STM communication
    preg : peripheral_register
       generic map (
          BASE_ADDRESS => BASE_ADDR_REG)
@@ -172,14 +172,10 @@ begin
          din_p  => register_in,
          bus_o  => bus_register_out,
          bus_i  => bus_o,
-         reset  => reset,
+         reset  => '0',
          clk    => clk);
 
    register_in <= x"abc" & "0000";
-
-   -- no LEDs at FPGA at beacon-digi.brd
-   --led_np <= not register_out(3 downto 0);
-
 
    ----------------------------------------------------------------------------
    -- Modulation
@@ -243,19 +239,19 @@ begin
          clk             => clk);
 
    ------------------------------------------------------------------------------
-   -- IR RX ADC readout 0
-   --adc_ir_rx_0 : adc_ltc2351_module
-   --   generic map (
-   --      BASE_ADDRESS => BASE_ADDR_IR0_RX)
-   --   port map (
-   --      adc_out_p    => ir_rx_spi_out_p,
-   --      adc_in_p     => ir_rx0_spi_in_p,
-   --      bus_o        => bus_adc_ir0_out,
-   --      bus_i        => bus_o,
-   --      adc_values_o => open,
-   --      done_p       => irq_p,
-   --      reset        => reset,
-   --      clk          => clk);
+
+   -- direct access to the ADC values
+   reg_file_adc_values : reg_file
+      generic map (
+         BASE_ADDRESS => BASE_ADDR_IR_RX_ADC,
+         REG_ADDR_BIT => 4)              2**4 = 16 values
+      port map (
+         bus_o => bus_ir_rx_adc_values_out,
+         bus_i => bus_o,
+         reg_o => open,
+         reg_i => adc_values_reg_s,
+         reset => '0',
+         clk   => clk);
 
    ------------------------------------------------------------------------------
    ----------------------------------------------------------------------------
@@ -293,12 +289,14 @@ begin
       port map (
          adc_out_p     => ir_rx_module_spi_out,
          adc_in_p      => ir_rx_module_spi_in,
-         adc_values_p  => open,
+         adc_values_p  => adc_values_ltc_s,
          sync_p        => open,
          bus_o         => bus_ir_rx_out,
          bus_i         => bus_o,
-         done_p        => ir_irq_p,
-         ack_p         => ir_ack,
+-- debug         done_p        => ir_irq_p,
+-- debug         ack_p         => ir_ack,
+         done_p => open,
+         ack_p => '0',
          clk_sample_en => clk_adc_en_s,
          clk           => clk);
 

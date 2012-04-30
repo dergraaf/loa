@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-24
--- Last update: 2012-04-26
+-- Last update: 2012-04-28
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -54,25 +54,25 @@ architecture behavourial of goertzel_control_unit is
       );
 
    type cu_type is record
-      state      : cu_state_type;
-      ready      : std_logic;
-      mux_coef   : natural range FREQUENCIES-1 downto 0;
-      mux_input  : natural range CHANNELS-1 downto 0;
-      bram_addr  : unsigned(7 downto 0);
-      bram_we    : std_logic;
-      samples    : natural range SAMPLES-1 downto 0;
+      state     : cu_state_type;
+      ready     : std_logic;
+      mux_coef  : natural range FREQUENCIES-1 downto 0;
+      mux_input : natural range CHANNELS-1 downto 0;
+      bram_addr : unsigned(7 downto 0);
+      bram_we   : std_logic;
+      samples   : natural range SAMPLES-1 downto 0;
    end record;
 
    -----------------------------------------------------------------------------
    -- Internal signal declarations
    -----------------------------------------------------------------------------
-   signal r, rin : cu_type := (state      => IDLE,
-                               ready      => '0',
-                               mux_coef   => 0,
-                               mux_input  => 0,
-                               bram_addr  => (others => '0'),
-                               bram_we    => '0',
-                               samples    => 0);
+   signal r, rin : cu_type := (state     => IDLE,
+                               ready     => '0',
+                               mux_coef  => 0,
+                               mux_input => 0,
+                               bram_addr => (others => '0'),
+                               bram_we   => '0',
+                               samples   => 0);
 
 
    ----------------------------------------------------------------------------
@@ -85,11 +85,11 @@ begin  -- architecture behavourial
    ----------------------------------------------------------------------------
    -- Connections between ports and signals
    ----------------------------------------------------------------------------
-   ready_p      <= r.ready;
-   mux_coef_p   <= r.mux_coef;
-   mux_input_p  <= r.mux_input;
-   bram_we_p    <= r.bram_we;
-   bram_addr_p  <= std_logic_vector(r.bram_addr);
+   ready_p     <= r.ready;
+   mux_coef_p  <= r.mux_coef;
+   mux_input_p <= r.mux_input;
+   bram_we_p   <= r.bram_we;
+   bram_addr_p <= std_logic_vector(r.bram_addr);
 
    ----------------------------------------------------------------------------
    -- Sequential part of finite state machine (FSM)
@@ -121,7 +121,7 @@ begin  -- architecture behavourial
                v.bram_addr := (others => '0');
                v.mux_coef  := 0;
                v.mux_input := 0;
-            -- bram_addr               
+               -- bram_addr               
             end if;
          when READ1 =>
             v.state := CALC1;
@@ -141,12 +141,12 @@ begin  -- architecture behavourial
             if r.mux_input = CHANNELS-1 then
                v.mux_input := 0;
                if r.mux_coef = FREQUENCIES-1 then
-                  v.mux_coef := 0;
+                  v.mux_coef  := 0;
                   v.bram_addr := (others => '0');
+                  v.state     := IDLE;
                   if r.samples = SAMPLES-1 then
                      v.samples := 0;
-                     v.state := IDLE;
-                     v.ready := '1';
+                     v.ready   := '1';
                   else
                      v.samples := r.samples + 1;
                   end if;

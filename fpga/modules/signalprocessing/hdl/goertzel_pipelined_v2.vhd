@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-24
--- Last update: 2012-04-26
+-- Last update: 2012-04-28
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -35,8 +35,7 @@ entity goertzel_pipelined_v2 is
       FREQUENCIES  : positive := 5;
       CHANNELS     : positive := 12;
       SAMPLES      : positive := 250;
-      Q            : positive := 13;
-      BASE_ADDRESS : natural  := 16#0000#);
+      Q            : positive := 13);
 
    port (
       start_p     : in  std_logic;

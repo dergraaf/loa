@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-26
+-- Last update: 2012-04-27
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ package ir_rx_module_pkg is
 
    type ir_rx_module_spi_out_type is array (1 downto 0) of adc_ltc2351_spi_out_type;
    type ir_rx_module_spi_in_type is array (1 downto 0) of adc_ltc2351_spi_in_type;
-   
+
    component ir_rx_module is
       generic (
          BASE_ADDRESS_COEFS   : integer range 0 to 32767;
@@ -45,5 +45,17 @@ package ir_rx_module_pkg is
          clk_sample_en : in  std_logic;
          clk           : in  std_logic);
    end component ir_rx_module;
-   
+
+   component ir_rx_adcs
+      generic (
+         CHANNELS : positive);
+      port (
+         clk_sample_en : in  std_logic;
+         adc_out_p     : out ir_rx_module_spi_out_type;
+         adc_in_p      : in  ir_rx_module_spi_in_type;
+         adc_values_p  : out adc_ltc2351_values_type;
+         adc_done_p    : out std_logic;
+         clk           : in  std_logic);
+   end component;
+
 end ir_rx_module_pkg;
