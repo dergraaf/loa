@@ -187,7 +187,7 @@ begin
          clk    => clk);
 
    -- test Data
-   register_in <= x"abc" & "0000";
+   register_in <= x"abc" & "0000";      -- test data, required by C++
 
    ----------------------------------------------------------------------------
    -- Block RAM as register

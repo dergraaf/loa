@@ -5,7 +5,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-23
--- Last update: 2012-04-29
+-- Last update: 2012-04-30
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -150,8 +150,7 @@ architecture behavourial of xilinx_block_ram_dual_port is
    signal reg_b  : std_logic_vector(DATA_B_WIDTH-1 downto 0) := (others => '0');
    
 begin  -- behavourial
-
-   ram_proc : process (clk_a)
+  ram_proc : process (clk_a)
    begin  -- process ram_proc
       if rising_edge(clk_a) then
          if en_a = '1' then
