@@ -6,7 +6,7 @@
 -- Author     : 
 -- Company    : 
 -- Created    : 2012-04-23
--- Last update: 2012-04-28
+-- Last update: 2012-05-01
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -68,10 +68,10 @@ begin  -- tb
          bram_data_o => bram_data_o,
          bram_addr_i => bram_addr_i,
          bram_we_p   => bram_we_p,
-         irq_p       => irq_p,
-         ack_p       => ack_p,
-         ready_p     => ready_p,
-         enable_p    => enable_p,
+         irq_o       => irq_p,
+         ack_i       => ack_p,
+         ready_i     => ready_p,
+         enable_o    => enable_p,
          clk         => clk);
 
    -- clock generation

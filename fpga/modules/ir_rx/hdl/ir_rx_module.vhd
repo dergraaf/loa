@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-04-28
+-- Last update: 2012-05-01
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -247,10 +247,10 @@ begin  -- structural
          bram_addr_i => bram_addr_s,
          bram_we_p   => bram_we_s,
 
-         irq_p    => module_done_s,
-         ack_p    => ack_s,
-         ready_p  => goertzel_done_s,
-         enable_p => open,
+         irq_o    => module_done_s,
+         ack_i    => ack_s,
+         ready_i  => goertzel_done_s,
+         enable_o => open,
          clk      => clk);
 
    ------------------------------------------------------------------------------

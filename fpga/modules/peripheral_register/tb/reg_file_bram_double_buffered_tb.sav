@@ -1,84 +1,47 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Mon Apr 23 20:25:35 2012
+[*] Tue May  1 21:50:27 2012
 [*]
-[dumpfile] "/home/rca/rca/loa/fpga/modules/peripheral_register/tb/simulation/reg_file_bram_double_buffered_tb.ghw"
-[dumpfile_mtime] "Mon Apr 23 20:24:26 2012"
-[dumpfile_size] 5235
-[savefile] "/home/rca/rca/loa/fpga/modules/peripheral_register/tb/reg_file_bram_double_buffered_tb.sav"
+[dumpfile] "/home/alpha/rca/loa/fpga/modules/peripheral_register/tb/simulation/reg_file_bram_double_buffered_tb.ghw"
+[dumpfile_mtime] "Tue May  1 21:29:49 2012"
+[dumpfile_size] 163389
+[savefile] "/home/alpha/rca/loa/fpga/modules/peripheral_register/tb/reg_file_bram_double_buffered_tb.sav"
 [timestart] 0
-[size] 1103 768
-[pos] 0 38
-*-27.133942 247400000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1280 1000
+[pos] 0 24
+*-26.133942 55900000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.reg_file_bram_double_buffered_tb.
 [treeopen] top.reg_file_bram_double_buffered_tb.bus_i.
 [treeopen] top.reg_file_bram_double_buffered_tb.bus_o.
 [treeopen] top.reg_file_bram_double_buffered_tb.dut.
-[sst_width] 196
+[treeopen] top.reg_file_bram_double_buffered_tb.dut.bus_i.
+[treeopen] top.reg_file_bram_double_buffered_tb.dut.bus_o.
+[sst_width] 208
 [signals_width] 166
 [sst_expanded] 1
-[sst_vpaned_height] 322
+[sst_vpaned_height] 470
 @28
 top.reg_file_bram_double_buffered_tb.clk
-top.reg_file_bram_double_buffered_tb.ready_p
-@29
-top.reg_file_bram_double_buffered_tb.irq_p
-@28
-top.reg_file_bram_double_buffered_tb.ack_p
 @200
--bus_i
+-bus i
 @28
-top.reg_file_bram_double_buffered_tb.bus_i.we
-top.reg_file_bram_double_buffered_tb.bus_i.re
+top.reg_file_bram_double_buffered_tb.dut.bus_i.we
+top.reg_file_bram_double_buffered_tb.dut.bus_i.re
 @22
-#{top.reg_file_bram_double_buffered_tb.bus_i.addr[14:0]} top.reg_file_bram_double_buffered_tb.bus_i.addr[14] top.reg_file_bram_double_buffered_tb.bus_i.addr[13] top.reg_file_bram_double_buffered_tb.bus_i.addr[12] top.reg_file_bram_double_buffered_tb.bus_i.addr[11] top.reg_file_bram_double_buffered_tb.bus_i.addr[10] top.reg_file_bram_double_buffered_tb.bus_i.addr[9] top.reg_file_bram_double_buffered_tb.bus_i.addr[8] top.reg_file_bram_double_buffered_tb.bus_i.addr[7] top.reg_file_bram_double_buffered_tb.bus_i.addr[6] top.reg_file_bram_double_buffered_tb.bus_i.addr[5] top.reg_file_bram_double_buffered_tb.bus_i.addr[4] top.reg_file_bram_double_buffered_tb.bus_i.addr[3] top.reg_file_bram_double_buffered_tb.bus_i.addr[2] top.reg_file_bram_double_buffered_tb.bus_i.addr[1] top.reg_file_bram_double_buffered_tb.bus_i.addr[0]
-@28
-top.reg_file_bram_double_buffered_tb.dut.bank_x
-@c00022
-#{top.reg_file_bram_double_buffered_tb.dut.addr_a_s[9:0]} top.reg_file_bram_double_buffered_tb.dut.addr_a_s[9] top.reg_file_bram_double_buffered_tb.dut.addr_a_s[8] top.reg_file_bram_double_buffered_tb.dut.addr_a_s[7] top.reg_file_bram_double_buffered_tb.dut.addr_a_s[6] top.reg_file_bram_double_buffered_tb.dut.addr_a_s[5] top.reg_file_bram_double_buffered_tb.dut.addr_a_s[4] top.reg_file_bram_double_buffered_tb.dut.addr_a_s[3] top.reg_file_bram_double_buffered_tb.dut.addr_a_s[2] top.reg_file_bram_double_buffered_tb.dut.addr_a_s[1] top.reg_file_bram_double_buffered_tb.dut.addr_a_s[0]
-@28
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[9]
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[8]
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[7]
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[6]
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[5]
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[4]
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[3]
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[2]
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[1]
-top.reg_file_bram_double_buffered_tb.dut.addr_a_s[0]
-@1401200
--group_end
-@22
-#{top.reg_file_bram_double_buffered_tb.bus_i.data[15:0]} top.reg_file_bram_double_buffered_tb.bus_i.data[15] top.reg_file_bram_double_buffered_tb.bus_i.data[14] top.reg_file_bram_double_buffered_tb.bus_i.data[13] top.reg_file_bram_double_buffered_tb.bus_i.data[12] top.reg_file_bram_double_buffered_tb.bus_i.data[11] top.reg_file_bram_double_buffered_tb.bus_i.data[10] top.reg_file_bram_double_buffered_tb.bus_i.data[9] top.reg_file_bram_double_buffered_tb.bus_i.data[8] top.reg_file_bram_double_buffered_tb.bus_i.data[7] top.reg_file_bram_double_buffered_tb.bus_i.data[6] top.reg_file_bram_double_buffered_tb.bus_i.data[5] top.reg_file_bram_double_buffered_tb.bus_i.data[4] top.reg_file_bram_double_buffered_tb.bus_i.data[3] top.reg_file_bram_double_buffered_tb.bus_i.data[2] top.reg_file_bram_double_buffered_tb.bus_i.data[1] top.reg_file_bram_double_buffered_tb.bus_i.data[0]
+#{top.reg_file_bram_double_buffered_tb.dut.bus_i.data[15:0]} top.reg_file_bram_double_buffered_tb.dut.bus_i.data[15] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[14] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[13] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[12] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[11] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[10] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[9] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[8] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[7] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[6] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[5] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[4] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[3] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[2] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[1] top.reg_file_bram_double_buffered_tb.dut.bus_i.data[0]
+#{top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[14:0]} top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[14] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[13] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[12] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[11] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[10] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[9] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[8] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[7] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[6] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[5] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[4] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[3] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[2] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[1] top.reg_file_bram_double_buffered_tb.dut.bus_i.addr[0]
 @200
--bus_o
+-bus o
 @22
-#{top.reg_file_bram_double_buffered_tb.bus_o.data[15:0]} top.reg_file_bram_double_buffered_tb.bus_o.data[15] top.reg_file_bram_double_buffered_tb.bus_o.data[14] top.reg_file_bram_double_buffered_tb.bus_o.data[13] top.reg_file_bram_double_buffered_tb.bus_o.data[12] top.reg_file_bram_double_buffered_tb.bus_o.data[11] top.reg_file_bram_double_buffered_tb.bus_o.data[10] top.reg_file_bram_double_buffered_tb.bus_o.data[9] top.reg_file_bram_double_buffered_tb.bus_o.data[8] top.reg_file_bram_double_buffered_tb.bus_o.data[7] top.reg_file_bram_double_buffered_tb.bus_o.data[6] top.reg_file_bram_double_buffered_tb.bus_o.data[5] top.reg_file_bram_double_buffered_tb.bus_o.data[4] top.reg_file_bram_double_buffered_tb.bus_o.data[3] top.reg_file_bram_double_buffered_tb.bus_o.data[2] top.reg_file_bram_double_buffered_tb.bus_o.data[1] top.reg_file_bram_double_buffered_tb.bus_o.data[0]
+#{top.reg_file_bram_double_buffered_tb.dut.bus_o.data[15:0]} top.reg_file_bram_double_buffered_tb.dut.bus_o.data[15] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[14] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[13] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[12] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[11] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[10] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[9] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[8] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[7] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[6] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[5] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[4] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[3] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[2] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[1] top.reg_file_bram_double_buffered_tb.dut.bus_o.data[0]
 @200
--bram
-@28
-top.reg_file_bram_double_buffered_tb.dut.bram_we_p
-top.reg_file_bram_double_buffered_tb.dut.bank_y
+-BRAM
 @22
 #{top.reg_file_bram_double_buffered_tb.bram_addr_i[7:0]} top.reg_file_bram_double_buffered_tb.bram_addr_i[7] top.reg_file_bram_double_buffered_tb.bram_addr_i[6] top.reg_file_bram_double_buffered_tb.bram_addr_i[5] top.reg_file_bram_double_buffered_tb.bram_addr_i[4] top.reg_file_bram_double_buffered_tb.bram_addr_i[3] top.reg_file_bram_double_buffered_tb.bram_addr_i[2] top.reg_file_bram_double_buffered_tb.bram_addr_i[1] top.reg_file_bram_double_buffered_tb.bram_addr_i[0]
-@c00022
-#{top.reg_file_bram_double_buffered_tb.dut.addr_b_s[8:0]} top.reg_file_bram_double_buffered_tb.dut.addr_b_s[8] top.reg_file_bram_double_buffered_tb.dut.addr_b_s[7] top.reg_file_bram_double_buffered_tb.dut.addr_b_s[6] top.reg_file_bram_double_buffered_tb.dut.addr_b_s[5] top.reg_file_bram_double_buffered_tb.dut.addr_b_s[4] top.reg_file_bram_double_buffered_tb.dut.addr_b_s[3] top.reg_file_bram_double_buffered_tb.dut.addr_b_s[2] top.reg_file_bram_double_buffered_tb.dut.addr_b_s[1] top.reg_file_bram_double_buffered_tb.dut.addr_b_s[0]
-@28
-top.reg_file_bram_double_buffered_tb.dut.addr_b_s[8]
-top.reg_file_bram_double_buffered_tb.dut.addr_b_s[7]
-top.reg_file_bram_double_buffered_tb.dut.addr_b_s[6]
-top.reg_file_bram_double_buffered_tb.dut.addr_b_s[5]
-top.reg_file_bram_double_buffered_tb.dut.addr_b_s[4]
-top.reg_file_bram_double_buffered_tb.dut.addr_b_s[3]
-top.reg_file_bram_double_buffered_tb.dut.addr_b_s[2]
-top.reg_file_bram_double_buffered_tb.dut.addr_b_s[1]
-top.reg_file_bram_double_buffered_tb.dut.addr_b_s[0]
-@1401200
--group_end
-@22
-#{top.reg_file_bram_double_buffered_tb.bram_data_i[37:0]} top.reg_file_bram_double_buffered_tb.bram_data_i[35] top.reg_file_bram_double_buffered_tb.bram_data_i[34] top.reg_file_bram_double_buffered_tb.bram_data_i[33] top.reg_file_bram_double_buffered_tb.bram_data_i[32] top.reg_file_bram_double_buffered_tb.bram_data_i[31] top.reg_file_bram_double_buffered_tb.bram_data_i[30] top.reg_file_bram_double_buffered_tb.bram_data_i[29] top.reg_file_bram_double_buffered_tb.bram_data_i[28] top.reg_file_bram_double_buffered_tb.bram_data_i[27] top.reg_file_bram_double_buffered_tb.bram_data_i[26] top.reg_file_bram_double_buffered_tb.bram_data_i[25] top.reg_file_bram_double_buffered_tb.bram_data_i[24] top.reg_file_bram_double_buffered_tb.bram_data_i[23] top.reg_file_bram_double_buffered_tb.bram_data_i[22] top.reg_file_bram_double_buffered_tb.bram_data_i[21] top.reg_file_bram_double_buffered_tb.bram_data_i[20] top.reg_file_bram_double_buffered_tb.bram_data_i[19] top.reg_file_bram_double_buffered_tb.bram_data_i[18] top.reg_file_bram_double_buffered_tb.bram_data_i[17] top.reg_file_bram_double_buffered_tb.bram_data_i[16] top.reg_file_bram_double_buffered_tb.bram_data_i[15] top.reg_file_bram_double_buffered_tb.bram_data_i[14] top.reg_file_bram_double_buffered_tb.bram_data_i[13] top.reg_file_bram_double_buffered_tb.bram_data_i[12] top.reg_file_bram_double_buffered_tb.bram_data_i[11] top.reg_file_bram_double_buffered_tb.bram_data_i[10] top.reg_file_bram_double_buffered_tb.bram_data_i[9] top.reg_file_bram_double_buffered_tb.bram_data_i[8] top.reg_file_bram_double_buffered_tb.bram_data_i[7] top.reg_file_bram_double_buffered_tb.bram_data_i[6] top.reg_file_bram_double_buffered_tb.bram_data_i[5] top.reg_file_bram_double_buffered_tb.bram_data_i[4] top.reg_file_bram_double_buffered_tb.bram_data_i[3] top.reg_file_bram_double_buffered_tb.bram_data_i[2] top.reg_file_bram_double_buffered_tb.bram_data_i[1] top.reg_file_bram_double_buffered_tb.bram_data_i[0]
-#{top.reg_file_bram_double_buffered_tb.bram_data_o[37:0]} top.reg_file_bram_double_buffered_tb.bram_data_o[35] top.reg_file_bram_double_buffered_tb.bram_data_o[34] top.reg_file_bram_double_buffered_tb.bram_data_o[33] top.reg_file_bram_double_buffered_tb.bram_data_o[32] top.reg_file_bram_double_buffered_tb.bram_data_o[31] top.reg_file_bram_double_buffered_tb.bram_data_o[30] top.reg_file_bram_double_buffered_tb.bram_data_o[29] top.reg_file_bram_double_buffered_tb.bram_data_o[28] top.reg_file_bram_double_buffered_tb.bram_data_o[27] top.reg_file_bram_double_buffered_tb.bram_data_o[26] top.reg_file_bram_double_buffered_tb.bram_data_o[25] top.reg_file_bram_double_buffered_tb.bram_data_o[24] top.reg_file_bram_double_buffered_tb.bram_data_o[23] top.reg_file_bram_double_buffered_tb.bram_data_o[22] top.reg_file_bram_double_buffered_tb.bram_data_o[21] top.reg_file_bram_double_buffered_tb.bram_data_o[20] top.reg_file_bram_double_buffered_tb.bram_data_o[19] top.reg_file_bram_double_buffered_tb.bram_data_o[18] top.reg_file_bram_double_buffered_tb.bram_data_o[17] top.reg_file_bram_double_buffered_tb.bram_data_o[16] top.reg_file_bram_double_buffered_tb.bram_data_o[15] top.reg_file_bram_double_buffered_tb.bram_data_o[14] top.reg_file_bram_double_buffered_tb.bram_data_o[13] top.reg_file_bram_double_buffered_tb.bram_data_o[12] top.reg_file_bram_double_buffered_tb.bram_data_o[11] top.reg_file_bram_double_buffered_tb.bram_data_o[10] top.reg_file_bram_double_buffered_tb.bram_data_o[9] top.reg_file_bram_double_buffered_tb.bram_data_o[8] top.reg_file_bram_double_buffered_tb.bram_data_o[7] top.reg_file_bram_double_buffered_tb.bram_data_o[6] top.reg_file_bram_double_buffered_tb.bram_data_o[5] top.reg_file_bram_double_buffered_tb.bram_data_o[4] top.reg_file_bram_double_buffered_tb.bram_data_o[3] top.reg_file_bram_double_buffered_tb.bram_data_o[2] top.reg_file_bram_double_buffered_tb.bram_data_o[1] top.reg_file_bram_double_buffered_tb.bram_data_o[0]
+#{top.reg_file_bram_double_buffered_tb.bram_data_o[35:0]} top.reg_file_bram_double_buffered_tb.bram_data_o[35] top.reg_file_bram_double_buffered_tb.bram_data_o[34] top.reg_file_bram_double_buffered_tb.bram_data_o[33] top.reg_file_bram_double_buffered_tb.bram_data_o[32] top.reg_file_bram_double_buffered_tb.bram_data_o[31] top.reg_file_bram_double_buffered_tb.bram_data_o[30] top.reg_file_bram_double_buffered_tb.bram_data_o[29] top.reg_file_bram_double_buffered_tb.bram_data_o[28] top.reg_file_bram_double_buffered_tb.bram_data_o[27] top.reg_file_bram_double_buffered_tb.bram_data_o[26] top.reg_file_bram_double_buffered_tb.bram_data_o[25] top.reg_file_bram_double_buffered_tb.bram_data_o[24] top.reg_file_bram_double_buffered_tb.bram_data_o[23] top.reg_file_bram_double_buffered_tb.bram_data_o[22] top.reg_file_bram_double_buffered_tb.bram_data_o[21] top.reg_file_bram_double_buffered_tb.bram_data_o[20] top.reg_file_bram_double_buffered_tb.bram_data_o[19] top.reg_file_bram_double_buffered_tb.bram_data_o[18] top.reg_file_bram_double_buffered_tb.bram_data_o[17] top.reg_file_bram_double_buffered_tb.bram_data_o[16] top.reg_file_bram_double_buffered_tb.bram_data_o[15] top.reg_file_bram_double_buffered_tb.bram_data_o[14] top.reg_file_bram_double_buffered_tb.bram_data_o[13] top.reg_file_bram_double_buffered_tb.bram_data_o[12] top.reg_file_bram_double_buffered_tb.bram_data_o[11] top.reg_file_bram_double_buffered_tb.bram_data_o[10] top.reg_file_bram_double_buffered_tb.bram_data_o[9] top.reg_file_bram_double_buffered_tb.bram_data_o[8] top.reg_file_bram_double_buffered_tb.bram_data_o[7] top.reg_file_bram_double_buffered_tb.bram_data_o[6] top.reg_file_bram_double_buffered_tb.bram_data_o[5] top.reg_file_bram_double_buffered_tb.bram_data_o[4] top.reg_file_bram_double_buffered_tb.bram_data_o[3] top.reg_file_bram_double_buffered_tb.bram_data_o[2] top.reg_file_bram_double_buffered_tb.bram_data_o[1] top.reg_file_bram_double_buffered_tb.bram_data_o[0]
+#{top.reg_file_bram_double_buffered_tb.bram_data_i[35:0]} top.reg_file_bram_double_buffered_tb.bram_data_i[35] top.reg_file_bram_double_buffered_tb.bram_data_i[34] top.reg_file_bram_double_buffered_tb.bram_data_i[33] top.reg_file_bram_double_buffered_tb.bram_data_i[32] top.reg_file_bram_double_buffered_tb.bram_data_i[31] top.reg_file_bram_double_buffered_tb.bram_data_i[30] top.reg_file_bram_double_buffered_tb.bram_data_i[29] top.reg_file_bram_double_buffered_tb.bram_data_i[28] top.reg_file_bram_double_buffered_tb.bram_data_i[27] top.reg_file_bram_double_buffered_tb.bram_data_i[26] top.reg_file_bram_double_buffered_tb.bram_data_i[25] top.reg_file_bram_double_buffered_tb.bram_data_i[24] top.reg_file_bram_double_buffered_tb.bram_data_i[23] top.reg_file_bram_double_buffered_tb.bram_data_i[22] top.reg_file_bram_double_buffered_tb.bram_data_i[21] top.reg_file_bram_double_buffered_tb.bram_data_i[20] top.reg_file_bram_double_buffered_tb.bram_data_i[19] top.reg_file_bram_double_buffered_tb.bram_data_i[18] top.reg_file_bram_double_buffered_tb.bram_data_i[17] top.reg_file_bram_double_buffered_tb.bram_data_i[16] top.reg_file_bram_double_buffered_tb.bram_data_i[15] top.reg_file_bram_double_buffered_tb.bram_data_i[14] top.reg_file_bram_double_buffered_tb.bram_data_i[13] top.reg_file_bram_double_buffered_tb.bram_data_i[12] top.reg_file_bram_double_buffered_tb.bram_data_i[11] top.reg_file_bram_double_buffered_tb.bram_data_i[10] top.reg_file_bram_double_buffered_tb.bram_data_i[9] top.reg_file_bram_double_buffered_tb.bram_data_i[8] top.reg_file_bram_double_buffered_tb.bram_data_i[7] top.reg_file_bram_double_buffered_tb.bram_data_i[6] top.reg_file_bram_double_buffered_tb.bram_data_i[5] top.reg_file_bram_double_buffered_tb.bram_data_i[4] top.reg_file_bram_double_buffered_tb.bram_data_i[3] top.reg_file_bram_double_buffered_tb.bram_data_i[2] top.reg_file_bram_double_buffered_tb.bram_data_i[1] top.reg_file_bram_double_buffered_tb.bram_data_i[0]
+@29
+top.reg_file_bram_double_buffered_tb.dut.bram_we_p
 [pattern_trace] 1
 [pattern_trace] 0

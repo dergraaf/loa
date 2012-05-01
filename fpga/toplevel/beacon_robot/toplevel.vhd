@@ -5,7 +5,7 @@
 -- Authors    : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-28
+-- Last update: 2012-05-01
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -20,7 +20,6 @@ library work;
 use work.bus_pkg.all;
 use work.spislave_pkg.all;
 
-use work.peripheral_register_pkg.all;
 use work.reg_file_pkg.all;
 use work.motor_control_pkg.all;
 use work.deadtime_pkg.all;
@@ -123,12 +122,12 @@ begin
 
    ----------------------------------------------------------------------------
    bus_i.data <= bus_register_out.data or
-                  bus_adc_ir0_out.data or
-                  --bus_adc_ir1_out.data or
-                  bus_ir_rx_out.data or
-                  bus_adc_us_out.data or
-                  bus_ir_rx_adc_values_out.data or
-                  bus_ir_tx_out.data;
+                 bus_adc_ir0_out.data or
+                 --bus_adc_ir1_out.data or
+                 bus_ir_rx_out.data or
+                 bus_adc_us_out.data or
+                 bus_ir_rx_adc_values_out.data or
+                 bus_ir_tx_out.data;
    ----------------------------------------------------------------------------
 
    -- TODO generic CHANNELS
@@ -244,7 +243,7 @@ begin
    reg_file_adc_values : reg_file
       generic map (
          BASE_ADDRESS => BASE_ADDR_IR_RX_ADC,
-         REG_ADDR_BIT => 4)              2**4 = 16 values
+         REG_ADDR_BIT => 4)             -- 2**4 = 16 values
       port map (
          bus_o => bus_ir_rx_adc_values_out,
          bus_i => bus_o,
@@ -295,8 +294,8 @@ begin
          bus_i         => bus_o,
 -- debug         done_p        => ir_irq_p,
 -- debug         ack_p         => ir_ack,
-         done_p => open,
-         ack_p => '0',
+         done_p        => open,
+         ack_p         => '0',
          clk_sample_en => clk_adc_en_s,
          clk           => clk);
 
