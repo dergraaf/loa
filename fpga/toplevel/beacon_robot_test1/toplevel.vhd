@@ -5,7 +5,7 @@
 -- Author     : strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-04-30
+-- Last update: 2012-05-01
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description: Test file for testing the Block SRAM in hardware.
@@ -31,12 +31,8 @@ use work.spislave_pkg.all;
 
 use work.reg_file_pkg.all;
 use work.motor_control_pkg.all;
--- use work.deadtime_pkg.all;
 use work.adc_ltc2351_pkg.all;
--- use work.uss_tx_pkg.all;
--- use work.ir_tx_pkg.all;
 use work.utils_pkg.all;
--- use work.signalprocessing_pkg.all;
 use work.ir_rx_module_pkg.all;
 
 -------------------------------------------------------------------------------
@@ -206,7 +202,6 @@ begin
 
 
    -- purpose: Fills the Bram with some test data
-   -- type   : sequential
    fill_bram : process (clk) is
       variable addr : unsigned(9 downto 0) := (others => '0');
       variable en   : std_logic            := '1';

@@ -5,7 +5,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-23
--- Last update: 2012-04-30
+-- Last update: 2012-05-01
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -13,9 +13,10 @@
 --
 -- True generic VHDL memory interface without instantiation of device specific
 -- primitives. Asymmetrical port width are possible and can be both simulated
--- with GHDL and sythesized with Xilinx XST, which recognised the primitives.
+-- with GHDL and sythesized with Xilinx XST, which recognises the primitives.
 --
--- Synchronous, Dual Port RAM, no parity, "read-first" behaviour. 
+-- Synchronous, Dual Port RAM, no parity,
+-- "read-first" behaviour, which is the recommended behaviour. 
 --
 -- Possible configurations per port are (see xapp463.pdf):
 --
@@ -124,10 +125,12 @@ entity xilinx_block_ram_dual_port is
       din_b  : in  std_logic_vector(DATA_B_WIDTH-1 downto 0);
       dout_a : out std_logic_vector(DATA_A_WIDTH-1 downto 0);
       dout_b : out std_logic_vector(DATA_B_WIDTH-1 downto 0);
-      we_a   : in  std_logic;
-      we_b   : in  std_logic;
-      en_a   : in  std_logic;
-      en_b   : in  std_logic;
+      we_a   : in  std_logic;           -- write enable
+      we_b   : in  std_logic;           -- write enable
+      en_a   : in  std_logic;           -- enable the port
+      en_b   : in  std_logic;           -- enable the port
+      ssr_a  : in  std_logic;           -- synchronous reset of output latches
+      ssr_b  : in  std_logic;           -- synchronous reset of output latches
       clk_a  : in  std_logic;
       clk_b  : in  std_logic);
 
@@ -144,17 +147,20 @@ architecture behavourial of xilinx_block_ram_dual_port is
 
    shared variable ram : ram_type := (others => (others => '0'));
 
-   signal read_a : std_logic_vector(DATA_A_WIDTH-1 downto 0) := (others => '0');
-   signal read_b : std_logic_vector(DATA_B_WIDTH-1 downto 0) := (others => '0');
-   signal reg_a  : std_logic_vector(DATA_A_WIDTH-1 downto 0) := (others => '0');
-   signal reg_b  : std_logic_vector(DATA_B_WIDTH-1 downto 0) := (others => '0');
+   signal reg_a : std_logic_vector(DATA_A_WIDTH-1 downto 0) := (others => '0');
+   signal reg_b : std_logic_vector(DATA_B_WIDTH-1 downto 0) := (others => '0');
    
 begin  -- behavourial
-  ram_proc : process (clk_a)
+   ram_proc : process (clk_a)
+      variable read_a : std_logic_vector(DATA_A_WIDTH-1 downto 0) := (others => '0');
    begin  -- process ram_proc
       if rising_edge(clk_a) then
          if en_a = '1' then
-            read_a <= ram(conv_integer(addr_a));
+            if ssr_a = '1' then
+               read_a := (others => '0');
+            else
+               read_a := ram(conv_integer(addr_a));
+            end if;
             if (we_a = '1') then
                ram(conv_integer(addr_a)) := din_a;
             end if;
@@ -164,23 +170,34 @@ begin  -- behavourial
    end process ram_proc;
 
    ram_b_proc : process(clk_b)
+      variable read_b : std_logic_vector(DATA_B_WIDTH-1 downto 0) := (others => '0');
    begin  -- process ram_b_proc
       if rising_edge(clk_b) then
          if en_b = '1' then
             if RATIO = 1 then
-               -- symmetrical width
-               read_b <= ram(conv_integer(addr_b));
+               -- symmetrical port widths
+               if ssr_b = '1' then
+                  read_b := (others => '0');
+               else
+                  read_b := ram(conv_integer(addr_b));
+               end if;
                if we_b = '1' then
                   ram(conv_integer(addr_b)) := din_b;
                end if;
             else
-               -- asymmetrical
-               for i in 0 to RATIO-1 loop
-                  read_b((i+1)*MIN_WIDTH-1 downto i*MIN_WIDTH) <= ram(conv_integer(addr_b & conv_std_logic_vector(i, log2(RATIO))));
-                  if we_b = '1' then
+               -- RATIO != 1, asymmetrical port widths
+               if ssr_b = '1' then
+                  read_b := (others => '0');
+               else
+                  for i in 0 to RATIO-1 loop
+                     read_b((i+1)*MIN_WIDTH-1 downto i*MIN_WIDTH) := ram(conv_integer(addr_b & conv_std_logic_vector(i, log2(RATIO))));
+                  end loop;
+               end if;
+               if we_b = '1' then
+                  for i in 0 to RATIO-1 loop
                      ram(conv_integer(addr_b & conv_std_logic_vector(i, log2(RATIO)))) := din_b((i+1)*MIN_WIDTH-1 downto i*MIN_WIDTH);
-                  end if;
-               end loop;  -- i
+                  end loop;  -- i
+               end if;
             end if;  -- ratio = 1
          end if;  -- en_b = '1'
          reg_b <= read_b;

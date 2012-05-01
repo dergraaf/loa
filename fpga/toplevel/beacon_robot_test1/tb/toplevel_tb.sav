@@ -1,0 +1,44 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Tue May  1 13:30:56 2012
+[*]
+[dumpfile] "/home/alpha/rca/loa/fpga/toplevel/beacon_robot_test1/tb/simulation/toplevel_tb.ghw"
+[dumpfile_mtime] "Tue May  1 13:30:22 2012"
+[dumpfile_size] 2825488
+[savefile] "/home/alpha/rca/loa/fpga/toplevel/beacon_robot_test1/tb/default.sav"
+[timestart] 11865500000
+[size] 1280 1000
+[pos] -1 -1
+*-26.072365 12015000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.toplevel_tb.
+[treeopen] top.toplevel_tb.toplevel_1.
+[treeopen] top.toplevel_tb.toplevel_1.spi.
+[treeopen] top.toplevel_tb.toplevel_1.spi.bus_i.
+[treeopen] top.toplevel_tb.toplevel_1.spi.bus_o.
+[sst_width] 208
+[signals_width] 191
+[sst_expanded] 1
+[sst_vpaned_height] 331
+@28
+top.toplevel_tb.clk
+top.toplevel_tb.reset_n
+top.toplevel_tb.cs_n
+top.toplevel_tb.sck
+top.toplevel_tb.miso
+top.toplevel_tb.mosi
+@200
+-Bus O
+@29
+top.toplevel_tb.toplevel_1.spi.bus_o.re
+@28
+top.toplevel_tb.toplevel_1.spi.bus_o.we
+@22
+#{top.toplevel_tb.toplevel_1.spi.bus_o.data[15:0]} top.toplevel_tb.toplevel_1.spi.bus_o.data[15] top.toplevel_tb.toplevel_1.spi.bus_o.data[14] top.toplevel_tb.toplevel_1.spi.bus_o.data[13] top.toplevel_tb.toplevel_1.spi.bus_o.data[12] top.toplevel_tb.toplevel_1.spi.bus_o.data[11] top.toplevel_tb.toplevel_1.spi.bus_o.data[10] top.toplevel_tb.toplevel_1.spi.bus_o.data[9] top.toplevel_tb.toplevel_1.spi.bus_o.data[8] top.toplevel_tb.toplevel_1.spi.bus_o.data[7] top.toplevel_tb.toplevel_1.spi.bus_o.data[6] top.toplevel_tb.toplevel_1.spi.bus_o.data[5] top.toplevel_tb.toplevel_1.spi.bus_o.data[4] top.toplevel_tb.toplevel_1.spi.bus_o.data[3] top.toplevel_tb.toplevel_1.spi.bus_o.data[2] top.toplevel_tb.toplevel_1.spi.bus_o.data[1] top.toplevel_tb.toplevel_1.spi.bus_o.data[0]
+#{top.toplevel_tb.toplevel_1.spi.bus_o.addr[14:0]} top.toplevel_tb.toplevel_1.spi.bus_o.addr[14] top.toplevel_tb.toplevel_1.spi.bus_o.addr[13] top.toplevel_tb.toplevel_1.spi.bus_o.addr[12] top.toplevel_tb.toplevel_1.spi.bus_o.addr[11] top.toplevel_tb.toplevel_1.spi.bus_o.addr[10] top.toplevel_tb.toplevel_1.spi.bus_o.addr[9] top.toplevel_tb.toplevel_1.spi.bus_o.addr[8] top.toplevel_tb.toplevel_1.spi.bus_o.addr[7] top.toplevel_tb.toplevel_1.spi.bus_o.addr[6] top.toplevel_tb.toplevel_1.spi.bus_o.addr[5] top.toplevel_tb.toplevel_1.spi.bus_o.addr[4] top.toplevel_tb.toplevel_1.spi.bus_o.addr[3] top.toplevel_tb.toplevel_1.spi.bus_o.addr[2] top.toplevel_tb.toplevel_1.spi.bus_o.addr[1] top.toplevel_tb.toplevel_1.spi.bus_o.addr[0]
+@200
+-Bus I
+@22
+#{top.toplevel_tb.toplevel_1.spi.bus_i.data[15:0]} top.toplevel_tb.toplevel_1.spi.bus_i.data[15] top.toplevel_tb.toplevel_1.spi.bus_i.data[14] top.toplevel_tb.toplevel_1.spi.bus_i.data[13] top.toplevel_tb.toplevel_1.spi.bus_i.data[12] top.toplevel_tb.toplevel_1.spi.bus_i.data[11] top.toplevel_tb.toplevel_1.spi.bus_i.data[10] top.toplevel_tb.toplevel_1.spi.bus_i.data[9] top.toplevel_tb.toplevel_1.spi.bus_i.data[8] top.toplevel_tb.toplevel_1.spi.bus_i.data[7] top.toplevel_tb.toplevel_1.spi.bus_i.data[6] top.toplevel_tb.toplevel_1.spi.bus_i.data[5] top.toplevel_tb.toplevel_1.spi.bus_i.data[4] top.toplevel_tb.toplevel_1.spi.bus_i.data[3] top.toplevel_tb.toplevel_1.spi.bus_i.data[2] top.toplevel_tb.toplevel_1.spi.bus_i.data[1] top.toplevel_tb.toplevel_1.spi.bus_i.data[0]
+[pattern_trace] 1
+[pattern_trace] 0

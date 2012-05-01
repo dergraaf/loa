@@ -25,8 +25,10 @@ package xilinx_block_ram_pkg is
          we_b   : in  std_logic;
          en_a   : in  std_logic;
          en_b   : in  std_logic;
+         ssr_a  : in  std_logic;
+         ssr_b  : in  std_logic;
          clk_a  : in  std_logic;
          clk_b  : in  std_logic);
    end component;
-
+   
 end xilinx_block_ram_pkg;

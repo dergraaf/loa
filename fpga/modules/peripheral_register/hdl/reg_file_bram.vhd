@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-22
--- Last update: 2012-04-30
+-- Last update: 2012-05-01
 -- Platform   : Xilinx Spartan 3A
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -87,15 +87,17 @@ architecture str of reg_file_bram is
    signal ram_a_out  : std_logic_vector(DATA_A_WIDTH-1 downto 0) := (others => '0');
    signal ram_a_in   : std_logic_vector(DATA_A_WIDTH-1 downto 0) := (others => '0');
 
-   signal ram_a_we : std_logic := '0';
-   signal ram_a_en : std_logic := '0';
+   signal ram_a_we  : std_logic := '0';
+   signal ram_a_en  : std_logic := '0';
+   signal ram_a_ssr : std_logic := '0';
 
    signal ram_b_addr : std_logic_vector(ADDR_B_WIDTH-1 downto 0) := (others => '0');
    signal ram_b_out  : std_logic_vector(DATA_B_WIDTH-1 downto 0) := (others => '0');
    signal ram_b_in   : std_logic_vector(DATA_B_WIDTH-1 downto 0) := (others => '0');
 
-   signal ram_b_we : std_logic := '0';
-   signal ram_b_en : std_logic := '0';
+   signal ram_b_we  : std_logic := '0';
+   signal ram_b_en  : std_logic := '0';
+   signal ram_b_ssr : std_logic := '0';
 
    --
    signal addr_match_a    : std_logic;
@@ -129,61 +131,39 @@ begin  -- str
          we_b   => ram_b_we,
          en_a   => ram_a_en,
          en_b   => ram_b_en,
+         ssr_a  => ram_a_ssr,
+         ssr_b  => ram_b_ssr,
          clk_a  => clk,
          clk_b  => clk);
-
 
    ----------------------------------------------------------------------------
    -- Port A: parallel bus
    ----------------------------------------------------------------------------
-   -- always present the address from the parallel bus to the block RAM.
+   -- Always present the address from the parallel bus to the block RAM.
    -- When the bus address matches the address range of the block RAM
-   -- enable the block RAM.
+   -- route the result of the Block RAM to the paralle bus.
    ram_a_addr <= bus_i.addr(ADDR_A_WIDTH-1 downto 0);
    ram_a_in   <= bus_i.data;
 
    -- ADDR_A_WIDTH = 10
-   --  14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
-   --                 |<---- match ---->|
-
-   -- bus_i.addr(14 downto ADDR_A_WIDTH) = BASE_ADDRESS_VECTOR(14 downto ADDR_A_WIDTH)
+   -- 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0
+   --                |<---- match ---->|
    addr_match_a <= '1' when (bus_i.addr(14 downto ADDR_A_WIDTH) = BASE_ADDRESS_VECTOR(14 downto ADDR_A_WIDTH)) else '0';
 
-   ram_a_en <= '1' when (addr_match_a = '1') and ((bus_i.re = '1') or (bus_i.we = '1')) else '0';
-   ram_a_we <= '1' when (addr_match_a = '1') and (bus_i.we = '1')                       else '0';
+   -- Always enable RAM
+   ram_a_en <= '1';
 
-
-   -- the block RAM keeps its output latches when EN is '0'. This behaviour is
+   -- The block RAM keeps its output latches when EN is '0'. This behaviour is
    -- not compatible with the parallel bus where the bus output must be 0 when
    -- the device is not selected. 
-   process (clk) is
-   begin  -- process
-      if rising_edge(clk) then          -- rising clock edge
-         if (addr_match_a = '1') and (bus_i.re = '1') then
-            bus_o_enable_d <= '1';
-         else
-            bus_o_enable_d <= '0';
-         end if;
-         bus_o_enable_d2 <= bus_o_enable_d;
-      end if;
-   end process;
 
-   -- The parallel data bus is written when data is requested with re = '1'
---   bus_o.data <= ram_a_out when bus_o_enable_d2 = '1' else (others => '0');
---   bus_o.data <=  "1100110010101110" when bus_o_enable_d2 = '1' else (others => '0'); --bus_o_enable_d2 = '1' else (others => '0');
+   -- Solution: Use Synchronous Reset of the output latches:
+   ram_a_ssr <= '0' when (addr_match_a = '1') and (bus_i.re = '1') else '1';
 
+   -- Write enable
+   ram_a_we  <= '1' when (addr_match_a = '1') and (bus_i.we = '1') else '0';
 
-   process (clk) is
-   begin
-      if rising_edge(clk) then
-         if (addr_match_a = '1') and (bus_i.re = '1') then
-            bus_o.data <= ram_a_out; --"1011110010101110";
-         else
-            bus_o.data <= (others => '0');
-         end if;
-      end if;
-   end process;
-
+   bus_o.data <= ram_a_out;
 
    ----------------------------------------------------------------------------
    -- Port B: internal device
