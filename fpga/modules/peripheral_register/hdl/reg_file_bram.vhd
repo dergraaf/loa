@@ -141,7 +141,7 @@ begin  -- str
    ----------------------------------------------------------------------------
    -- Always present the address from the parallel bus to the block RAM.
    -- When the bus address matches the address range of the block RAM
-   -- route the result of the Block RAM to the paralle bus.
+   -- route the result of the Block RAM to the parallel bus.
    ram_a_addr <= bus_i.addr(ADDR_A_WIDTH-1 downto 0);
    ram_a_in   <= bus_i.data;
 

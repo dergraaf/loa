@@ -30,6 +30,7 @@ else ifeq ($(TESTBENCH), reg_file_bram_double_buffered_tb)
 FILES += \
 	../../ram/hdl/xilinx_block_ram_pkg.vhd \
 	../../ram/hdl/xilinx_block_ram.vhd \
+	../hdl/double_buffering.vhd \
 	../hdl/reg_file_bram_double_buffered.vhd
 else ifeq ($(TESTBENCH), double_buffering_tb)
 FILES += \

@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-04-29
+-- Last update: 2012-05-01
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ package reg_file_pkg is
 
    component reg_file_bram_double_buffered
       generic (
-         BASE_ADDRESS : integer range 0 to 32767);
+         BASE_ADDRESS : integer range 0 to 2**15-1);
       port (
          bus_o       : out busdevice_out_type;
          bus_i       : in  busdevice_in_type;
@@ -86,13 +86,13 @@ package reg_file_pkg is
          bram_data_o : out std_logic_vector(35 downto 0);
          bram_addr_i : in  std_logic_vector(7 downto 0);
          bram_we_p   : in  std_logic;
-         irq_p       : out std_logic;
-         ack_p       : in  std_logic;
-         ready_p     : in  std_logic;
-         enable_p    : out std_logic;
+         irq_o       : out std_logic;
+         ack_i       : in  std_logic;
+         ready_i     : in  std_logic;
+         enable_o    : out std_logic;
          clk         : in  std_logic);
    end component;
-
+   
    component double_buffering is
       port (
          ready_p  : in  std_logic;
