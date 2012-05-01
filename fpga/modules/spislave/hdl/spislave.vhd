@@ -6,7 +6,7 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-08-27
--- Last update: 2012-04-29
+-- Last update: 2012-05-01
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: This is an SPI slave that is a busmaster to the local bus.
@@ -163,8 +163,6 @@ begin
             -- reset the bit counter to 31 to make sequential writes possible.
             v.state   := SEL;
             v.bit_cnt := 31;
-            
-         when others => null;
       end case;
 
       if v.csn(1) = '1' then
