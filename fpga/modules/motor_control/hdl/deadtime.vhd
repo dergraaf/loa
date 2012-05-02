@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian@kleinvieh>
 -- Company    : 
 -- Created    : 2011-12-16
--- Last update: 2011-12-18
+-- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -15,23 +15,10 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
-
-package deadtime_pkg is
-
-   component deadtime is
-      generic (
-         T_DEAD : natural);
-      port (
-         in_p  : in  std_logic;
-         out_p : out std_logic := '0';
-         clk   : in  std_logic);
-   end component deadtime;
-
-end package deadtime_pkg;
-
-library ieee;
-use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+
+library work;
+use work.motor_control_pkg.all;
 
 entity deadtime is
    generic (

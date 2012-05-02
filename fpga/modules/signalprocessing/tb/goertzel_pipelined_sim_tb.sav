@@ -1,11 +1,21 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Wed May  2 03:58:04 2012
+[*]
+[dumpfile] "/home/alpha/rca/loa/fpga/modules/signalprocessing/tb/simulation/goertzel_pipelined_sim_tb.ghw"
+[dumpfile_mtime] "Wed May  2 03:56:16 2012"
+[dumpfile_size] 116787
+[savefile] "/home/alpha/rca/loa/fpga/modules/signalprocessing/tb/goertzel_pipelined_sim_tb.sav"
 [timestart] 0
-[size] 1280 1000
+[size] 1024 744
 [pos] -1 -1
-*-29.767933 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.767933 5180000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.goertzel_pipelined_sim_tb.
-[treeopen] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.
-[treeopen] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.
+[sst_width] 208
+[signals_width] 190
+[sst_expanded] 1
+[sst_vpaned_height] 338
 @28
 top.goertzel_pipelined_sim_tb.clk
 top.goertzel_pipelined_sim_tb.start_s
@@ -27,7 +37,8 @@ top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_control_unit_1.br
 top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_control_unit_1.r.state
 top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_control_unit_1.ready_p
 top.goertzel_pipelined_sim_tb.irq_s
-@23
-#{top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[8:0]} top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[8] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[7] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[6] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[5] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[4] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[3] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[2] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[1] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.addr_b_s[0]
+top.goertzel_pipelined_sim_tb.ack_s
+@29
+top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.bank
 [pattern_trace] 1
 [pattern_trace] 0

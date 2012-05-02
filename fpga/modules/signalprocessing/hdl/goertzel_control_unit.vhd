@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-24
--- Last update: 2012-04-28
+-- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -156,8 +156,6 @@ begin  -- architecture behavourial
             else
                v.mux_input := r.mux_input + 1;
             end if;
-         when others =>
-            null;
       end case;
 
       rin <= v;

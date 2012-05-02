@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-04-22
+-- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -45,7 +45,6 @@ entity reg_file is
       bus_i : in  busdevice_in_type;
       reg_o : out reg_file_type(2**REG_ADDR_BIT-1 downto 0);
       reg_i : in  reg_file_type(2**REG_ADDR_BIT-1 downto 0);
-      reset : in  std_logic;
       clk   : in  std_logic);
 
 end reg_file;
@@ -71,18 +70,14 @@ begin  -- str
 
    reg_o <= reg;
 
-   process (clk, bus_i)
+   process (clk)
       variable index : integer := 0;
    begin  -- process
-      index := to_integer(unsigned (bus_i.addr(REG_ADDR_BIT-1 downto 0)));
       if rising_edge(clk) then
-         if reset = '1' then
-            reg <= (others => (others => '0'));
-         else
-            if bus_i.addr(14 downto REG_ADDR_BIT) = BASE_ADDRESS_VECTOR(14 downto REG_ADDR_BIT) then
-               if bus_i.we = '1' then
-                  reg(index) <= bus_i.data;
-               end if;
+         index := to_integer(unsigned (bus_i.addr(REG_ADDR_BIT-1 downto 0)));
+         if bus_i.addr(14 downto REG_ADDR_BIT) = BASE_ADDRESS_VECTOR(14 downto REG_ADDR_BIT) then
+            if bus_i.we = '1' then
+               reg(index) <= bus_i.data;
             end if;
          end if;
       end if;
@@ -96,24 +91,19 @@ begin  -- str
 
    bus_o.data <= data_out;
 
-   process (reset, clk, bus_i, reg_i)
+   process (clk)
       variable index : integer := 0;
    begin  -- process
-      index := to_integer(unsigned(bus_i.addr(REG_ADDR_BIT-1 downto 0)));
-
       if rising_edge(clk) then
-         if reset = '1' then
-            data_out <= (others => '0');
+         index := to_integer(unsigned(bus_i.addr(REG_ADDR_BIT-1 downto 0)));
+         if (bus_i.addr(14 downto REG_ADDR_BIT) = BASE_ADDRESS_VECTOR(14 downto REG_ADDR_BIT)) and bus_i.re = '1' then
+            data_out <= reg_i(index);
          else
-            if (bus_i.addr(14 downto REG_ADDR_BIT) = BASE_ADDRESS_VECTOR(14 downto REG_ADDR_BIT)) and bus_i.re = '1' then
-               data_out <= reg_i(index);
-            else
-               data_out <= (others => '0');
-            end if;
+            data_out <= (others => '0');
          end if;
       end if;
-   -- is there a problem with using a varibale in a assignment of a signal??
-   --bus_o.data <= (others => '0') when bus_i.re = '0' else reg_i(index);
+      -- is there a problem with using a varibale in a assignment of a signal??
+      --bus_o.data <= (others => '0') when bus_i.re = '0' else reg_i(index);
    end process;
 
    

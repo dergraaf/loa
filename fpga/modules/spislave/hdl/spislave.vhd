@@ -6,7 +6,7 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-08-27
--- Last update: 2012-05-01
+-- Last update: 2012-05-02
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: This is an SPI slave that is a busmaster to the local bus.
@@ -49,7 +49,6 @@ entity spi_slave is
       bus_o : out busmaster_out_type;
       bus_i : in  busmaster_in_type;
 
-      reset : in std_logic;
       clk   : in std_logic
       );
 
@@ -82,7 +81,7 @@ architecture behavioral of spi_slave is
       mosi     => (others => '0'),
       miso     => '0',
       sck      => (others => '0'),
-      csn      => (others => '1'),
+      csn      => (others => '0'),
       bit_cnt  => 31,
       bus_addr => (others => '0'),
       bus_do   => (others => '0'),
@@ -90,7 +89,7 @@ architecture behavioral of spi_slave is
       bus_we   => '0',
       state    => IDLE
       );
-
+   
 begin
 
    spi_cmb : process (bus_i.data, csn_p, mosi_p, r, r.csn(1 downto 0),
@@ -183,19 +182,7 @@ begin
    spi_seq : process (clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.state    <= idle;
-            r.mosi     <= (others => '0');
-            r.miso     <= '0';
-            r.csn      <= (others => '0');
-            r.ireg     <= (others => '0');
-            r.oreg     <= X"0000aa55";
-            r.bus_addr <= (others => '0');
-            r.bit_cnt  <= 0;
-            r.bus_do   <= (others => '0');
-         else
             r <= rin;
-         end if;
       end if;
    end process spi_seq;
 

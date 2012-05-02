@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-04-13
+-- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -32,7 +32,6 @@ use work.bus_pkg.all;
 use work.utils_pkg.all;
 use work.motor_control_pkg.all;         -- for half_bridge_type
 use work.reg_file_pkg.all;
-use work.deadtime_pkg.all;
 
 -------------------------------------------------------------------------------
 
@@ -110,7 +109,6 @@ begin  -- behavioral
          bus_i => bus_i,
          reg_o => reg_o,
          reg_i => reg_i,
-         reset => '0',
          clk   => clk
          );
 

@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2012-04-29
+-- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -46,8 +46,7 @@ entity peripheral_register is
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
 
-      reset : in std_logic;
-      clk   : in std_logic
+      clk : in std_logic
       );
 
 end peripheral_register;
@@ -59,18 +58,13 @@ architecture behavioral of peripheral_register is
       oreg : std_logic_vector(15 downto 0);
    end record;
 
-   signal r, rin : peripheral_register_type;
+   signal r, rin : peripheral_register_type := (dout => (others => '0'),
+                                                oreg => (others => '0'));
 begin
-   seq_proc : process(reset, clk)
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r <= (
-               dout => (others => '0'),
-               oreg => (others => '0'));
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 

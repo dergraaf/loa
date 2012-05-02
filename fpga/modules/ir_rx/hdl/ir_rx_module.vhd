@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-05-01
+-- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -190,7 +190,7 @@ architecture structural of ir_rx_module is
    signal adc_start_s : std_logic := '0';
    signal adc_done_s  : std_logic := '0';
 
-   signal reg_coefs_s : reg_file_type(FREQUENCIES-1 downto 0);
+   signal reg_coefs_s : reg_file_type(FREQUENCIES-1 downto 0) := (others => (others => '0'));
 
    signal goertzel_done_s : std_logic;
    signal ack_s           : std_logic;
@@ -229,7 +229,6 @@ begin  -- structural
          bus_i => bus_i,
          reg_o => reg_coefs_s,
          reg_i => reg_coefs_s,
-         reset => '0',
          clk   => clk
          );
 
@@ -242,10 +241,10 @@ begin  -- structural
          bus_o => bus_results_s,
          bus_i => bus_i,
 
-         bram_data_i => bram_data_i,
-         bram_data_o => bram_data_o,
-         bram_addr_i => bram_addr_s,
-         bram_we_p   => bram_we_s,
+         bram_data_i => bram_data_i,    -- in
+         bram_data_o => bram_data_o,    -- out
+         bram_addr_i => bram_addr_s,    -- in
+         bram_we_p   => bram_we_s,      -- in
 
          irq_o    => module_done_s,
          ack_i    => ack_s,
@@ -256,17 +255,17 @@ begin  -- structural
    ------------------------------------------------------------------------------
    -- ADCs
    -------------------------------------------------------------------------------
-   ir_rx_adcs_1: ir_rx_adcs
+   ir_rx_adcs_1 : ir_rx_adcs
       generic map (
          CHANNELS => CHANNELS)
       port map (
          clk_sample_en => clk_sample_en,
-         adc_out_p     => adc_out_p,
-         adc_in_p      => adc_in_p,
-         adc_values_p  => adc_values_s,
-         adc_done_p    => adc_done_s,
+         adc_out       => adc_out_p,
+         adc_in        => adc_in_p,
+         adc_values_o  => adc_values_s,
+         adc_done_o    => adc_done_s,
          clk           => clk);
-   
+
    -- translate raw ADC values to signed
    -- 14-bit ADC value, 0x0000 to 0x3fff, 0x2000 on average
    adc_values_loop : for ch in CHANNELS-1 downto 0 generate
@@ -275,16 +274,16 @@ begin  -- structural
 
    goertzel_pipelined_v2_1 : entity work.goertzel_pipelined_v2
       generic map (
-         FREQUENCIES  => FREQUENCIES,
-         CHANNELS     => CHANNELS,
-         SAMPLES      => SAMPLES,
-         Q            => Q)
+         FREQUENCIES => FREQUENCIES,
+         CHANNELS    => CHANNELS,
+         SAMPLES     => SAMPLES,
+         Q           => Q)
       port map (
          start_p => adc_done_s,  -- whenever ADC is done process a new sample
 
          bram_addr_p => bram_addr_s,
-         bram_data_i => bram_data_i,
-         bram_data_o => bram_data_o,
+         bram_data_i => bram_data_o,
+         bram_data_o => bram_data_i,
          bram_we_p   => bram_we_s,
 
          ready_p  => goertzel_done_s,
