@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-18
--- Last update: 2012-04-15
+-- Last update: 2012-05-02
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ package motor_control_pkg is
    end component bldc_motor_module;
 
    type comparator_values_type is array (natural range <>) of std_logic_vector(9 downto 0);
-   
+
    component comparator_module is
       generic (
          BASE_ADDRESS : integer range 0 to 32767;
@@ -81,5 +81,14 @@ package motor_control_pkg is
          reset      : in  std_logic;
          clk        : in  std_logic);
    end component comparator_module;
+
+   component deadtime is
+      generic (
+         T_DEAD : natural);
+      port (
+         in_p  : in  std_logic;
+         out_p : out std_logic := '0';
+         clk   : in  std_logic);
+   end component deadtime;
 
 end package motor_control_pkg;

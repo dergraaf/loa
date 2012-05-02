@@ -5,7 +5,7 @@
 -- Authors    : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-05-01
+-- Last update: 2012-05-02
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -22,14 +22,14 @@ use work.spislave_pkg.all;
 
 use work.reg_file_pkg.all;
 use work.motor_control_pkg.all;
-use work.deadtime_pkg.all;
 use work.adc_ltc2351_pkg.all;
 use work.uss_tx_pkg.all;
 use work.ir_tx_pkg.all;
 use work.utils_pkg.all;
-use work.signalprocessing_pkg.all;
+-- use work.signalprocessing_pkg.all;
 use work.ir_rx_module_pkg.all;
 
+-- Read the addresses from a file
 use work.memory_map_pkg.all;
 
 -------------------------------------------------------------------------------
@@ -71,20 +71,21 @@ entity toplevel is
       -- IR RX: two LTC2351 ADC
       ir_rx_spi_out_p : out adc_ltc2351_spi_out_type;
       ir_rx0_spi_in_p : in  adc_ltc2351_spi_in_type;
+      ir_rx1_spi_in_p : in  adc_ltc2351_spi_in_type;
 
-      ir_rx1_spi_in_p : in adc_ltc2351_spi_in_type;
-
+      -- 50 MHz clock input
       clk : in std_logic
       );
 end toplevel;
 
 architecture structural of toplevel is
 
+   -- Peripheral Register at 0x000
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
 
    -- Modulation
-   signal mod_cnt             : natural                      := 0;
+   signal modulation_cnt      : natural                      := 0;
    signal modulation_us       : std_logic_vector(2 downto 0) := (others => '0');
    signal clk_modulation_us_s : std_logic                    := '0';
 
@@ -96,13 +97,11 @@ architecture structural of toplevel is
    signal us_ack   : std_logic;
 
    -- Connection to the Busmaster
-   signal bus_o : busmaster_out_type;
-   signal bus_i : busmaster_in_type;
+   signal bus_spi_out : busmaster_out_type;
+   signal bus_spi_in  : busmaster_in_type;
 
    -- Outputs form the Bus devices
    signal bus_register_out         : busdevice_out_type;
-   signal bus_adc_ir0_out          : busdevice_out_type;
-   signal bus_adc_ir1_out          : busdevice_out_type;
    signal bus_adc_us_out           : busdevice_out_type;
    signal bus_ir_tx_out            : busdevice_out_type;
    signal bus_ir_rx_out            : busdevice_out_type;
@@ -121,17 +120,15 @@ architecture structural of toplevel is
 begin
 
    ----------------------------------------------------------------------------
-   bus_i.data <= bus_register_out.data or
-                 bus_adc_ir0_out.data or
-                 --bus_adc_ir1_out.data or
-                 bus_ir_rx_out.data or
-                 bus_adc_us_out.data or
-                 bus_ir_rx_adc_values_out.data or
-                 bus_ir_tx_out.data;
+   bus_spi_in.data <= bus_register_out.data or
+                      bus_ir_rx_out.data or
+                      bus_adc_us_out.data or
+                      bus_ir_rx_adc_values_out.data or
+                      bus_ir_tx_out.data;
    ----------------------------------------------------------------------------
 
    -- TODO generic CHANNELS
-   copy_values : for ii in 0 to 11 generate
+   copy_values : for ii in 0 to 11  generate
       adc_values_reg_s(ii) <= "00" & adc_values_ltc_s(ii);
    end generate copy_values;
 
@@ -146,10 +143,9 @@ begin
          sck_p  => sck_p,
          csn_p  => cs_np,
 
-         bus_o => bus_o,
-         bus_i => bus_i,
+         bus_o => bus_spi_out,
+         bus_i => bus_spi_in,
 
-         reset => '0',
          clk   => clk);
 
    ----------------------------------------------------------------------------
@@ -162,7 +158,8 @@ begin
 
    ----------------------------------------------------------------------------
    -- Register
-   -- some test data to test FPGA STM communication
+   -- some test data to test FPGA STM communication.
+   -- Required for testing the SPI link. 
    preg : peripheral_register
       generic map (
          BASE_ADDRESS => BASE_ADDR_REG)
@@ -170,8 +167,7 @@ begin
          dout_p => register_out,
          din_p  => register_in,
          bus_o  => bus_register_out,
-         bus_i  => bus_o,
-         reset  => '0',
+         bus_i  => bus_spi_out,
          clk    => clk);
 
    register_in <= x"abc" & "0000";
@@ -187,10 +183,7 @@ begin
          clk       => clk);
 
    us_modulation_proc : process (clk)
-      variable cnt : natural := 0;
-
-
-      
+      variable cnt : natural range 0 to 100 := 0;
    begin  -- process us_modulation_proc
       if rising_edge(clk) then
          if clk_modulation_us_s = '1' then
@@ -202,17 +195,17 @@ begin
          end if;
       end if;
 
-      mod_cnt <= cnt;
+      modulation_cnt <= cnt;
    end process us_modulation_proc;
 
-   Modulation_us <= "111" when (mod_cnt < 3) else "000";
+   modulation_us <= "111" when (modulation_cnt < 3) else "000";
 
 
    ----------------------------------------------------------------------------
    -- US TX
    ----------------------------------------------------------------------------
    uss_tx_module_1 : uss_tx_module
-      generic map (
+     generic map (
          BASE_ADDRESS => BASE_ADDR_US_TX)
       port map (
          uss_tx0_out_p    => us_tx0_p,
@@ -221,7 +214,7 @@ begin
          modulation_p     => modulation_us,
          clk_uss_enable_p => open,
          bus_o            => bus_adc_us_out,
-         bus_i            => bus_o,
+         bus_i            => bus_spi_out,
          clk              => clk);
 
    ----------------------------------------------------------------------------
@@ -234,7 +227,7 @@ begin
          modulation_p    => '1',        -- modulation_p,
          clk_ir_enable_p => open,
          bus_o           => bus_ir_tx_out,
-         bus_i           => bus_o,
+         bus_i           => bus_spi_out,
          clk             => clk);
 
    ------------------------------------------------------------------------------
@@ -246,10 +239,9 @@ begin
          REG_ADDR_BIT => 4)             -- 2**4 = 16 values
       port map (
          bus_o => bus_ir_rx_adc_values_out,
-         bus_i => bus_o,
+         bus_i => bus_spi_out,
          reg_o => open,
          reg_i => adc_values_reg_s,
-         reset => '0',
          clk   => clk);
 
    ------------------------------------------------------------------------------
@@ -267,10 +259,9 @@ begin
          clk_out_p => clk_adc_en_s,
          clk       => clk);
 
-
-   ----------------------------------------------------------------------------
-   -- US RX ADC readout
-   ----------------------------------------------------------------------------
+   ------------------------------------------------------------------------------
+   ---- US RX ADC readout
+   ------------------------------------------------------------------------------
    us_rx_spi_out_p.sck  <= 'Z';
    us_rx_spi_out_p.conv <= 'Z';
 
@@ -291,11 +282,9 @@ begin
          adc_values_p  => adc_values_ltc_s,
          sync_p        => open,
          bus_o         => bus_ir_rx_out,
-         bus_i         => bus_o,
--- debug         done_p        => ir_irq_p,
--- debug         ack_p         => ir_ack,
-         done_p        => open,
-         ack_p         => '0',
+         bus_i         => bus_spi_out,
+         done_p        => ir_irq_p,
+         ack_p         => ir_ack,
          clk_sample_en => clk_adc_en_s,
          clk           => clk);
 

@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-05-01
+-- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -45,7 +45,6 @@ package reg_file_pkg is
          din_p  : in  std_logic_vector(15 downto 0);
          bus_o  : out busdevice_out_type;
          bus_i  : in  busdevice_in_type;
-         reset  : in  std_logic;
          clk    : in  std_logic);
    end component peripheral_register;
 
@@ -57,9 +56,8 @@ package reg_file_pkg is
       port (
          bus_o : out busdevice_out_type;
          bus_i : in  busdevice_in_type;
-         reg_o : out reg_file_type;
-         reg_i : in  reg_file_type;
-         reset : in  std_logic;
+         reg_o : out reg_file_type(2**REG_ADDR_BIT-1 downto 0);
+         reg_i : in  reg_file_type(2**REG_ADDR_BIT-1 downto 0);
          clk   : in  std_logic);
    end component;
 

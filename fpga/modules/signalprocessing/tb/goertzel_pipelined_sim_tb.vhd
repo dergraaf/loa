@@ -6,7 +6,7 @@
 -- Author     : 
 -- Company    : 
 -- Created    : 2012-04-28
--- Last update: 2012-04-28
+-- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -97,10 +97,10 @@ begin  -- tb
          bram_data_o => data_from_bram,
          bram_addr_i => addr_to_bram,
          bram_we_p   => we_to_bram,
-         irq_p       => irq_s,
-         ack_p       => ack_s,
-         ready_p     => ready_s,
-         enable_p    => open,
+         irq_o       => irq_s,
+         ack_i       => ack_s,
+         ready_i     => ready_s,
+         enable_o    => open,
          clk         => clk);
 
    goertzel_pipelined_v2_1 : goertzel_pipelined_v2
@@ -132,7 +132,7 @@ begin  -- tb
       wait until clk = '0';
       wait until clk = '0';
 
-      for ii in 0 to 20 loop
+      for ii in 0 to 2000 loop
          
          start_s <= '1';
          wait until clk = '0';
@@ -164,6 +164,17 @@ begin  -- tb
       wait for 10 ms;
    end process WaveGen_Proc;
 
+
+   AckGen: process
+   begin  -- process AckGen
+      wait for 40 us;
+      ack_s <= '1';
+      wait for 100 ns;
+      ack_s <= '0';
+
+      wait until false;
+      
+   end process AckGen;
 
 
    --begin  -- process GoertzelCheck_proc

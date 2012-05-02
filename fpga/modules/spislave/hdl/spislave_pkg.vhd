@@ -6,7 +6,7 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-08-27
--- Last update: 2012-04-30
+-- Last update: 2012-05-02
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -37,7 +37,6 @@ package spislave_pkg is
 
          bus_i : in busmaster_in_type;
 
-         reset : in std_logic;
          clk   : in std_logic);
    end component;
 

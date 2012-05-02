@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-27
--- Last update: 2012-04-28
+-- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -34,11 +34,11 @@ entity ir_rx_adcs is
 
       -- Ports to two ADCs
       -- signals to and from real hardware
-      adc_out_p : out ir_rx_module_spi_out_type;
-      adc_in_p  : in  ir_rx_module_spi_in_type;
+      adc_out : out ir_rx_module_spi_out_type;
+      adc_in  : in  ir_rx_module_spi_in_type;
 
-      adc_values_p : out adc_ltc2351_values_type;
-      adc_done_p   : out std_logic;
+      adc_values_o : out adc_ltc2351_values_type;
+      adc_done_o   : out std_logic;
       clk          : in  std_logic);
 
 end ir_rx_adcs;
@@ -50,14 +50,14 @@ architecture structural of ir_rx_adcs is
    
 begin  -- structural
 
-   adc_values_p <= adc_values_s;
-   adc_done_p   <= adc_done_s;
+   adc_values_o <= adc_values_s;
+   adc_done_o   <= adc_done_s;
 
    -- Two ADCs
    adc_ltc2351_0 : adc_ltc2351
       port map (
-         adc_out  => adc_out_p(0),
-         adc_in   => adc_in_p(0),
+         adc_out  => adc_out(0),
+         adc_in   => adc_in(0),
          start_p  => clk_sample_en,
          values_p => adc_values_s(5 downto 0),
          done_p   => adc_done_s,
@@ -67,8 +67,8 @@ begin  -- structural
 
    adc_ltc2351_1 : adc_ltc2351
       port map (
-         adc_out  => adc_out_p(1),
-         adc_in   => adc_in_p(1),
+         adc_out  => adc_out(1),
+         adc_in   => adc_in(1),
          start_p  => clk_sample_en,
          values_p => adc_values_s(11 downto 6),
          done_p   => open,
