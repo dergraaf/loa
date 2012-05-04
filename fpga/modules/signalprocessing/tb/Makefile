@@ -91,10 +91,15 @@ FILES = \
 ../../peripheral_register/hdl/double_buffering.vhd \
 ../../peripheral_register/hdl/reg_file_bram_double_buffered.vhd \
 ../hdl/signalprocessing_pkg.vhd \
+./signal_sources_pkg.vhd \
+./signal_sources.vhd \
 ../hdl/goertzel_control_unit.vhd \
 ../hdl/goertzel_muxes.vhd \
 ../hdl/goertzel_pipeline.vhd \
 ../hdl/goertzel_pipelined_v2.vhd
+else ifeq ($(TESTBENCH), real_tb)
+FILES = \
+real_tb.vhd
 endif
 
 # Default settings for gtkwave (visable signal etc.)
@@ -103,7 +108,7 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
-GHDL_SIM_OPT = --stop-time=100us
+GHDL_SIM_OPT = --stop-time=10ms
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]

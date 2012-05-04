@@ -1,0 +1,27 @@
+[*]
+[*] GTKWave Analyzer v3.3.35 (w)1999-2012 BSI
+[*] Thu May  3 20:20:37 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/modules/signalprocessing/tb/simulation/real_tb.ghw"
+[dumpfile_mtime] "Thu May  3 20:20:29 2012"
+[dumpfile_size] 1292254
+[savefile] "/home/rca/rca/loa/fpga/modules/signalprocessing/tb/real_tb.sav"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-26.099726 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.real_tb.
+[sst_width] 196
+[signals_width] 94
+[sst_expanded] 1
+[sst_vpaned_height] 156
+@28
+top.real_tb.clk
+@22
+#{top.real_tb.s0[15:0]} top.real_tb.s0[15] top.real_tb.s0[14] top.real_tb.s0[13] top.real_tb.s0[12] top.real_tb.s0[11] top.real_tb.s0[10] top.real_tb.s0[9] top.real_tb.s0[8] top.real_tb.s0[7] top.real_tb.s0[6] top.real_tb.s0[5] top.real_tb.s0[4] top.real_tb.s0[3] top.real_tb.s0[2] top.real_tb.s0[1] top.real_tb.s0[0]
+#{top.real_tb.s1[15:0]} top.real_tb.s1[15] top.real_tb.s1[14] top.real_tb.s1[13] top.real_tb.s1[12] top.real_tb.s1[11] top.real_tb.s1[10] top.real_tb.s1[9] top.real_tb.s1[8] top.real_tb.s1[7] top.real_tb.s1[6] top.real_tb.s1[5] top.real_tb.s1[4] top.real_tb.s1[3] top.real_tb.s1[2] top.real_tb.s1[1] top.real_tb.s1[0]
+@29
+top.real_tb.s2
+[pattern_trace] 1
+[pattern_trace] 0

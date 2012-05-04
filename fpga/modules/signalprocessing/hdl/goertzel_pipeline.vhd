@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-24
+-- Last update: 2012-05-04
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -78,6 +78,8 @@ architecture rtl of goertzel_pipeline is
 
    signal prod_scaled_reg : goertzel_data_type := (others => '0');
 
+   signal overflow : std_logic := '0';
+
 begin  -- architecture rtl
 
    -- data path B
@@ -96,7 +98,13 @@ begin  -- architecture rtl
          delay_2_reg2    <= delay_2_reg;
          prod_v          := delay_1_reg * coef_reg;
          prod_scaled_reg <= prod_v((Q + CALC_WIDTH - 1) downto Q);
-         input_reg2      <= input_reg;
+         if (prod_v(35 downto Q + CALC_WIDTH) = (35 downto (Q + CALC_WIDTH) => '0')) or
+            (prod_v(35 downto Q + CALC_WIDTH) = (35 downto (Q + CALC_WIDTH) => '1')) then
+            overflow <= '0';
+         else
+            overflow <= '1';
+         end if;
+         input_reg2 <= input_reg;
 
          -- 3rd RTL
          result_p(0) <= delay_2_reg2 - prod_scaled_reg + input_reg2;

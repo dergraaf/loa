@@ -42,7 +42,7 @@ endif
 compile: simulation/$(TESTBENCH) 
 
 $(SIMDIR)/$(TESTBENCH).ghw: simulation/$(TESTBENCH)
-	$(SIMDIR)/$(TESTBENCH) $(GHDL_SIM_OPT) --vcdgz=$(SIMDIR)/$(TESTBENCH).vcdgz --wave=$(SIMDIR)/$(TESTBENCH).ghw
+	$(SIMDIR)/$(TESTBENCH) $(GHDL_SIM_OPT) --vcd=$(SIMDIR)/$(TESTBENCH).vcd --wave=$(SIMDIR)/$(TESTBENCH).ghw
 
 run: $(SIMDIR)/$(TESTBENCH).ghw
 

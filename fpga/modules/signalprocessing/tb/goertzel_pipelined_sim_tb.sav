@@ -1,27 +1,21 @@
-[*]
-[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Wed May  2 03:58:04 2012
-[*]
-[dumpfile] "/home/alpha/rca/loa/fpga/modules/signalprocessing/tb/simulation/goertzel_pipelined_sim_tb.ghw"
-[dumpfile_mtime] "Wed May  2 03:56:16 2012"
-[dumpfile_size] 116787
-[savefile] "/home/alpha/rca/loa/fpga/modules/signalprocessing/tb/goertzel_pipelined_sim_tb.sav"
 [timestart] 0
-[size] 1024 744
-[pos] -1 -1
-*-26.767933 5180000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1191 1232
+[pos] 0 20
+*-26.767933 270000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.goertzel_pipelined_sim_tb.
-[sst_width] 208
-[signals_width] 190
-[sst_expanded] 1
-[sst_vpaned_height] 338
+[treeopen] top.goertzel_pipelined_sim_tb.bus_i_dummy.
+[treeopen] top.goertzel_pipelined_sim_tb.bus_to_stm.
+[treeopen] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.
+[treeopen] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.
+[treeopen] top.goertzel_pipelined_sim_tb.inputs.
 @28
 top.goertzel_pipelined_sim_tb.clk
 top.goertzel_pipelined_sim_tb.start_s
-@22
+@24
 #{top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][17:0]} top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][17] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][16] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][15] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][14] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][13] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][12] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][11] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][10] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][9] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][8] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][7] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][6] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][5] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][4] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][3] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][2] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][1] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[0][0]
 #{top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][17:0]} top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][17] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][16] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][15] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][14] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][13] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][12] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][11] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][10] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][9] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][8] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][7] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][6] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][5] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][4] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][3] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][2] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][1] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.coefs_p[1][0]
+@22
 #{top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][13:0]} top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][13] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][12] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][11] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][10] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][9] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][8] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][7] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][6] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][5] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][4] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][3] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][2] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][1] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[0][0]
 #{top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][13:0]} top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][13] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][12] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][11] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][10] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][9] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][8] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][7] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][6] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][5] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][4] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][3] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][2] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][1] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[1][0]
 #{top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][13:0]} top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][13] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][12] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][11] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][10] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][9] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][8] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][7] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][6] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][5] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][4] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][3] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][2] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][1] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p[2][0]
@@ -38,7 +32,52 @@ top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_control_unit_1.r.
 top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_control_unit_1.ready_p
 top.goertzel_pipelined_sim_tb.irq_s
 top.goertzel_pipelined_sim_tb.ack_s
-@29
 top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.bank
+@8420
+#{top.goertzel_pipelined_sim_tb.inputs[0][13:0]} top.goertzel_pipelined_sim_tb.inputs[0][13] top.goertzel_pipelined_sim_tb.inputs[0][12] top.goertzel_pipelined_sim_tb.inputs[0][11] top.goertzel_pipelined_sim_tb.inputs[0][10] top.goertzel_pipelined_sim_tb.inputs[0][9] top.goertzel_pipelined_sim_tb.inputs[0][8] top.goertzel_pipelined_sim_tb.inputs[0][7] top.goertzel_pipelined_sim_tb.inputs[0][6] top.goertzel_pipelined_sim_tb.inputs[0][5] top.goertzel_pipelined_sim_tb.inputs[0][4] top.goertzel_pipelined_sim_tb.inputs[0][3] top.goertzel_pipelined_sim_tb.inputs[0][2] top.goertzel_pipelined_sim_tb.inputs[0][1] top.goertzel_pipelined_sim_tb.inputs[0][0]
+@20000
+-
+-
+@8420
+#{top.goertzel_pipelined_sim_tb.inputs[1][13:0]} top.goertzel_pipelined_sim_tb.inputs[1][13] top.goertzel_pipelined_sim_tb.inputs[1][12] top.goertzel_pipelined_sim_tb.inputs[1][11] top.goertzel_pipelined_sim_tb.inputs[1][10] top.goertzel_pipelined_sim_tb.inputs[1][9] top.goertzel_pipelined_sim_tb.inputs[1][8] top.goertzel_pipelined_sim_tb.inputs[1][7] top.goertzel_pipelined_sim_tb.inputs[1][6] top.goertzel_pipelined_sim_tb.inputs[1][5] top.goertzel_pipelined_sim_tb.inputs[1][4] top.goertzel_pipelined_sim_tb.inputs[1][3] top.goertzel_pipelined_sim_tb.inputs[1][2] top.goertzel_pipelined_sim_tb.inputs[1][1] top.goertzel_pipelined_sim_tb.inputs[1][0]
+@20000
+-
+-
+@8420
+#{top.goertzel_pipelined_sim_tb.inputs[2][13:0]} top.goertzel_pipelined_sim_tb.inputs[2][13] top.goertzel_pipelined_sim_tb.inputs[2][12] top.goertzel_pipelined_sim_tb.inputs[2][11] top.goertzel_pipelined_sim_tb.inputs[2][10] top.goertzel_pipelined_sim_tb.inputs[2][9] top.goertzel_pipelined_sim_tb.inputs[2][8] top.goertzel_pipelined_sim_tb.inputs[2][7] top.goertzel_pipelined_sim_tb.inputs[2][6] top.goertzel_pipelined_sim_tb.inputs[2][5] top.goertzel_pipelined_sim_tb.inputs[2][4] top.goertzel_pipelined_sim_tb.inputs[2][3] top.goertzel_pipelined_sim_tb.inputs[2][2] top.goertzel_pipelined_sim_tb.inputs[2][1] top.goertzel_pipelined_sim_tb.inputs[2][0]
+@20000
+-
+-
+@200
+-Bus from STM
+@22
+#{top.goertzel_pipelined_sim_tb.bus_i_dummy.data[15:0]} top.goertzel_pipelined_sim_tb.bus_i_dummy.data[15] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[14] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[13] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[12] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[11] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[10] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[9] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[8] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[7] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[6] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[5] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[4] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[3] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[2] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[1] top.goertzel_pipelined_sim_tb.bus_i_dummy.data[0]
+#{top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[14:0]} top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[14] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[13] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[12] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[11] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[10] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[9] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[8] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[7] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[6] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[5] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[4] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[3] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[2] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[1] top.goertzel_pipelined_sim_tb.bus_i_dummy.addr[0]
+@28
+top.goertzel_pipelined_sim_tb.bus_i_dummy.we
+top.goertzel_pipelined_sim_tb.bus_i_dummy.re
+@200
+-Bus to STM
+@22
+#{top.goertzel_pipelined_sim_tb.bus_to_stm.data[15:0]} top.goertzel_pipelined_sim_tb.bus_to_stm.data[15] top.goertzel_pipelined_sim_tb.bus_to_stm.data[14] top.goertzel_pipelined_sim_tb.bus_to_stm.data[13] top.goertzel_pipelined_sim_tb.bus_to_stm.data[12] top.goertzel_pipelined_sim_tb.bus_to_stm.data[11] top.goertzel_pipelined_sim_tb.bus_to_stm.data[10] top.goertzel_pipelined_sim_tb.bus_to_stm.data[9] top.goertzel_pipelined_sim_tb.bus_to_stm.data[8] top.goertzel_pipelined_sim_tb.bus_to_stm.data[7] top.goertzel_pipelined_sim_tb.bus_to_stm.data[6] top.goertzel_pipelined_sim_tb.bus_to_stm.data[5] top.goertzel_pipelined_sim_tb.bus_to_stm.data[4] top.goertzel_pipelined_sim_tb.bus_to_stm.data[3] top.goertzel_pipelined_sim_tb.bus_to_stm.data[2] top.goertzel_pipelined_sim_tb.bus_to_stm.data[1] top.goertzel_pipelined_sim_tb.bus_to_stm.data[0]
+@200
+-Calculated Result
+@22
+#{top.goertzel_pipelined_sim_tb.gv0[15:0]} top.goertzel_pipelined_sim_tb.gv0[15] top.goertzel_pipelined_sim_tb.gv0[14] top.goertzel_pipelined_sim_tb.gv0[13] top.goertzel_pipelined_sim_tb.gv0[12] top.goertzel_pipelined_sim_tb.gv0[11] top.goertzel_pipelined_sim_tb.gv0[10] top.goertzel_pipelined_sim_tb.gv0[9] top.goertzel_pipelined_sim_tb.gv0[8] top.goertzel_pipelined_sim_tb.gv0[7] top.goertzel_pipelined_sim_tb.gv0[6] top.goertzel_pipelined_sim_tb.gv0[5] top.goertzel_pipelined_sim_tb.gv0[4] top.goertzel_pipelined_sim_tb.gv0[3] top.goertzel_pipelined_sim_tb.gv0[2] top.goertzel_pipelined_sim_tb.gv0[1] top.goertzel_pipelined_sim_tb.gv0[0]
+#{top.goertzel_pipelined_sim_tb.gv1[15:0]} top.goertzel_pipelined_sim_tb.gv1[15] top.goertzel_pipelined_sim_tb.gv1[14] top.goertzel_pipelined_sim_tb.gv1[13] top.goertzel_pipelined_sim_tb.gv1[12] top.goertzel_pipelined_sim_tb.gv1[11] top.goertzel_pipelined_sim_tb.gv1[10] top.goertzel_pipelined_sim_tb.gv1[9] top.goertzel_pipelined_sim_tb.gv1[8] top.goertzel_pipelined_sim_tb.gv1[7] top.goertzel_pipelined_sim_tb.gv1[6] top.goertzel_pipelined_sim_tb.gv1[5] top.goertzel_pipelined_sim_tb.gv1[4] top.goertzel_pipelined_sim_tb.gv1[3] top.goertzel_pipelined_sim_tb.gv1[2] top.goertzel_pipelined_sim_tb.gv1[1] top.goertzel_pipelined_sim_tb.gv1[0]
+@800022
+#{top.goertzel_pipelined_sim_tb.g_results[0:5]} top.goertzel_pipelined_sim_tb.g_results[0] top.goertzel_pipelined_sim_tb.g_results[1] top.goertzel_pipelined_sim_tb.g_results[2] top.goertzel_pipelined_sim_tb.g_results[3] top.goertzel_pipelined_sim_tb.g_results[4] top.goertzel_pipelined_sim_tb.g_results[5]
+@28
+top.goertzel_pipelined_sim_tb.g_results[0]
+top.goertzel_pipelined_sim_tb.g_results[1]
+top.goertzel_pipelined_sim_tb.g_results[2]
+top.goertzel_pipelined_sim_tb.g_results[3]
+top.goertzel_pipelined_sim_tb.g_results[4]
+top.goertzel_pipelined_sim_tb.g_results[5]
+top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.overflow
+@23
+#{top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[17:0]} top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[17] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[16] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[15] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[14] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[13] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[12] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[11] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[10] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[9] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[8] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[7] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[6] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[5] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[4] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[3] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[2] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[1] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.prod_scaled_reg[0]
+@1001200
+-group_end
 [pattern_trace] 1
 [pattern_trace] 0

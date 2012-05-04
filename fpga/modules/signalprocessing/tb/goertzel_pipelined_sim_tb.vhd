@@ -6,7 +6,7 @@
 -- Author     : 
 -- Company    : 
 -- Created    : 2012-04-28
--- Last update: 2012-05-02
+-- Last update: 2012-05-04
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -25,6 +25,7 @@ use work.adc_ltc2351_pkg.all;
 use work.reg_file_pkg.all;
 use work.bus_pkg.all;
 use work.signalprocessing_pkg.all;
+use work.signal_sources_pkg.all;
 
 entity goertzel_pipelined_sim_tb is
 
@@ -38,7 +39,7 @@ architecture tb of goertzel_pipelined_sim_tb is
 
    constant FREQUENCIES : natural := 2;
    constant CHANNELS    : natural := 3;
-   constant SAMPLES     : natural := 5;
+   constant SAMPLES     : natural := 250;
    constant Q           : natural := 13;
 
    constant BASE_ADDRESS : natural := 16#0000#;
@@ -56,30 +57,30 @@ architecture tb of goertzel_pipelined_sim_tb is
                                               re   => '0',
                                               we   => '0');
 
+   signal bus_to_stm : busdevice_out_type := (data => (others => '0'));
+
    signal start_s : std_logic := '0';
 
-   signal ready_s : std_logic;          -- Goertzel result ready, switch RAM bank.
-   
+   signal ready_s : std_logic;  -- Goertzel result ready, switch RAM bank.
+
    signal coefs  : goertzel_coefs_type(FREQUENCIES-1 downto 0) := (others => (others => '0'));
    signal inputs : goertzel_inputs_type(CHANNELS-1 downto 0)   := (others => (others => '0'));
 
-   
-   -- signal generation for testbench
-   signal PHASE0 : real := 0.1;
-   signal PHASE1 : real := 0.2;
-   signal PHASE2 : real := 0.3;
+   -- results as signals
+   signal gv0, gv1 : std_logic_vector(15 downto 0) := (others => '0');  -- value read from register
 
-   constant SCALE  : real := 2.0**7 - 10.0;
-   constant OFFSET : real := 2.0**13;
+   type g_array is array (0 to (FREQUENCIES * CHANNELS) - 1) of real;
+   signal g_results : g_array := (others => 0.0);
+
+   -- signal generation for testbench
+   constant AMPLITUDE0 : real := 2.0**3 - 10.0;
+   constant AMPLITUDE1 : real := 2.0**3 - 10.0;
+   constant AMPLITUDE2 : real := 2.0**3 - 10.0;
 
    constant FSAMPLE  : real := 75000.0;  -- Sample Frequency in Hertz
    constant FSIGNAL0 : real := 16750.0;  -- Signal Frequency in Hertz
-   constant FSIGNAL1 : real := 18700.0;  -- Signal Frequency in Hertz
+   constant FSIGNAL1 : real := 16800.0;  -- Signal Frequency in Hertz
    constant FSIGNAL2 : real := 25600.0;  -- Signal Frequency in Hertz
-
-   signal PHASE_INCREMENT0 : real := 2.0 * 3.1415 * FSIGNAL0 / FSAMPLE;
-   signal PHASE_INCREMENT1 : real := 2.0 * 3.1415 * FSIGNAL1 / FSAMPLE;
-   signal PHASE_INCREMENT2 : real := 2.0 * 3.1415 * FSIGNAL2 / FSAMPLE;
 
    
 begin  -- tb
@@ -91,7 +92,7 @@ begin  -- tb
       generic map (
          BASE_ADDRESS => BASE_ADDRESS)
       port map (
-         bus_o       => open,
+         bus_o       => bus_to_stm,
          bus_i       => bus_i_dummy,
          bram_data_i => data_to_bram,
          bram_data_o => data_from_bram,
@@ -121,16 +122,54 @@ begin  -- tb
          inputs_p    => inputs,
          clk         => clk);
 
+   -- Simulate three Channles of input data
+   source_sine_0 : entity work.source_sine
+      generic map (
+         DATA_WIDTH         => INPUT_WIDTH,
+         AMPLITUDE          => AMPLITUDE0,
+         SIGNAL_FREQUENCY   => FSIGNAL0,
+         SAMPLING_FREQUENCY => FSAMPLE)
+      port map (
+         start_i  => start_s,
+         signal_o => inputs(0));
+
+   source_sine_1 : entity work.source_sine
+      generic map (
+         DATA_WIDTH         => INPUT_WIDTH,
+         AMPLITUDE          => AMPLITUDE1,
+         SIGNAL_FREQUENCY   => FSIGNAL1,
+         SAMPLING_FREQUENCY => FSAMPLE)
+      port map (
+         start_i  => start_s,
+         signal_o => inputs(1));
+
+   source_sine_2 : entity work.source_sine
+      generic map (
+         DATA_WIDTH         => INPUT_WIDTH,
+         AMPLITUDE          => AMPLITUDE2,
+         SIGNAL_FREQUENCY   => FSIGNAL2,
+         SAMPLING_FREQUENCY => FSAMPLE)
+      port map (
+         start_i  => start_s,
+         signal_o => inputs(2));
+
+   
    process
    begin  -- process
 
-      for ii in 0 to FREQUENCIES-1 loop
-         coefs(ii) <= to_signed(ii*16 + ii + 1, 18);
-      end loop;  -- ii
+      -- set goertzel coefficients
+      coefs(0) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL0 / FSAMPLE) * 2.0**Q), coefs(0)'length);
+      coefs(1) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL1 / FSAMPLE) * 2.0**Q), coefs(0)'length);
+      --  coefs(2) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL1 / FSAMPLE) * 2.0**Q), coefs(0)'length);
 
       wait until clk = '0';
       wait until clk = '0';
       wait until clk = '0';
+
+      -- Start a new conversion every 50 clock ticks
+      -- This is more often than in real hardware.
+      -- It does not make sens to wait thousands of clock cycles until a new
+      -- ADC result is ready. 
 
       for ii in 0 to 2000 loop
          
@@ -138,42 +177,59 @@ begin  -- tb
          wait until clk = '0';
          start_s <= '0';
 
-         for pp in 0 to 100 loop
+         for pp in 0 to 30 loop
             wait until clk = '0';
          end loop;  -- pp
-           end loop;  -- ii
+      end loop;  -- ii
 
       wait for 10 ms;
    end process;
 
-   WaveGen_Proc : process
-   begin
-      for n in 0 to 10000 loop
-         wait until start_s = '1';
-         -- signed values from three ADC channels
-         inputs(0) <= to_signed(integer(SCALE * sin(PHASE0)), INPUT_WIDTH);
-         inputs(1) <= to_signed(integer(SCALE * sin(PHASE1)), INPUT_WIDTH);
-         inputs(2) <= to_signed(integer(SCALE * sin(PHASE2)), INPUT_WIDTH);
 
-         PHASE0 <= PHASE0 + PHASE_INCREMENT0;
-         PHASE1 <= PHASE1 + PHASE_INCREMENT1;
-         PHASE2 <= PHASE2 + PHASE_INCREMENT2;
-      end loop;
+   process (clk) is
+   begin  -- process
+      if rising_edge(clk) then          -- rising clock edge 
 
-      -- end, do not repeat pattern
-      wait for 10 ms;
-   end process WaveGen_Proc;
+      end if;
+   end process;
 
-
-   AckGen: process
+   -- Always acknowledge new data from the Goertzel Algorithm
+   AckGen : process
+      variable d1, d2, c : real    := 0.0;
+      variable ii        : integer := 0;
    begin  -- process AckGen
-      wait for 40 us;
+      wait until irq_s = '1';
+      wait for 1 us;
+
+      ii := 0;
+      for fr in 0 to FREQUENCIES-1 loop
+         for ch in 0 to CHANNELS-1 loop
+
+            -- read data from bus and display result as a signal
+            -- This will happen in the STM
+            readWord(addr => BASE_ADDRESS + 0 + (ii * 2), bus_i => bus_i_dummy, clk => clk);
+            gv0 <= bus_to_stm.data;
+
+            readWord(addr => BASE_ADDRESS + 1 + (ii * 2), bus_i => bus_i_dummy, clk => clk);
+            gv1 <= bus_to_stm.data;
+
+            -- convert to real
+            d1 := real(to_integer(unsigned(gv0))) / 2.0**(Q-2);
+            d2 := real(to_integer(unsigned(gv1))) / 2.0**(Q-2);
+            c  := real(to_integer(coefs(fr))) / 2.0**Q;
+
+            g_results(ii) <= d1**2 + d2**2 - (d1 * d2 * c);
+
+            -- wait at least one clock cycle
+            wait until rising_edge(clk);
+            ii := ii + 1;
+         end loop;  -- ch
+      end loop;  -- fr
+
+      -- acknowlede that all results were read
       ack_s <= '1';
       wait for 100 ns;
       ack_s <= '0';
-
-      wait until false;
-      
    end process AckGen;
 
 
