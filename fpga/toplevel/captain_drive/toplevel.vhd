@@ -264,8 +264,8 @@ begin
    motor3_pwm_module : dc_motor_module
       generic map (
          BASE_ADDRESS => 16#0030#,
-         WIDTH        => 12,
-         PRESCALER    => 2)
+         WIDTH        => 10,
+         PRESCALER    => 1)
       port map (
          pwm1_p  => motor3_pwm1_p,
          pwm2_p  => motor3_pwm2_p,
