@@ -5,7 +5,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-28
--- Last update: 2012-04-21
+-- Last update: 2012-05-10
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -215,7 +215,7 @@ begin
       port map (
          driver_stage_p => bldc1_driver_p,
          hall_p         => bldc1_hall_p,
-         break_p        => current_limit(0),
+         break_p        => current_limit(1),
          bus_o          => bus_bldc1_out,
          bus_i          => bus_o,
          reset          => reset,
@@ -241,7 +241,7 @@ begin
       port map (
          driver_stage_p => bldc2_driver_p,
          hall_p         => bldc2_hall_p,
-         break_p        => current_limit(1),
+         break_p        => current_limit(0),
          bus_o          => bus_bldc2_out,
          bus_i          => bus_o,
          reset          => reset,
