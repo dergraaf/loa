@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-05-04
+-- Last update: 2012-05-10
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -88,15 +88,16 @@ begin  -- architecture rtl
    begin  -- process B
       if rising_edge(clk) then          -- rising clock edge
          -- 1st RTL
-         delay_1_reg <= delay_p(0);
-         delay_2_reg <= delay_p(1);
+         -- inputs from BRAM is already registered
+         --delay_1_reg2 <= delay_p(0);
+         --delay_2_reg2 <= delay_p(1);
          coef_reg    <= coef_p;
          input_reg   <= input_p;
 
          -- 2nd RTL
-         delay_1_reg2    <= delay_1_reg;
-         delay_2_reg2    <= delay_2_reg;
-         prod_v          := delay_1_reg * coef_reg;
+         delay_1_reg2    <= delay_p(0);
+         delay_2_reg2    <= delay_p(1);
+         prod_v          := delay_p(0) * coef_reg;
          prod_scaled_reg <= prod_v((Q + CALC_WIDTH - 1) downto Q);
          if (prod_v(35 downto Q + CALC_WIDTH) = (35 downto (Q + CALC_WIDTH) => '0')) or
             (prod_v(35 downto Q + CALC_WIDTH) = (35 downto (Q + CALC_WIDTH) => '1')) then
@@ -107,7 +108,7 @@ begin  -- architecture rtl
          input_reg2 <= input_reg;
 
          -- 3rd RTL
-         result_p(0) <= delay_2_reg2 - prod_scaled_reg + input_reg2;
+         result_p(0) <= -delay_2_reg2 + prod_scaled_reg + input_reg2;
          result_p(1) <= delay_1_reg2;
          
       end if;

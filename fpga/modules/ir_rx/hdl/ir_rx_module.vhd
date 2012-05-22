@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-05-02
+-- Last update: 2012-05-18
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -156,7 +156,7 @@ architecture structural of ir_rx_module is
    ----------------------------------------------------------------------------
 
    constant Q           : natural := 13;
-   constant SAMPLES     : natural := 250;
+   constant SAMPLES     : natural := 500;
    constant CHANNELS    : natural := 12;
    constant FREQUENCIES : natural := 2;
 
@@ -168,7 +168,8 @@ architecture structural of ir_rx_module is
    signal adc_values_s : adc_ltc2351_values_type(CHANNELS-1 downto 0) := (others => (others => '0'));
 
    -- conversion to signed values
-   signal adc_values_signed_s : goertzel_inputs_type(CHANNELS-1 downto 0) := (others => (others => '0'));
+   signal adc_values_signed_s         : goertzel_inputs_type(CHANNELS-1 downto 0) := (others => (others => '0'));
+   signal adc_values_signed_clipped_s : goertzel_inputs_type(CHANNELS-1 downto 0) := (others => (others => '0'));
 
    -- Goertzel coefficients, one for each frequency
    signal coefs_s : goertzel_coefs_type(FREQUENCIES-1 downto 0) := (others => (others => '0'));
@@ -272,6 +273,12 @@ begin  -- structural
       adc_values_signed_s(ch) <= signed(adc_values_s(ch)) - to_signed(16#2000#, 16)(INPUT_WIDTH-1 downto 0);
    end generate adc_values_loop;
 
+   adc_values_clip_loop : for ch in CHANNELS-1 downto 0 generate
+      adc_values_signed_clipped_s(ch) <= to_signed(-200, INPUT_WIDTH) when adc_values_signed_s(ch) < -200 else
+                                         to_signed(+200, INPUT_WIDTH) when adc_values_signed_s(ch) > +200 else
+                                                                            adc_values_signed_s(ch);
+   end generate adc_values_clip_loop;
+
    goertzel_pipelined_v2_1 : entity work.goertzel_pipelined_v2
       generic map (
          FREQUENCIES => FREQUENCIES,
@@ -287,9 +294,9 @@ begin  -- structural
          bram_we_p   => bram_we_s,
 
          ready_p  => goertzel_done_s,
-         enable_p => '1',               -- not used yet
+         enable_p => '1',                          -- not used yet
          coefs_p  => coefs_s,
-         inputs_p => adc_values_signed_s,
+         inputs_p => adc_values_signed_clipped_s,  -- adc_values_signed_s,
          clk      => clk);
 
    -- Sync extraction

@@ -108,7 +108,7 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
-GHDL_SIM_OPT = --stop-time=10ms
+GHDL_SIM_OPT = --stop-time=25ms
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]

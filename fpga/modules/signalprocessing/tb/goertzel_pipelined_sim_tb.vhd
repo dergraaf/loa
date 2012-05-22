@@ -6,7 +6,7 @@
 -- Author     : 
 -- Company    : 
 -- Created    : 2012-04-28
--- Last update: 2012-05-04
+-- Last update: 2012-05-16
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ architecture tb of goertzel_pipelined_sim_tb is
 
    constant FREQUENCIES : natural := 2;
    constant CHANNELS    : natural := 3;
-   constant SAMPLES     : natural := 250;
+   constant SAMPLES     : natural := 500;
    constant Q           : natural := 13;
 
    constant BASE_ADDRESS : natural := 16#0000#;
@@ -69,18 +69,20 @@ architecture tb of goertzel_pipelined_sim_tb is
    -- results as signals
    signal gv0, gv1 : std_logic_vector(15 downto 0) := (others => '0');  -- value read from register
 
-   type g_array is array (0 to (FREQUENCIES * CHANNELS) - 1) of real;
+   type   g_array is array (0 to (FREQUENCIES * CHANNELS) - 1) of real;
    signal g_results : g_array := (others => 0.0);
 
+   signal d1, d2, c : real := 0.0;
+
    -- signal generation for testbench
-   constant AMPLITUDE0 : real := 2.0**3 - 10.0;
-   constant AMPLITUDE1 : real := 2.0**3 - 10.0;
-   constant AMPLITUDE2 : real := 2.0**3 - 10.0;
+   constant AMPLITUDE0 : real := 2.0**7;
+   constant AMPLITUDE1 : real := 2.0**8;
+   constant AMPLITUDE2 : real := 2.0**7;
 
    constant FSAMPLE  : real := 75000.0;  -- Sample Frequency in Hertz
-   constant FSIGNAL0 : real := 16750.0;  -- Signal Frequency in Hertz
-   constant FSIGNAL1 : real := 16800.0;  -- Signal Frequency in Hertz
-   constant FSIGNAL2 : real := 25600.0;  -- Signal Frequency in Hertz
+   constant FSIGNAL0 : real := 18750.0;  -- Signal Frequency in Hertz on Ch 0
+   constant FSIGNAL1 : real := 18900.0;  -- Signal Frequency in Hertz on Ch 1
+   constant FSIGNAL2 : real := 16425.0;  -- Signal Frequency in Hertz on Ch 2
 
    
 begin  -- tb
@@ -159,8 +161,8 @@ begin  -- tb
 
       -- set goertzel coefficients
       coefs(0) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL0 / FSAMPLE) * 2.0**Q), coefs(0)'length);
-      coefs(1) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL1 / FSAMPLE) * 2.0**Q), coefs(0)'length);
-      --  coefs(2) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL1 / FSAMPLE) * 2.0**Q), coefs(0)'length);
+      coefs(1) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL1 / FSAMPLE) * 2.0**Q), coefs(1)'length);
+--      coefs(2) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL2 / FSAMPLE) * 2.0**Q), coefs(2)'length);
 
       wait until clk = '0';
       wait until clk = '0';
@@ -171,7 +173,7 @@ begin  -- tb
       -- It does not make sens to wait thousands of clock cycles until a new
       -- ADC result is ready. 
 
-      for ii in 0 to 2000 loop
+      for ii in 0 to 20000 loop
          
          start_s <= '1';
          wait until clk = '0';
@@ -195,8 +197,9 @@ begin  -- tb
 
    -- Always acknowledge new data from the Goertzel Algorithm
    AckGen : process
-      variable d1, d2, c : real    := 0.0;
-      variable ii        : integer := 0;
+      variable d1_v, d2_v, c_v : real                          := 0.0;
+      variable gv0_v, gv1_v    : std_logic_vector(15 downto 0) := (others => '0');
+      variable ii              : integer                       := 0;
    begin  -- process AckGen
       wait until irq_s = '1';
       wait for 1 us;
@@ -208,17 +211,23 @@ begin  -- tb
             -- read data from bus and display result as a signal
             -- This will happen in the STM
             readWord(addr => BASE_ADDRESS + 0 + (ii * 2), bus_i => bus_i_dummy, clk => clk);
-            gv0 <= bus_to_stm.data;
+            gv0_v := bus_to_stm.data;
 
             readWord(addr => BASE_ADDRESS + 1 + (ii * 2), bus_i => bus_i_dummy, clk => clk);
-            gv1 <= bus_to_stm.data;
+            gv1_v := bus_to_stm.data;
 
             -- convert to real
-            d1 := real(to_integer(unsigned(gv0))) / 2.0**(Q-2);
-            d2 := real(to_integer(unsigned(gv1))) / 2.0**(Q-2);
-            c  := real(to_integer(coefs(fr))) / 2.0**Q;
+            d1_v := real(to_integer(signed(gv0_v))) / 2.0**(Q-2);
+            d2_v := real(to_integer(signed(gv1_v))) / 2.0**(Q-2);
+            c_v  := real(to_integer(coefs(fr))) / 2.0**Q;
 
-            g_results(ii) <= d1**2 + d2**2 - (d1 * d2 * c);
+            g_results(ii) <= d1_v**2 + d2_v**2 - (d1_v * d2_v * c_v);
+
+            d1  <= d1_v;
+            d2  <= d2_v;
+            c   <= c_v;
+            gv0 <= gv0_v;
+            gv1 <= gv1_v;
 
             -- wait at least one clock cycle
             wait until rising_edge(clk);

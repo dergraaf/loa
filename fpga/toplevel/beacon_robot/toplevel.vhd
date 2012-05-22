@@ -5,7 +5,7 @@
 -- Authors    : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-05-02
+-- Last update: 2012-05-16
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -254,7 +254,7 @@ begin
 
    clock_divider_adc : clock_divider
       generic map (
-         DIV => 667)
+         DIV => 500)
       port map (
          clk_out_p => clk_adc_en_s,
          clk       => clk);

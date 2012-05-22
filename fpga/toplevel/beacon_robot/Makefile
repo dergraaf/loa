@@ -5,7 +5,7 @@ toplevel.svf: ise/toplevel.bit
 	impact -batch impact.cmd
 
 header: ise/toplevel.bin
-	python bin2c.py ise/toplevel.bin bitstream.hpp
+	python bin2c.py ise/toplevel.bin /home/alpha/rca/roboter/2012_captain/software/projects/beacon_system/beacon/bitstream.hpp
 
 program: toplevel.svf
 	jtag urjtag.cmd

@@ -1,0 +1,50 @@
+[*]
+[*] GTKWave Analyzer v3.3.35 (w)1999-2012 BSI
+[*] Mon Apr 30 01:38:48 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/toplevel/beacon_robot_test1/tb/simulation/toplevel_tb.ghw"
+[dumpfile_mtime] "Mon Apr 30 01:34:44 2012"
+[dumpfile_size] 2825556
+[savefile] "/home/rca/rca/loa/fpga/toplevel/beacon_robot_test1/tb/default.sav"
+[timestart] 11977100000
+[size] 1138 699
+[pos] -1 -1
+*-25.099726 12035000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.toplevel_tb.
+[treeopen] top.toplevel_tb.toplevel_1.
+[treeopen] top.toplevel_tb.toplevel_1.bus_from_spi.
+[treeopen] top.toplevel_tb.toplevel_1.bus_i.
+[sst_width] 196
+[signals_width] 166
+[sst_expanded] 1
+[sst_vpaned_height] 297
+@28
+top.toplevel_tb.clk
+@200
+-SPI
+@28
+top.toplevel_tb.cs_n
+top.toplevel_tb.sck
+top.toplevel_tb.mosi
+top.toplevel_tb.miso
+@200
+-BRAM
+@28
+top.toplevel_tb.toplevel_1.bram_we
+@22
+#{top.toplevel_tb.toplevel_1.bram_addr[9:0]} top.toplevel_tb.toplevel_1.bram_addr[9] top.toplevel_tb.toplevel_1.bram_addr[8] top.toplevel_tb.toplevel_1.bram_addr[7] top.toplevel_tb.toplevel_1.bram_addr[6] top.toplevel_tb.toplevel_1.bram_addr[5] top.toplevel_tb.toplevel_1.bram_addr[4] top.toplevel_tb.toplevel_1.bram_addr[3] top.toplevel_tb.toplevel_1.bram_addr[2] top.toplevel_tb.toplevel_1.bram_addr[1] top.toplevel_tb.toplevel_1.bram_addr[0]
+#{top.toplevel_tb.toplevel_1.bram_data_i[15:0]} top.toplevel_tb.toplevel_1.bram_data_i[15] top.toplevel_tb.toplevel_1.bram_data_i[14] top.toplevel_tb.toplevel_1.bram_data_i[13] top.toplevel_tb.toplevel_1.bram_data_i[12] top.toplevel_tb.toplevel_1.bram_data_i[11] top.toplevel_tb.toplevel_1.bram_data_i[10] top.toplevel_tb.toplevel_1.bram_data_i[9] top.toplevel_tb.toplevel_1.bram_data_i[8] top.toplevel_tb.toplevel_1.bram_data_i[7] top.toplevel_tb.toplevel_1.bram_data_i[6] top.toplevel_tb.toplevel_1.bram_data_i[5] top.toplevel_tb.toplevel_1.bram_data_i[4] top.toplevel_tb.toplevel_1.bram_data_i[3] top.toplevel_tb.toplevel_1.bram_data_i[2] top.toplevel_tb.toplevel_1.bram_data_i[1] top.toplevel_tb.toplevel_1.bram_data_i[0]
+#{top.toplevel_tb.toplevel_1.bram_data_o[15:0]} top.toplevel_tb.toplevel_1.bram_data_o[15] top.toplevel_tb.toplevel_1.bram_data_o[14] top.toplevel_tb.toplevel_1.bram_data_o[13] top.toplevel_tb.toplevel_1.bram_data_o[12] top.toplevel_tb.toplevel_1.bram_data_o[11] top.toplevel_tb.toplevel_1.bram_data_o[10] top.toplevel_tb.toplevel_1.bram_data_o[9] top.toplevel_tb.toplevel_1.bram_data_o[8] top.toplevel_tb.toplevel_1.bram_data_o[7] top.toplevel_tb.toplevel_1.bram_data_o[6] top.toplevel_tb.toplevel_1.bram_data_o[5] top.toplevel_tb.toplevel_1.bram_data_o[4] top.toplevel_tb.toplevel_1.bram_data_o[3] top.toplevel_tb.toplevel_1.bram_data_o[2] top.toplevel_tb.toplevel_1.bram_data_o[1] top.toplevel_tb.toplevel_1.bram_data_o[0]
+@200
+-bus
+@28
+top.toplevel_tb.toplevel_1.bus_from_spi.we
+@29
+top.toplevel_tb.toplevel_1.bus_from_spi.re
+@22
+#{top.toplevel_tb.toplevel_1.bus_i.data[15:0]} top.toplevel_tb.toplevel_1.bus_i.data[15] top.toplevel_tb.toplevel_1.bus_i.data[14] top.toplevel_tb.toplevel_1.bus_i.data[13] top.toplevel_tb.toplevel_1.bus_i.data[12] top.toplevel_tb.toplevel_1.bus_i.data[11] top.toplevel_tb.toplevel_1.bus_i.data[10] top.toplevel_tb.toplevel_1.bus_i.data[9] top.toplevel_tb.toplevel_1.bus_i.data[8] top.toplevel_tb.toplevel_1.bus_i.data[7] top.toplevel_tb.toplevel_1.bus_i.data[6] top.toplevel_tb.toplevel_1.bus_i.data[5] top.toplevel_tb.toplevel_1.bus_i.data[4] top.toplevel_tb.toplevel_1.bus_i.data[3] top.toplevel_tb.toplevel_1.bus_i.data[2] top.toplevel_tb.toplevel_1.bus_i.data[1] top.toplevel_tb.toplevel_1.bus_i.data[0]
+#{top.toplevel_tb.toplevel_1.bus_from_spi.data[15:0]} top.toplevel_tb.toplevel_1.bus_from_spi.data[15] top.toplevel_tb.toplevel_1.bus_from_spi.data[14] top.toplevel_tb.toplevel_1.bus_from_spi.data[13] top.toplevel_tb.toplevel_1.bus_from_spi.data[12] top.toplevel_tb.toplevel_1.bus_from_spi.data[11] top.toplevel_tb.toplevel_1.bus_from_spi.data[10] top.toplevel_tb.toplevel_1.bus_from_spi.data[9] top.toplevel_tb.toplevel_1.bus_from_spi.data[8] top.toplevel_tb.toplevel_1.bus_from_spi.data[7] top.toplevel_tb.toplevel_1.bus_from_spi.data[6] top.toplevel_tb.toplevel_1.bus_from_spi.data[5] top.toplevel_tb.toplevel_1.bus_from_spi.data[4] top.toplevel_tb.toplevel_1.bus_from_spi.data[3] top.toplevel_tb.toplevel_1.bus_from_spi.data[2] top.toplevel_tb.toplevel_1.bus_from_spi.data[1] top.toplevel_tb.toplevel_1.bus_from_spi.data[0]
+#{top.toplevel_tb.toplevel_1.bus_from_spi.addr[14:0]} top.toplevel_tb.toplevel_1.bus_from_spi.addr[14] top.toplevel_tb.toplevel_1.bus_from_spi.addr[13] top.toplevel_tb.toplevel_1.bus_from_spi.addr[12] top.toplevel_tb.toplevel_1.bus_from_spi.addr[11] top.toplevel_tb.toplevel_1.bus_from_spi.addr[10] top.toplevel_tb.toplevel_1.bus_from_spi.addr[9] top.toplevel_tb.toplevel_1.bus_from_spi.addr[8] top.toplevel_tb.toplevel_1.bus_from_spi.addr[7] top.toplevel_tb.toplevel_1.bus_from_spi.addr[6] top.toplevel_tb.toplevel_1.bus_from_spi.addr[5] top.toplevel_tb.toplevel_1.bus_from_spi.addr[4] top.toplevel_tb.toplevel_1.bus_from_spi.addr[3] top.toplevel_tb.toplevel_1.bus_from_spi.addr[2] top.toplevel_tb.toplevel_1.bus_from_spi.addr[1] top.toplevel_tb.toplevel_1.bus_from_spi.addr[0]
+[pattern_trace] 1
+[pattern_trace] 0
