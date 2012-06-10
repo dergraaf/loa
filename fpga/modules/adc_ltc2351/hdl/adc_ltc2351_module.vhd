@@ -110,7 +110,6 @@ begin
          bus_i => bus_i,
          reg_o => reg_o,
          reg_i => reg_i,
-         reset => reset,
          clk   => clk
          );
 

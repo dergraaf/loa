@@ -24,6 +24,7 @@ use ieee.std_logic_1164.all;
 
 library work;
 use work.quadrature_decoder_pkg.all;
+use work.encoder_module_pkg.all;
 
 -------------------------------------------------------------------------------
 entity quadrature_decoder_tb is
@@ -80,8 +81,7 @@ architecture tb of quadrature_decoder_tb is
     );
 
   -- component ports
-  signal a     : std_logic := '0';
-  signal b     : std_logic := '0';
+  signal ab    : encoder_type := (a => '0', b => '0');
   signal step  : std_logic;
   signal dir   : std_logic;
   signal error : std_logic;
@@ -93,8 +93,7 @@ begin
   -- component instantiation
   DUT : quadrature_decoder
     port map (
-      a_p     => a,
-      b_p     => b,
+      encoder_p     => ab,
       step_p  => step,
       dir_p   => dir,
       error_p => error,
@@ -106,17 +105,16 @@ begin
   -- waveform generation
   wave : process
   begin
-    wait until falling_edge(reset);
     wait for 20 ns;
 
     for i in stimuli'left to (stimuli'right + 2) loop
       wait until rising_edge(clk);
       if i <= stimuli'right then
-        a <= stimuli(i).input.a;
-        b <= stimuli(i).input.b;
+        ab.a <= stimuli(i).input.a;
+        ab.b <= stimuli(i).input.b;
       else
-        a <= '0';
-        b <= '0';
+        ab.a <= '0';
+        ab.b <= '0';
       end if;
 
       if i > (stimuli'left + 2) then
