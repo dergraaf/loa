@@ -1,0 +1,33 @@
+
+# all IO-Pins are 3,3V
+NET "*"			IOSTANDARD = LVCMOS33;
+
+# ----------------------------------------------------------------------------
+# Connections to the STM32F103
+NET "data_p<0>" LOC = P65;
+NET "data_p<1>" LOC = P62;
+NET "data_p<2>" LOC = P61;
+NET "data_p<3>" LOC = P46;
+NET "data_p<4>" LOC = P45;
+NET "data_p<5>" LOC = P44;
+NET "data_p<6>" LOC = P43;
+NET "data_p<7>" LOC = P48;
+
+#NET LOC = P39;	# INIT_B
+#NET LOC = P40;
+#NET LOC = P41;
+#NET LOC = P70;	# CCLK
+
+# ----------------------------------------------------------------------------
+# Connections on the Damballa Board
+NET "led_p<0>" LOC = P111;
+NET "led_p<1>" LOC = P112;
+NET "led_p<2>" LOC = P114;
+NET "led_p<3>" LOC = P115;
+NET "led_p<4>" LOC = P116;
+NET "led_p<5>" LOC = P117;
+
+# Clock (connected to a 50 MHz oscillator)
+NET "clk"		LOC = P123;
+NET "clk"		TNM_NET = clk;
+TIMESPEC TS_clk = PERIOD "clk" 50 MHz HIGH 50%;

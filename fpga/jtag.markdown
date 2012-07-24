@@ -61,6 +61,7 @@ And for Ubuntu users:
 
     $ sudo su
     $ echo "/usr/local/lib" > /etc/ld.so.conf.d/other.conf
+    $ ldconfig
     $ exit
 
 
