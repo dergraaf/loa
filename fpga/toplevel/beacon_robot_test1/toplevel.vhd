@@ -5,7 +5,7 @@
 -- Author     : strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-05-01
+-- Last update: 2012-07-28
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description: Test file for testing the Block SRAM in hardware.
@@ -152,7 +152,6 @@ begin
          bus_o => bus_from_spi,
          bus_i => bus_i,
 
-         reset => reset,
          clk   => clk);
 
    ----------------------------------------------------------------------------
@@ -179,7 +178,6 @@ begin
          din_p  => register_in,
          bus_o  => bus_register_out,
          bus_i  => bus_from_spi,
-         reset  => reset,
          clk    => clk);
 
    -- test Data
