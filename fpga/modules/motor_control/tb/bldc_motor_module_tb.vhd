@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian@kleinvieh>
 -- Company    : 
 -- Created    : 2011-12-13
--- Last update: 2012-04-15
+-- Last update: 2012-07-28
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -50,7 +50,6 @@ architecture tb of bldc_motor_module_tb is
        data => (others => '0'),
        we   => '0',
        re   => '0');
-   signal reset : std_logic;
    signal clk   : std_logic := '0';
 
 begin
@@ -67,19 +66,14 @@ begin
          break_p        => break,
          bus_o          => bus_o,
          bus_i          => bus_i,
-         reset          => reset,
          clk            => clk);
 
    -- clock generation
-   clk <= not clk after 10 NS;
-
-   -- reset generation
-   reset <= '1', '0' after 50 NS;
+   clk <= not clk after 10 ns;
 
    bus_waveform : process
    begin
-      wait until falling_edge(reset);
-      wait for 100 NS;
+      wait for 100 ns;
 
       -- wrong address
       wait until rising_edge(clk);
@@ -131,7 +125,6 @@ begin
 
    hall_sensor_waveform : process
    begin
-      wait until falling_edge(reset);
 
       wait for 50 US;
       hall <= ('1', '0', '1');
@@ -163,8 +156,6 @@ begin
    -- Test break signal
    process
    begin
-      wait until falling_edge(reset);
-
       wait for 220 US;
       break <= '1';
       wait for 50 US;

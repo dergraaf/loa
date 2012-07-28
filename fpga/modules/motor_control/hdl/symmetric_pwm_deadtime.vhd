@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2012-04-15
+-- Last update: 2012-07-28
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -46,7 +46,6 @@ use ieee.std_logic_1164.all;
 library work;
 use work.motor_control_pkg.all;
 use work.symmetric_pwm_pkg.all;
-use work.deadtime_pkg.all;
 
 entity symmetric_pwm_deadtime is
    generic (

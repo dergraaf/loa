@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-20
+-- Last update: 2012-07-29
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -50,8 +50,8 @@ architecture tb of goertzel_pipelined_tb is
    -- 
    --           +-< frequency
    --           |
-   constant COEF0 : unsigned := to_unsigned(2732, CALC_WIDTH);
-   constant COEF1 : unsigned := to_unsigned(2532, CALC_WIDTH);
+   constant COEF0 : signed := to_signed(2732, CALC_WIDTH);
+   constant COEF1 : signed := to_signed(2532, CALC_WIDTH);
 
    constant COEFS : goertzel_coefs_type(FREQUENCIES-1 downto 0) := (COEF1, COEF0);
 

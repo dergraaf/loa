@@ -11,7 +11,6 @@ use work.commutation_pkg.all;
 
 architecture behavior of commutation_tb is
    signal clk    : std_logic := '0';
-   signal reset  : std_logic := '1';
    signal clk_en : std_logic := '1';
 
    signal center : std_logic;
@@ -24,12 +23,9 @@ architecture behavior of commutation_tb is
    signal hall         : hall_sensor_type := ('0', '0', '0');
 begin
    clk   <= not clk  after 10 NS;       -- 50 Mhz clock
-   reset <= '1', '0' after 50 NS;       -- erzeugt Resetsignal
 
    waveform : process
    begin
-      wait until falling_edge(reset);
-
       wait for 50 US;
       hall <= ('1', '0', '1');
       wait for 100 US;
@@ -59,8 +55,6 @@ begin
 
    waveform2 : process
    begin
-      wait until falling_edge(reset);
-
       wait for 600 US;
       sd  <= '1';
       wait for 20 US;
@@ -77,7 +71,7 @@ begin
          clk_en_p => clk_en,
          value_p  => value,
          center_p => center,
-         reset    => reset,
+         reset    => '0',
          clk      => clk);
 
    commutation_1 : commutation

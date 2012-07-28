@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-10-26
--- Last update: 2012-04-29
+-- Last update: 2012-07-28
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -49,7 +49,6 @@ architecture tb of peripheral_register_tb is
        data => (others => '0'),
        we   => '0',
        re   => '0');
-   signal reset : std_logic := '1';
    signal clk   : std_logic := '0';
 
    signal reg_readback : std_logic_vector(15 downto 0);
@@ -76,20 +75,14 @@ begin
          din_p  => reg_readback,                 -- read back the written values
          bus_o  => bus_o,
          bus_i  => bus_i,
-         reset  => reset,
          clk    => clk);
 
    -- clock generation
    clk <= not clk after 10 ns;
 
-   -- reset generation
-   reset <= '1', '0' after 50 ns;
-
    waveform : process
 
    begin
-
-      wait until falling_edge(reset);
       wait for 20 ns;
 
       -- Read from wrong address
@@ -140,7 +133,6 @@ begin
       bus_i.re <= '1';
       wait until rising_edge(clk);
       bus_i.re <= '0';
-
       
    end process waveform;
 end tb;

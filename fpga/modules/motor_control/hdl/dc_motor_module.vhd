@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2012-04-15
+-- Last update: 2012-07-28
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -41,7 +41,6 @@ entity dc_motor_module is
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
 
-      reset : in std_logic;
       clk   : in std_logic
       );
 end dc_motor_module;
@@ -61,19 +60,18 @@ architecture behavioral of dc_motor_module is
 
    signal pwm : std_logic;
 
-   signal r, rin : dc_motor_module_type;
+   signal r, rin : dc_motor_module_type := (
+      data_out => (others => '0'),
+      pwm_value => (others => '0'),
+      sd => '1'
+      );
+   
 begin
 
-   seq_proc : process(reset, clk)
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.data_out  <= (others => '0');
-            r.pwm_value <= (others => '0');
-            r.sd        <= '1';
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 
@@ -134,7 +132,6 @@ begin
          overflow_p  => overflow,
          clk_en_p    => clk_en,
          value_p     => r.pwm_value,
-         reset       => reset,
          clk         => clk);
 
 end behavioral;

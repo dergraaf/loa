@@ -6,7 +6,7 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-07-31
--- Last update: 2012-04-30
+-- Last update: 2012-07-29
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -37,7 +37,6 @@ architecture tb of spi_slave_tb is
    signal miso  : std_logic;
    signal sck   : std_logic;
    signal csn   : std_logic;
-   signal reset : std_logic := '1';
    signal clk   : std_logic := '1';
 
    signal bus_o : busmaster_out_type;
@@ -62,8 +61,7 @@ begin  -- tb
 
       bus_o => bus_o,
       bus_i => bus_i,
-
-      reset => reset,
+      
       clk   => clk);
 
    -- clock generation
@@ -79,18 +77,11 @@ begin  -- tb
    end process;
 
    process
-   begin
-      wait for 25 ns;
-      reset <= '0';
-   end process;
-
-   process
       variable d : std_logic_vector(31 downto 0);
       
    begin
       debug_addr <= std_logic_vector(to_unsigned(16#0ff#, 15));
       debug_data <= x"fe35";
-      wait until (reset = '0');
 
       -- read access to addr 0x7000 with 0x0000 as dummy data. 
       spiReadWord(addr => 16#7000#, sck => sck, mosi => mosi, cs_n => csn, clk => clk);
@@ -146,8 +137,6 @@ begin  -- tb
       wait for 50 ns;
       csn  <= '1';
       mosi <= 'Z';
-
-
       
    end process;
 

@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2012-04-15
+-- Last update: 2012-07-28
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -43,7 +43,6 @@ entity bldc_motor_module is
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
 
-      reset : in std_logic;
       clk   : in std_logic
       );
 end bldc_motor_module;
@@ -70,17 +69,10 @@ architecture behavioral of bldc_motor_module is
       );
 begin
 
-   seq_proc : process(reset, clk)
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.data_out  <= (others => '0');
-            r.pwm_value <= (others => '0');
-            r.sd        <= '1';
-            r.dir       <= '0';
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 
@@ -130,7 +122,7 @@ begin
          clk_en_p => clk_en,
          value_p  => r.pwm_value,
          break_p  => break_p,
-         reset    => reset,
+         reset    => '0',
          clk      => clk);
 
    commutation_1 : commutation

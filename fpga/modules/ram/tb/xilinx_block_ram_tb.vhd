@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-23
--- Last update: 2012-04-29
+-- Last update: 2012-07-28
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -71,6 +71,8 @@ begin  -- tb
          we_b   => we_b,
          en_a   => '1',
          en_b   => '1',
+         ssr_a  => '0',
+         ssr_b  => '0',
          clk_a  => clk,
          clk_b  => clk);
 

@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian@kleinvieh>
 -- Company    : 
 -- Created    : 2012-14-15
--- Last update: 2012-04-15
+-- Last update: 2012-07-28
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -43,7 +43,6 @@ architecture tb of comparator_module_tb is
        we   => '0',
        re   => '0');
 
-   signal reset : std_logic;
    signal clk   : std_logic := '0';
 
 begin
@@ -57,19 +56,14 @@ begin
          overflow_p => overflow,
          bus_o      => bus_o,
          bus_i      => bus_i,
-         reset      => reset,
          clk        => clk);
 
    -- clock generation
-   clk <= not clk after 10 NS;
-
-   -- reset generation
-   reset <= '1', '0' after 50 NS;
+   clk <= not clk after 10 ns;
 
    bus_waveform : process
    begin
-      wait until falling_edge(reset);
-      wait for 100 NS;
+      wait for 100 ns;
 
       wait until rising_edge(clk);
       bus_i.addr <= std_logic_vector(unsigned'(resize(x"0100", bus_i.addr'length)));
@@ -100,8 +94,6 @@ begin
    -- Generate different values
    process
    begin
-      wait until falling_edge(reset);
-
       wait for 20 US;
       value(0) <= "0000010000";
       wait for 30 US;

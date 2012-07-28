@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-18
--- Last update: 2012-05-02
+-- Last update: 2012-07-28
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
@@ -48,7 +48,6 @@ package motor_control_pkg is
          break_p : in  std_logic;
          bus_o   : out busdevice_out_type;
          bus_i   : in  busdevice_in_type;
-         reset   : in  std_logic;
          clk     : in  std_logic);
    end component dc_motor_module;
 
@@ -63,7 +62,6 @@ package motor_control_pkg is
          break_p        : in  std_logic;
          bus_o          : out busdevice_out_type;
          bus_i          : in  busdevice_in_type;
-         reset          : in  std_logic;
          clk            : in  std_logic);
    end component bldc_motor_module;
 
@@ -78,7 +76,6 @@ package motor_control_pkg is
          overflow_p : out std_logic_vector(CHANNELS-1 downto 0);
          bus_o      : out busdevice_out_type;
          bus_i      : in  busdevice_in_type;
-         reset      : in  std_logic;
          clk        : in  std_logic);
    end component comparator_module;
 

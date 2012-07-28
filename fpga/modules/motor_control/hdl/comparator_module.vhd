@@ -6,7 +6,7 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2012-04-15
+-- Last update: 2012-07-28
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:
@@ -48,7 +48,6 @@ entity comparator_module is
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
 
-      reset : in std_logic;
       clk   : in std_logic
       );
 end comparator_module;
@@ -78,7 +77,7 @@ begin
       limit_lower(n) <= reg_o(n * 2 + 1)(9 downto 0);
    end generate;
    
-   seq_proc : process(reset, clk)
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
          r <= rin;
@@ -117,7 +116,6 @@ begin
          bus_i => bus_i,
          reg_o => reg_o,
          reg_i => reg_i,
-         reset => reset,
          clk   => clk);
 
 end behavioral;

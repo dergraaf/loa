@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-27
--- Last update: 2012-04-27
+-- Last update: 2012-07-28
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -38,10 +38,10 @@ architecture tb of ir_rx_adcs_tb is
          CHANNELS : positive);
       port (
          clk_sample_en : in  std_logic;
-         adc_out_p     : out ir_rx_module_spi_out_type;
-         adc_in_p      : in  ir_rx_module_spi_in_type;
-         adc_values_p  : out adc_ltc2351_values_type;
-         adc_done_p    : out std_logic;
+         adc_out       : out ir_rx_module_spi_out_type;
+         adc_in        : in  ir_rx_module_spi_in_type;
+         adc_values_o  : out adc_ltc2351_values_type;
+         adc_done_o    : out std_logic;
          clk           : in  std_logic);
    end component;
 
@@ -66,10 +66,10 @@ begin  -- tb
          CHANNELS => CHANNELS)
       port map (
          clk_sample_en => clk_sample_en,
-         adc_out_p     => adc_out_s,
-         adc_in_p      => adc_in_s,
-         adc_values_p  => adc_values_s,
-         adc_done_p    => adc_done_s,
+         adc_out       => adc_out_s,
+         adc_in        => adc_in_s,
+         adc_values_o  => adc_values_s,
+         adc_done_o    => adc_done_s,
          clk           => clk);
 
   -- clock generation

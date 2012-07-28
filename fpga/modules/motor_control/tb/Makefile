@@ -8,7 +8,8 @@ TESTBENCH = comparator_module_tb
 
 # VHDL files
 ifeq ($(TESTBENCH),symmetric_pwm_tb)
-FILES =  ../hdl/symmetric_pwm.vhd
+FILES =  \
+	../hdl/symmetric_pwm.vhd
 GHDL_SIM_OPT = --stop-time=500us
 else ifeq ($(TESTBENCH),symmetric_pwm_deadtime_tb)
 FILES = \

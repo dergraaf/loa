@@ -6,8 +6,8 @@ TESTBENCH = uss_tx_module_tb
 ifeq ($(TESTBENCH), uss_tx_module_tb)
 FILES = \
 ../../spislave/hdl/bus_pkg.vhd \
-../../adc_mcp3008/hdl/reg_file_pkg.vhd \
-../../adc_mcp3008/hdl/reg_file.vhd \
+../../peripheral_register/hdl/reg_file_pkg.vhd \
+../../peripheral_register/hdl/reg_file.vhd \
 ../../motor_control/hdl/motor_control_pkg.vhd \
 ../../motor_control/hdl/deadtime.vhd \
 ../../utils/hdl/utils_pkg.vhd \

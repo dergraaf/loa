@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-04-29
+-- Last update: 2012-07-28
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -47,7 +47,6 @@ architecture tb of reg_file_tb is
                                         re   => '0');
    signal reg_o : reg_file_type(2**REG_ADDR_BIT-1 downto 0);
    signal reg_i : reg_file_type(2**REG_ADDR_BIT-1 downto 0);
-   signal reset : std_logic := '0';
 
    -- clock
    signal clk : std_logic := '1';
@@ -67,7 +66,6 @@ begin  -- tb
          bus_i => bus_i,
          reg_o => reg_o,
          reg_i => reg_i,
-         reset => reset,
          clk   => clk);
 
    -- clock generation
@@ -77,7 +75,6 @@ begin  -- tb
    WaveGen_Proc : process
    begin
       -- Reset
-      reset                <= '1';
       reg_i                <= (others => (others => '0'));
       reg_i(0)(3 downto 0) <= "0001";
       reg_i(1)(3 downto 0) <= "0010";
@@ -88,7 +85,6 @@ begin  -- tb
       bus_i.we   <= '0';
 
       wait until Clk = '1';
-      reset <= '0';
       
       comment <= write;
       writeWord(addr => 16#0010#, data => 16#0055#, bus_i => bus_i, clk => clk); 
