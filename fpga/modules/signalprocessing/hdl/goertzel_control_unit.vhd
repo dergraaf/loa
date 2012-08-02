@@ -6,12 +6,12 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-24
--- Last update: 2012-05-02
+-- Last update: 2012-08-01
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
 -- Description: Control Unit (a state machine) that controls the muxes and the
--- pipeline of the goertzel algorithm. 
+-- pipeline of the pipelined goertzel algorithm. 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012 
 -------------------------------------------------------------------------------

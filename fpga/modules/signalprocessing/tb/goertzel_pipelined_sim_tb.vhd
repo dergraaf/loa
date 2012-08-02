@@ -6,11 +6,12 @@
 -- Author     : 
 -- Company    : 
 -- Created    : 2012-04-28
--- Last update: 2012-05-16
+-- Last update: 2012-08-02
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
--- Description: 
+-- Description: This is a testbench that tests the goertzel_pipelined_v2
+--              entity with a block ram and artifical signal sources 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012 
 -------------------------------------------------------------------------------
@@ -63,31 +64,44 @@ architecture tb of goertzel_pipelined_sim_tb is
 
    signal ready_s : std_logic;  -- Goertzel result ready, switch RAM bank.
 
+   -- One coefficient for each frequency, one input for each channel. 
    signal coefs  : goertzel_coefs_type(FREQUENCIES-1 downto 0) := (others => (others => '0'));
    signal inputs : goertzel_inputs_type(CHANNELS-1 downto 0)   := (others => (others => '0'));
 
    -- results as signals
    signal gv0, gv1 : std_logic_vector(15 downto 0) := (others => '0');  -- value read from register
 
-   type   g_array is array (0 to (FREQUENCIES * CHANNELS) - 1) of real;
+   type g_array is array (0 to (FREQUENCIES * CHANNELS) - 1) of real;
    signal g_results : g_array := (others => 0.0);
 
    signal d1, d2, c : real := 0.0;
 
    -- signal generation for testbench
-   constant AMPLITUDE0 : real := 2.0**7;
-   constant AMPLITUDE1 : real := 2.0**8;
-   constant AMPLITUDE2 : real := 2.0**7;
 
-   constant FSAMPLE  : real := 75000.0;  -- Sample Frequency in Hertz
-   constant FSIGNAL0 : real := 18750.0;  -- Signal Frequency in Hertz on Ch 0
-   constant FSIGNAL1 : real := 18900.0;  -- Signal Frequency in Hertz on Ch 1
-   constant FSIGNAL2 : real := 16425.0;  -- Signal Frequency in Hertz on Ch 2
+   -- amplitude of signal for each channel
+   type amplitude_array is array (0 to (CHANNELS - 1)) of real;
+   constant AMPLITUDE : amplitude_array := (
+      2.0**7,
+      2.0**8,
+      2.0**7,
+      others => 0.0);
 
+   constant FSAMPLE : real := 75000.0;  -- Sample Frequency in Hertz
+
+   -- frequency of signal for each channel
+   type frequency_array is array (0 to (CHANNELS - 1)) of real;
+   constant FSIGNAL : frequency_array := (
+      18750.0,
+      18900.0,
+      16425.0,
+      others => 0.0);
+
+   -- output file
+   type IntegerFileType is file of integer;
    
 begin  -- tb
 
-   -- clock generation
+   -- clock generation 50 MHz
    clk <= not clk after 20 ns;
 
    reg_file_bram_double_buffered_1 : reg_file_bram_double_buffered
@@ -124,53 +138,35 @@ begin  -- tb
          inputs_p    => inputs,
          clk         => clk);
 
-   -- Simulate three Channles of input data
-   source_sine_0 : entity work.source_sine
-      generic map (
-         DATA_WIDTH         => INPUT_WIDTH,
-         AMPLITUDE          => AMPLITUDE0,
-         SIGNAL_FREQUENCY   => FSIGNAL0,
-         SAMPLING_FREQUENCY => FSAMPLE)
-      port map (
-         start_i  => start_s,
-         signal_o => inputs(0));
+   -- Simulate a signal source for each channel.
+   sources : for channel in 0 to (CHANNELS-1) generate
+      s_sine: entity work.source_sine
+         generic map (
+            DATA_WIDTH         => INPUT_WIDTH,
+            AMPLITUDE          => AMPLITUDE(channel),
+            SIGNAL_FREQUENCY   => FSIGNAL(channel),
+            SAMPLING_FREQUENCY => FSAMPLE)
+         port map (
+            start_i  => start_s,
+            signal_o => inputs(channel));
+   end generate sources;
 
-   source_sine_1 : entity work.source_sine
-      generic map (
-         DATA_WIDTH         => INPUT_WIDTH,
-         AMPLITUDE          => AMPLITUDE1,
-         SIGNAL_FREQUENCY   => FSIGNAL1,
-         SAMPLING_FREQUENCY => FSAMPLE)
-      port map (
-         start_i  => start_s,
-         signal_o => inputs(1));
+   -- Simulate the ADCs that deliver new samples for each channel. 
+   adcs : process
+   begin  -- process adcs
 
-   source_sine_2 : entity work.source_sine
-      generic map (
-         DATA_WIDTH         => INPUT_WIDTH,
-         AMPLITUDE          => AMPLITUDE2,
-         SIGNAL_FREQUENCY   => FSIGNAL2,
-         SAMPLING_FREQUENCY => FSAMPLE)
-      port map (
-         start_i  => start_s,
-         signal_o => inputs(2));
-
-   
-   process
-   begin  -- process
-
-      -- set goertzel coefficients
-      coefs(0) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL0 / FSAMPLE) * 2.0**Q), coefs(0)'length);
-      coefs(1) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL1 / FSAMPLE) * 2.0**Q), coefs(1)'length);
---      coefs(2) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL2 / FSAMPLE) * 2.0**Q), coefs(2)'length);
+      -- set goertzel coefficients, one for each frequency
+      coefs(0) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL(0) / FSAMPLE) * 2.0**Q), coefs(0)'length);
+      coefs(1) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL(1) / FSAMPLE) * 2.0**Q), coefs(1)'length);
+--      coefs(2) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL(2) / FSAMPLE) * 2.0**Q), coefs(2)'length);
 
       wait until clk = '0';
       wait until clk = '0';
       wait until clk = '0';
 
-      -- Start a new conversion every 50 clock ticks
+      -- Start a new conversion every 30 clock ticks
       -- This is more often than in real hardware.
-      -- It does not make sens to wait thousands of clock cycles until a new
+      -- It does not make sense to wait thousands of clock cycles until a new
       -- ADC result is ready. 
 
       for ii in 0 to 20000 loop
@@ -184,22 +180,17 @@ begin  -- tb
          end loop;  -- pp
       end loop;  -- ii
 
-      wait for 10 ms;
-   end process;
-
-
-   process (clk) is
-   begin  -- process
-      if rising_edge(clk) then          -- rising clock edge 
-
-      end if;
-   end process;
+      wait;
+   end process adcs;
 
    -- Always acknowledge new data from the Goertzel Algorithm
+   -- and calculate the magnitude of the goertzel values in floating point.
+   -- This simulates what will be done in the STM32 processor. 
    AckGen : process
       variable d1_v, d2_v, c_v : real                          := 0.0;
       variable gv0_v, gv1_v    : std_logic_vector(15 downto 0) := (others => '0');
       variable ii              : integer                       := 0;
+      file data_out            : IntegerFileType open write_mode is "goertzel.bin";
    begin  -- process AckGen
       wait until irq_s = '1';
       wait for 1 us;
@@ -216,6 +207,13 @@ begin  -- tb
             readWord(addr => BASE_ADDRESS + 1 + (ii * 2), bus_i => bus_i_dummy, clk => clk);
             gv1_v := bus_to_stm.data;
 
+            -- Write the raw bits read from block RAM to a file.
+            -- This can be used to check the C++ code.
+            -- Interpret data with
+            -- $ hexdump -v -e '2/4 "%08x "' -e ' 2/4 " %6d"  "\n"'  goertzel.bin
+            write(data_out, to_integer(signed(gv0_v)));
+            write(data_out, to_integer(signed(gv1_v)));
+
             -- convert to real
             d1_v := real(to_integer(signed(gv0_v))) / 2.0**(Q-2);
             d2_v := real(to_integer(signed(gv1_v))) / 2.0**(Q-2);
@@ -223,6 +221,8 @@ begin  -- tb
 
             g_results(ii) <= d1_v**2 + d2_v**2 - (d1_v * d2_v * c_v);
 
+            -- Assign variables to signals so the data can be plotted in
+            -- gtkwave. Variables cannot be plotted. 
             d1  <= d1_v;
             d2  <= d2_v;
             c   <= c_v;
@@ -235,29 +235,10 @@ begin  -- tb
          end loop;  -- ch
       end loop;  -- fr
 
-      -- acknowlede that all results were read
+      -- acknowledge that all results were read
       ack_s <= '1';
       wait for 100 ns;
       ack_s <= '0';
    end process AckGen;
-
-
-   --begin  -- process GoertzelCheck_proc
-   --   wait until done_s = '1';
-
-   --   -- new values are available in the result registers
-   --   -- convert results from Q-format to real
-   --   for ch in 0 to CHANNELS-1 loop
-   --      for fr in 0 to FREQUENCIES-1 loop
-   --         d1 := real(to_integer(results_s(ch, fr)(0))) / 2.0**(Q-2);
-   --         d2 := real(to_integer(results_s(ch, fr)(1))) / 2.0**(Q-2);
-   --         c  := real(to_integer(coefs(fr))) / 2.0**Q;
-
-   --         -- calculate goertzel value
-   --         goertzel_values_s(ch, fr) <= d1**2 + d2**2 - (d2 * d1 * c);
-   --      end loop;  -- fr
-   --   end loop;  -- ch
-   --end process GoertzelCheck_proc;
-   -- signal generation for testbench
 
 end tb;

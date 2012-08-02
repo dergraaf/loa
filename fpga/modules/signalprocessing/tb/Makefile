@@ -7,7 +7,8 @@
 #TESTBENCH = goertzel_control_unit_tb
 #TESTBENCH = goertzel_muxes_tb
 #TESTBENCH = goertzel_pipelined_v2_tb
-TESTBENCH = goertzel_pipelined_sim_tb
+#TESTBENCH = goertzel_pipelined_sim_tb
+#TESTBENCH = io_test
 
 # VHDL files
 ifeq ($(TESTBENCH), goertzel_tb)
@@ -100,6 +101,9 @@ FILES = \
 else ifeq ($(TESTBENCH), real_tb)
 FILES = \
 real_tb.vhd
+else ifeq ($(TESTBENCH), io_test)
+FILES = \
+io_test.vhd
 endif
 
 # Default settings for gtkwave (visable signal etc.)

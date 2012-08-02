@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-20
+-- Last update: 2012-08-01
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -14,6 +14,9 @@
 -- fixed frequency in an analog signal. This does not implement the calculation
 -- of the magnitude of the signal at the end of one block.
 -- Mind overflows!
+-- This implementation only calulates one channel and one frequency. For each
+-- channel and each frequency this needs another multiplier. So this is not
+-- used any more. 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012 
 -------------------------------------------------------------------------------
@@ -43,7 +46,7 @@ entity goertzel is
       Q : natural := 13;
 
       -- Number of samples used to detect a frequency.
-      -- After SAMPLES samples new samples are available. 
+      -- After SAMPLES samples new goertzel values are available. 
       SAMPLES : natural := 250
       );
    port (
