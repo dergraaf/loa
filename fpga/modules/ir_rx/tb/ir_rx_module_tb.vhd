@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-04-26
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -36,22 +36,27 @@ end ir_rx_module_tb;
 architecture tb of ir_rx_module_tb is
 
    -- component generics
-   constant BASE_ADDRESS_RESULTS : integer := 16#0800#;
-   constant BASE_ADDRESS_COEFS   : integer := 16#0010#;
+   constant BASE_ADDRESS_RESULTS   : integer := 16#0800#;
+   constant BASE_ADDRESS_COEFS     : integer := 16#0010#;
+   constant BASE_ADDRESS_TIMESTAMP : integer := 16#0100#;
 
    -- component ports
-   signal adc_out_p     : ir_rx_module_spi_out_type;
-   signal adc_in_p      : ir_rx_module_spi_in_type;
-   signal adc_values_s  : adc_ltc2351_values_type(11 downto 0);
-   signal sync_p        : std_logic;
-   signal bus_o         : busdevice_out_type;
-   signal bus_i         : busdevice_in_type;
-   signal done_p        : std_logic;
-   signal ack_p         : std_logic;
-   signal clk_sample_en : std_logic;
+   signal adc_out_p : ir_rx_module_spi_out_type;
+   signal adc_in_p  : ir_rx_module_spi_in_type := (others => (others => '0'));
+   signal sync_p    : std_logic                := '0';
+   signal bus_o     : busdevice_out_type       := (data   => (others => '0'));
+   signal bus_i : busdevice_in_type := (addr => (others => '0'),
+                                        data => (others => '0'),
+                                        we   => '0',
+                                        re   => '0');
+   signal done_p        : std_logic := '0';
+   signal ack_p         : std_logic := '0';
+   signal clk_sample_en : std_logic := '0';
 
-   signal adc_values_test        : std_logic_vector(13 downto 0);
-   signal adc_values_test_signed : signed(13 downto 0);
+   signal adc_values_test        : std_logic_vector(13 downto 0) := (others => '0');
+   signal adc_values_test_signed : signed(13 downto 0)           := (others => '0');
+
+   signal offset : signed(13 downto 0) := "10000000000000";
 
    -- clock
    signal clk : std_logic := '1';
@@ -60,8 +65,9 @@ begin  -- tb
 
    ir_rx_module_1 : entity work.ir_rx_module
       generic map (
-         BASE_ADDRESS_COEFS   => BASE_ADDRESS_COEFS,
-         BASE_ADDRESS_RESULTS => BASE_ADDRESS_RESULTS)
+         BASE_ADDRESS_COEFS     => BASE_ADDRESS_COEFS,
+         BASE_ADDRESS_RESULTS   => BASE_ADDRESS_RESULTS,
+         BASE_ADDRESS_TIMESTAMP => BASE_ADDRESS_TIMESTAMP)
       port map (
          adc_out_p     => adc_out_p,
          adc_in_p      => adc_in_p,
@@ -87,11 +93,11 @@ begin  -- tb
       wait until clk = '1';
 
 
-
-      wait for 10 ms;
+      -- do not repeat
+      wait;
    end process WaveGen_Proc;
 
-   adc_values_test_signed <= signed(adc_values_test) - to_signed(16#2000#, 14);
+   adc_values_test_signed <= signed(adc_values_test) - offset;
 
    adc_proc : process
    begin  -- process adc_proc
@@ -104,7 +110,8 @@ begin  -- tb
       wait until clk = '1';
       adc_values_test <= "10000000000000";
 
-      wait for 10 ms;
+      -- do not repeat
+      wait;
       
    end process adc_proc;
 

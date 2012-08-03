@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-05-02
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -31,8 +31,9 @@ package ir_rx_module_pkg is
 
    component ir_rx_module is
       generic (
-         BASE_ADDRESS_COEFS   : integer range 0 to 32767;
-         BASE_ADDRESS_RESULTS : integer range 0 to 32767);
+         BASE_ADDRESS_COEFS     : integer range 0 to 32767;
+         BASE_ADDRESS_RESULTS   : integer range 0 to 32767;
+         BASE_ADDRESS_TIMESTAMP : integer range 0 to 32767);
       port (
          adc_out_p     : out ir_rx_module_spi_out_type;
          adc_in_p      : in  ir_rx_module_spi_in_type;

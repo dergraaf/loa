@@ -1,22 +1,23 @@
 [*]
-[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Thu Apr 26 14:29:01 2012
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Fri Aug  3 16:24:42 2012
 [*]
 [dumpfile] "/home/rca/rca/loa/fpga/modules/ir_rx/tb/simulation/ir_rx_module_tb.ghw"
-[dumpfile_mtime] "Thu Apr 26 14:23:38 2012"
-[dumpfile_size] 313623
+[dumpfile_mtime] "Fri Aug  3 16:24:20 2012"
+[dumpfile_size] 701141
 [savefile] "/home/rca/rca/loa/fpga/modules/ir_rx/tb/ir_rx_module_tb.sav"
 [timestart] 0
-[size] 1167 1364
+[size] 1167 1063
 [pos] -1 -1
 *-30.413986 92040000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.ir_rx_module_tb.
-[treeopen] top.ir_rx_module_tb.ir_rx_module_1.goertzel_pipelined_v2_1.
+[treeopen] top.ir_rx_module_tb.adc_in_p.
+[treeopen] top.ir_rx_module_tb.adc_out_p.
 [sst_width] 381
 [signals_width] 254
 [sst_expanded] 1
-[sst_vpaned_height] 1036
+[sst_vpaned_height] 795
 @28
 top.ir_rx_module_tb.clk
 top.ir_rx_module_tb.clk_sample_en
@@ -25,7 +26,7 @@ top.ir_rx_module_tb.adc_out_p[0].conv
 top.ir_rx_module_tb.ack_p
 @22
 #{top.ir_rx_module_tb.adc_values_test[13:0]} top.ir_rx_module_tb.adc_values_test[13] top.ir_rx_module_tb.adc_values_test[12] top.ir_rx_module_tb.adc_values_test[11] top.ir_rx_module_tb.adc_values_test[10] top.ir_rx_module_tb.adc_values_test[9] top.ir_rx_module_tb.adc_values_test[8] top.ir_rx_module_tb.adc_values_test[7] top.ir_rx_module_tb.adc_values_test[6] top.ir_rx_module_tb.adc_values_test[5] top.ir_rx_module_tb.adc_values_test[4] top.ir_rx_module_tb.adc_values_test[3] top.ir_rx_module_tb.adc_values_test[2] top.ir_rx_module_tb.adc_values_test[1] top.ir_rx_module_tb.adc_values_test[0]
-@421
+@420
 #{top.ir_rx_module_tb.adc_values_test_signed[13:0]} top.ir_rx_module_tb.adc_values_test_signed[13] top.ir_rx_module_tb.adc_values_test_signed[12] top.ir_rx_module_tb.adc_values_test_signed[11] top.ir_rx_module_tb.adc_values_test_signed[10] top.ir_rx_module_tb.adc_values_test_signed[9] top.ir_rx_module_tb.adc_values_test_signed[8] top.ir_rx_module_tb.adc_values_test_signed[7] top.ir_rx_module_tb.adc_values_test_signed[6] top.ir_rx_module_tb.adc_values_test_signed[5] top.ir_rx_module_tb.adc_values_test_signed[4] top.ir_rx_module_tb.adc_values_test_signed[3] top.ir_rx_module_tb.adc_values_test_signed[2] top.ir_rx_module_tb.adc_values_test_signed[1] top.ir_rx_module_tb.adc_values_test_signed[0]
 [pattern_trace] 1
 [pattern_trace] 0

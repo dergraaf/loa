@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-05-18
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -117,9 +117,12 @@ entity ir_rx_module is
       -- Base address at the internal data bus of the register for the coefficients
       BASE_ADDRESS_COEFS : integer range 0 to 32767;
 
-      -- Bas address at the internal data bus of the dual port block RAM register for
+      -- Base address at the internal data bus of the dual port block RAM register for
       -- the  results
-      BASE_ADDRESS_RESULTS : integer range 0 to 32767
+      BASE_ADDRESS_RESULTS : integer range 0 to 32767;
+
+      -- Base address at the internal data bus of the register with the timestamp
+      BASE_ADDRESS_TIMESTAMP : integer range 0 to 32767
       );
    port (
       -- Ports to two ADCs
@@ -179,8 +182,9 @@ architecture structural of ir_rx_module is
    signal module_done_s : std_logic := '0';
 
    -- Merge internal bus
-   signal bus_coefs_s   : busdevice_out_type;
-   signal bus_results_s : busdevice_out_type;
+   signal bus_coefs_s     : busdevice_out_type;
+   signal bus_results_s   : busdevice_out_type;
+   signal bus_timestamp_s : busdevice_out_type;
 
    -- Connection between bram and pipelined
    signal bram_data_i : std_logic_vector(35 downto 0);
@@ -195,13 +199,16 @@ architecture structural of ir_rx_module is
 
    signal goertzel_done_s : std_logic;
    signal ack_s           : std_logic;
+
+   -- Connection between timestamp module and register
+   signal reg_timestamp_s : reg_file_type(3 downto 0) := (others => (others => '0'));
    
 begin  -- structural
 
    ----------------------------------------------------------------------------
    -- Connect components
    ----------------------------------------------------------------------------
-   bus_o.data <= bus_coefs_s.data or bus_results_s.data;
+   bus_o.data <= bus_coefs_s.data or bus_results_s.data or bus_timestamp_s.data;
 
    adc_values_p <= adc_values_s;
    done_p       <= module_done_s;
@@ -253,6 +260,22 @@ begin  -- structural
          enable_o => open,
          clk      => clk);
 
+   -- Register file for the timestamp,
+   -- read only
+   reg_file_timestamp_1 : reg_file
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_TIMESTAMP,
+         REG_ADDR_BIT => 2  -- timestamp is a 48 bit register, so 3 registers
+       -- of 16 bits each are necessary
+         )
+      port map (
+         bus_o => bus_timestamp_s,
+         bus_i => bus_i,
+         reg_o => open,
+         reg_i => reg_timestamp_s,
+         clk   => clk
+         );
+
    ------------------------------------------------------------------------------
    -- ADCs
    -------------------------------------------------------------------------------
@@ -276,7 +299,7 @@ begin  -- structural
    adc_values_clip_loop : for ch in CHANNELS-1 downto 0 generate
       adc_values_signed_clipped_s(ch) <= to_signed(-200, INPUT_WIDTH) when adc_values_signed_s(ch) < -200 else
                                          to_signed(+200, INPUT_WIDTH) when adc_values_signed_s(ch) > +200 else
-                                                                            adc_values_signed_s(ch);
+                                         adc_values_signed_s(ch);
    end generate adc_values_clip_loop;
 
    goertzel_pipelined_v2_1 : entity work.goertzel_pipelined_v2

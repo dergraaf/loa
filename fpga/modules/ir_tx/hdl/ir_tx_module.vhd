@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-05-02
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ begin  -- behavioral
 
 
    -----------------------------------------------------------------------------
-   -- Drive Ultrasonic transmitters
+   -- Drive Infrared Transmitters
    -----------------------------------------------------------------------------
    ir_tx_p <= clk_ir and modulation_p;
    
