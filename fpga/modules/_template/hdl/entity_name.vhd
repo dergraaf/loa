@@ -6,41 +6,43 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2012-04-24
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
--- Copyright (c) 2011 
--------------------------------------------------------------------------------
--- Revisions  :
--- Date        Version  Author  Description
--- 2011-09-27  1.0      calle   Created
+-- Copyright (c) 2012
 -------------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+-- library work;
+-- use work.<package_name>.all;
+
 -------------------------------------------------------------------------------
 
 entity entity_name is
 
    generic (
-    );
+      );
    port (
-      reset : in std_logic;
-      clk   : in std_logic
+      clk : in std_logic
       );
 
 end entity_name;
 
 -------------------------------------------------------------------------------
 
-architecture behavioral of entity_name is
+architecture behavioural of entity_name is
 
-   type entity_name_state_type is (IDLE, STATE1, STATE2);
+   type entity_name_state_type is (
+      IDLE,                             -- Idle state: 
+      STATE1,                           -- State 1:
+      STATE2                            -- State 2:
+      );
 
    type entity_name_type is record
       state : entity_name_state_type;
@@ -50,26 +52,32 @@ architecture behavioral of entity_name is
    -----------------------------------------------------------------------------
    -- Internal signal declarations
    -----------------------------------------------------------------------------
-   signal r, rin : entity_name_type;
+   signal r, rin : entity_name_type := (state => IDLE);
 
    -----------------------------------------------------------------------------
    -- Component declarations
    -----------------------------------------------------------------------------
-
-begin
+   -- None here. If any: in package
    
-   seq_proc : process(reset, clk)
+begin  -- architecture behavourial
+
+   ----------------------------------------------------------------------------
+   -- Connections between ports and signals
+   ----------------------------------------------------------------------------
+
+   ----------------------------------------------------------------------------
+   -- Sequential part of finite state machine (FSM)
+   ----------------------------------------------------------------------------
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.state <= IDLE;
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 
-
+   ----------------------------------------------------------------------------
+   -- Combinatorial part of FSM
+   ----------------------------------------------------------------------------
    comb_proc : process(r)
       variable v : entity_name_type;
       
@@ -89,5 +97,6 @@ begin
    -----------------------------------------------------------------------------
    -- Component instantiations
    -----------------------------------------------------------------------------
-
-end behavioral;
+   -- None.
+   
+end behavioural;

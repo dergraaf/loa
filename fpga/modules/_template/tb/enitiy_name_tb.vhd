@@ -3,7 +3,7 @@
 -------------------------------------------------------------------------------
 -- Author     : Fabian Greif  <fabian@kleinvieh>
 -- Created    : 2011-12-16
--- Last update: 2011-12-18
+-- Last update: 2012-08-03
 -- Platform   : Spartan 3 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -38,7 +38,6 @@ architecture tb of encoder_module_tb is
        data => (others => '0'),
        we   => '0',
        re   => '0');
-   signal reset : std_logic := '1';
    signal clk   : std_logic := '0';
 
 begin
@@ -52,19 +51,15 @@ begin
          load_p    => load,
          bus_o     => bus_o,
          bus_i     => bus_i,
-         reset     => reset,
          clk       => clk);
 
    -- clock generation
    clk <= not clk after 10 NS;
 
-   -- reset generation
-   reset <= '1', '0' after 50 NS;
-
    waveform : process
    begin
       wait until falling_edge(reset);
-      wait for 20 NS;
+      wait for 20 ns;
 
       for i in 1 to 3 loop
          wait until rising_edge(clk);
@@ -78,7 +73,7 @@ begin
          wait until rising_edge(clk);
       end loop;  -- i
 
-      wait for 50 NS;
+      wait for 50 ns;
 
       -- wrong address
       wait until rising_edge(clk);
@@ -88,7 +83,7 @@ begin
       wait until rising_edge(clk);
       bus_i.re   <= '0';
 
-      wait for 30 NS;
+      wait for 30 ns;
 
       -- correct address
       wait until rising_edge(clk);
@@ -98,7 +93,7 @@ begin
       wait until rising_edge(clk);
       bus_i.re   <= '0';
 
-      wait for 30 NS;
+      wait for 30 ns;
 
       wait until rising_edge(clk);
       load <= '1';
