@@ -1,0 +1,24 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Fri Aug  3 15:15:23 2012
+[*]
+[dumpfile] "/home/rca/rca/loa/fpga/modules/signalprocessing/tb/simulation/timestamp_tb.ghw"
+[dumpfile_mtime] "Fri Aug  3 15:15:01 2012"
+[dumpfile_size] 13731013
+[savefile] "/home/rca/rca/loa/fpga/modules/signalprocessing/tb/timestamp_tb.sav"
+[timestart] 0
+[size] 1600 1067
+[pos] -1 -1
+*-26.886408 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.timestamp_tb.
+[sst_width] 196
+[signals_width] 142
+[sst_expanded] 1
+[sst_vpaned_height] 321
+@28
+top.timestamp_tb.timestamp_1.clk
+@23
+#{top.timestamp_tb.timestamp[7:0]} top.timestamp_tb.timestamp[7] top.timestamp_tb.timestamp[6] top.timestamp_tb.timestamp[5] top.timestamp_tb.timestamp[4] top.timestamp_tb.timestamp[3] top.timestamp_tb.timestamp[2] top.timestamp_tb.timestamp[1] top.timestamp_tb.timestamp[0]
+[pattern_trace] 1
+[pattern_trace] 0

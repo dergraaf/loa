@@ -98,6 +98,11 @@ FILES = \
 ../hdl/goertzel_muxes.vhd \
 ../hdl/goertzel_pipeline.vhd \
 ../hdl/goertzel_pipelined_v2.vhd
+else ifeq ($(TESTBENCH), timestamp_tb)
+FILES = \
+../hdl/timestamp.vhd \
+../hdl/signalprocessing_pkg.vhd \
+timestamp_tb.vhd
 else ifeq ($(TESTBENCH), real_tb)
 FILES = \
 real_tb.vhd
