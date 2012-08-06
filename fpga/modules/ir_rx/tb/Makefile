@@ -1,11 +1,11 @@
 
 # Name of the testbench without extenstion
 #TESTBENCH = ir_rx_module_tb
-TESTBENCH = ir_rx_adcs_tb
+#TESTBENCH = ir_rx_adcs_tb
 
 # VHDL files
-ifeq ($(TESTBENCH), ir_rx_module_tb)
-FILES = \
+
+ADV_FILES = \
 ../../utils/hdl/utils_pkg.vhd \
 ../../utils/hdl/edge_detect.vhd \
 ../../spislave/hdl/bus_pkg.vhd \
@@ -27,6 +27,14 @@ FILES = \
 ../../signalprocessing/hdl/goertzel_pipelined_v2.vhd \
 ../hdl/ir_rx_module_pkg.vhd \
 ../hdl/ir_rx_module.vhd 
+
+ifeq ($(TESTBENCH), ir_rx_module_tb) 
+FILES = \
+$(ADV_FILES) 
+else ifeq ($(TESTBENCH), ir_rx_module_timestamp_tb)
+FILES = \
+$(ADV_FILES) \
+../../signalprocessing/hdl/timestamp.vhd 
 else ifeq ($(TESTBENCH), ir_rx_adcs_tb)
 FILES = \
 ../../adc_ltc2351/hdl/adc_ltc2351_pkg.vhd \

@@ -5,7 +5,7 @@
 -- Authors    : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-05-16
+-- Last update: 2012-08-03
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -80,7 +80,7 @@ end toplevel;
 
 architecture structural of toplevel is
 
-   -- Peripheral Register at 0x000
+   -- Peripheral Register at 0x000, required for FPGA configuration check. 
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
 
@@ -299,13 +299,13 @@ begin
    ----------------------------------------------------------------------------
    -- synchronize acknowledge signals
    ----------------------------------------------------------------------------
-   process (clk)
+   synchronisation_proc : process (clk)
    begin
       if rising_edge(clk) then
          ir_ack_r <= ir_ack_r(0) & ir_ack_p;
          us_ack_r <= us_ack_r(0) & us_ack_p;
       end if;
-   end process;
+   end process synchronisation_proc;
 
    ir_ack <= ir_ack_r(1);
    us_ack <= us_ack_r(1);

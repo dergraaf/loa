@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-24
--- Last update: 2012-08-01
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -162,7 +162,7 @@ begin  -- architecture behavourial
       
    end process comb_proc;
 
-   -- For the first sample ignore the value in the BRAM  and overwrite it
+   -- For the first sample ignore the value in the BRAM and overwrite it
    -- with zero. No special erase cycle is needed. At the end of the first
    -- sample the old data is overwritten in the BRAM. 
    mux_delay1_p <= '0' when (r.samples = 0) else '1';

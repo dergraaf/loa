@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-22
--- Last update: 2012-05-01
+-- Last update: 2012-08-03
 -- Platform   : Xilinx Spartan 3A
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -89,6 +89,10 @@ entity reg_file_bram_double_buffered is
 
       -- Allow the application to write new data to the block RAM.
       enable_o : out std_logic;
+
+      -- Show to which bank the application writes at the moment
+      bank_x_o : out std_logic;
+      bank_y_o : out std_logic;
 
       -- No reset, all signals are initialised.
 
@@ -180,6 +184,10 @@ begin  -- str
    ---------------------------------------------------------------------------
    bank_x <= bank;
    bank_y <= not bank;
+
+   -- Output the current bank information. 
+   bank_x_o <= bank_x;
+   bank_y_o <= bank_y;
 
    double_buffering_1 : entity work.double_buffering
       port map (

@@ -133,6 +133,18 @@ package signalprocessing_pkg is
          inputs_p    : in  goertzel_inputs_type(CHANNELS-1 downto 0);
          clk         : in  std_logic);
    end component goertzel_pipelined_v2;
+
+   ----------------------------------------------------------------------------
+   -- Helpers
+   ----------------------------------------------------------------------------
+   constant TIMESTAMP_WIDTH : natural := 48;  -- 2**48 - 1 * 20 us = 65 days. This counter will not overflow.
    
+   subtype timestamp_type is signed(TIMESTAMP_WIDTH-1 downto 0);
+   
+   component timestamp is
+      port (
+         timestamp : out timestamp_type;
+         clk       : in  std_logic);
+   end component timestamp;
    
 end signalprocessing_pkg;

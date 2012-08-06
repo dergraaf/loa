@@ -27,15 +27,13 @@ architecture tb of timestamp_tb is
    constant WIDTH : positive := 8;
 
    -- component ports
-   signal timestamp : unsigned(WIDTH-1 downto 0) := (others => '0');
+   signal timestamp : timestamp_type := (others => '0');
 
    signal clk   : std_logic := '0';
 
 begin
    -- component instantiation
    timestamp_1: entity work.timestamp
-      generic map (
-         WIDTH => WIDTH)
       port map (
          timestamp => timestamp,
          clk       => clk);

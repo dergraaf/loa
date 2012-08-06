@@ -21,6 +21,7 @@ use ieee.numeric_std.all;
 
 use work.bus_pkg.all;
 use work.adc_ltc2351_pkg.all;
+use work.signalprocessing_pkg.all;
 
 -------------------------------------------------------------------------------
 
@@ -44,6 +45,7 @@ package ir_rx_module_pkg is
          done_p        : out std_logic;
          ack_p         : in  std_logic;
          clk_sample_en : in  std_logic;
+         timestamp_i   : in  timestamp_type;
          clk           : in  std_logic);
    end component ir_rx_module;
 

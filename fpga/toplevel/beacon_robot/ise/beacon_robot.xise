@@ -12,7 +12,7 @@
     <!-- Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved. -->
   </header>
 
-  <version xil_pn:ise_version="13.3" xil_pn:schema_version="2"/>
+  <version xil_pn:ise_version="13.4" xil_pn:schema_version="2"/>
 
   <files>
     <file xil_pn:name="../toplevel.vhd" xil_pn:type="FILE_VHDL">
@@ -146,7 +146,7 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="63"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="18"/>
     </file>
-    <file xil_pn:name="../../../../../trunk/roboter/2012_captain/software/projects/beacon_system/beacon/fpga_memory_map.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="../../../../../roboter/2012_captain/software/projects/beacon_system/beacon/fpga_memory_map.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="86"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="23"/>
     </file>

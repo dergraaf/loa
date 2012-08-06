@@ -54,7 +54,7 @@ begin
          clk       => clk);
 
    -- clock generation
-   clk <= not clk after 10 NS;
+   clk <= not clk after 10 ns;
 
    waveform : process
    begin

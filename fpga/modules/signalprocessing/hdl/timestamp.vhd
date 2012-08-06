@@ -20,15 +20,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library work;
+use work.signalprocessing_pkg.all;
+
 -------------------------------------------------------------------------------
 
 entity timestamp is
-
-   generic (
-      WIDTH : positive := 48
-      );
    port (
-      timestamp : out unsigned(WIDTH-1 downto 0);
+      timestamp : out timestamp_type;
       clk       : in  std_logic
       );
 
@@ -41,7 +40,7 @@ architecture behavioural of timestamp is
    -----------------------------------------------------------------------------
    -- Internal signal declarations
    -----------------------------------------------------------------------------
-   signal cnt : unsigned(WIDTH-1 downto 0) := (others => '0');
+   signal cnt : timestamp_type := (others => '0'); --unsigned(WIDTH-1 downto 0) := (others => '0');
    
    -----------------------------------------------------------------------------
    -- Component declarations

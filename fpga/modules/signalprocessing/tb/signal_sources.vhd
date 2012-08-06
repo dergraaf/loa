@@ -6,11 +6,11 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-05-03
--- Last update: 2012-08-05
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
--- Description: 
+-- Description: Signal sources for test benches, not synthesizable. 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012 
 -------------------------------------------------------------------------------

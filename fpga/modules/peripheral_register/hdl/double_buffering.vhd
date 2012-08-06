@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-23
--- Last update: 2012-04-23
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ begin  -- behavourial
    irq_p    <= irq_s;
    bank_p   <= bank_s;
 
-   process (clk) is
+   irq_proc : process (clk) is
    begin  -- process
       if rising_edge(clk) then          -- rising clock edge
          if (ready_p = '1') then
@@ -70,20 +70,20 @@ begin  -- behavourial
             irq_s <= irq_s;
          end if;
       end if;
-   end process;
+   end process irq_proc;
 
    -- 
-   bank_proc: process (clk) is
+   bank_proc : process (clk) is
    begin  -- process bank_proc
       if rising_edge(clk) then          -- rising clock edge
          if (ready_p = '1') and (irq_s = '0') then
             -- the other bank was read and is empty now (= irq_s low)
-            bank_s <= not bank_s; 
+            bank_s <= not bank_s;
          end if;
       end if;
    end process bank_proc;
 
--- types
+   -- types
 
    -- signals
 

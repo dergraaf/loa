@@ -121,8 +121,12 @@ entity ir_rx_module is
       -- the  results
       BASE_ADDRESS_RESULTS : integer range 0 to 32767;
 
-      -- Base address at the internal data bus of the register with the timestamp
-      BASE_ADDRESS_TIMESTAMP : integer range 0 to 32767
+      -- Base address at the internal data bus of the register with the
+      -- timestamp of the last sample. 
+      BASE_ADDRESS_TIMESTAMP : integer range 0 to 32767;
+
+      -- How many samples should make a set of goertzel values
+      SAMPLES : natural := 500
       );
    port (
       -- Ports to two ADCs
@@ -148,6 +152,9 @@ entity ir_rx_module is
       -- starts a new ADC conversion and starts processing with goertzel algorithm.
       clk_sample_en : in std_logic;
 
+      -- Timestamp input from the timestamp module
+      timestamp_i : in timestamp_type;
+
       clk : in std_logic
       );
 
@@ -159,7 +166,7 @@ architecture structural of ir_rx_module is
    ----------------------------------------------------------------------------
 
    constant Q           : natural := 13;
-   constant SAMPLES     : natural := 500;
+   -- constant SAMPLES     : natural := 500;
    constant CHANNELS    : natural := 12;
    constant FREQUENCIES : natural := 2;
 
@@ -275,6 +282,19 @@ begin  -- structural
          reg_i => reg_timestamp_s,
          clk   => clk
          );
+
+   -- When the goertzel is finished, the goertzel_done_s signal is strobed.
+   -- Copy timestamp to the register at this moment.
+   timestamp_taker : process (clk) is
+   begin  -- process timestamp_taker
+      if rising_edge(clk) then          -- rising clock edge
+         if goertzel_done_s = '1' then
+            reg_timestamp_s(0) <= std_logic_vector(timestamp_i(15 downto 0));
+            reg_timestamp_s(1) <= std_logic_vector(timestamp_i(31 downto 16));
+            reg_timestamp_s(2) <= std_logic_vector(timestamp_i(47 downto 32));
+         end if;
+      end if;
+   end process timestamp_taker;
 
    ------------------------------------------------------------------------------
    -- ADCs

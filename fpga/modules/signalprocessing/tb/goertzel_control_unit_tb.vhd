@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-24
--- Last update: 2012-04-24
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -75,21 +75,23 @@ begin  -- architecture tb
    -- waveform generation
    WaveGen_Proc : process
    begin
-      
+
+      -- some delay
       wait until clk = '0';
       wait until clk = '0';
       wait until clk = '0';
       wait until clk = '0';
 
-      -- start!
+      -- New 12 new samples from ADCs received: start control unit!
       start_p <= '1';
       wait until clk = '0';
       start_p <= '0';
 
+      -- wait until all samples for all frequencies are processed and the
+      -- address counter was reset to 0
+      wait until bram_addr = "00000000";
 
-
-      -- do not repeat
-      wait for 10 ms;
+      -- restart
    end process WaveGen_Proc;
 
    

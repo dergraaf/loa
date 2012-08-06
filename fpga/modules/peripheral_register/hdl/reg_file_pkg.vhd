@@ -6,7 +6,7 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Company    : 
 -- Created    : 2012-03-11
--- Last update: 2012-05-02
+-- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -88,9 +88,11 @@ package reg_file_pkg is
          ack_i       : in  std_logic;
          ready_i     : in  std_logic;
          enable_o    : out std_logic;
+         bank_x_o    : out std_logic;
+         bank_y_o    : out std_logic;
          clk         : in  std_logic);
    end component;
-   
+
    component double_buffering is
       port (
          ready_p  : in  std_logic;
