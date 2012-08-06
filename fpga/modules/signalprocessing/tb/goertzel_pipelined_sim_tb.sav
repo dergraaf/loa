@@ -1,26 +1,23 @@
 [*]
-[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
-[*] Thu Aug  2 00:59:30 2012
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sun Aug  5 08:46:13 2012
 [*]
-[dumpfile] "/home/rca/rca/loa/fpga/modules/signalprocessing/tb/simulation/goertzel_pipelined_sim_tb.ghw"
-[dumpfile_mtime] "Thu Aug  2 00:58:39 2012"
-[dumpfile_size] 67584092
-[savefile] "/home/rca/rca/loa/fpga/modules/signalprocessing/tb/goertzel_pipelined_sim_tb.sav"
-[timestart] 2284100000000
-[size] 1600 1067
-[pos] 0 25
-*-36.767933 1212000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[dumpfile] "/home/alpha/rca/loa/fpga/modules/signalprocessing/tb/simulation/goertzel_pipelined_sim_tb.ghw"
+[dumpfile_mtime] "Sun Aug  5 08:40:03 2012"
+[dumpfile_size] 95299508
+[savefile] "/home/alpha/rca/loa/fpga/modules/signalprocessing/tb/goertzel_pipelined_sim_tb.sav"
+[timestart] 0
+[size] 1024 744
+[pos] -1 -1
+*-40.000000 521720000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.goertzel_pipelined_sim_tb.
-[treeopen] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_muxes_1.
-[treeopen] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_muxes_1.inputs_p.
 [treeopen] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.result_p.
-[treeopen] top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.inputs_p.
-[treeopen] top.goertzel_pipelined_sim_tb.inputs.
+[treeopen] top.goertzel_pipelined_sim_tb.reg_file_bram_double_buffered_1.dp_1.
 [sst_width] 208
-[signals_width] 302
+[signals_width] 359
 [sst_expanded] 1
-[sst_vpaned_height] 739
+[sst_vpaned_height] 398
 @28
 top.goertzel_pipelined_sim_tb.clk
 top.goertzel_pipelined_sim_tb.start_s
@@ -100,10 +97,12 @@ top.goertzel_pipelined_sim_tb.bus_i_dummy.we
 top.goertzel_pipelined_sim_tb.bus_i_dummy.re
 @200
 -Bus to STM
-@420
+@22
 #{top.goertzel_pipelined_sim_tb.bus_to_stm.data[15:0]} top.goertzel_pipelined_sim_tb.bus_to_stm.data[15] top.goertzel_pipelined_sim_tb.bus_to_stm.data[14] top.goertzel_pipelined_sim_tb.bus_to_stm.data[13] top.goertzel_pipelined_sim_tb.bus_to_stm.data[12] top.goertzel_pipelined_sim_tb.bus_to_stm.data[11] top.goertzel_pipelined_sim_tb.bus_to_stm.data[10] top.goertzel_pipelined_sim_tb.bus_to_stm.data[9] top.goertzel_pipelined_sim_tb.bus_to_stm.data[8] top.goertzel_pipelined_sim_tb.bus_to_stm.data[7] top.goertzel_pipelined_sim_tb.bus_to_stm.data[6] top.goertzel_pipelined_sim_tb.bus_to_stm.data[5] top.goertzel_pipelined_sim_tb.bus_to_stm.data[4] top.goertzel_pipelined_sim_tb.bus_to_stm.data[3] top.goertzel_pipelined_sim_tb.bus_to_stm.data[2] top.goertzel_pipelined_sim_tb.bus_to_stm.data[1] top.goertzel_pipelined_sim_tb.bus_to_stm.data[0]
 @200
 -Calculated Result
+@420
+#{top.goertzel_pipelined_sim_tb.bus_to_stm.data[15:0]} top.goertzel_pipelined_sim_tb.bus_to_stm.data[15] top.goertzel_pipelined_sim_tb.bus_to_stm.data[14] top.goertzel_pipelined_sim_tb.bus_to_stm.data[13] top.goertzel_pipelined_sim_tb.bus_to_stm.data[12] top.goertzel_pipelined_sim_tb.bus_to_stm.data[11] top.goertzel_pipelined_sim_tb.bus_to_stm.data[10] top.goertzel_pipelined_sim_tb.bus_to_stm.data[9] top.goertzel_pipelined_sim_tb.bus_to_stm.data[8] top.goertzel_pipelined_sim_tb.bus_to_stm.data[7] top.goertzel_pipelined_sim_tb.bus_to_stm.data[6] top.goertzel_pipelined_sim_tb.bus_to_stm.data[5] top.goertzel_pipelined_sim_tb.bus_to_stm.data[4] top.goertzel_pipelined_sim_tb.bus_to_stm.data[3] top.goertzel_pipelined_sim_tb.bus_to_stm.data[2] top.goertzel_pipelined_sim_tb.bus_to_stm.data[1] top.goertzel_pipelined_sim_tb.bus_to_stm.data[0]
 @c00420
 #{top.goertzel_pipelined_sim_tb.gv0[15:0]} top.goertzel_pipelined_sim_tb.gv0[15] top.goertzel_pipelined_sim_tb.gv0[14] top.goertzel_pipelined_sim_tb.gv0[13] top.goertzel_pipelined_sim_tb.gv0[12] top.goertzel_pipelined_sim_tb.gv0[11] top.goertzel_pipelined_sim_tb.gv0[10] top.goertzel_pipelined_sim_tb.gv0[9] top.goertzel_pipelined_sim_tb.gv0[8] top.goertzel_pipelined_sim_tb.gv0[7] top.goertzel_pipelined_sim_tb.gv0[6] top.goertzel_pipelined_sim_tb.gv0[5] top.goertzel_pipelined_sim_tb.gv0[4] top.goertzel_pipelined_sim_tb.gv0[3] top.goertzel_pipelined_sim_tb.gv0[2] top.goertzel_pipelined_sim_tb.gv0[1] top.goertzel_pipelined_sim_tb.gv0[0]
 @28
@@ -144,5 +143,12 @@ top.goertzel_pipelined_sim_tb.g_results[5]
 -group_end
 @28
 top.goertzel_pipelined_sim_tb.goertzel_pipelined_v2_1.goertzel_pipeline_1.overflow
+@800029
+#{top.goertzel_pipelined_sim_tb.g2_results[0:1]} top.goertzel_pipelined_sim_tb.g2_results[0] top.goertzel_pipelined_sim_tb.g2_results[1]
+@29
+top.goertzel_pipelined_sim_tb.g2_results[0]
+top.goertzel_pipelined_sim_tb.g2_results[1]
+@1001201
+-group_end
 [pattern_trace] 1
 [pattern_trace] 0

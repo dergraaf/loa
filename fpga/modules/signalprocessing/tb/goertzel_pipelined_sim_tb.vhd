@@ -3,17 +3,19 @@
 -- Project    : 
 -------------------------------------------------------------------------------
 -- File       : goertzel_pipelined_sim.vhd
--- Author     : 
+-- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-28
--- Last update: 2012-08-02
+-- Last update: 2012-08-05
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: This is a testbench that tests the goertzel_pipelined_v2
---              entity with a block ram and artifical signal sources 
+--              entity with a block ram and artifical signal sources.
+--              The read cycle from the STM is simulated, too. The data is read
+--              from the block RAM and written to the goertzel.bin file. 
 -------------------------------------------------------------------------------
--- Copyright (c) 2012 
+-- Copyright (c) 2012 strongly-typed
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -39,7 +41,7 @@ architecture tb of goertzel_pipelined_sim_tb is
    signal clk : std_logic := '0';
 
    constant FREQUENCIES : natural := 2;
-   constant CHANNELS    : natural := 3;
+   constant CHANNELS    : natural := 6;
    constant SAMPLES     : natural := 500;
    constant Q           : natural := 13;
 
@@ -68,17 +70,22 @@ architecture tb of goertzel_pipelined_sim_tb is
    signal coefs  : goertzel_coefs_type(FREQUENCIES-1 downto 0) := (others => (others => '0'));
    signal inputs : goertzel_inputs_type(CHANNELS-1 downto 0)   := (others => (others => '0'));
 
-   -- results as signals
+   -- Goertzel results as signals
    signal gv0, gv1 : std_logic_vector(15 downto 0) := (others => '0');  -- value read from register
 
-   type g_array is array (0 to (FREQUENCIES * CHANNELS) - 1) of real;
+   type   g_array is array (0 to ((FREQUENCIES * CHANNELS) - 1)) of real;
    signal g_results : g_array := (others => 0.0);
+
+   -- For each frequency the goertzel results from the corresponding channel.
+   -- These should be the larges value of all goertzel results. 
+   type   g2_array is array (0 to (FREQUENCIES-1)) of real;
+   signal g2_results : g2_array := (others => 0.0);
 
    signal d1, d2, c : real := 0.0;
 
-   -- signal generation for testbench
+   -- Signal generation for testbench
 
-   -- amplitude of signal for each channel
+   -- Amplitude of signal for each channel
    type amplitude_array is array (0 to (CHANNELS - 1)) of real;
    constant AMPLITUDE : amplitude_array := (
       2.0**7,
@@ -86,9 +93,13 @@ architecture tb of goertzel_pipelined_sim_tb is
       2.0**7,
       others => 0.0);
 
-   constant FSAMPLE : real := 75000.0;  -- Sample Frequency in Hertz
+   constant FSAMPLE : real := 75000.0;  -- Sample frequency in Hertz.
+                                        -- The sampling frequency in the
+                                        -- simulation is higher to speed up the
+                                        -- simulation. This value is used for
+                                        -- calculation of coefficients only. 
 
-   -- frequency of signal for each channel
+   -- Signal frequency of each channel
    type frequency_array is array (0 to (CHANNELS - 1)) of real;
    constant FSIGNAL : frequency_array := (
       18750.0,
@@ -96,14 +107,15 @@ architecture tb of goertzel_pipelined_sim_tb is
       16425.0,
       others => 0.0);
 
-   -- output file
+   -- Output file
    type IntegerFileType is file of integer;
    
 begin  -- tb
 
-   -- clock generation 50 MHz
-   clk <= not clk after 20 ns;
+   -- Clock generation: 50 MHz
+   clk <= not clk after 10 ns;
 
+   -- The Block RAM
    reg_file_bram_double_buffered_1 : reg_file_bram_double_buffered
       generic map (
          BASE_ADDRESS => BASE_ADDRESS)
@@ -120,6 +132,7 @@ begin  -- tb
          enable_o    => open,
          clk         => clk);
 
+   -- The Pipeline
    goertzel_pipelined_v2_1 : goertzel_pipelined_v2
       generic map (
          FREQUENCIES => FREQUENCIES,
@@ -140,7 +153,7 @@ begin  -- tb
 
    -- Simulate a signal source for each channel.
    sources : for channel in 0 to (CHANNELS-1) generate
-      s_sine: entity work.source_sine
+      s_sine : entity work.source_sine
          generic map (
             DATA_WIDTH         => INPUT_WIDTH,
             AMPLITUDE          => AMPLITUDE(channel),
@@ -156,15 +169,17 @@ begin  -- tb
    begin  -- process adcs
 
       -- set goertzel coefficients, one for each frequency
-      coefs(0) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL(0) / FSAMPLE) * 2.0**Q), coefs(0)'length);
-      coefs(1) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL(1) / FSAMPLE) * 2.0**Q), coefs(1)'length);
---      coefs(2) <= to_signed(integer(2.0 * cos(MATH_2_PI * FSIGNAL(2) / FSAMPLE) * 2.0**Q), coefs(2)'length);
+      for frequency in 0 to (FREQUENCIES-1) loop
+         coefs(frequency) <= to_signed(
+            integer(2.0 * cos(MATH_2_PI * FSIGNAL(frequency) / FSAMPLE) * 2.0**Q),
+            coefs(frequency)'length);
+      end loop;  -- frequency
 
       wait until clk = '0';
       wait until clk = '0';
       wait until clk = '0';
 
-      -- Start a new conversion every 30 clock ticks
+      -- Start a new conversion every 50 clock ticks
       -- This is more often than in real hardware.
       -- It does not make sense to wait thousands of clock cycles until a new
       -- ADC result is ready. 
@@ -175,11 +190,13 @@ begin  -- tb
          wait until clk = '0';
          start_s <= '0';
 
-         for pp in 0 to 30 loop
+         -- 4 usec = 20 nsec * 200
+         for pp in 0 to 50 loop
             wait until clk = '0';
          end loop;  -- pp
       end loop;  -- ii
 
+      -- do not repeat
       wait;
    end process adcs;
 
@@ -195,7 +212,9 @@ begin  -- tb
       wait until irq_s = '1';
       wait for 1 us;
 
-      ii := 0;
+      ii := 0;                          -- iterate over all frequencies and
+                                        -- channels. The memory layout is
+                                        -- linear. 
       for fr in 0 to FREQUENCIES-1 loop
          for ch in 0 to CHANNELS-1 loop
 
@@ -240,5 +259,16 @@ begin  -- tb
       wait for 100 ns;
       ack_s <= '0';
    end process AckGen;
+
+   -- purpose: Copy all goertzel values for each channel with the matching frequency
+   -- type   : combinational
+   -- inputs : g_results
+   -- outputs: g2_results
+   copyVals : process (g_results)
+   begin  -- process copyVals
+      for fr in 0 to (FREQUENCIES-1) loop
+         g2_results(fr) <= g_results((fr * CHANNELS) + fr);
+      end loop;  -- ch
+   end process copyVals;
 
 end tb;

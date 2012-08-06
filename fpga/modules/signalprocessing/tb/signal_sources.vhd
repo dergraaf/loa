@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-05-03
--- Last update: 2012-05-03
+-- Last update: 2012-08-05
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -42,9 +42,9 @@ begin  -- architecture behavourial
       variable phase : real := 0.0;
       variable phase_increment : real := MATH_2_PI * SIGNAL_FREQUENCY / SAMPLING_FREQUENCY;
    begin  -- process WaveGen
-      wait until start_i = '1';
       phase := phase + phase_increment;
       signal_o <= to_signed(integer(AMPLITUDE * sin(phase)), DATA_WIDTH);
+      wait until start_i = '1';
    end process WaveGen;
 
 end architecture behavourial;
