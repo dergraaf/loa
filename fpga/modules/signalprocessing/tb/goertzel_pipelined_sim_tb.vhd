@@ -6,7 +6,6 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-28
--- Last update: 2012-08-05
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -41,7 +40,7 @@ architecture tb of goertzel_pipelined_sim_tb is
    signal clk : std_logic := '0';
 
    constant FREQUENCIES : natural := 2;
-   constant CHANNELS    : natural := 6;
+   constant CHANNELS    : natural := 12;
    constant SAMPLES     : natural := 500;
    constant Q           : natural := 13;
 
@@ -102,7 +101,7 @@ architecture tb of goertzel_pipelined_sim_tb is
    -- Signal frequency of each channel
    type frequency_array is array (0 to (CHANNELS - 1)) of real;
    constant FSIGNAL : frequency_array := (
-      18750.0,
+      18775.0,
       18900.0,
       16425.0,
       others => 0.0);
@@ -179,7 +178,7 @@ begin  -- tb
       wait until clk = '0';
       wait until clk = '0';
 
-      -- Start a new conversion every 50 clock ticks
+      -- Start a new conversion every x clock ticks
       -- This is more often than in real hardware.
       -- It does not make sense to wait thousands of clock cycles until a new
       -- ADC result is ready. 
@@ -190,8 +189,9 @@ begin  -- tb
          wait until clk = '0';
          start_s <= '0';
 
-         -- 4 usec = 20 nsec * 200
-         for pp in 0 to 50 loop
+         -- The minimum time to process all channels and all frequencies must
+         -- be met.
+         for pp in 0 to (4 * (CHANNELS * FREQUENCIES + 1)) loop
             wait until clk = '0';
          end loop;  -- pp
       end loop;  -- ii
