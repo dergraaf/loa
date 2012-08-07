@@ -72,12 +72,12 @@ architecture tb of goertzel_pipelined_sim_tb is
    -- Goertzel results as signals
    signal gv0, gv1 : std_logic_vector(15 downto 0) := (others => '0');  -- value read from register
 
-   type   g_array is array (0 to ((FREQUENCIES * CHANNELS) - 1)) of real;
+   type g_array is array (0 to ((FREQUENCIES * CHANNELS) - 1)) of real;
    signal g_results : g_array := (others => 0.0);
 
    -- For each frequency the goertzel results from the corresponding channel.
    -- These should be the larges value of all goertzel results. 
-   type   g2_array is array (0 to (FREQUENCIES-1)) of real;
+   type g2_array is array (0 to (FREQUENCIES-1)) of real;
    signal g2_results : g2_array := (others => 0.0);
 
    signal d1, d2, c : real := 0.0;
@@ -92,17 +92,17 @@ architecture tb of goertzel_pipelined_sim_tb is
       2.0**7,
       others => 0.0);
 
-   constant FSAMPLE : real := 75000.0;  -- Sample frequency in Hertz.
-                                        -- The sampling frequency in the
-                                        -- simulation is higher to speed up the
-                                        -- simulation. This value is used for
-                                        -- calculation of coefficients only. 
+   constant FSAMPLE : real := 100000.0;  -- Sample frequency in Hertz.
+                                         -- The sampling frequency in the
+                                         -- simulation is higher to speed up the
+                                         -- simulation. This value is used for
+                                         -- calculation of coefficients only. 
 
    -- Signal frequency of each channel
    type frequency_array is array (0 to (CHANNELS - 1)) of real;
    constant FSIGNAL : frequency_array := (
-      18775.0,
-      18900.0,
+      23625.0,
+      24375.0,
       16425.0,
       others => 0.0);
 
