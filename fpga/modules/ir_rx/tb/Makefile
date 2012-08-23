@@ -11,6 +11,7 @@ ADV_FILES = \
 ../../spislave/hdl/bus_pkg.vhd \
 ../../ram/hdl/xilinx_block_ram_pkg.vhd \
 ../../ram/hdl/xilinx_block_ram.vhd \
+../../spislave/hdl/bus_pkg.vhd \
 ../../peripheral_register/hdl/reg_file_pkg.vhd \
 ../../peripheral_register/hdl/reg_file.vhd \
 ../../peripheral_register/hdl/double_buffering.vhd \
@@ -37,6 +38,7 @@ $(ADV_FILES) \
 ../../signalprocessing/hdl/timestamp.vhd 
 else ifeq ($(TESTBENCH), ir_rx_adcs_tb)
 FILES = \
+$(ADV_FILES) \
 ../../adc_ltc2351/hdl/adc_ltc2351_pkg.vhd \
 ../../adc_ltc2351/hdl/adc_ltc2351.vhd \
 ../hdl/ir_rx_adcs.vhd

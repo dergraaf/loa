@@ -94,7 +94,6 @@ begin  -- tb
       clk_sample_en <= '1';
       wait until clk = '1';
 
-
       -- do not repeat
       wait;
    end process WaveGen_Proc;
@@ -114,7 +113,6 @@ begin  -- tb
 
       -- do not repeat
       wait;
-      
    end process adc_proc;
 
    ack_proc : process
@@ -124,9 +122,6 @@ begin  -- tb
       ack_p <= '1';
       wait for 5 us;
       ack_p <= '0';
-      
-
    end process ack_proc;
-   
 
 end tb;

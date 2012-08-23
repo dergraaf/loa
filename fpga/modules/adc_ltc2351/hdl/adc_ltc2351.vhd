@@ -4,17 +4,13 @@
 -------------------------------------------------------------------------------
 -- File       : adc_ltc2351.vhd
 -- Author     : strongly-typed
--- Company    : 
 -- Created    : 2012-04-10
--- Last update: 2012-04-18
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
--- Copyright (c) 2011 
--------------------------------------------------------------------------------
--- Revisions  : see git repro
+-- Copyright (c) 2011 strongly-typed
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -41,8 +37,7 @@ entity adc_ltc2351 is
       done_p   : out std_logic;
 
       -- reset and clock
-      reset : in std_logic;
-      clk   : in std_logic
+      clk : in std_logic
       );
 
 end adc_ltc2351;
@@ -104,21 +99,11 @@ begin
    -- -----------------------------------------------------------------------------
    -- Sequential proc of FSM
    -- -----------------------------------------------------------------------------
-   seq_proc : process(reset, clk)
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.state           <= IDLE;
-            r.sck             <= '0';
-            r.conv            <= '0';
-            r.count_bit       <= 1;
-            r.countdown_delay <= 1;
-            r.values          <= (others => (others => '0'));
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
-      
    end process seq_proc;
 
    -- -----------------------------------------------------------------------------
@@ -136,7 +121,7 @@ begin
          -- Idle State
          -- Wait until a start of conversion was requested by start_p
          -- -------------------------------------------------------------------------
-         when IDLE =>
+         when IDLE => 
             v.done := '0';
             if start_p = '1' then
                v.state           := SCK_LOW;

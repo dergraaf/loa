@@ -40,8 +40,7 @@ entity adc_ltc2351_module is
       -- direct access to the read adc samples
       adc_values_o : out adc_ltc2351_values_type(5 downto 0);
 
-      reset : in std_logic;
-      clk   : in std_logic
+      clk : in std_logic
       );
 end adc_ltc2351_module;
 
@@ -67,7 +66,7 @@ architecture behavioral of adc_ltc2351_module is
    signal r, rin : adc_ltc2351_module_type;
 
    signal value_s : adc_ltc2351_values_type(5 downto 0);  -- TODO use generic for channel number
-   signal done_s : std_logic := '0';
+   signal done_s  : std_logic := '0';
 
    signal reg_o : reg_file_type(7 downto 0);
    signal reg_i : reg_file_type(7 downto 0);
@@ -125,7 +124,6 @@ begin
          values_p => value_s,
          start_p  => r.start,
          done_p   => done_s,
-         reset    => reset,
          clk      => clk
          );
 
@@ -135,12 +133,7 @@ begin
    seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.state <= IDLE;
-            r.start <= '0';
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 

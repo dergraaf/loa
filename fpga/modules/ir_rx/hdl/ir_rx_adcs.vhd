@@ -59,7 +59,6 @@ begin  -- structural
          start_p  => clk_sample_en_i_p,
          values_p => adc_values_s(5 downto 0),
          done_p   => adc_done_s,
-         reset    => '0',
          clk      => clk
          );
 
@@ -70,7 +69,6 @@ begin  -- structural
          start_p  => clk_sample_en_i_p,
          values_p => adc_values_s(11 downto 6),
          done_p   => open,
-         reset    => '0',
          clk      => clk
          );
 

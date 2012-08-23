@@ -4,15 +4,13 @@
 -------------------------------------------------------------------------------
 -- File       : 
 -- Author     : strongly-typed
--- Company    : 
 -- Created    : 2012-04-10
--- Last update: 2012-04-27
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
--- Copyright (c) 2012 
+-- Copyright (c) 2012 strongyl-typed
 -------------------------------------------------------------------------------
 -- Revisions  :
 -------------------------------------------------------------------------------
@@ -55,8 +53,7 @@ package adc_ltc2351_pkg is
          values_p : out adc_ltc2351_values_type(5 downto 0);
          done_p   : out std_logic;
 
-         -- reset and clock
-         reset : in std_logic;
+         -- clock
          clk   : in std_logic
          );
    end component;
