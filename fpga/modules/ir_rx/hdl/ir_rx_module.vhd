@@ -6,7 +6,7 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-08-03
+-- Last update: 2012-08-17
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -39,6 +39,9 @@ entity ir_rx_module is
    -- Memory maps
    --
    -- Coefficient Register
+   --
+   -- Lower 16 bits of Goertzel Coefficient in fixed point format
+   -- 
    -- offset | R/W | Description
    -- -------+-------------------------------------------------
    --    +00 |   W | Goertzel Coefficient           Frequency 0
