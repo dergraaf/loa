@@ -4,15 +4,13 @@
 -------------------------------------------------------------------------------
 -- File       : ir_rx_module_tb.vhd
 -- Author     : strongly-typed
--- Company    : 
 -- Created    : 2012-04-15
--- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
--- Copyright (c) 2012 
+-- Copyright (c) 2012 strongly-typed
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -24,6 +22,7 @@ use work.bus_pkg.all;
 use work.utils_pkg.all;
 use work.adc_ltc2351_pkg.all;
 use work.ir_rx_module_pkg.all;
+use work.signalprocessing_pkg.all;
 
 -------------------------------------------------------------------------------
 
@@ -58,6 +57,8 @@ architecture tb of ir_rx_module_tb is
 
    signal offset : signed(13 downto 0) := "10000000000000";
 
+   signal timestamp_s : timestamp_type := (others => '0');
+
    -- clock
    signal clk : std_logic := '1';
 
@@ -69,16 +70,17 @@ begin  -- tb
          BASE_ADDRESS_RESULTS   => BASE_ADDRESS_RESULTS,
          BASE_ADDRESS_TIMESTAMP => BASE_ADDRESS_TIMESTAMP)
       port map (
-         adc_out_p     => adc_out_p,
-         adc_in_p      => adc_in_p,
-         adc_values_p  => open,
-         sync_p        => sync_p,
-         bus_o         => bus_o,
-         bus_i         => bus_i,
-         done_p        => done_p,
-         ack_p         => ack_p,
-         clk_sample_en => clk_sample_en,
-         clk           => clk);
+         adc_o_p           => adc_out_p,
+         adc_i_p           => adc_in_p,
+         adc_values_o_p    => open,
+         sync_o_p          => sync_p,
+         bus_o_p           => bus_o,
+         bus_i_p           => bus_i,
+         done_o_p          => done_p,
+         ack_i_p           => ack_p,
+         clk_sample_en_i_p => clk_sample_en,
+         timestamp_i_p     => timestamp_s,
+         clk               => clk);
 
    -- clock generation
    clk <= not clk after 10 ns;

@@ -4,9 +4,7 @@
 -------------------------------------------------------------------------------
 -- File       : ir_rx_adcs_tb.vhd
 -- Author     : strongly-typed
--- Company    : 
 -- Created    : 2012-04-27
--- Last update: 2012-07-28
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -33,18 +31,6 @@ end ir_rx_adcs_tb;
 
 architecture tb of ir_rx_adcs_tb is
 
-   component ir_rx_adcs
-      generic (
-         CHANNELS : positive);
-      port (
-         clk_sample_en : in  std_logic;
-         adc_out       : out ir_rx_module_spi_out_type;
-         adc_in        : in  ir_rx_module_spi_in_type;
-         adc_values_o  : out adc_ltc2351_values_type;
-         adc_done_o    : out std_logic;
-         clk           : in  std_logic);
-   end component;
-
    -- component generics
    constant CHANNELS : positive := 12;
 
@@ -55,41 +41,41 @@ architecture tb of ir_rx_adcs_tb is
    signal adc_values_s  : adc_ltc2351_values_type(CHANNELS-1 downto 0);
    signal adc_done_s    : std_logic;
 
-  -- clock
-  signal Clk : std_logic := '1';
+   -- clock
+   signal Clk : std_logic := '1';
 
 begin  -- tb
 
    -- component instantiation
-   DUT: ir_rx_adcs
+   DUT : ir_rx_adcs
       generic map (
          CHANNELS => CHANNELS)
       port map (
-         clk_sample_en => clk_sample_en,
-         adc_out       => adc_out_s,
-         adc_in        => adc_in_s,
-         adc_values_o  => adc_values_s,
-         adc_done_o    => adc_done_s,
-         clk           => clk);
+         clk_sample_en_i_p => clk_sample_en,
+         adc_o_p           => adc_out_s,
+         adc_i_p           => adc_in_s,
+         adc_values_o_p    => adc_values_s,
+         adc_done_o_p      => adc_done_s,
+         clk               => clk);
 
-  -- clock generation
-  Clk <= not Clk after 10 ns;
+   -- clock generation
+   clk <= not clk after 10 ns;
 
-  -- waveform generation
-  WaveGen_Proc: process
-  begin
-    -- insert signal assignments here
+   -- waveform generation
+   WaveGen_Proc : process
+   begin
+      -- insert signal assignments here
 
-    wait until Clk = '0';
-    wait until Clk = '0';
-    wait until Clk = '0';
-    clk_sample_en <= '1';
-    wait until clk = '0';
-    clk_sample_en <= '0';
-    
+      wait until clk = '0';
+      wait until clk = '0';
+      wait until clk = '0';
+      clk_sample_en <= '1';
+      wait until clk = '0';
+      clk_sample_en <= '0';
 
-    wait for 10 ms;
-  end process WaveGen_Proc;
+
+      wait for 10 ms;
+   end process WaveGen_Proc;
 
    
 

@@ -6,7 +6,6 @@
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2011-12-16
--- Last update: 2012-07-28
 -- Platform   : Spartan 3-400
 -------------------------------------------------------------------------------
 -- Description:

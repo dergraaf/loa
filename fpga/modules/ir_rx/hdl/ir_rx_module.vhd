@@ -4,7 +4,6 @@
 -------------------------------------------------------------------------------
 -- File       : ir_rx_module.vhd
 -- Author     : strongly-typed
--- Company    : 
 -- Created    : 2012-04-13
 -- Platform   : 
 -- Standard   : VHDL'87
@@ -133,29 +132,29 @@ entity ir_rx_module is
    port (
       -- Ports to two ADCs
       -- signals to and from real hardware
-      adc_out_p : out ir_rx_module_spi_out_type;
-      adc_in_p  : in  ir_rx_module_spi_in_type;
+      adc_o_p : out ir_rx_module_spi_out_type;
+      adc_i_p : in  ir_rx_module_spi_in_type;
 
       -- Raw values of last ADC conversions (two ADCs with six channels each)
-      adc_values_p : out adc_ltc2351_values_type(11 downto 0);
+      adc_values_o_p : out adc_ltc2351_values_type(11 downto 0);
 
       -- Extracted sync signal
-      sync_p : out std_logic;
+      sync_o_p : out std_logic;
 
       -- signals to and from the internal parallel bus
-      bus_o : out busdevice_out_type;
-      bus_i : in  busdevice_in_type;
+      bus_o_p : out busdevice_out_type;
+      bus_i_p : in  busdevice_in_type;
 
       -- Handshake interface to STM when new data is available
-      done_p : out std_logic;
-      ack_p  : in  std_logic;
+      done_o_p : out std_logic;
+      ack_i_p  : in  std_logic;
 
       -- Sampling clock enable (expected to be 250 kHz or less)
       -- starts a new ADC conversion and starts processing with goertzel algorithm.
-      clk_sample_en : in std_logic;
+      clk_sample_en_i_p : in std_logic;
 
       -- Timestamp input from the timestamp module
-      timestamp_i : in timestamp_type;
+      timestamp_i_p : in timestamp_type;
 
       clk : in std_logic
       );
@@ -216,12 +215,12 @@ begin  -- structural
    ----------------------------------------------------------------------------
    -- Connect components
    ----------------------------------------------------------------------------
-   bus_o.data <= bus_coefs_s.data or bus_results_s.data or bus_timestamp_s.data;
+   bus_o_p.data <= bus_coefs_s.data or bus_results_s.data or bus_timestamp_s.data;
 
-   adc_values_p <= adc_values_s;
-   done_p       <= module_done_s;
+   adc_values_o_p <= adc_values_s;
+   done_o_p       <= module_done_s;
 
-   ack_s <= ack_p;
+   ack_s <= ack_i_p;
 
    -- convert std_logic_vector to goertzel coefficients
    coef_loop : for ii in 0 to FREQUENCIES-1 generate
@@ -242,7 +241,7 @@ begin  -- structural
          )
       port map (
          bus_o => bus_coefs_s,
-         bus_i => bus_i,
+         bus_i => bus_i_p,
          reg_o => reg_coefs_s,
          reg_i => reg_coefs_s,
          clk   => clk
@@ -255,7 +254,7 @@ begin  -- structural
          BASE_ADDRESS => BASE_ADDRESS_RESULTS)
       port map (
          bus_o => bus_results_s,
-         bus_i => bus_i,
+         bus_i => bus_i_p,
 
          bram_data_i => bram_data_i,    -- in
          bram_data_o => bram_data_o,    -- out
@@ -274,11 +273,11 @@ begin  -- structural
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_TIMESTAMP,
          REG_ADDR_BIT => 2  -- timestamp is a 48 bit register, so 3 registers
-       -- of 16 bits each are necessary
+         -- of 16 bits each are necessary
          )
       port map (
          bus_o => bus_timestamp_s,
-         bus_i => bus_i,
+         bus_i => bus_i_p,
          reg_o => open,
          reg_i => reg_timestamp_s,
          clk   => clk
@@ -290,26 +289,26 @@ begin  -- structural
    begin  -- process timestamp_taker
       if rising_edge(clk) then          -- rising clock edge
          if goertzel_done_s = '1' then
-            reg_timestamp_s(0) <= std_logic_vector(timestamp_i(15 downto 0));
-            reg_timestamp_s(1) <= std_logic_vector(timestamp_i(31 downto 16));
-            reg_timestamp_s(2) <= std_logic_vector(timestamp_i(47 downto 32));
+            reg_timestamp_s(0) <= std_logic_vector(timestamp_i_p(15 downto 0));
+            reg_timestamp_s(1) <= std_logic_vector(timestamp_i_p(31 downto 16));
+            reg_timestamp_s(2) <= std_logic_vector(timestamp_i_p(47 downto 32));
          end if;
       end if;
    end process timestamp_taker;
 
    ------------------------------------------------------------------------------
    -- ADCs
-   -------------------------------------------------------------------------------
+   ------------------------------------------------------------------------------
    ir_rx_adcs_1 : ir_rx_adcs
       generic map (
          CHANNELS => CHANNELS)
       port map (
-         clk_sample_en => clk_sample_en,
-         adc_out       => adc_out_p,
-         adc_in        => adc_in_p,
-         adc_values_o  => adc_values_s,
-         adc_done_o    => adc_done_s,
-         clk           => clk);
+         clk_sample_en_i_p => clk_sample_en_i_p,
+         adc_o_p           => adc_o_p,
+         adc_i_p           => adc_i_p,
+         adc_values_o_p    => adc_values_s,
+         adc_done_o_p      => adc_done_s,
+         clk               => clk);
 
    -- translate raw ADC values to signed
    -- 14-bit ADC value, 0x0000 to 0x3fff, 0x2000 on average
@@ -345,5 +344,6 @@ begin  -- structural
 
    -- Sync extraction
    -- TODO
+   sync_o_p <= '0';
 
 end structural;

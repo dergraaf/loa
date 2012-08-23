@@ -13,6 +13,7 @@ FILES =  \
 GHDL_SIM_OPT = --stop-time=500us
 else ifeq ($(TESTBENCH),symmetric_pwm_deadtime_tb)
 FILES = \
+	../../spislave/hdl/bus_pkg.vhd \
 	../hdl/motor_control_pkg.vhd \
 	../hdl/symmetric_pwm_deadtime.vhd \
 	../hdl/symmetric_pwm.vhd \

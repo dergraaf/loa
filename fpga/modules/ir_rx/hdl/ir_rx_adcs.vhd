@@ -4,15 +4,13 @@
 -------------------------------------------------------------------------------
 -- File       : ir_rx_adcs.vhd
 -- Author     : strongly-typed
--- Company    : 
 -- Created    : 2012-04-27
--- Last update: 2012-05-02
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
--- Copyright (c) 2012 
+-- Copyright (c) 2012 strongly-typed
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -30,35 +28,35 @@ entity ir_rx_adcs is
       CHANNELS : positive := 12);
 
    port (
-      clk_sample_en : in std_logic;
+      clk_sample_en_i_p : in std_logic;
 
       -- Ports to two ADCs
       -- signals to and from real hardware
-      adc_out : out ir_rx_module_spi_out_type;
-      adc_in  : in  ir_rx_module_spi_in_type;
+      adc_o_p : out ir_rx_module_spi_out_type;
+      adc_i_p : in  ir_rx_module_spi_in_type;
 
-      adc_values_o : out adc_ltc2351_values_type;
-      adc_done_o   : out std_logic;
-      clk          : in  std_logic);
+      adc_values_o_p : out adc_ltc2351_values_type;
+      adc_done_o_p   : out std_logic;
+      clk            : in  std_logic);
 
 end ir_rx_adcs;
 
 architecture structural of ir_rx_adcs is
 
-   signal adc_values_s : adc_ltc2351_values_type(CHANNELS-1 downto 0);
+   signal adc_values_s : adc_ltc2351_values_type(CHANNELS-1 downto 0) := (others => (others => '0'));
    signal adc_done_s   : std_logic;
    
 begin  -- structural
 
-   adc_values_o <= adc_values_s;
-   adc_done_o   <= adc_done_s;
+   adc_values_o_p <= adc_values_s;
+   adc_done_o_p   <= adc_done_s;
 
    -- Two ADCs
    adc_ltc2351_0 : adc_ltc2351
       port map (
-         adc_out  => adc_out(0),
-         adc_in   => adc_in(0),
-         start_p  => clk_sample_en,
+         adc_out  => adc_o_p(0),
+         adc_in   => adc_i_p(0),
+         start_p  => clk_sample_en_i_p,
          values_p => adc_values_s(5 downto 0),
          done_p   => adc_done_s,
          reset    => '0',
@@ -67,9 +65,9 @@ begin  -- structural
 
    adc_ltc2351_1 : adc_ltc2351
       port map (
-         adc_out  => adc_out(1),
-         adc_in   => adc_in(1),
-         start_p  => clk_sample_en,
+         adc_out  => adc_o_p(1),
+         adc_in   => adc_i_p(1),
+         start_p  => clk_sample_en_i_p,
          values_p => adc_values_s(11 downto 6),
          done_p   => open,
          reset    => '0',
