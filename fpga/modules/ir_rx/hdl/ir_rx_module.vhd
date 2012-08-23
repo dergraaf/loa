@@ -6,7 +6,6 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-08-17
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -17,7 +16,7 @@
 -- b) Measure frequency component of opponent beacons (with Goertzel algorithm)
 --
 -------------------------------------------------------------------------------
--- Copyright (c) 2012 
+-- Copyright (c) 2012 strongly-typed
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -103,7 +102,7 @@ entity ir_rx_module is
    -- +000 to +03f = 6 Bits = 2^6 = 64 words
    --
    -- The Block RAM is bigger and other working sets up to
-   -- Channels * Frequenies <= 256 are possible.
+   -- Channels * Frequencies <= 256 are possible.
    --
    -- Mind the execution time for big datasets:
    -- 4 cycles per channel and frequency + 4 cycles to fill the pipeline
@@ -169,7 +168,6 @@ architecture structural of ir_rx_module is
    ----------------------------------------------------------------------------
 
    constant Q           : natural := 13;
-   -- constant SAMPLES     : natural := 500;
    constant CHANNELS    : natural := 12;
    constant FREQUENCIES : natural := 2;
 

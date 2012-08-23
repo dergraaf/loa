@@ -4,7 +4,6 @@
 -------------------------------------------------------------------------------
 -- File       : goertzel_pipelined_sim.vhd
 -- Author     : strongly-typed
--- Company    : 
 -- Created    : 2012-04-28
 -- Platform   : 
 -- Standard   : VHDL'87
@@ -12,7 +11,8 @@
 -- Description: This is a testbench that tests the goertzel_pipelined_v2
 --              entity with a block ram and artifical signal sources.
 --              The read cycle from the STM is simulated, too. The data is read
---              from the block RAM and written to the goertzel.bin file. 
+--              from the block RAM and written to the goertzel.bin file for
+--              further simulation with the unit test of signalprocessing.cpp. 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012 strongly-typed
 -------------------------------------------------------------------------------
