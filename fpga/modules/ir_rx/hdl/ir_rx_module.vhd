@@ -36,16 +36,32 @@ entity ir_rx_module is
 
    -- Memory maps
    --
-   -- Coefficient Register
+   -- Coefficient Register at BASE_ADDRESS_COEFS
+   -- ------------------------------------------
    --
-   -- Lower 16 bits of Goertzel Coefficient in fixed point format
+   -- Lower 16 bits of 18-bit-wide Goertzel Coefficient in fixed point format
    -- 
    -- offset | R/W | Description
    -- -------+-------------------------------------------------
    --    +00 |   W | Goertzel Coefficient           Frequency 0
    --    +01 |   W | Goertzel Coefficient           Frequency 1
+   --
    -- 
-   -- Result Register
+   -- Timestamp Register at BASE_ADDRESS_TIMESTAMP
+   -- --------------------------------------------
+   -- 
+   -- offset | R/W | Description
+   -- -------+-------------------------------------------------
+   --    +00 |   R | Bits 15 downto  0 of timestamp
+   --    +01 |   R | Bits 31 downto 16 of timestamp
+   --    +02 |   R | Bits 47 downto 32 of timestamp
+   --
+   --
+   -- Result Register at BASE_ADDRESS_RESULTS
+   -- ---------------------------------------
+   --
+   -- Upper 16 bits of 18-bit-wide Goertzel Result
+   -- 
    -- offset | R/W | Description
    -- -------+-----+-------------------------------------------
    --    +00 |   R | Goertzel Result 0, Channel  0, Frequency 0
@@ -207,8 +223,8 @@ architecture structural of ir_rx_module is
    signal goertzel_done_s : std_logic;
    signal ack_s           : std_logic;
 
-   -- Connection between timestamp module and register
-   signal reg_timestamp_s : reg_file_type(3 downto 0) := (others => (others => '0'));
+   signal bank_x_s : std_logic;
+   signal bank_y_s : std_logic;
    
 begin  -- structural
 
@@ -265,23 +281,11 @@ begin  -- structural
          ack_i    => ack_s,
          ready_i  => goertzel_done_s,
          enable_o => open,
-         clk      => clk);
 
-   -- Register file for the timestamp,
-   -- read only
-   reg_file_timestamp_1 : reg_file
-      generic map (
-         BASE_ADDRESS => BASE_ADDRESS_TIMESTAMP,
-         REG_ADDR_BIT => 2  -- timestamp is a 48 bit register, so 3 registers
-         -- of 16 bits each are necessary
-         )
-      port map (
-         bus_o => bus_timestamp_s,
-         bus_i => bus_i_p,
-         reg_o => open,
-         reg_i => reg_timestamp_s,
-         clk   => clk
-         );
+         bank_x_o => bank_x_s,
+         bank_y_o => bank_y_s,
+
+         clk => clk);
 
    ------------------------------------------------------------------------------
    -- ADCs
@@ -328,6 +332,18 @@ begin  -- structural
          coefs_p  => coefs_s,
          inputs_p => adc_values_signed_clipped_s,  -- adc_values_signed_s,
          clk      => clk);
+
+   timestamp_taker_1 : timestamp_taker
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_TIMESTAMP)
+      port map (
+         timestamp_i_p => timestamp_i_p,
+         trigger_i_p   => goertzel_done_s,
+         bank_x_i_p    => bank_x_s,
+         bank_y_i_p    => bank_y_s,
+         bus_o         => bus_timestamp_s,
+         bus_i         => bus_i_p,
+         clk           => clk);
 
    -- Sync extraction
    -- TODO
