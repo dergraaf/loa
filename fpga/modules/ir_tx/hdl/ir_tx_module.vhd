@@ -6,7 +6,6 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-13
--- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -132,6 +131,9 @@ begin  -- behavioral
 
    clk_mul <= reg_o(0);
    clk_div <= reg_o(1);
+	
+	-- read back
+	reg_i <= reg_o;
 
    clk_ir_enable_p <= clk_ir_enable;
 
