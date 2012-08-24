@@ -6,7 +6,6 @@
 -- Author     : strongly-typed
 -- Company    : 
 -- Created    : 2012-04-22
--- Last update: 2012-08-03
 -- Platform   : Xilinx Spartan 3A
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -91,8 +90,10 @@ entity reg_file_bram_double_buffered is
       enable_o : out std_logic;
 
       -- Show to which bank the application writes at the moment
-      bank_x_o : out std_logic;
-      bank_y_o : out std_logic;
+      bank_x_o : out std_logic;         -- The bank that is currently mapped to
+                                        -- the bus.
+      bank_y_o : out std_logic;         -- The bank that is currently mapped to
+                                        -- the application. 
 
       -- No reset, all signals are initialised.
 
@@ -185,7 +186,7 @@ begin  -- str
    bank_x <= bank;
    bank_y <= not bank;
 
-   -- Output the current bank information. 
+   -- Output the current bank information for use by other double buffering registers. 
    bank_x_o <= bank_x;
    bank_y_o <= bank_y;
 

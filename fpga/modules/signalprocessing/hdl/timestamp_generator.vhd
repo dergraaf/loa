@@ -1,12 +1,10 @@
 -------------------------------------------------------------------------------
--- Title      : Timestamp module
+-- Title      : Timestamp Generator module
 -- Project    : 
 -------------------------------------------------------------------------------
--- File       : timestamp.vhd
+-- File       : timestamp_generator.vhd
 -- Author     : strongly-typed
--- Company    : 
 -- Created    : 2011-09-27
--- Last update: 2012-08-03
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -25,17 +23,17 @@ use work.signalprocessing_pkg.all;
 
 -------------------------------------------------------------------------------
 
-entity timestamp is
+entity timestamp_generator is
    port (
-      timestamp : out timestamp_type;
+      timestamp_o_p : out timestamp_type;
       clk       : in  std_logic
       );
 
-end timestamp;
+end timestamp_generator;
 
 -------------------------------------------------------------------------------
 
-architecture behavioural of timestamp is
+architecture behavioural of timestamp_generator is
 
    -----------------------------------------------------------------------------
    -- Internal signal declarations
@@ -52,7 +50,7 @@ begin  -- architecture behavourial
    ----------------------------------------------------------------------------
    -- Connections between ports and signals
    ----------------------------------------------------------------------------
-   timestamp <= cnt;
+   timestamp_o_p <= cnt;
 
    ----------------------------------------------------------------------------
    -- Sequential process

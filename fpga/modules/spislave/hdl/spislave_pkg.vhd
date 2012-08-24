@@ -6,7 +6,6 @@
 -- Author     : cjt@users.sourceforge.net
 -- Company    : 
 -- Created    : 2011-08-27
--- Last update: 2012-05-02
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
