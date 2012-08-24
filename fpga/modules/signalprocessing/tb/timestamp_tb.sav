@@ -1,18 +1,22 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Fri Aug 24 11:21:19 2012
+[*] Fri Aug 24 11:56:41 2012
 [*]
 [dumpfile] "/home/alpha/rca/loa/fpga/modules/signalprocessing/tb/simulation/timestamp_tb.ghw"
-[dumpfile_mtime] "Fri Aug 24 11:20:55 2012"
-[dumpfile_size] 58361
+[dumpfile_mtime] "Fri Aug 24 11:56:27 2012"
+[dumpfile_size] 58513
 [savefile] "/home/alpha/rca/loa/fpga/modules/signalprocessing/tb/timestamp_tb.sav"
 [timestart] 0
 [size] 1024 744
 [pos] -1 -1
-*-28.886408 1136000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-28.886408 860000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.timestamp_tb.
+[treeopen] top.timestamp_tb.bus_i.
+[treeopen] top.timestamp_tb.bus_to_stm.
 [treeopen] top.timestamp_tb.timestamp_taker_1.
+[treeopen] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.
+[treeopen] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.
 [sst_width] 208
 [signals_width] 276
 [sst_expanded] 1
@@ -53,7 +57,14 @@ top.timestamp_tb.bank_y_s
 #{top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][15:0]} top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][15] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][14] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][13] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][12] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][11] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][10] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][9] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][8] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][7] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][6] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][5] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][4] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][3] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][2] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][1] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[4][0]
 #{top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][15:0]} top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][15] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][14] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][13] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][12] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][11] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][10] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][9] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][8] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][7] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][6] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][5] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][4] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][3] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][2] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][1] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[5][0]
 #{top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][15:0]} top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][15] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][14] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][13] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][12] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][11] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][10] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][9] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][8] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][7] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][6] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][5] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][4] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][3] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][2] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][1] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[6][0]
-@23
 #{top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][15:0]} top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][15] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][14] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][13] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][12] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][11] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][10] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][9] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][8] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][7] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][6] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][5] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][4] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][3] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][2] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][1] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.reg_i[7][0]
+#{top.timestamp_tb.bus_i.addr[14:0]} top.timestamp_tb.bus_i.addr[14] top.timestamp_tb.bus_i.addr[13] top.timestamp_tb.bus_i.addr[12] top.timestamp_tb.bus_i.addr[11] top.timestamp_tb.bus_i.addr[10] top.timestamp_tb.bus_i.addr[9] top.timestamp_tb.bus_i.addr[8] top.timestamp_tb.bus_i.addr[7] top.timestamp_tb.bus_i.addr[6] top.timestamp_tb.bus_i.addr[5] top.timestamp_tb.bus_i.addr[4] top.timestamp_tb.bus_i.addr[3] top.timestamp_tb.bus_i.addr[2] top.timestamp_tb.bus_i.addr[1] top.timestamp_tb.bus_i.addr[0]
+@28
+top.timestamp_tb.bus_i.re
+top.timestamp_tb.bus_i.we
+@22
+#{top.timestamp_tb.bus_to_stm.data[15:0]} top.timestamp_tb.bus_to_stm.data[15] top.timestamp_tb.bus_to_stm.data[14] top.timestamp_tb.bus_to_stm.data[13] top.timestamp_tb.bus_to_stm.data[12] top.timestamp_tb.bus_to_stm.data[11] top.timestamp_tb.bus_to_stm.data[10] top.timestamp_tb.bus_to_stm.data[9] top.timestamp_tb.bus_to_stm.data[8] top.timestamp_tb.bus_to_stm.data[7] top.timestamp_tb.bus_to_stm.data[6] top.timestamp_tb.bus_to_stm.data[5] top.timestamp_tb.bus_to_stm.data[4] top.timestamp_tb.bus_to_stm.data[3] top.timestamp_tb.bus_to_stm.data[2] top.timestamp_tb.bus_to_stm.data[1] top.timestamp_tb.bus_to_stm.data[0]
+@23
+#{top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[14:0]} top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[14] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[13] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[12] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[11] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[10] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[9] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[8] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[7] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[6] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[5] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[4] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[3] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[2] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[1] top.timestamp_tb.timestamp_taker_1.reg_file_timestamp_1.bus_i.addr[0]
 [pattern_trace] 1
 [pattern_trace] 0

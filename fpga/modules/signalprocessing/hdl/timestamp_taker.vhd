@@ -42,8 +42,9 @@ entity timestamp_taker is
       trigger_i_p : in std_logic;       -- When this trigger is strobed the
                                         -- current timestamp is stored in the
                                         -- register.
-      bank_x_i_p  : in std_logic;
-      bank_y_i_p  : in std_logic;
+      bank_x_i_p  : in std_logic;       -- The bank that is mapped to the bus.
+      bank_y_i_p  : in std_logic;       -- The bank that is mapped to the
+                                        -- application. 
 
       -- Bus interface
       bus_o : out busdevice_out_type;
@@ -116,7 +117,7 @@ begin  -- architecture behavourial
          REG_ADDR_BIT => 3)
       port map (
          bus_o => bus_o,
-         bus_i => bus_i,
+         bus_i => bus_i_s,              -- the modified address
          reg_o => open,                 -- read only register
          reg_i => reg_timestamp_s,
          clk   => clk);
