@@ -44,7 +44,8 @@ architecture tb of goertzel_pipelined_sim_tb is
    constant SAMPLES     : natural := 500;
    constant Q           : natural := 13;
 
-   constant BASE_ADDRESS : natural := 16#0000#;
+   constant BASE_ADDRESS           : natural := 16#0000#;
+   constant BASE_ADDRESS_TIMESTAMP : natural := 16#0100#;
 
    signal data_to_bram   : std_logic_vector(35 downto 0);
    signal data_from_bram : std_logic_vector(35 downto 0);
@@ -59,7 +60,7 @@ architecture tb of goertzel_pipelined_sim_tb is
                                               re   => '0',
                                               we   => '0');
 
-   signal bus_to_stm : busdevice_out_type := (data => (others => '0'));
+   signal bus_to_stm, bus_to_stm_from_bram, bus_to_stm_from_timestamp : busdevice_out_type := (data => (others => '0'));
 
    signal start_s : std_logic := '0';
 
@@ -84,6 +85,10 @@ architecture tb of goertzel_pipelined_sim_tb is
    signal g2_results : g2_array := (others => 0.0);
 
    signal d1, d2, c : real := 0.0;
+
+   -- timestamping
+   signal timestamp_s     : timestamp_type;  -- The global timestamp
+   signal timestamp_stm_s : integer := 0;    -- The timestamp read by the STM
 
    -- Signal generation for testbench
 
@@ -117,12 +122,15 @@ begin  -- tb
    -- Clock generation: 50 MHz
    clk <= not clk after 10 ns;
 
+   -- Connect the busses
+   bus_to_stm.data <= bus_to_stm_from_timestamp.data or bus_to_stm_from_bram.data;
+
    -- The Block RAM
    reg_file_bram_double_buffered_1 : reg_file_bram_double_buffered
       generic map (
          BASE_ADDRESS => BASE_ADDRESS)
       port map (
-         bus_o       => bus_to_stm,
+         bus_o       => bus_to_stm_from_bram,
          bus_i       => bus_i_dummy,
          bram_data_i => data_to_bram,
          bram_data_o => data_from_bram,
@@ -154,6 +162,26 @@ begin  -- tb
          coefs_p     => coefs,
          inputs_p    => inputs,
          clk         => clk);
+
+   -- Take a timestamp whenever the goertzel pipeline finished a set of values
+   -- and switches the bnak. 
+   timestamp_taker_1 : timestamp_taker
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_TIMESTAMP)
+      port map (
+         timestamp_i_p => timestamp_s,
+         trigger_i_p   => ready_s,
+         bank_x_i_p    => bank_x_s,
+         bank_y_i_p    => bank_y_s,
+         bus_o         => bus_to_stm_from_timestamp,
+         bus_i         => bus_i_dummy,
+         clk           => clk);
+
+   -- generate a timestamp
+   timestamp_generator_1 : timestamp_generator
+      port map (
+         timestamp_o_p => timestamp_s,
+         clk           => clk);
 
    -- Simulate a signal source for each channel.
    sources : for channel in 0 to (CHANNELS-1) generate
@@ -212,10 +240,13 @@ begin  -- tb
       variable d1_v, d2_v, c_v : real                          := 0.0;
       variable gv0_v, gv1_v    : std_logic_vector(15 downto 0) := (others => '0');
       variable ii              : integer                       := 0;
+      variable timestamp_v     : integer;
       file data_out            : IntegerFileType open write_mode is "goertzel.bin";
    begin  -- process AckGen
       wait until irq_s = '1';
-      wait for 1 us;
+
+      -- STM delay
+      wait for 100 us;
 
       ii := 0;                          -- iterate over all frequencies and
                                         -- channels. The memory layout is
@@ -258,6 +289,15 @@ begin  -- tb
             ii := ii + 1;
          end loop;  -- ch
       end loop;  -- fr
+
+      -- Read timestamp
+      timestamp_v := 0;
+      for ii in 0 to 2 loop
+         readWord(addr => BASE_ADDRESS_TIMESTAMP + ii, bus_i => bus_i_dummy, clk => clk);
+         timestamp_v := timestamp_v + to_integer(unsigned(bus_to_stm.data)) * 2**(16 * ii);
+      end loop;  -- ii
+      timestamp_stm_s <= timestamp_v;
+
 
       -- acknowledge that all results were read
       ack_s <= '1';

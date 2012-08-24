@@ -87,13 +87,17 @@ FILES = \
 ../../utils/hdl/edge_detect.vhd \
 ../../ram/hdl/xilinx_block_ram_pkg.vhd \
 ../../spislave/hdl/bus_pkg.vhd \
+../../spislave/hdl/spislave_pkg.vhd \
 ../../adc_ltc2351/hdl/adc_ltc2351_pkg.vhd \
 ../../ram/hdl/xilinx_block_ram_pkg.vhd \
 ../../ram/hdl/xilinx_block_ram.vhd \
 ../../peripheral_register/hdl/reg_file_pkg.vhd \
+../../peripheral_register/hdl/reg_file.vhd \
 ../../peripheral_register/hdl/double_buffering.vhd \
 ../../peripheral_register/hdl/reg_file_bram_double_buffered.vhd \
 ../hdl/signalprocessing_pkg.vhd \
+../hdl/timestamp_generator.vhd \
+../hdl/timestamp_taker.vhd \
 ./signal_sources_pkg.vhd \
 ./signal_sources.vhd \
 ../hdl/goertzel_control_unit.vhd \
@@ -125,7 +129,7 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
-GHDL_SIM_OPT = --stop-time=100us
+GHDL_SIM_OPT = --stop-time=5ms
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]
