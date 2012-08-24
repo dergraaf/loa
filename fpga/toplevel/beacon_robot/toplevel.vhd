@@ -5,7 +5,6 @@
 -- Authors    : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
 -- Created    : 2012-03-31
--- Last update: 2012-08-03
 -- Platform   : Spartan 3A-200
 -------------------------------------------------------------------------------
 -- Description:
@@ -26,8 +25,8 @@ use work.adc_ltc2351_pkg.all;
 use work.uss_tx_pkg.all;
 use work.ir_tx_pkg.all;
 use work.utils_pkg.all;
--- use work.signalprocessing_pkg.all;
 use work.ir_rx_module_pkg.all;
+use work.signalprocessing_pkg.all;
 
 -- Read the addresses from a file
 use work.memory_map_pkg.all;
@@ -72,6 +71,9 @@ entity toplevel is
       ir_rx_spi_out_p : out adc_ltc2351_spi_out_type;
       ir_rx0_spi_in_p : in  adc_ltc2351_spi_in_type;
       ir_rx1_spi_in_p : in  adc_ltc2351_spi_in_type;
+		
+		-- Devel
+		dev_o_p : out std_logic;
 
       -- 50 MHz clock input
       clk : in std_logic
@@ -117,6 +119,9 @@ architecture structural of toplevel is
    signal adc_values_ltc_s : adc_ltc2351_values_type(11 downto 0);
    signal adc_values_reg_s : reg_file_type(15 downto 0);
 
+   -- Timestamp
+   signal timestamp_s : timestamp_type := (others => '0');
+
 begin
 
    ----------------------------------------------------------------------------
@@ -128,7 +133,7 @@ begin
    ----------------------------------------------------------------------------
 
    -- TODO generic CHANNELS
-   copy_values : for ii in 0 to 11  generate
+   copy_values : for ii in 0 to 11 generate
       adc_values_reg_s(ii) <= "00" & adc_values_ltc_s(ii);
    end generate copy_values;
 
@@ -146,7 +151,7 @@ begin
          bus_o => bus_spi_out,
          bus_i => bus_spi_in,
 
-         clk   => clk);
+         clk => clk);
 
    ----------------------------------------------------------------------------
    -- 4 MBit SRAM CY7C1049DV33-10ZSXI (428-1982-ND)
@@ -205,7 +210,7 @@ begin
    -- US TX
    ----------------------------------------------------------------------------
    uss_tx_module_1 : uss_tx_module
-     generic map (
+      generic map (
          BASE_ADDRESS => BASE_ADDR_US_TX)
       port map (
          uss_tx0_out_p    => us_tx0_p,
@@ -274,19 +279,21 @@ begin
 
    ir_rx_module_0 : ir_rx_module
       generic map (
-         BASE_ADDRESS_COEFS   => BASE_ADDR_IR_RX_COEFS,
-         BASE_ADDRESS_RESULTS => BASE_ADDR_IR_RX_RESULTS)
+         BASE_ADDRESS_COEFS     => BASE_ADDR_IR_RX_COEFS,
+         BASE_ADDRESS_RESULTS   => BASE_ADDR_IR_RX_RESULTS,
+         BASE_ADDRESS_TIMESTAMP => BASE_ADDR_IR_RX_TIMESTAMP)
       port map (
-         adc_out_p     => ir_rx_module_spi_out,
-         adc_in_p      => ir_rx_module_spi_in,
-         adc_values_p  => adc_values_ltc_s,
-         sync_p        => open,
-         bus_o         => bus_ir_rx_out,
-         bus_i         => bus_spi_out,
-         done_p        => ir_irq_p,
-         ack_p         => ir_ack,
-         clk_sample_en => clk_adc_en_s,
-         clk           => clk);
+         adc_o_p           => ir_rx_module_spi_out,
+         adc_i_p           => ir_rx_module_spi_in,
+         adc_values_o_p    => adc_values_ltc_s,
+         sync_o_p          => open,
+         bus_o_p           => bus_ir_rx_out,
+         bus_i_p           => bus_spi_out,
+         done_o_p          => ir_irq_p,
+         ack_i_p           => ir_ack,
+         clk_sample_en_i_p => clk_adc_en_s,
+         timestamp_i_p     => timestamp_s,
+         clk               => clk);
 
 
 
@@ -295,6 +302,13 @@ begin
    ----------------------------------------------------------------------------
 
 
+   ----------------------------------------------------------------------------
+   -- Timestamp
+   ----------------------------------------------------------------------------
+   timestamp_generator_1 : timestamp_generator
+      port map (
+         timestamp_o_p => timestamp_s,
+         clk           => clk);
 
    ----------------------------------------------------------------------------
    -- synchronize acknowledge signals
@@ -309,5 +323,9 @@ begin
 
    ir_ack <= ir_ack_r(1);
    us_ack <= us_ack_r(1);
-   
+	
+	
+	-- Development
+	dev_o_p <= us_ack_p;
+	 
 end structural;

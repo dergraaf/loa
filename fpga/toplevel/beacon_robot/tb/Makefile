@@ -35,7 +35,9 @@ FILES =  \
 	../../../modules/signalprocessing/hdl/goertzel_muxes.vhd \
 	../../../modules/signalprocessing/hdl/goertzel_control_unit.vhd \
 	../../../modules/signalprocessing/hdl/goertzel_pipeline.vhd \
-	../../../modules/signalprocessing/hdl/goertzel_pipelined_v2.vhd 
+	../../../modules/signalprocessing/hdl/goertzel_pipelined_v2.vhd \
+	../../../modules/signalprocessing/hdl/timestamp_generator.vhd \
+	../../../modules/signalprocessing/hdl/timestamp_taker.vhd
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file

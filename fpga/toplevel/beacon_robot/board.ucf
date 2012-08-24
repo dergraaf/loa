@@ -89,7 +89,9 @@ NET "ir_rx1_spi_in_p_sdo"		LOC = P90 | PULLDOWN;
 NET "ir_rx_spi_out_p_sck"		LOC = P88 | SLOW | DRIVE = 2;
 NET "ir_rx_spi_out_p_conv"		LOC = P86 | SLOW | DRIVE = 2;
 
-
+# ----------------------------------------------------------------------------
+# Unused for application, development only
+NET "dev_o_p"		LOC = P71 | SLOW | DRIVE = 2;
 
 # ----------------------------------------------------------------------------
 # Clock (connected to a 50 MHz oscillator)

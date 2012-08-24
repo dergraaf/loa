@@ -26,6 +26,8 @@ ADV_FILES = \
 ../../signalprocessing/hdl/goertzel_muxes.vhd \
 ../../signalprocessing/hdl/goertzel_pipeline.vhd \
 ../../signalprocessing/hdl/goertzel_pipelined_v2.vhd \
+../../signalprocessing/hdl/timestamp_taker.vhd \
+../../signalprocessing/hdl/timestamp_generator.vhd \
 ../hdl/ir_rx_module_pkg.vhd \
 ../hdl/ir_rx_module.vhd 
 
@@ -42,9 +44,6 @@ $(ADV_FILES) \
 ../../adc_ltc2351/hdl/adc_ltc2351_pkg.vhd \
 ../../adc_ltc2351/hdl/adc_ltc2351.vhd \
 ../hdl/ir_rx_adcs.vhd
-else ifeq ($(TESTBENCH), adc_ltc2351_module_tb)
-FILES = \
-../../peripheral_register/tb/reg_file_tb.vhd 
 endif
 
 # Default settings for gtkwave (visable signal etc.)

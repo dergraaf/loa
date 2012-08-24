@@ -147,7 +147,7 @@ package signalprocessing_pkg is
          clk           : in  std_logic);
    end component timestamp_generator;
 
-   component timestamp_taker
+   component timestamp_taker is
       generic (
          BASE_ADDRESS : integer);
       port (
