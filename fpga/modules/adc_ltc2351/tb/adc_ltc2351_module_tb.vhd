@@ -43,7 +43,6 @@ architecture tb of adc_ltc2351_module_tb is
   signal adc_in_p  : adc_ltc2351_spi_in_type;
   signal bus_o     : busdevice_out_type;
   signal bus_i     : busdevice_in_type;
-  signal reset     : std_logic;
 
   signal sck_p  : std_logic;
   signal conv_p : std_logic;
@@ -66,7 +65,6 @@ begin  -- tb
       bus_i        => bus_i,
       adc_values_o => open,
       done_p       => open,
-      reset        => reset,
       clk          => clk
       );
 
@@ -90,16 +88,7 @@ begin  -- tb
   -- --------------------------------------------------------------------------
   -- waveform generation
   -- --------------------------------------------------------------------------
-  WaveGen_Proc : process
-  begin
-    -- insert signal assignments here
-    reset <= '1';
-    wait until clk = '1';
-    reset <= '0';
-    wait for 100000 ms;
-  end process WaveGen_Proc;
-
-
+ 
   -- waveform generation
   bus_stimulus_proc : process
   begin

@@ -75,7 +75,6 @@ package adc_ltc2351_pkg is
          bus_i        : in  busdevice_in_type;
          adc_values_o : out adc_ltc2351_values_type(5 downto 0);
          done_p       : out std_logic;
-         reset        : in  std_logic;
          clk          : in  std_logic);
    end component;
    

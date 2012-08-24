@@ -3,7 +3,7 @@
 -------------------------------------------------------------------------------
 -- Author     : strongly-typed
 -- Created    : 2012-04-10
--- Last update: 2012-04-15
+-- Last update: 2012-08-24
 -- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
@@ -37,7 +37,6 @@ architecture tb of adc_ltc2351_tb is
   signal conv_p  : std_logic;
   signal done_p  : std_logic;
 
-  signal reset : std_logic := '1';
   signal clk   : std_logic := '0';
 
   signal adc_i : adc_ltc2351_spi_in_type;
@@ -53,7 +52,6 @@ begin
       adc_in  => adc_i,
       start_p => start_p,
       done_p  => done_p,
-      reset   => reset,
       clk     => clk
       );
 
@@ -68,16 +66,12 @@ begin
   -- clock generation
   clk <= not clk after 10 ns;
 
-  -- reset generation
-  reset <= '1', '0' after 50 ns;
-
 -----------------------------------------------------------------------------
   -- stimuli generation
   waveform : process
   begin
     start_p <= '0';
 
-    wait until falling_edge(reset);
     wait for 200 ns;
 
     start_p <= '1';
