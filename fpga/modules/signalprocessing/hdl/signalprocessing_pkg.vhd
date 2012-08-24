@@ -26,12 +26,12 @@ package signalprocessing_pkg is
    -- One input to the algorithm. 
    subtype goertzel_input_type is signed(INPUT_WIDTH-1 downto 0);
    -- The input for many different channels
-   type goertzel_inputs_type is array (natural range <>) of goertzel_input_type;
+   type    goertzel_inputs_type is array (natural range <>) of goertzel_input_type;
 
    -- One goertzel coefficient corresponds to a certain frequency.
    subtype goertzel_coef_type is signed(CALC_WIDTH-1 downto 0);
    -- The input for different frequencies
-   type goertzel_coefs_type is array (natural range <>) of goertzel_coef_type;
+   type    goertzel_coefs_type is array (natural range <>) of goertzel_coef_type;
 
    component goertzel
       generic (
@@ -117,10 +117,10 @@ package signalprocessing_pkg is
 
    component goertzel_pipelined_v2 is
       generic (
-         FREQUENCIES  : positive;
-         CHANNELS     : positive;
-         SAMPLES      : positive;
-         Q            : positive);
+         FREQUENCIES : positive;
+         CHANNELS    : positive;
+         SAMPLES     : positive;
+         Q           : positive);
       port (
          start_p     : in  std_logic;
          bram_addr_p : out std_logic_vector(7 downto 0);
@@ -138,13 +138,26 @@ package signalprocessing_pkg is
    -- Helpers
    ----------------------------------------------------------------------------
    constant TIMESTAMP_WIDTH : natural := 48;  -- 2**48 - 1 * 20 us = 65 days. This counter will not overflow.
-   
+
    subtype timestamp_type is signed(TIMESTAMP_WIDTH-1 downto 0);
-   
-   component timestamp is
+
+   component timestamp_generator is
       port (
-         timestamp : out timestamp_type;
-         clk       : in  std_logic);
-   end component timestamp;
+         timestamp_o_p : out timestamp_type;
+         clk           : in  std_logic);
+   end component timestamp_generator;
+
+   component timestamp_taker
+      generic (
+         BASE_ADDRESS : integer);
+      port (
+         timestamp_i_p : in  timestamp_type;
+         trigger_i_p   : in  std_logic;
+         bank_x_i_p    : in  std_logic;
+         bank_y_i_p    : in  std_logic;
+         bus_o         : out busdevice_out_type;
+         bus_i         : in  busdevice_in_type;
+         clk           : in  std_logic);
+   end component;
    
 end signalprocessing_pkg;

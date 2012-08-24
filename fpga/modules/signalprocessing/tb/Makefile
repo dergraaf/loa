@@ -8,6 +8,8 @@
 #TESTBENCH = goertzel_muxes_tb
 #TESTBENCH = goertzel_pipelined_v2_tb
 #TESTBENCH = goertzel_pipelined_sim_tb
+#TESTBENCH = timestamp_tb
+
 #TESTBENCH = io_test
 
 # VHDL files
@@ -100,7 +102,13 @@ FILES = \
 ../hdl/goertzel_pipelined_v2.vhd
 else ifeq ($(TESTBENCH), timestamp_tb)
 FILES = \
-../hdl/timestamp.vhd \
+../../spislave/hdl/bus_pkg.vhd \
+../../spislave/hdl/spislave_pkg.vhd \
+../../peripheral_register/hdl/reg_file_pkg.vhd \
+../../peripheral_register/hdl/reg_file.vhd \
+../../adc_ltc2351/hdl/adc_ltc2351_pkg.vhd \
+../hdl/timestamp_generator.vhd \
+../hdl/timestamp_taker.vhd \
 ../hdl/signalprocessing_pkg.vhd \
 timestamp_tb.vhd
 else ifeq ($(TESTBENCH), real_tb)
@@ -117,7 +125,7 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
-GHDL_SIM_OPT = --stop-time=30ms
+GHDL_SIM_OPT = --stop-time=100us
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]

@@ -3,10 +3,12 @@
 -------------------------------------------------------------------------------
 -- Author     : strongly-typed
 -- Created    : 2011-12-16
--- Last update: 2012-08-03
 -- Platform   : Spartan 3 
 -------------------------------------------------------------------------------
--- Description: 
+-- Description: The timestamp generator creates a global timestamp. The
+--              timestamp takers sample these timestamps when triggered. The
+--              timestamp takers are readable by the bus and maintain
+--              consistency by double buffering the timestamp. 
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -14,6 +16,8 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library work;
+use work.bus_pkg.all;
+use work.spislave_pkg.all;
 use work.signalprocessing_pkg.all;
 
 -------------------------------------------------------------------------------
@@ -24,26 +28,70 @@ end timestamp_tb;
 architecture tb of timestamp_tb is
 
    -- component generics
-   constant WIDTH : positive := 8;
+   constant WIDTH                       : positive := 8;
+   constant BASE_ADDR_TIMESTAMP_TAKER_1 : positive := 16#0100#;
 
    -- component ports
    signal timestamp : timestamp_type := (others => '0');
 
-   signal clk   : std_logic := '0';
+   signal bus_i : busdevice_in_type := (addr => (others => '0'),
+                                        data => (others => '0'),
+                                        we => '0',
+                                        re => '0');
+
+   signal trigger_s : std_logic := '0';
+   signal bank_x_s : std_logic := '0';
+   signal bank_y_s : std_logic := '1';
+
+   signal clk : std_logic := '0';
 
 begin
    -- component instantiation
-   timestamp_1: entity work.timestamp
+   timestamp_generator_1 : entity work.timestamp_generator
       port map (
-         timestamp => timestamp,
-         clk       => clk);
-   
+         timestamp_o_p => timestamp,
+         clk           => clk);
+
+   timestamp_taker_1 : entity work.timestamp_taker
+      generic map (
+         BASE_ADDRESS => BASE_ADDR_TIMESTAMP_TAKER_1)
+      port map (
+         timestamp_i_p => timestamp,
+         trigger_i_p   => trigger_s,
+         bank_x_i_p    => bank_x_s,
+         bank_y_i_p    => bank_y_s,
+         bus_o         => open,
+         bus_i         => bus_i,
+         clk           => clk);
+
    -- clock generation
    clk <= not clk after 20 ns;
 
    waveform : process
    begin
       wait for 20 ns;
+
+      wait for 200 ns;
+
+      -- Trigger
+      wait until rising_edge(clk);
+      trigger_s <= '1';
+      wait until rising_edge(clk);
+      trigger_s <= '0';
+
+      wait for 200 ns;
+      bank_x_s <= '1';
+      bank_y_s <= '0';
+      
+      wait for 200 ns;
+
+      -- Trigger
+      wait until rising_edge(clk);
+      trigger_s <= '1';
+      wait until rising_edge(clk);
+      trigger_s <= '0';
+      
+      
 
       -- do not repeat
       wait;

@@ -65,6 +65,9 @@ architecture tb of goertzel_pipelined_sim_tb is
 
    signal ready_s : std_logic;  -- Goertzel result ready, switch RAM bank.
 
+   signal bank_x_s : std_logic := '0';
+   signal bank_y_s : std_logic := '0';
+
    -- One coefficient for each frequency, one input for each channel. 
    signal coefs  : goertzel_coefs_type(FREQUENCIES-1 downto 0) := (others => (others => '0'));
    signal inputs : goertzel_inputs_type(CHANNELS-1 downto 0)   := (others => (others => '0'));
@@ -72,12 +75,12 @@ architecture tb of goertzel_pipelined_sim_tb is
    -- Goertzel results as signals
    signal gv0, gv1 : std_logic_vector(15 downto 0) := (others => '0');  -- value read from register
 
-   type g_array is array (0 to ((FREQUENCIES * CHANNELS) - 1)) of real;
+   type   g_array is array (0 to ((FREQUENCIES * CHANNELS) - 1)) of real;
    signal g_results : g_array := (others => 0.0);
 
    -- For each frequency the goertzel results from the corresponding channel.
    -- These should be the larges value of all goertzel results. 
-   type g2_array is array (0 to (FREQUENCIES-1)) of real;
+   type   g2_array is array (0 to (FREQUENCIES-1)) of real;
    signal g2_results : g2_array := (others => 0.0);
 
    signal d1, d2, c : real := 0.0;
@@ -129,6 +132,8 @@ begin  -- tb
          ack_i       => ack_s,
          ready_i     => ready_s,
          enable_o    => open,
+         bank_x_o    => bank_x_s,
+         bank_y_o    => bank_y_s,
          clk         => clk);
 
    -- The Pipeline

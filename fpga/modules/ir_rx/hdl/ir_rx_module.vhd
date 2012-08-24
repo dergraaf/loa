@@ -283,19 +283,6 @@ begin  -- structural
          clk   => clk
          );
 
-   -- When the goertzel is finished, the goertzel_done_s signal is strobed.
-   -- Copy timestamp to the register at this moment.
-   timestamp_taker : process (clk) is
-   begin  -- process timestamp_taker
-      if rising_edge(clk) then          -- rising clock edge
-         if goertzel_done_s = '1' then
-            reg_timestamp_s(0) <= std_logic_vector(timestamp_i_p(15 downto 0));
-            reg_timestamp_s(1) <= std_logic_vector(timestamp_i_p(31 downto 16));
-            reg_timestamp_s(2) <= std_logic_vector(timestamp_i_p(47 downto 32));
-         end if;
-      end if;
-   end process timestamp_taker;
-
    ------------------------------------------------------------------------------
    -- ADCs
    ------------------------------------------------------------------------------
