@@ -26,7 +26,6 @@ architecture tb of shiftout_tb is
    signal value : std_logic_vector(7 downto 0) := (others => '0');
 
    signal clk : std_logic := '0';
-   signal reset : std_logic := '1';
 
 begin
    -- component instantiation
@@ -38,12 +37,10 @@ begin
    
    -- clock generation
    clk <= not clk after 10 NS;
-   reset <= '1', '0' after 30 NS;
 
    waveform : process
    begin
-      wait until falling_edge(reset);
-
+ 
       wait for 50 NS;
       value <= x"23";
       wait for 1 US;

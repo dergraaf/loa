@@ -38,7 +38,7 @@ entity dc_motor_module is
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
 
-      clk   : in std_logic
+      clk : in std_logic
       );
 end dc_motor_module;
 
@@ -58,11 +58,11 @@ architecture behavioral of dc_motor_module is
    signal pwm : std_logic;
 
    signal r, rin : dc_motor_module_type := (
-      data_out => (others => '0'),
+      data_out  => (others => '0'),
       pwm_value => (others => '0'),
-      sd => '1'
+      sd        => '1'
       );
-   
+
 begin
 
    seq_proc : process(clk)
@@ -129,6 +129,7 @@ begin
          overflow_p  => overflow,
          clk_en_p    => clk_en,
          value_p     => r.pwm_value,
+         reset       => '0',
          clk         => clk);
 
 end behavioral;

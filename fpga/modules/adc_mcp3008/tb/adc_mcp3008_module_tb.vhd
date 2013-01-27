@@ -25,19 +25,6 @@ architecture tb of adc_mcp3008_module_tb is
    use work.reg_file_pkg.all;
    use work.bus_pkg.all;
 
-
-   --component adc_mcp3008_module
-   --  generic (
-   --    BASE_ADDRESS : integer range 0 to 32767);
-   --  port (
-   --    adc_out_p : out adc_mcp3008_spi_out_type;
-   --    adc_in_p  : in  adc_mcp3008_spi_in_type;
-   --    bus_o     : out busdevice_out_type;
-   --    bus_i     : in  busdevice_in_type;
-   --    reset     : in  std_logic;
-   --    clk       : in  std_logic);
-   --end component;
-
    -- component generics
    constant BASE_ADDRESS : integer range 0 to 32767 := 0;
 
@@ -49,8 +36,6 @@ architecture tb of adc_mcp3008_module_tb is
                                             data => (others => '0'),
                                             we   => '0',
                                             re   => '0');
-   signal reset : std_logic;
-
    signal miso_p : std_logic;
    signal mosi_p : std_logic;
    signal cs_np  : std_logic;
@@ -71,7 +56,6 @@ begin  -- tb
          bus_o        => bus_o,
          bus_i        => bus_i,
          adc_values_o => open,
-         reset        => reset,
          clk          => clk);
 
 
@@ -82,18 +66,6 @@ begin  -- tb
    mosi_p        <= adc_out_p.mosi;
    cs_np         <= adc_out_p.cs_n;
    sck_p         <= adc_out_P.sck;
-
-
-   -- waveform generation
-   WaveGen_Proc : process
-   begin
-      -- insert signal assignments here
-      reset <= '1';
-      wait until Clk = '1';
-      reset <= '0';
-      wait for 100000 MS;
-   end process WaveGen_Proc;
-
 
    -- waveform generation
    bus_stimulus_proc : process

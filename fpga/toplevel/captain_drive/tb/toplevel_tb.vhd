@@ -1,8 +1,6 @@
 -------------------------------------------------------------------------------
 -- Title      : Testbench for design "beacon_robot"
 -------------------------------------------------------------------------------
--- File       : toplevel_tb.vhd
--------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2011 
@@ -10,13 +8,14 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
 use work.spislave_pkg.all;
 use work.motor_control_pkg.all;
+use work.utils_pkg.all;
 
-use work.peripheral_register_pkg.all;
 use work.pwm_module_pkg.all;
 use work.motor_control_pkg.all;
 use work.encoder_module_pkg.all;

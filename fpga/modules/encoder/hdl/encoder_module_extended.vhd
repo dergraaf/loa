@@ -44,15 +44,14 @@ entity encoder_module_extended is
    port (
       encoder_p : in encoder_type;
       index_p   : in std_logic;         -- index can be used to reset the
-                                        -- counter, set to '0' if not used
+      -- counter, set to '0' if not used
       load_p    : in std_logic;         -- Save the current encoder value in a
-                                        -- buffer register
+      -- buffer register
 
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
 
-      reset : in std_logic;
-      clk   : in std_logic
+      clk : in std_logic
       );
 end encoder_module_extended;
 
@@ -61,7 +60,7 @@ architecture behavioral of encoder_module_extended is
    -- Base address converted to a logic vector for easier access.
    constant BASE_ADDRESS_VECTOR : std_logic_vector(14 downto 0) :=
       std_logic_vector(to_unsigned(BASE_ADDRESS, 15));
-   
+
    signal step         : std_logic := '0';
    signal up_down      : std_logic := '0';  -- Direction for the counter ('1' = up, '0' = down)
    signal decode_error : std_logic;  -- Decoding Error (A and B lines changes at the same time), current not used
@@ -81,16 +80,10 @@ architecture behavioral of encoder_module_extended is
       data_out => (others => '0'));
 begin
 
-   seq_proc : process(reset, clk)
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r <= (counter  => (others => '0'),
-                  timer    => (others => '1'),
-                  data_out => (others => '0'));
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 
@@ -139,7 +132,7 @@ begin
          clk_en_p  => step,
          up_down_p => up_down,
          value_p   => counter,
-         reset     => reset,
+         reset     => '0',
          clk       => clk);
 
    -- clk = 50 MHz, divider = 10
@@ -147,19 +140,18 @@ begin
    -- 
    -- 16-bit counter
    -- => period = 2**16 / clk_capture = 0.0131s = 13.1ms
-   clock_divider_capture: clock_divider
+   clock_divider_capture : clock_divider
       generic map (
          DIV => 10)
       port map (
          clk_out_p => clk_capture,
          clk       => clk);
-   
+
    input_capture_1 : input_capture
       port map (
          value_p  => timer,
          step_p   => step,
          dir_p    => up_down,
          clk_en_p => clk_capture,
-         reset    => reset,
          clk      => clk);
 end behavioral;

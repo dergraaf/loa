@@ -32,8 +32,7 @@ entity adc_mcp3008 is
       value_p    : out std_logic_vector(9 downto 0);  -- last value from  ADC
       done_p     : out std_logic;       -- conversion reads
 
-      reset : in std_logic;
-      clk   : in std_logic
+      clk : in std_logic
       );
 
 end adc_mcp3008;
@@ -45,7 +44,7 @@ architecture behavioral of adc_mcp3008 is
    -----------------------------------------------------------------------------
    -- FSM Type declaration
    -----------------------------------------------------------------------------
-   
+
    type adc_mcp3008_state_type is (IDLE, SCK_LOW, SCK_HIGH, HOLD_OFF);
 
    type adc_mcp3008_type is record
@@ -63,7 +62,14 @@ architecture behavioral of adc_mcp3008 is
    -----------------------------------------------------------------------------
    -- Internal signal declarations
    -----------------------------------------------------------------------------
-   signal r, rin : adc_mcp3008_type;
+   signal r, rin : adc_mcp3008_type := (state           => IDLE,
+                                        csn             => '1',
+                                        sck             => '0',
+                                        dout            => "11111",
+                                        din             => (others => '0'),
+                                        done            => '0',
+                                        countdown_bit   => 0,
+                                        countdown_delay => DELAY);
 
 begin
 
@@ -79,36 +85,21 @@ begin
    -- outputs
    done_p  <= r.done;                   -- signals valid data on value_p
    value_p <= r.din;                    -- value of the last conversion fetched
-                                        -- from the ADC
+   -- from the ADC
 
 
-   -----------------------------------------------------------------------------
    -----------------------------------------------------------------------------
    -- Sequential proc of FSM
-   -----------------------------------------------------------------------------
    -----------------------------------------------------------------------------
    seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.state           <= IDLE;
-            r.csn             <= '1';
-            r.sck             <= '0';
-            r.dout            <= "11111";
-            r.din             <= (others => '0');
-            r.done            <= '0';
-            r.countdown_bit   <= 0;
-            r.countdown_delay <= DELAY;
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 
    -----------------------------------------------------------------------------
-   -----------------------------------------------------------------------------
    -- Transitons and actions of FSM
-   -----------------------------------------------------------------------------
    -----------------------------------------------------------------------------
    comb_proc : process(adc_in.miso, adc_mode_p, channel_p, r, r.countdown_bit,
                        r.countdown_delay, r.din(8 downto 0),

@@ -48,7 +48,6 @@ package adc_mcp3008_pkg is
          channel_p  : in  std_logic_vector(2 downto 0);
          value_p    : out std_logic_vector(9 downto 0);
          done_p     : out std_logic;
-         reset      : in  std_logic;
          clk        : in  std_logic);
    end component;
 
@@ -62,7 +61,6 @@ package adc_mcp3008_pkg is
          bus_o        : out busdevice_out_type;
          bus_i        : in  busdevice_in_type;
          adc_values_o : out adc_mcp3008_values_type(7 downto 0);
-         reset        : in  std_logic;
          clk          : in  std_logic);
    end component;
 

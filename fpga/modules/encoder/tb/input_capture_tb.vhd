@@ -26,7 +26,6 @@ architecture tb of input_capture_tb is
    signal dir    : std_logic := '0';
    signal clk_en : std_logic := '1';
 
-   signal reset : std_logic := '1';
    signal clk   : std_logic := '0';
 
 begin
@@ -37,18 +36,13 @@ begin
          step_p   => step,
          dir_p    => dir,
          clk_en_p => clk_en,
-         reset    => reset,
          clk      => clk);
 
    -- clock generation
    clk <= not clk after 10 NS;
 
-   -- reset generation
-   reset <= '1', '0' after 50 NS;
-
    waveform : process
    begin
-      wait until falling_edge(reset);
       wait for 400 NS;
 
       wait until rising_edge(clk);

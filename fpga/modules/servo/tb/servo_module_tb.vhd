@@ -35,7 +35,6 @@ architecture tb of servo_module_tb is
        data => (others => '0'),
        we   => '0',
        re   => '0');
-   signal reset : std_logic := '1';
    signal clk   : std_logic := '0';
 
 begin
@@ -48,18 +47,13 @@ begin
          servo_p => servo,
          bus_o   => bus_o,
          bus_i   => bus_i,
-         reset   => reset,
          clk     => clk);
 
    -- clock generation
    clk <= not clk after 10 NS;
 
-   -- reset generation
-   reset <= '1', '0' after 50 NS;
-
    waveform : process
    begin
-      wait until falling_edge(reset);
       wait for 20 NS;
 
       for i in 0 to SERVO_COUNT-1 loop

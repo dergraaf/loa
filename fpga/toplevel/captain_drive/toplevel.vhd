@@ -19,7 +19,6 @@ use work.spislave_pkg.all;
 use work.motor_control_pkg.all;
 use work.utils_pkg.all;
 
-use work.peripheral_register_pkg.all;
 use work.pwm_module_pkg.all;
 use work.motor_control_pkg.all;
 use work.encoder_module_pkg.all;
@@ -153,7 +152,6 @@ begin
          bus_o => bus_o,
          bus_i => bus_i,
 
-         reset => reset,
          clk   => clk);
 
    bus_i.data <= bus_register_out.data or
@@ -174,7 +172,6 @@ begin
          din_p  => register_in,
          bus_o  => bus_register_out,
          bus_i  => bus_o,
-         reset  => reset,
          clk    => clk);
 
    process (clk)
@@ -199,7 +196,6 @@ begin
          bus_o        => bus_adc_out,
          bus_i        => bus_o,
          adc_values_o => adc_values_out,
-         reset        => reset,
          clk          => clk);
 
    -----------------------------------------------------------------------------
@@ -215,7 +211,6 @@ begin
          break_p        => current_limit(1),
          bus_o          => bus_bldc1_out,
          bus_i          => bus_o,
-         reset          => reset,
          clk            => clk);
 
    bldc1_encoder : encoder_module_extended
@@ -227,7 +222,6 @@ begin
          load_p    => load,
          bus_o     => bus_bldc1_encoder_out,
          bus_i     => bus_o,
-         reset     => reset,
          clk       => clk);
 
    bldc2 : bldc_motor_module
@@ -241,7 +235,6 @@ begin
          break_p        => current_limit(0),
          bus_o          => bus_bldc2_out,
          bus_i          => bus_o,
-         reset          => reset,
          clk            => clk);
 
    bldc2_encoder : encoder_module_extended
@@ -253,7 +246,6 @@ begin
          load_p    => load,
          bus_o     => bus_bldc2_encoder_out,
          bus_i     => bus_o,
-         reset     => reset,
          clk       => clk);
 
    ----------------------------------------------------------------------------
@@ -270,7 +262,6 @@ begin
          break_p => current_limit(2),
          bus_o   => bus_motor3_pwm_out,
          bus_i   => bus_o,
-         reset   => reset,
          clk     => clk);
 
    motor3_sd_np <= not motor3_sd;
@@ -285,7 +276,6 @@ begin
          servo_p => servo_signals,
          bus_o   => bus_servo_out,
          bus_i   => bus_o,
-         reset   => reset,
          clk     => clk);
 
    servo_p <= not servo_signals;
@@ -304,7 +294,6 @@ begin
          overflow_p => current_limit,
          bus_o      => bus_comparator_out,
          bus_i      => bus_o,
-         reset      => reset,
          clk        => clk);
 
    convert : for n in 2 downto 0 generate

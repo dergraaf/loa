@@ -21,7 +21,6 @@ package encoder_module_pkg is
          load_p    : in  std_logic;
          bus_o     : out busdevice_out_type;
          bus_i     : in  busdevice_in_type;
-         reset     : in  std_logic;
          clk       : in  std_logic);
    end component;
 
@@ -34,7 +33,6 @@ package encoder_module_pkg is
          load_p    : in  std_logic;
          bus_o     : out busdevice_out_type;
          bus_i     : in  busdevice_in_type;
-         reset     : in  std_logic;
          clk       : in  std_logic);
    end component encoder_module_extended;
 

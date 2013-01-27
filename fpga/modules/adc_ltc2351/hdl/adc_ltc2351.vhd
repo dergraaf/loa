@@ -36,7 +36,7 @@ entity adc_ltc2351 is
       values_p : out adc_ltc2351_values_type(5 downto 0);
       done_p   : out std_logic;
 
-      -- reset and clock
+      -- clock
       clk : in std_logic
       );
 

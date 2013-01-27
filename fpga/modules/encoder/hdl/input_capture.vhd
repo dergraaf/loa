@@ -21,7 +21,6 @@ package input_capture_pkg is
          step_p   : in  std_logic;
          dir_p    : in  std_logic;
          clk_en_p : in  std_logic;
-         reset    : in  std_logic;
          clk      : in  std_logic);
    end component input_capture;
 
@@ -42,7 +41,6 @@ entity input_capture is
       dir_p  : in std_logic;            -- Encoder Direction
 
       clk_en_p : in std_logic;          -- Clock enable
-      reset    : in std_logic;
       clk      : in std_logic
       );
 
@@ -64,16 +62,10 @@ architecture behavioral of input_capture is
       );
 begin
 
-   seq_proc : process(reset, clk)
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.cnt     <= (others => '0');
-            r.value   <= (others => '1');
-            r.invalid <= '1';
-         else
             r <= rin;
-         end if;
       end if;
    end process seq_proc;
 

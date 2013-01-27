@@ -29,8 +29,7 @@ entity adc_mcp3008_module is
       -- direct access to the read adc samples
       adc_values_o : out adc_mcp3008_values_type(7 downto 0);
 
-      reset : in std_logic;
-      clk   : in std_logic
+      clk : in std_logic
       );
 
 end adc_mcp3008_module;
@@ -52,7 +51,10 @@ architecture behavioral of adc_mcp3008_module is
    -----------------------------------------------------------------------------
    -- Internal signal declarations
    -----------------------------------------------------------------------------
-   signal r, rin : adc_mcp3008_module_type;
+   signal r, rin : adc_mcp3008_module_type := (state      => IDLE,
+                                               current_ch => 7,
+                                               start      => '0',
+                                               reg        => (others => (others => '0')));
 
    signal adc_mode_s : std_logic;
    signal channel_s  : std_logic_vector(2 downto 0);
@@ -85,14 +87,7 @@ begin
    seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.state      <= IDLE;
-            r.current_ch <= 7;
-            r.start      <= '0';
-            r.reg        <= (others => (others => '0'));
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 
@@ -102,14 +97,14 @@ begin
    -----------------------------------------------------------------------------
    comb_proc : process(done_s, mask_s, r, value_s)
       variable v : adc_mcp3008_module_type;
-      
+
    begin
       v := r;
 
       case v.state is
          when IDLE =>
             -- in this state we iterate over the channels
-            
+
             if v.current_ch = 7 then
                -- we wrap around (to 0)
                v.current_ch := 0;
@@ -143,7 +138,7 @@ begin
    -----------------------------------------------------------------------------
    -- Component instantiations
    -----------------------------------------------------------------------------
-   
+
    -- Register file to present ADC values to bus
    -- and configuration
    reg_file_1 : reg_file
@@ -169,7 +164,6 @@ begin
          channel_p  => channel_s,
          value_p    => value_s,
          done_p     => done_s,
-         reset      => reset,
          clk        => clk);
 end behavioral;
 

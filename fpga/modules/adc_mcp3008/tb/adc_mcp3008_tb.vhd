@@ -34,7 +34,6 @@ architecture tb of adc_mcp3008_tb is
   signal channel_p  : std_logic_vector(2 downto 0);
   signal value_p    : std_logic_vector(9 downto 0);
   signal done_p     : std_logic;
-  signal reset      : std_logic;
 
   signal adc_i : adc_mcp3008_spi_in_type;
   signal adc_o : adc_mcp3008_spi_out_type;
@@ -58,7 +57,6 @@ begin  -- tb
       channel_p  => channel_p,
       value_p    => value_p,
       done_p     => done_p,
-      reset      => reset,
       clk        => clk);
 
 
@@ -68,18 +66,9 @@ begin  -- tb
   sck_p      <= adc_o.sck;
 
   -----------------------------------------------------------------------------
-  -- clock and reset generation
+  -- clock generation
   -----------------------------------------------------------------------------
   Clk <= not Clk after 10 ns;
-
-  process
-  begin
-    reset <= '1';
-    wait for 22 ns;
-    reset <= '0';
-    wait for 1 ms;
-  end process;
-
 
   -----------------------------------------------------------------------------
   -- this is the bus/command side of the ADC I/F

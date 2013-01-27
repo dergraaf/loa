@@ -26,15 +26,14 @@ entity encoder_module is
    port (
       encoder_p : in encoder_type;
       index_p   : in std_logic;         -- index can be used to reset the
-                                        -- counter, set to '0' if not used
+      -- counter, set to '0' if not used
       load_p    : in std_logic;         -- Save the current encoder value in a
-                                        -- buffer register
+      -- buffer register
 
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
 
-      reset : in std_logic;
-      clk   : in std_logic
+      clk : in std_logic
       );
 end encoder_module;
 
@@ -46,7 +45,8 @@ architecture behavioral of encoder_module is
       data_out : std_logic_vector(15 downto 0);
    end record;
 
-   signal r, rin : encoder_module_type;
+   signal r, rin : encoder_module_type := (data_out => (others => '0'),
+                                           counter  => (others => '0'));
 
    signal step         : std_logic := '0';
    signal up_down      : std_logic := '0';  -- Direction for the counter ('1' = up, '0' = down)
@@ -54,15 +54,10 @@ architecture behavioral of encoder_module is
    signal counter      : std_logic_vector(15 downto 0);
 begin
 
-   seq_proc : process(reset, clk)
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r.data_out <= (others => '0');
-            r.counter  <= (others => '0');
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 
@@ -107,6 +102,6 @@ begin
          clk_en_p  => step,
          up_down_p => up_down,
          value_p   => counter,
-         reset     => reset,
+         reset     => '0',
          clk       => clk);
 end behavioral;

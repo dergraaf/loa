@@ -24,7 +24,6 @@ package servo_module_pkg is
          servo_p : out std_logic_vector(SERVO_COUNT-1 downto 0);
          bus_o   : out busdevice_out_type;
          bus_i   : in  busdevice_in_type;
-         reset   : in  std_logic;
          clk     : in  std_logic);
    end component servo_module;
 
@@ -53,8 +52,7 @@ entity servo_module is
       bus_o : out busdevice_out_type;
       bus_i : in  busdevice_in_type;
 
-      reset : in std_logic;
-      clk   : in std_logic
+      clk : in std_logic
       );
 
 end servo_module;
@@ -70,7 +68,7 @@ architecture behavioral of servo_module is
    -- Base address converted to a logic vector for easier access.
    constant BASE_ADDRESS_VECTOR : std_logic_vector(14 downto 0) :=
       std_logic_vector(to_unsigned(BASE_ADDRESS, 15));
-   
+
    subtype servo_value_type is std_logic_vector(15 downto 0);
    type servo_value_array_type is array (natural range 0 to SERVO_MAX) of
       servo_value_type;
@@ -87,14 +85,10 @@ architecture behavioral of servo_module is
 
    signal r, rin : servo_module_type := (servo_value => (others => (others => '0')));
 begin
-   seq_proc : process(reset, clk)
+   seq_proc : process(clk)
    begin
       if rising_edge(clk) then
-         if reset = '1' then
-            r <= (servo_value => (others => (others => '0')));
-         else
-            r <= rin;
-         end if;
+         r <= rin;
       end if;
    end process seq_proc;
 
@@ -109,7 +103,7 @@ begin
       if bus_i.addr(14 downto SERVO_BUS_WIDTH) =
          BASE_ADDRESS_VECTOR(14 downto SERVO_BUS_WIDTH) then
 
-         index := to_integer(unsigned(bus_i.addr(SERVO_BUS_WIDTH downto 0)));
+         index    := to_integer(unsigned(bus_i.addr(SERVO_BUS_WIDTH downto 0)));
          if index <= SERVO_MAX then
             if bus_i.we = '1' then
                v.servo_value(index) := bus_i.data;
@@ -127,7 +121,7 @@ begin
          load_p    => load,
          enable_p  => enable,
          counter_p => counter,
-         reset     => reset,
+         reset     => '0',
          clk       => clk);
 
    servo_channels : for i in 0 to SERVO_MAX generate
