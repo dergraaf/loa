@@ -1,13 +1,8 @@
 -------------------------------------------------------------------------------
 -- Title      : Testbench for design "input_capture"
--- Project    : 
 -------------------------------------------------------------------------------
--- File       : encoder_module_tb.vhd
 -- Author     : Fabian Greif  <fabian@kleinvieh>
 -- Company    : Roboterclub Aachen e.V.
--- Created    : 2012-01-13
--- Last update: 2012-01-13
--- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: 
 

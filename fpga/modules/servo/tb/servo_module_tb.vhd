@@ -2,8 +2,6 @@
 -- Title      : Testbench for design "encoder_module"
 -------------------------------------------------------------------------------
 -- Author     : Fabian Greif  <fabian@kleinvieh>
--- Created    : 2011-12-16
--- Last update: 2011-12-31
 -- Platform   : Spartan 3 
 -------------------------------------------------------------------------------
 -- Description: 

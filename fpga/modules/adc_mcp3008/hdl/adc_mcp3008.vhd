@@ -2,18 +2,9 @@
 -- Title      : Interface for Microchip MCP3008 ADC
 -- Project    : Loa
 -------------------------------------------------------------------------------
--- File       : adc_mcp3008.vhd
--- Created    : 2011-09-27
--- Last update: 2012-04-24
--------------------------------------------------------------------------------
 -- Description: Interface to Microchip's 8 channel 10-bit ADC (MCP3008).
 --              Converversion started by logical 1 on start_p. '1' on done_p
 --              signals completetd conversion. 
--------------------------------------------------------------------------------
--- Revisions  :
--- Date        Version  Author  Description
--- 2011-09-27  1.0      calle   Created
--- 2012-03-31           calle   clean up work
 -------------------------------------------------------------------------------
 
 library ieee;

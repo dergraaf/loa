@@ -4,8 +4,6 @@
 -------------------------------------------------------------------------------
 -- Author     : Fabian Greif  <fabian@kleinvieh>
 -- Company    : Roboterclub Aachen e.V.
--- Created    : 2011-12-23
--- Last update: 2011-12-31
 -- Platform   : Spartan 3
 -------------------------------------------------------------------------------
 -- Description: Generates eight periode begin signals shifted by 2.5ms

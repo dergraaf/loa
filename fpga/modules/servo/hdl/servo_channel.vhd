@@ -4,9 +4,6 @@
 -------------------------------------------------------------------------------
 -- Author     : Fabian Greif  <fabian@kleinvieh>
 -- Company    : Roboterclub Aachen e.V.
--- Created    : 2011-12-23
--- Last update: 2011-12-31
--- Platform   : 
 -------------------------------------------------------------------------------
 -- Description: Generates a single servo signal in combination with the
 -- servo_sequencer.

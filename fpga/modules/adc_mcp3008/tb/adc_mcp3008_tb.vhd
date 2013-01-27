@@ -1,20 +1,9 @@
 -------------------------------------------------------------------------------
 -- Title      : Testbench for design "adc_mcp3008"
--- Project    : 
 -------------------------------------------------------------------------------
--- File       : adc_mcp3008_tb.vhd
--- Author     : Calle  <calle@Alukiste>
--- Company    : 
--- Created    : 2012-02-11
--- Last update: 2012-02-16
--- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: Simulates a single cycle measurement. Is not self-checking.
--------------------------------------------------------------------------------
--- Revisions  :
--- Date        Version  Author  Description
--- 2012-02-11  1.0      calle   Created
 -------------------------------------------------------------------------------
 
 library ieee;

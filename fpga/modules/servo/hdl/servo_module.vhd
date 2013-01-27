@@ -1,13 +1,8 @@
 -------------------------------------------------------------------------------
--- Title      : titleString
--- Project    : 
+-- Title      : Servo Module
 -------------------------------------------------------------------------------
 -- File       : servo_module.vhd
 -- Author     : Fabian <fabian@kleinvieh>
--- Company    : 
--- Created    : 2011-12-28
--- Last update: 2011-12-31
--- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: 

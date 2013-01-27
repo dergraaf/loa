@@ -4,8 +4,6 @@
 -------------------------------------------------------------------------------
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>
 -- Company    : Roboterclub Aachen e.V.
--- Created    : 2012-04-15
--- Last update: 2012-04-15
 -- Platform   : Xilinx Spartan 3
 -------------------------------------------------------------------------------
 -- Description:

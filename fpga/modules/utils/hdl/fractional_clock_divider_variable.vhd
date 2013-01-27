@@ -5,8 +5,6 @@
 -- File       : fractional_clock_divider_variable.vhd
 -- Author     : Fabian Greif  <fabian.greif@rwth-aachen.de>, strongly-typed
 -- Company    : Roboterclub Aachen e.V.
--- Created    : 2011-12-22
--- Last update: 2012-04-20
 -- Platform   : Spartan 3
 -------------------------------------------------------------------------------
 -- Description:

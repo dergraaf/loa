@@ -1,23 +1,13 @@
 -------------------------------------------------------------------------------
 -- Title      : titleString
--- Project    : 
 -------------------------------------------------------------------------------
--- File       : peripheral_register.vhd
 -- Author     : Calle  <calle@Alukiste>
--- Company    : 
--- Created    : 2011-09-27
--- Last update: 2012-05-02
--- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: A single 16-bit register that can be read and written to and
 --              from the internal parallel bus. 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2011 
--------------------------------------------------------------------------------
--- Revisions  :
--- Date        Version  Author  Description
--- 2011-10-26  1.0      calle   Created
 -------------------------------------------------------------------------------
 
 library ieee;
