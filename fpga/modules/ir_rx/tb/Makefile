@@ -36,8 +36,7 @@ FILES = \
 $(ADV_FILES) 
 else ifeq ($(TESTBENCH), ir_rx_module_timestamp_tb)
 FILES = \
-$(ADV_FILES) \
-../../signalprocessing/hdl/timestamp.vhd 
+$(ADV_FILES) 
 else ifeq ($(TESTBENCH), ir_rx_adcs_tb)
 FILES = \
 $(ADV_FILES) \

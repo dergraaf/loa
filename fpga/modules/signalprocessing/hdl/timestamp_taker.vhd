@@ -1,11 +1,7 @@
 -------------------------------------------------------------------------------
 -- Title      : Timestamp Taker module
--- Project    : 
 -------------------------------------------------------------------------------
--- File       : timestamp_taker.vhd
 -- Author     : strongly-typed
--- Created    : 2012-08-24
--- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: A double buffered register that takes timestamps from the
@@ -24,7 +20,6 @@ use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
-use work.spislave_pkg.all;
 use work.reg_file_pkg.all;
 use work.signalprocessing_pkg.all;
 

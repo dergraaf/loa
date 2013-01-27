@@ -2,7 +2,6 @@
 -- Title      : Testbench for design "timestamp"
 -------------------------------------------------------------------------------
 -- Author     : strongly-typed
--- Created    : 2011-12-16
 -- Platform   : Spartan 3 
 -------------------------------------------------------------------------------
 -- Description: The timestamp generator creates a global timestamp. The

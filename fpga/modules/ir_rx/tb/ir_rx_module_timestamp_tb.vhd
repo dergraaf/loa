@@ -1,9 +1,7 @@
 -------------------------------------------------------------------------------
 -- Title      : Testbench for design "ir_rx_module" with timestamps
--- Project    : 
--------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- File       : ir_rx_module_timestamp_tb.vhd
--- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: 
@@ -67,22 +65,22 @@ begin  -- tb
          BASE_ADDRESS_TIMESTAMP => BASE_ADDRESS_TIMESTAMP,
          SAMPLES                => 10)
       port map (
-         adc_out_p     => adc_out_p,
-         adc_in_p      => adc_in_p,
-         adc_values_p  => open,
-         sync_p        => sync_p,
-         bus_o         => bus_o,
-         bus_i         => bus_i,
-         done_p        => done_p,
-         ack_p         => ack_p,
-         clk_sample_en => clk_sample_en,
-         timestamp_i   => timestamp_s,
-         clk           => clk);
+         adc_o_p           => adc_out_p,
+         adc_i_p           => adc_in_p,
+         adc_values_o_p    => open,
+         sync_o_p          => sync_p,
+         bus_o_p           => bus_o,
+         bus_i_p           => bus_i,
+         done_o_p          => done_p,
+         ack_i_p           => ack_p,
+         clk_sample_en_i_p => clk_sample_en,
+         timestamp_i_p     => timestamp_s,
+         clk               => clk);
 
-   timestamp_1 : entity work.timestamp
+   timestamp_1 : entity work.timestamp_generator
       port map (
-         timestamp => timestamp_s,
-         clk       => clk);
+         timestamp_o_p => timestamp_s,
+         clk           => clk);
 
    -- clock generation
    clk <= not clk after 10 ns;
@@ -96,18 +94,21 @@ begin  -- tb
       end if;
       wait until clk = '1';
       clk_sample_en <= '0';
-      wait for 7 us;
+      wait
+         for 7 us;
    end process WaveGen_Proc;
 
    -- Acknowledge if the module is finished
    ack_proc : process
    begin  -- process ack_proc
       wait until done_p = '1';
-      wait for 5 us;
+      wait
+         for 5 us;
       ack_p <= '1';
-      wait for 1 us;
+      wait
+         for 1 us;
       ack_p <= '0';
    end process ack_proc;
-   
+
 
 end tb;
