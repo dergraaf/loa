@@ -172,6 +172,9 @@ entity ir_rx_module is
       -- Timestamp input from the timestamp module
       timestamp_i_p : in timestamp_type;
 
+      -- Timestamp input from the timestamp module
+      timestamp_i : in timestamp_type;
+
       clk : in std_logic
       );
 
@@ -183,6 +186,7 @@ architecture structural of ir_rx_module is
    ----------------------------------------------------------------------------
 
    constant Q           : natural := 13;
+   -- constant SAMPLES     : natural := 500;
    constant CHANNELS    : natural := 12;
    constant FREQUENCIES : natural := 2;
 
@@ -286,6 +290,19 @@ begin  -- structural
          bank_y_o => bank_y_s,
 
          clk => clk);
+
+   -- When the goertzel is finished, the goertzel_done_s signal is strobed.
+   -- Copy timestamp to the register at this moment.
+   timestamp_taker : process (clk) is
+   begin  -- process timestamp_taker
+      if rising_edge(clk) then          -- rising clock edge
+         if goertzel_done_s = '1' then
+            reg_timestamp_s(0) <= std_logic_vector(timestamp_i(15 downto 0));
+            reg_timestamp_s(1) <= std_logic_vector(timestamp_i(31 downto 16));
+            reg_timestamp_s(2) <= std_logic_vector(timestamp_i(47 downto 32));
+         end if;
+      end if;
+   end process timestamp_taker;
 
    ------------------------------------------------------------------------------
    -- ADCs
