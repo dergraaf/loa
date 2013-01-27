@@ -1,12 +1,12 @@
 
 # Name of the testbench without extenstion
-TESTBENCH = enitiy_name_tb
-#TESTBENCH = enitiy_name2_tb
+TESTBENCH = entity_name_tb
+#TESTBENCH = entity_name2_tb
 
 # VHDL files
-ifeq ($(TESTBENCH), enitiy_name_tb)
-FILES = ../hdl/enitiy_name.vhd 
-else ifeq ($(TESTBENCH), enitiy_name2_tb)
+ifeq ($(TESTBENCH), entity_name_tb)
+FILES = ../hdl/entity_name.vhd 
+else ifeq ($(TESTBENCH), entity_name2_tb)
 FILES = ../hdl/*.vhd
 endif
 

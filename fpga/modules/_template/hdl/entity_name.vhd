@@ -20,6 +20,7 @@ use ieee.numeric_std.all;
 entity entity_name is
 
    generic (
+      PARAM : natural := 42
       );
    port (
       clk : in std_logic
