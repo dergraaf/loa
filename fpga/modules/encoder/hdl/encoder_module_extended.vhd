@@ -87,7 +87,7 @@ begin
       end if;
    end process seq_proc;
 
-   comb_proc : process(bus_i, counter, load_p, r)
+   comb_proc : process(bus_i, counter, load_p, timer, r)
       variable v : encoder_module_extended_type;
    begin
       v := r;

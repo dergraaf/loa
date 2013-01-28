@@ -67,7 +67,12 @@ begin
    end process seq_proc;
 
    comb_proc : process(dir_p, hall_p.a, hall_p.b, hall_p.c,
-                       pwm_p.high, pwm_p.low, r, r.hall_1r, r.hall_2r, sd_p)
+                       pwm_p.high, pwm_p.low, r,
+                       r.hall_1r, r.hall_2r,
+                       r.driver.a.high, r.driver.a.low,
+                       r.driver.b.high, r.driver.b.low,
+                       r.driver.c.high, r.driver.c.low,
+                       sd_p)
       variable v     : commutation_type;
       variable index : integer range 0 to 6;
    begin

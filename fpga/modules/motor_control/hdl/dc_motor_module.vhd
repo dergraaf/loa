@@ -73,7 +73,7 @@ begin
    end process seq_proc;
 
    comb_proc : process(bus_i.addr, bus_i.data(15),
-                       bus_i.data(WIDTH - 1 downto 0), bus_i.re, bus_i.we, pwm,
+                       bus_i.data(WIDTH - 1 downto 0), bus_i.re, bus_i.we, pwm, break_p,
                        r, r.sd)
       variable v : dc_motor_module_type;
    begin
