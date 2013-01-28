@@ -95,7 +95,6 @@ begin
          when "1101" => step_p <= '1'; dir_p <= '0'; error_p <= '0';
          when "1110" => step_p <= '1'; dir_p <= '1'; error_p <= '0';
          when "1111" => step_p <= '0'; dir_p <= '0'; error_p <= '0';
-         when others => step_p <= '0'; dir_p <= '1'; error_p <= '1';
       end case;
    end process;
 end behavioral;
