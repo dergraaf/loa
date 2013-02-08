@@ -1,4 +1,4 @@
-// Partlist exported from /home/dhebbeker/rca/loa/pcb/loa_v2b.sch at 08/02/2013 17:03// Partlist exported from /home/dhebbeker/rca/loa/pcb/loa_v2b.sch at 08/02/2013 17:03Source;Ordercode;Quantity;
+// Partlist exported from /home/dhebbeker/rca/loa/pcb/loa_v2b.sch at 08/02/2013 18:54// Partlist exported from /home/dhebbeker/rca/loa/pcb/loa_v2b.sch at 08/02/2013 18:54Source;Ordercode;Quantity;
 RCA;auf Lager;1;
 Unknown;SJS ;1;
 Digikey;732-1800-1-ND (0,68u);2;
@@ -39,7 +39,7 @@ Digikey;NCP3170ADR2GOSCT-ND (NCP3170);1;
 Unknown;SJ2WS PDR_ON;1;
 RCA;Sascha;2;
 Reichelt;TASTER 9314;1;
-Sample MOLEX;49225-0821;1;
+Digikey;WM3295CT-ND (SD_DETECT);1;
 Sample ST;stm32f407vgt6;1;
 Reichelt;SL 2X32G SMD2,00;1;
 Reichelt;SL 2X32G SMD2,00;1;
