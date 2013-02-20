@@ -26,7 +26,14 @@ entity imotor_uart_tx is
       PARITY     : parity_type := None
       );
    port (
-      clk : in std_logic
+      data_in_p  : in  std_logic_vector(DATA_BITS - 1 downto 0);  -- parallel
+                                                                  -- data in
+      start_in_p : in  std_logic;       -- start a transmission of data_in_p
+      busy_out_p : out std_logic;       -- high when busy
+      txd_out_p  : out std_logic;       -- output to transceiver
+
+      clock_tx_in_p : in std_logic;     -- Bit clock for transmitter
+      clk           : in std_logic
       );
 
 end imotor_uart_tx;
@@ -41,7 +48,13 @@ architecture behavioural of imotor_uart_tx is
       STATE2                            -- State 2:
       );
 
-   type entity_name_type is record
+   type imotor_uart_tx_type is record
+      -- shift register 
+      sr : std_logic_vector (START_BITS + DATA_BITS + STOP_BITS - 1 downto 0);
+
+      -- Number of bits
+      bitcnt : integer range 0 to START_BITS + DATA_BITS + STOP_BITS;
+
       state : entity_name_state_type;
    end record;
 
@@ -49,18 +62,22 @@ architecture behavioural of imotor_uart_tx is
    -----------------------------------------------------------------------------
    -- Internal signal declarations
    -----------------------------------------------------------------------------
-   signal r, rin : entity_name_type := (state => IDLE);
+   signal r, rin : imotor_uart_tx_type := (state  => IDLE,
+                                           sr     => (others => '1'),
+                                           bitcnt => START_BITS + DATA_BITS + STOP_BITS);
 
    -----------------------------------------------------------------------------
    -- Component declarations
    -----------------------------------------------------------------------------
    -- None here. If any: in package
-   
+
 begin  -- architecture behavourial
 
    ----------------------------------------------------------------------------
    -- Connections between ports and signals
    ----------------------------------------------------------------------------
+   busy_out_p <= '1'     when (start_in_p = '1' or r.bitcnt < (START_BITS + DATA_BITS + STOP_BITS - 1)) else '0';
+   txd_out_p  <= r.sr(0) when (r.state = STATE2)                                                        else '1';
 
    ----------------------------------------------------------------------------
    -- Sequential part of finite state machine (FSM)
@@ -75,15 +92,34 @@ begin  -- architecture behavourial
    ----------------------------------------------------------------------------
    -- Combinatorial part of FSM
    ----------------------------------------------------------------------------
-   comb_proc : process(r)
-      variable v : entity_name_type;
+   comb_proc : process(clock_tx_in_p, data_in_p, r, start_in_p)
+      variable v : imotor_uart_tx_type;
       
    begin
       v := r;
 
       case r.state is
          when IDLE =>
-            null;
+            if start_in_p = '1' then
+               v.sr     := '1' & data_in_p & '0';  -- FIXME variable number of start
+                                                   -- and stop bits
+               v.bitcnt := 0;
+               v.state  := STATE1;
+            end if;
+         when STATE1 =>
+            if clock_tx_in_p = '1' then
+               v.state := STATE2;
+            end if;
+         when STATE2 =>
+            if clock_tx_in_p = '1' then
+               if v.bitcnt < (START_BITS + DATA_BITS + STOP_BITS) then
+                  -- Next bit
+                  v.bitcnt := r.bitcnt + 1;
+                  v.sr     := '1' & r.sr(v.sr'left downto 1);
+               else
+                  v.state := IDLE;
+               end if;
+            end if;
          when others =>
             v.state := IDLE;
       end case;
@@ -95,5 +131,5 @@ begin  -- architecture behavourial
    -- Component instantiations
    -----------------------------------------------------------------------------
    -- None.
-   
+
 end behavioural;

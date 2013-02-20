@@ -1,21 +1,36 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Wed Feb 20 14:03:37 2013
+[*] Wed Feb 20 15:27:48 2013
 [*]
 [dumpfile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/simulation/imotor_uart_tx_tb.ghw"
-[dumpfile_mtime] "Wed Feb 20 14:03:20 2013"
-[dumpfile_size] 14347
+[dumpfile_mtime] "Wed Feb 20 15:19:29 2013"
+[dumpfile_size] 15165
 [savefile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/imotor_uart_tx_tb.sav"
 [timestart] 0
 [size] 1024 744
 [pos] -1 -1
-*-32.411926 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-32.550255 1000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
+[treeopen] top.imotor_uart_tx_tb.
+[treeopen] top.imotor_uart_tx_tb.dut.
+[treeopen] top.imotor_uart_tx_tb.dut.r.
+[treeopen] top.imotor_uart_tx_tb.imotor_timer.
 [sst_width] 208
-[signals_width] 78
+[signals_width] 142
 [sst_expanded] 1
 [sst_vpaned_height] 212
-@29
+@28
 top.imotor_uart_tx_tb.clk
+top.imotor_uart_tx_tb.imotor_timer.clock_tx_out_p
+top.imotor_uart_tx_tb.start
+top.imotor_uart_tx_tb.dut.r.state
+top.imotor_uart_tx_tb.dut.busy_out_p
+@22
+#{top.imotor_uart_tx_tb.dut.r.sr[10:0]} top.imotor_uart_tx_tb.dut.r.sr[9] top.imotor_uart_tx_tb.dut.r.sr[8] top.imotor_uart_tx_tb.dut.r.sr[7] top.imotor_uart_tx_tb.dut.r.sr[6] top.imotor_uart_tx_tb.dut.r.sr[5] top.imotor_uart_tx_tb.dut.r.sr[4] top.imotor_uart_tx_tb.dut.r.sr[3] top.imotor_uart_tx_tb.dut.r.sr[2] top.imotor_uart_tx_tb.dut.r.sr[1] top.imotor_uart_tx_tb.dut.r.sr[0]
+@28
+top.imotor_uart_tx_tb.dut.r.bitcnt
+top.imotor_uart_tx_tb.dut.txd_out_p
+@29
+top.imotor_uart_tx_tb.dut.clock_tx_in_p
 [pattern_trace] 1
 [pattern_trace] 0
