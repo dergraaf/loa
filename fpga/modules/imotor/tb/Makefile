@@ -1,7 +1,8 @@
 
 # Name of the testbench without extenstion
 #TESTBENCH = imotor_timer_tb
-TESTBENCH = imotor_uart_tx_tb
+#TESTBENCH = imotor_uart_tx_tb
+TESTBENCH = imotor_sender_tb
 
 # VHDL files
 ifeq ($(TESTBENCH), imotor_timer_tb)
@@ -14,6 +15,10 @@ FILES = \
   ../../spislave/hdl/bus_pkg.vhd \
   ../hdl/imotor_module_pkg.vhd \
   ../hdl/imotor_uart_tx.vhd
+else ifeq ($(TESTBENCH), imotor_sender_tb)
+FILES = \
+  ../hdl/imotor_module_pkg.vhd \
+  ../hdl/imotor_sender.vhd 
 else
 FILES = ../hdl/*.vhd
 endif
