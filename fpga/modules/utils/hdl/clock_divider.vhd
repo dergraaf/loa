@@ -26,8 +26,8 @@ entity clock_divider is
    generic (
       DIV : positive := 2);
    port (
-      clk_out_p : out std_logic;  -- Enable output ('1' for one clock cycle)
-      clk       : in  std_logic         -- System clock
+      clk_out_p : out std_logic := '0';  -- Enable output ('1' for one clock cycle)
+      clk       : in  std_logic          -- System clock
       );
 end clock_divider;
 
