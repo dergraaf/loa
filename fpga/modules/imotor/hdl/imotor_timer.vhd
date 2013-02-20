@@ -65,6 +65,6 @@ begin  -- architecture behavourial
          DIV => CLOCK / SEND_FREQUENCY)
       port map (
          clk_out_p => clock_send_out_p,
-         clk       => clk)
+         clk       => clk);
 
 end behavioural;
