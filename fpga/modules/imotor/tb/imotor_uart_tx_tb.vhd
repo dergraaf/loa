@@ -56,7 +56,7 @@ begin  -- architecture behavourial
          STOP_BITS  => 1,
          PARITY     => None)
       port map (
-         data_in_p     => "10101101",
+         data_in_p     => "00101100",
          start_in_p    => start,
          clock_tx_in_p => clock_tx,
          clk           => clk);

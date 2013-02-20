@@ -3,7 +3,16 @@
 -------------------------------------------------------------------------------
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
--- Description: 
+-- Description: Simple UART that sends parallel data serially.
+--
+-- This implementation does not have an baud rate generator. As the intention
+-- of this entity is to be used in parallel a global baud rate generator is
+-- used. When new data is to be send the entity needs to wait for the first
+-- clock enable of the baud rate generator. Otherwise the length of the start
+-- bit would be different. 
+--
+-- ToDo:        - Parity
+--              - variable number of start and stop bits
 -------------------------------------------------------------------------------
 -- Copyright (c) 2013 strongly-typed
 -------------------------------------------------------------------------------
@@ -20,9 +29,9 @@ use work.imotor_module_pkg.all;
 entity imotor_uart_tx is
 
    generic (
-      START_BITS : natural     := 1;
-      DATA_BITS  : natural     := 8;
-      STOP_BITS  : natural     := 1;
+      START_BITS : positive     := 1;
+      DATA_BITS  : positive     := 8;
+      STOP_BITS  : positive     := 1;
       PARITY     : parity_type := None
       );
    port (
@@ -44,8 +53,8 @@ architecture behavioural of imotor_uart_tx is
 
    type entity_name_state_type is (
       IDLE,                             -- Idle state: 
-      STATE1,                           -- State 1:
-      STATE2                            -- State 2:
+      STATE1,  -- State 1: Request to send received, wait for first bit time.
+      STATE2                            -- State 2: Sending of bis in progress
       );
 
    type imotor_uart_tx_type is record
@@ -101,8 +110,15 @@ begin  -- architecture behavourial
       case r.state is
          when IDLE =>
             if start_in_p = '1' then
-               v.sr     := '1' & data_in_p & '0';  -- FIXME variable number of start
-                                                   -- and stop bits
+               -- Upper bits: STOP_BITS set to '1':
+               v.sr(START_BITS + DATA_BITS + STOP_BITS - 1 downto START_BITS + DATA_BITS) := (others => '1');
+
+               -- Lower bits: START_BITS set to '0':
+               v.sr(START_BITS - 1 downto 0) := (others => '0');
+
+               -- Middle bits: DATA_BITS
+               v.sr(START_BITS + DATA_BITS - 1 downto START_BITS) := data_in_p;
+
                v.bitcnt := 0;
                v.state  := STATE1;
             end if;
