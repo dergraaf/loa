@@ -54,7 +54,7 @@ begin  -- architecture behavourial
          START_BITS => 1,
          DATA_BITS  => 8,
          STOP_BITS  => 1,
-         PARITY     => None)
+         PARITY     => Odd)
       port map (
          data_in_p     => "00101100",
          start_in_p    => start,
