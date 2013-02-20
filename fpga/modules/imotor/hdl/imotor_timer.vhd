@@ -1,29 +1,37 @@
 -------------------------------------------------------------------------------
--- Title      : Title String
+-- Title      : iMotor Timer
 -------------------------------------------------------------------------------
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
--- Description: 
+-- Description: The iMotor Timer generates clock enables for
+--              * UART transmit clock (e.g. 1 MHz for sending at 1 MBit)
+--              * UART receive clock  (e.g. 4 MHz for 4x oversampling at 1 MBit)
+--              * Send state machine  (e.g. 1 kHz for sending messages)
 -------------------------------------------------------------------------------
--- Copyright (c) 2013
+-- Copyright (c) 2013 strongly-typed
 -------------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- library work;
--- use work.<package_name>.all;
+library work;
+use work.utils_pkg.all;
 
 -------------------------------------------------------------------------------
 
 entity imotor_timer is
-
    generic (
-      PARAM : natural := 42
+      CLOCK          : natural := 50E6;
+      BAUD           : natural := 1E6;
+      SEND_FREQUENCY : natural := 1E3
       );
    port (
-      clk : in std_logic
+      clk : in std_logic;
+
+      clock_tx_out_p   : out std_logic;  -- TX bit timing
+      clock_rx_out_p   : out std_logic;  -- RX bit timing
+      clock_send_out_p : out std_logic   -- Trigger start of new message
       );
 
 end imotor_timer;
@@ -31,66 +39,32 @@ end imotor_timer;
 -------------------------------------------------------------------------------
 
 architecture behavioural of imotor_timer is
-
-   type imotor_timer_state_type is (
-      IDLE,                             -- Idle state: 
-      STATE1,                           -- State 1:
-      STATE2                            -- State 2:
-      );
-
-   type imotor_timer_type is record
-      state : imotor_timer_state_type;
-   end record;
-
-
-   -----------------------------------------------------------------------------
-   -- Internal signal declarations
-   -----------------------------------------------------------------------------
-   signal r, rin : imotor_timer_type := (state => IDLE);
-
-   -----------------------------------------------------------------------------
-   -- Component declarations
-   -----------------------------------------------------------------------------
-   -- None here. If any: in package
    
 begin  -- architecture behavourial
-
-   ----------------------------------------------------------------------------
-   -- Connections between ports and signals
-   ----------------------------------------------------------------------------
-
-   ----------------------------------------------------------------------------
-   -- Sequential part of finite state machine (FSM)
-   ----------------------------------------------------------------------------
-   seq_proc : process(clk)
-   begin
-      if rising_edge(clk) then
-         r <= rin;
-      end if;
-   end process seq_proc;
-
-   ----------------------------------------------------------------------------
-   -- Combinatorial part of FSM
-   ----------------------------------------------------------------------------
-   comb_proc : process(r)
-      variable v : imotor_timer_type;
-      
-   begin
-      v := r;
-
-      case r.state is
-         when IDLE =>
-            null;
-         when others =>
-            v.state := IDLE;
-      end case;
-
-      rin <= v;
-   end process comb_proc;
 
    -----------------------------------------------------------------------------
    -- Component instantiations
    -----------------------------------------------------------------------------
-   -- None.
-   
+
+   clock_divider_tx : clock_divider
+      generic map (
+         DIV => CLOCK / BAUD)
+      port map (
+         clk_out_p => clock_tx_out_p,
+         clk       => clk);
+
+   clock_divider_rx : clock_divider
+      generic map (
+         DIV => CLOCK / BAUD * 4)
+      port map (
+         clk_out_p => clock_rx_out_p,
+         clk       => clk);
+
+   clock_divider_send : clock_divider
+      generic map (
+         DIV => CLOCK / SEND_FREQUENCY)
+      port map (
+         clk_out_p => clock_send_out_p,
+         clk       => clk)
+
 end behavioural;

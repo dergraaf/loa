@@ -5,7 +5,9 @@ TESTBENCH = imotor_timer_tb
 
 # VHDL files
 ifeq ($(TESTBENCH), imotor_timer_tb)
-FILES = ../hdl/imotor_timer.vhd 
+FILES = \
+  ../hdl/imotor_timer.vhd  \
+  ../../utils/hdl/*.vhd
 else ifeq ($(TESTBENCH), imotor_timer_2_tb)
 FILES = ../hdl/*.vhd
 endif
@@ -16,7 +18,7 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
-GHDL_SIM_OPT = --stop-time=2us
+GHDL_SIM_OPT = --stop-time=20us
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]
