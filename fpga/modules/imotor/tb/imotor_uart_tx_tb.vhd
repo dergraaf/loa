@@ -75,6 +75,9 @@ begin  -- architecture behavourial
       wait until clk = '1';
       start <= '0';
 
+      wait for 10 us;
+      start <= '1';
+
       wait until false;
       
    end process WaveGen_Proc;
