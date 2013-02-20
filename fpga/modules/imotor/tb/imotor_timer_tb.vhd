@@ -12,10 +12,12 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+library work;
+use work.imotor_module_pkg.all;
+
 -------------------------------------------------------------------------------
 
 entity imotor_timer_tb is
-
 end entity imotor_timer_tb;
 
 -------------------------------------------------------------------------------
@@ -23,7 +25,6 @@ end entity imotor_timer_tb;
 architecture behavourial of imotor_timer_tb is
 
    -- component generics
-   constant PARAM : natural := 42;
 
    -- component ports
 
@@ -33,7 +34,7 @@ architecture behavourial of imotor_timer_tb is
 begin  -- architecture behavourial
 
    -- component instantiation
-   DUT : entity work.imotor_timer
+   DUT : imotor_timer
       generic map (
          CLOCK          => 50E6,
          BAUD           => 1E6,

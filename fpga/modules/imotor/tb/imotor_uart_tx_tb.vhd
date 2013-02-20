@@ -18,7 +18,6 @@ use work.imotor_module_pkg.all;
 -------------------------------------------------------------------------------
 
 entity imotor_uart_tx_tb is
-
 end entity imotor_uart_tx_tb;
 
 -------------------------------------------------------------------------------
@@ -27,7 +26,7 @@ architecture behavourial of imotor_uart_tx_tb is
 
    -- component generics
 
-   -- component ports
+   -- Component ports
 
    -- clock
    signal clk : std_logic := '1';

@@ -7,6 +7,7 @@ TESTBENCH = imotor_uart_tx_tb
 ifeq ($(TESTBENCH), imotor_timer_tb)
 FILES = \
   ../hdl/imotor_timer.vhd  \
+  ../hdl/imotor_module_pkg.vhd \
   ../../utils/hdl/*.vhd
 else ifeq ($(TESTBENCH), imotor_uart_tx_tb)
 FILES = \
@@ -28,4 +29,3 @@ GHDL_SIM_OPT = --stop-time=20us
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]
 include ../../makefile.ghdl.mk
-

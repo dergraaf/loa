@@ -22,9 +22,9 @@ use work.utils_pkg.all;
 
 entity imotor_timer is
    generic (
-      CLOCK          : natural := 50E6;
-      BAUD           : natural := 1E6;
-      SEND_FREQUENCY : natural := 1E3
+      CLOCK          : positive := 50E6;
+      BAUD           : positive := 1E6;
+      SEND_FREQUENCY : positive := 1E3
       );
    port (
       clk : in std_logic;
