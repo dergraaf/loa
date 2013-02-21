@@ -2,7 +2,8 @@
 # Name of the testbench without extenstion
 #TESTBENCH = imotor_timer_tb
 #TESTBENCH = imotor_uart_tx_tb
-TESTBENCH = imotor_sender_tb
+#TESTBENCH = imotor_sender_tb
+TESTBENCH = imotor_module_tb
 
 # VHDL files
 FILES = \
@@ -21,6 +22,13 @@ FILES += \
   ../hdl/imotor_uart_tx.vhd \
   ../hdl/imotor_timer.vhd \
   ../hdl/imotor_sender.vhd 
+else ifeq ($(TESTBENCH), imotor_module_tb)
+FILES += \
+  ../hdl/imotor_uart_tx.vhd \
+  ../hdl/imotor_timer.vhd \
+  ../hdl/imotor_sender.vhd \
+  ../hdl/imotor_transceiver.vhd \
+  ../hdl/imotor_module.vhd
 else
 FILES = ../hdl/*.vhd
 endif
@@ -31,7 +39,7 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
-GHDL_SIM_OPT = --stop-time=20us
+GHDL_SIM_OPT = --stop-time=50us
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]

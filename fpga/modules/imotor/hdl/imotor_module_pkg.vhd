@@ -67,6 +67,19 @@ package imotor_module_pkg is
          clk         : in  std_logic);
    end component;
 
+   component imotor_transceiver is
+      generic (
+         DATA_WORDS : positive;
+         DATA_WIDTH : positive);
+      port (
+         data_in_p  : in  std_logic_vector(15 downto 0);
+         data_out_p : out std_logic_vector(15 downto 0);
+         tx_out_p   : out std_logic;
+         rx_in_p    : in  std_logic;
+         timer_in_p : in  imotor_timer_type;
+         clk        : in  std_logic);
+   end component imotor_transceiver;
+      
    component imotor_module is
       generic (
          BASE_ADDRESS : integer range 0 to 32767;

@@ -1,0 +1,43 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Thu Feb 21 21:33:30 2013
+[*]
+[dumpfile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/simulation/imotor_module_tb.ghw"
+[dumpfile_mtime] "Thu Feb 21 21:31:42 2013"
+[dumpfile_size] 35749
+[savefile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/imotor_module_tb.sav"
+[timestart] 0
+[size] 1280 1000
+[pos] -1 -1
+*-33.784187 9090000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.imotor_module_tb.
+[treeopen] top.imotor_module_tb.bus_i.
+[treeopen] top.imotor_module_tb.bus_o.
+[treeopen] top.imotor_module_tb.imotor_module_1.
+[sst_width] 208
+[signals_width] 147
+[sst_expanded] 1
+[sst_vpaned_height] 310
+@28
+top.imotor_module_tb.clk
+@200
+-bus_i
+@22
+#{top.imotor_module_tb.bus_i.data[15:0]} top.imotor_module_tb.bus_i.data[15] top.imotor_module_tb.bus_i.data[14] top.imotor_module_tb.bus_i.data[13] top.imotor_module_tb.bus_i.data[12] top.imotor_module_tb.bus_i.data[11] top.imotor_module_tb.bus_i.data[10] top.imotor_module_tb.bus_i.data[9] top.imotor_module_tb.bus_i.data[8] top.imotor_module_tb.bus_i.data[7] top.imotor_module_tb.bus_i.data[6] top.imotor_module_tb.bus_i.data[5] top.imotor_module_tb.bus_i.data[4] top.imotor_module_tb.bus_i.data[3] top.imotor_module_tb.bus_i.data[2] top.imotor_module_tb.bus_i.data[1] top.imotor_module_tb.bus_i.data[0]
+#{top.imotor_module_tb.bus_i.addr[14:0]} top.imotor_module_tb.bus_i.addr[14] top.imotor_module_tb.bus_i.addr[13] top.imotor_module_tb.bus_i.addr[12] top.imotor_module_tb.bus_i.addr[11] top.imotor_module_tb.bus_i.addr[10] top.imotor_module_tb.bus_i.addr[9] top.imotor_module_tb.bus_i.addr[8] top.imotor_module_tb.bus_i.addr[7] top.imotor_module_tb.bus_i.addr[6] top.imotor_module_tb.bus_i.addr[5] top.imotor_module_tb.bus_i.addr[4] top.imotor_module_tb.bus_i.addr[3] top.imotor_module_tb.bus_i.addr[2] top.imotor_module_tb.bus_i.addr[1] top.imotor_module_tb.bus_i.addr[0]
+@28
+top.imotor_module_tb.bus_i.we
+top.imotor_module_tb.bus_i.re
+@200
+-bus_o
+@22
+#{top.imotor_module_tb.bus_o.data[15:0]} top.imotor_module_tb.bus_o.data[15] top.imotor_module_tb.bus_o.data[14] top.imotor_module_tb.bus_o.data[13] top.imotor_module_tb.bus_o.data[12] top.imotor_module_tb.bus_o.data[11] top.imotor_module_tb.bus_o.data[10] top.imotor_module_tb.bus_o.data[9] top.imotor_module_tb.bus_o.data[8] top.imotor_module_tb.bus_o.data[7] top.imotor_module_tb.bus_o.data[6] top.imotor_module_tb.bus_o.data[5] top.imotor_module_tb.bus_o.data[4] top.imotor_module_tb.bus_o.data[3] top.imotor_module_tb.bus_o.data[2] top.imotor_module_tb.bus_o.data[1] top.imotor_module_tb.bus_o.data[0]
+@200
+-imotor
+@28
+#{top.imotor_module_tb.rx_in[1:0]} top.imotor_module_tb.rx_in[1] top.imotor_module_tb.rx_in[0]
+@29
+#{top.imotor_module_tb.tx_out[1:0]} top.imotor_module_tb.tx_out[1] top.imotor_module_tb.tx_out[0]
+[pattern_trace] 1
+[pattern_trace] 0
