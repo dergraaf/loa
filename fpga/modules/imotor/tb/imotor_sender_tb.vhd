@@ -31,13 +31,28 @@ architecture behavourial of imotor_sender_tb is
    -- clock
    signal clk : std_logic := '1';
 
-   signal start : std_logic := '0';
-   signal clock_tx : std_logic := '0';
+   signal start_message_s : std_logic := '0';
+   signal clock_tx        : std_logic := '0';
+
+   signal imotor_input_s : imotor_input_type(1 downto 0) := ("0000000011111111", "1111111100000000");
 
 begin  -- architecture behavourial
 
    -- component instantiation
-   imotor_timer : entity work.imotor_timer
+
+   imotor_sender_1 : entity work.imotor_sender
+      generic map (
+         DATA_WORDS => 2,
+         DATA_WIDTH => 8)
+      port map (
+         data_in_p  => imotor_input_s,
+--         data_out_p  => data_out_p,
+-- start_out_p => start_out_p,
+         busy_in_p  => '0',
+         start_in_p => start_message_s,
+         clk        => clk);
+
+   imotor_timer_1 : imotor_timer
       generic map (
          CLOCK          => 50E6,
          BAUD           => 1E6,
@@ -56,15 +71,15 @@ begin  -- architecture behavourial
 
       wait until clk = '1';
       wait for 0.5 us;
-      start <= '1';
+      start_message_s <= '1';
       wait until clk = '1';
-      start <= '0';
+      start_message_s <= '0';
 
       wait for 10 us;
-      start <= '1';
+      start_message_s <= '1';
 
       wait until false;
-      
+
    end process WaveGen_Proc;
 
 end architecture behavourial;

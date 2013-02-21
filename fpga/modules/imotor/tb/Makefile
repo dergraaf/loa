@@ -5,19 +5,20 @@
 TESTBENCH = imotor_sender_tb
 
 # VHDL files
+FILES = \
+  ../hdl/imotor_module_pkg.vhd \
+  ../../utils/hdl/*.vhd \
+  ../../spislave/hdl/bus_pkg.vhd
+
 ifeq ($(TESTBENCH), imotor_timer_tb)
-FILES = \
-  ../hdl/imotor_timer.vhd  \
-  ../hdl/imotor_module_pkg.vhd \
-  ../../utils/hdl/*.vhd
+FILES += \
+  ../hdl/imotor_timer.vhd 
 else ifeq ($(TESTBENCH), imotor_uart_tx_tb)
-FILES = \
-  ../../spislave/hdl/bus_pkg.vhd \
-  ../hdl/imotor_module_pkg.vhd \
+FILES += \
   ../hdl/imotor_uart_tx.vhd
 else ifeq ($(TESTBENCH), imotor_sender_tb)
-FILES = \
-  ../hdl/imotor_module_pkg.vhd \
+FILES += \
+  ../hdl/imotor_timer.vhd \
   ../hdl/imotor_sender.vhd 
 else
 FILES = ../hdl/*.vhd

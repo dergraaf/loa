@@ -1,0 +1,32 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Thu Feb 21 00:13:12 2013
+[*]
+[dumpfile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/simulation/imotor_sender_tb.ghw"
+[dumpfile_mtime] "Thu Feb 21 00:12:13 2013"
+[dumpfile_size] 14998
+[savefile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/imotor_sender_tb.sav"
+[timestart] 0
+[size] 1024 744
+[pos] -1 -1
+*-29.723585 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.imotor_sender_tb.
+[treeopen] top.imotor_sender_tb.imotor_input_s.
+[treeopen] top.imotor_sender_tb.imotor_sender_1.
+[treeopen] top.imotor_sender_tb.imotor_timer_1.
+[sst_width] 208
+[signals_width] 214
+[sst_expanded] 1
+[sst_vpaned_height] 212
+@28
+top.imotor_sender_tb.clk
+top.imotor_sender_tb.clock_tx
+top.imotor_sender_tb.start_message_s
+@22
+#{top.imotor_sender_tb.imotor_input_s[0][15:0]} top.imotor_sender_tb.imotor_input_s[0][15] top.imotor_sender_tb.imotor_input_s[0][14] top.imotor_sender_tb.imotor_input_s[0][13] top.imotor_sender_tb.imotor_input_s[0][12] top.imotor_sender_tb.imotor_input_s[0][11] top.imotor_sender_tb.imotor_input_s[0][10] top.imotor_sender_tb.imotor_input_s[0][9] top.imotor_sender_tb.imotor_input_s[0][8] top.imotor_sender_tb.imotor_input_s[0][7] top.imotor_sender_tb.imotor_input_s[0][6] top.imotor_sender_tb.imotor_input_s[0][5] top.imotor_sender_tb.imotor_input_s[0][4] top.imotor_sender_tb.imotor_input_s[0][3] top.imotor_sender_tb.imotor_input_s[0][2] top.imotor_sender_tb.imotor_input_s[0][1] top.imotor_sender_tb.imotor_input_s[0][0]
+#{top.imotor_sender_tb.imotor_input_s[1][15:0]} top.imotor_sender_tb.imotor_input_s[1][15] top.imotor_sender_tb.imotor_input_s[1][14] top.imotor_sender_tb.imotor_input_s[1][13] top.imotor_sender_tb.imotor_input_s[1][12] top.imotor_sender_tb.imotor_input_s[1][11] top.imotor_sender_tb.imotor_input_s[1][10] top.imotor_sender_tb.imotor_input_s[1][9] top.imotor_sender_tb.imotor_input_s[1][8] top.imotor_sender_tb.imotor_input_s[1][7] top.imotor_sender_tb.imotor_input_s[1][6] top.imotor_sender_tb.imotor_input_s[1][5] top.imotor_sender_tb.imotor_input_s[1][4] top.imotor_sender_tb.imotor_input_s[1][3] top.imotor_sender_tb.imotor_input_s[1][2] top.imotor_sender_tb.imotor_input_s[1][1] top.imotor_sender_tb.imotor_input_s[1][0]
+@28
+top.imotor_sender_tb.imotor_sender_1.r.state
+[pattern_trace] 1
+[pattern_trace] 0
