@@ -133,7 +133,6 @@ begin  -- architecture behavourial
                v.byte_count := v.byte_count + 1;
                v.start      := '1';
 
-
                if v.byte_count = DATA_WORDS * 2 then
                   v.state    := STOP;
                   v.data_out := END_BYTE;

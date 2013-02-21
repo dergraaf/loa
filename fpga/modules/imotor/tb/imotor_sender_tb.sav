@@ -1,34 +1,43 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Thu Feb 21 11:04:25 2013
+[*] Thu Feb 21 20:48:32 2013
 [*]
 [dumpfile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/simulation/imotor_sender_tb.ghw"
-[dumpfile_mtime] "Thu Feb 21 11:03:37 2013"
-[dumpfile_size] 15069
+[dumpfile_mtime] "Thu Feb 21 20:46:40 2013"
+[dumpfile_size] 43842
 [savefile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/imotor_sender_tb.sav"
 [timestart] 0
-[size] 1024 744
-[pos] -1 -1
-*-27.723585 544000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1280 1000
+[pos] -2 -28
+*-33.723587 10000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.imotor_sender_tb.
 [treeopen] top.imotor_sender_tb.imotor_input_s.
 [treeopen] top.imotor_sender_tb.imotor_sender_1.
 [treeopen] top.imotor_sender_tb.imotor_timer_1.
+[treeopen] top.imotor_sender_tb.imotor_uart_tx_1.
 [sst_width] 208
 [signals_width] 248
 [sst_expanded] 1
-[sst_vpaned_height] 212
+[sst_vpaned_height] 314
 @28
 top.imotor_sender_tb.clk
-top.imotor_sender_tb.clock_tx
-top.imotor_sender_tb.start_message_s
 @22
 #{top.imotor_sender_tb.imotor_input_s[0][15:0]} top.imotor_sender_tb.imotor_input_s[0][15] top.imotor_sender_tb.imotor_input_s[0][14] top.imotor_sender_tb.imotor_input_s[0][13] top.imotor_sender_tb.imotor_input_s[0][12] top.imotor_sender_tb.imotor_input_s[0][11] top.imotor_sender_tb.imotor_input_s[0][10] top.imotor_sender_tb.imotor_input_s[0][9] top.imotor_sender_tb.imotor_input_s[0][8] top.imotor_sender_tb.imotor_input_s[0][7] top.imotor_sender_tb.imotor_input_s[0][6] top.imotor_sender_tb.imotor_input_s[0][5] top.imotor_sender_tb.imotor_input_s[0][4] top.imotor_sender_tb.imotor_input_s[0][3] top.imotor_sender_tb.imotor_input_s[0][2] top.imotor_sender_tb.imotor_input_s[0][1] top.imotor_sender_tb.imotor_input_s[0][0]
 #{top.imotor_sender_tb.imotor_input_s[1][15:0]} top.imotor_sender_tb.imotor_input_s[1][15] top.imotor_sender_tb.imotor_input_s[1][14] top.imotor_sender_tb.imotor_input_s[1][13] top.imotor_sender_tb.imotor_input_s[1][12] top.imotor_sender_tb.imotor_input_s[1][11] top.imotor_sender_tb.imotor_input_s[1][10] top.imotor_sender_tb.imotor_input_s[1][9] top.imotor_sender_tb.imotor_input_s[1][8] top.imotor_sender_tb.imotor_input_s[1][7] top.imotor_sender_tb.imotor_input_s[1][6] top.imotor_sender_tb.imotor_input_s[1][5] top.imotor_sender_tb.imotor_input_s[1][4] top.imotor_sender_tb.imotor_input_s[1][3] top.imotor_sender_tb.imotor_input_s[1][2] top.imotor_sender_tb.imotor_input_s[1][1] top.imotor_sender_tb.imotor_input_s[1][0]
+@200
+-Sender
 @28
 top.imotor_sender_tb.imotor_sender_1.r.state
+top.imotor_sender_tb.imotor_sender_1.r.byte_count
+top.imotor_sender_tb.imotor_sender_1.start_in_p
+top.imotor_sender_tb.imotor_sender_1.busy_in_p
+top.imotor_sender_tb.imotor_sender_1.start_out_p
+@200
+-UART TX
 @23
-#{top.imotor_sender_tb.imotor_sender_1.data_out_p[7:0]} top.imotor_sender_tb.imotor_sender_1.data_out_p[7] top.imotor_sender_tb.imotor_sender_1.data_out_p[6] top.imotor_sender_tb.imotor_sender_1.data_out_p[5] top.imotor_sender_tb.imotor_sender_1.data_out_p[4] top.imotor_sender_tb.imotor_sender_1.data_out_p[3] top.imotor_sender_tb.imotor_sender_1.data_out_p[2] top.imotor_sender_tb.imotor_sender_1.data_out_p[1] top.imotor_sender_tb.imotor_sender_1.data_out_p[0]
+#{top.imotor_sender_tb.imotor_uart_tx_1.data_in_p[7:0]} top.imotor_sender_tb.imotor_uart_tx_1.data_in_p[7] top.imotor_sender_tb.imotor_uart_tx_1.data_in_p[6] top.imotor_sender_tb.imotor_uart_tx_1.data_in_p[5] top.imotor_sender_tb.imotor_uart_tx_1.data_in_p[4] top.imotor_sender_tb.imotor_uart_tx_1.data_in_p[3] top.imotor_sender_tb.imotor_uart_tx_1.data_in_p[2] top.imotor_sender_tb.imotor_uart_tx_1.data_in_p[1] top.imotor_sender_tb.imotor_uart_tx_1.data_in_p[0]
+@28
+top.imotor_sender_tb.imotor_uart_tx_1.txd_out_p
 [pattern_trace] 1
 [pattern_trace] 0

@@ -32,8 +32,8 @@ architecture behavourial of imotor_uart_tx_tb is
    signal clk : std_logic := '1';
 
    signal start    : std_logic := '0';  -- Start signal for transmission
-   signal clock_tx : std_logic := '0';  -- Bit clock transmitter
-   
+
+   signal imotor_clock : imotor_timer_type;   
 
 begin  -- architecture behavourial
 
@@ -44,7 +44,7 @@ begin  -- architecture behavourial
          BAUD           => 1E6,
          SEND_FREQUENCY => 1E3)
       port map (
-         clock_tx_out_p => clock_tx,
+         clock_out_p => imotor_clock,
          clk            => clk);
 
    
@@ -57,7 +57,7 @@ begin  -- architecture behavourial
       port map (
          data_in_p     => "00101100",
          start_in_p    => start,
-         clock_tx_in_p => clock_tx,
+         clock_tx_in_p => imotor_clock.tx,
          clk           => clk);
 
    -- clock generation

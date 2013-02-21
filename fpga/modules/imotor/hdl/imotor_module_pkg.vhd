@@ -22,18 +22,22 @@ package imotor_module_pkg is
 
    type imotor_input_type is array (natural range <>) of std_logic_vector(15 downto 0);
 
+   type imotor_timer_type is record
+      tx   : std_logic;                 -- TX bit timing
+      rx   : std_logic;                 -- RX bit timing
+      send : std_logic;                 -- Trigger start of new message
+   end record imotor_timer_type;
+
    -- components here!
-   component imotor_timer
+   component imotor_timer is
       generic (
          CLOCK          : positive;
          BAUD           : positive;
          SEND_FREQUENCY : positive);
       port (
-         clk              : in  std_logic;
-         clock_tx_out_p   : out std_logic;
-         clock_rx_out_p   : out std_logic;
-         clock_send_out_p : out std_logic);
-   end component;
+         clock_out_p : out imotor_timer_type;
+         clk         : in  std_logic);
+   end component imotor_timer;
 
    component imotor_uart_tx
       generic (
@@ -62,5 +66,17 @@ package imotor_module_pkg is
          start_in_p  : in  std_logic;
          clk         : in  std_logic);
    end component;
+
+   component imotor_module is
+      generic (
+         BASE_ADDRESS : integer range 0 to 32767;
+         MOTORS       : positive);
+      port (
+         tx_out_p : out std_logic_vector(MOTORS - 1 downto 0);
+         rx_in_p  : in  std_logic_vector(MOTORS - 1 downto 0);
+         bus_o    : out busdevice_out_type;
+         bus_i    : in  busdevice_in_type;
+         clk      : in  std_logic);
+   end component imotor_module;
 
 end imotor_module_pkg;

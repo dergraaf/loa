@@ -31,13 +31,12 @@ architecture behavourial of imotor_sender_tb is
    -- clock
    signal clk : std_logic := '1';
 
-   signal start_message_s : std_logic := '0';
-   signal clock_tx_s      : std_logic := '0';
+   signal clock_s : imotor_timer_type;
 
    signal imotor_input_s : imotor_input_type(1 downto 0) := (x"0403", x"0201");
 
    signal data_tx_s : std_logic_vector(7 downto 0);
-   
+
    signal start_tx_s : std_logic;
    signal busy_tx_s  : std_logic;
    signal txd_out_s  : std_logic;
@@ -55,7 +54,7 @@ begin  -- architecture behavourial
          data_out_p  => data_tx_s,
          start_out_p => start_tx_s,
          busy_in_p   => busy_tx_s,
-         start_in_p  => start_message_s,
+         start_in_p  => clock_s.send,
          clk         => clk);
 
    imotor_timer_1 : imotor_timer
@@ -64,9 +63,8 @@ begin  -- architecture behavourial
          BAUD           => 10E6,
          SEND_FREQUENCY => 1E5)
       port map (
-         clock_tx_out_p   => clock_tx_s,
-         clock_send_out_p => start_message_s,
-         clk              => clk);
+         clock_out_p => clock_s,
+         clk         => clk);
 
    imotor_uart_tx_1 : entity work.imotor_uart_tx
       generic map (
@@ -79,7 +77,7 @@ begin  -- architecture behavourial
          start_in_p    => start_tx_s,
          busy_out_p    => busy_tx_s,
          txd_out_p     => txd_out_s,
-         clock_tx_in_p => clock_tx_s,
+         clock_tx_in_p => clock_s.tx,
          clk           => clk);
 
    -- clock generation

@@ -38,7 +38,7 @@ begin  -- architecture behavourial
       generic map (
          CLOCK          => 50E6,
          BAUD           => 1E6,
-         SEND_FREQUENCY => 1E3)
+         SEND_FREQUENCY => 1E5)
       port map (
          clk => clk);
 
