@@ -88,8 +88,8 @@ begin  -- architecture behavourial
    ----------------------------------------------------------------------------
    -- Connections between ports and signals
    ----------------------------------------------------------------------------
-   busy_out_p <= '1'     when (start_in_p = '1' or r.bitcnt < (START_BITS + DATA_BITS + STOP_BITS)) else '0';
-   txd_out_p  <= r.sr(0) when (r.state = STATE2)                                                    else '1';
+   busy_out_p <= '1'     when (start_in_p = '1' or r.state /= IDLE) else '0';
+   txd_out_p  <= r.sr(0) when (r.state = STATE2)                    else '1';
 
    ----------------------------------------------------------------------------
    -- Sequential part of finite state machine (FSM)
@@ -109,7 +109,7 @@ begin  -- architecture behavourial
 
       variable parity_bit : std_logic := '1';  -- Computed parity, default '1'
                                                -- for parity = None
-      
+
    begin
       -- Parity bit:
       for i in data_in_p'range loop
