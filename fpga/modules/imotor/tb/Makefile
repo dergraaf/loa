@@ -18,6 +18,7 @@ FILES += \
   ../hdl/imotor_uart_tx.vhd
 else ifeq ($(TESTBENCH), imotor_sender_tb)
 FILES += \
+  ../hdl/imotor_uart_tx.vhd \
   ../hdl/imotor_timer.vhd \
   ../hdl/imotor_sender.vhd 
 else
