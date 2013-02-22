@@ -112,6 +112,7 @@ begin  -- architecture behavourial
 
    begin
       -- Parity bit:
+      parity_bit := '1';
       for i in data_in_p'range loop
          parity_bit := parity_bit xor data_in_p(i);
       end loop;
