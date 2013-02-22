@@ -54,7 +54,7 @@ begin  -- architecture behavourial
 
    clock_divider_rx : clock_divider
       generic map (
-         DIV => CLOCK / BAUD * 4)
+         DIV => CLOCK / BAUD / 4)
       port map (
          clk_out_p => clock_out_p.rx,
          clk       => clk);
