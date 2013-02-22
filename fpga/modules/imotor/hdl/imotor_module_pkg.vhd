@@ -20,8 +20,11 @@ package imotor_module_pkg is
 
    type parity_type is (None, Even, Odd);
 
+   -- Data types of a single iMotor
    type imotor_input_type is array (natural range <>) of std_logic_vector(15 downto 0);
+   type imotor_output_type is array (natural range <>) of std_logic_vector(15 downto 0);
 
+   -- Data types for all iMotors in one
    type imotor_timer_type is record
       tx   : std_logic;                 -- TX bit timing
       rx   : std_logic;                 -- RX bit timing
@@ -72,14 +75,14 @@ package imotor_module_pkg is
          DATA_WORDS : positive;
          DATA_WIDTH : positive);
       port (
-         data_in_p  : in  std_logic_vector(15 downto 0);
-         data_out_p : out std_logic_vector(15 downto 0);
+         data_in_p  : in  imotor_input_type(DATA_WORDS - 1 downto 0);
+         data_out_p : in  imotor_output_type(DATA_WORDS - 1 downto 0);
          tx_out_p   : out std_logic;
          rx_in_p    : in  std_logic;
          timer_in_p : in  imotor_timer_type;
          clk        : in  std_logic);
    end component imotor_transceiver;
-      
+   
    component imotor_module is
       generic (
          BASE_ADDRESS : integer range 0 to 32767;

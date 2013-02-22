@@ -1,24 +1,35 @@
 [*]
 [*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
-[*] Thu Feb 21 21:33:30 2013
+[*] Fri Feb 22 00:26:16 2013
 [*]
 [dumpfile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/simulation/imotor_module_tb.ghw"
-[dumpfile_mtime] "Thu Feb 21 21:31:42 2013"
-[dumpfile_size] 35749
+[dumpfile_mtime] "Fri Feb 22 00:24:40 2013"
+[dumpfile_size] 378911
 [savefile] "/home/alpha/rca/loa/fpga/modules/imotor/tb/imotor_module_tb.sav"
 [timestart] 0
 [size] 1280 1000
 [pos] -1 -1
-*-33.784187 9090000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-36.784187 38530000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.imotor_module_tb.
 [treeopen] top.imotor_module_tb.bus_i.
 [treeopen] top.imotor_module_tb.bus_o.
 [treeopen] top.imotor_module_tb.imotor_module_1.
-[sst_width] 208
-[signals_width] 147
+[treeopen] top.imotor_module_tb.imotor_module_1.imotor_datas_in.
+[treeopen] top.imotor_module_tb.imotor_module_1.imotor_datas_in.[0].
+[treeopen] top.imotor_module_tb.imotor_module_1.imotor_datas_out.[0].
+[treeopen] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].
+[treeopen] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.
+[treeopen] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].
+[treeopen] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.
+[treeopen] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p.
+[treeopen] top.imotor_module_tb.imotor_module_1.reg_file_1.bus_o.
+[treeopen] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_i.
+[treeopen] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o.
+[sst_width] 263
+[signals_width] 210
 [sst_expanded] 1
-[sst_vpaned_height] 310
+[sst_vpaned_height] 429
 @28
 top.imotor_module_tb.clk
 @200
@@ -37,7 +48,35 @@ top.imotor_module_tb.bus_i.re
 -imotor
 @28
 #{top.imotor_module_tb.rx_in[1:0]} top.imotor_module_tb.rx_in[1] top.imotor_module_tb.rx_in[0]
-@29
 #{top.imotor_module_tb.tx_out[1:0]} top.imotor_module_tb.tx_out[1] top.imotor_module_tb.tx_out[0]
+@200
+-clocks
+@28
+top.imotor_module_tb.imotor_module_1.imotor_timer_1.clock_out_p.send
+top.imotor_module_tb.imotor_module_1.imotor_timer_1.clock_out_p.rx
+top.imotor_module_tb.imotor_module_1.imotor_timer_1.clock_out_p.tx
+@200
+-Register
+@22
+#{top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][15:0]} top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][15] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][14] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][13] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][12] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][11] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][10] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][9] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][8] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][7] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][6] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][5] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][4] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][3] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][2] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][1] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[0][0]
+#{top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][15:0]} top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][15] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][14] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][13] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][12] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][11] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][10] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][9] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][8] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][7] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][6] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][5] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][4] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][3] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][2] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][1] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[1][0]
+#{top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][15:0]} top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][15] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][14] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][13] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][12] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][11] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][10] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][9] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][8] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][7] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][6] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][5] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][4] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][3] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][2] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][1] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[2][0]
+#{top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][15:0]} top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][15] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][14] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][13] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][12] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][11] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][10] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][9] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][8] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][7] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][6] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][5] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][4] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][3] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][2] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][1] top.imotor_module_tb.imotor_module_1.reg_file_1.reg_o[3][0]
+@200
+-RXTX[0]
+@22
+#{top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][15:0]} top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][15] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][14] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][13] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][12] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][11] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][10] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][9] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][8] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][7] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][6] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][5] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][4] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][3] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][2] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][1] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[0][0]
+#{top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][15:0]} top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][15] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][14] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][13] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][12] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][11] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][10] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][9] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][8] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][7] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][6] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][5] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][4] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][3] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][2] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][1] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.data_in_p[1][0]
+#{top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.imotor_uart_tx_1.data_in_p[7:0]} top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.imotor_uart_tx_1.data_in_p[7] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.imotor_uart_tx_1.data_in_p[6] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.imotor_uart_tx_1.data_in_p[5] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.imotor_uart_tx_1.data_in_p[4] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.imotor_uart_tx_1.data_in_p[3] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.imotor_uart_tx_1.data_in_p[2] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.imotor_uart_tx_1.data_in_p[1] top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.imotor_uart_tx_1.data_in_p[0]
+@29
+top.imotor_module_tb.imotor_module_1.imotor_transceivers[0].imotor_transceiver.tx_out_p
+@200
+-RXTX[1]
+@22
+#{top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][15:0]} top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][15] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][14] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][13] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][12] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][11] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][10] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][9] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][8] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][7] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][6] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][5] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][4] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][3] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][2] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][1] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[0][0]
+#{top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][15:0]} top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][15] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][14] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][13] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][12] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][11] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][10] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][9] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][8] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][7] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][6] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][5] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][4] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][3] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][2] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][1] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.data_in_p[1][0]
+#{top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.imotor_uart_tx_1.data_in_p[7:0]} top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.imotor_uart_tx_1.data_in_p[7] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.imotor_uart_tx_1.data_in_p[6] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.imotor_uart_tx_1.data_in_p[5] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.imotor_uart_tx_1.data_in_p[4] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.imotor_uart_tx_1.data_in_p[3] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.imotor_uart_tx_1.data_in_p[2] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.imotor_uart_tx_1.data_in_p[1] top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.imotor_uart_tx_1.data_in_p[0]
+@28
+top.imotor_module_tb.imotor_module_1.imotor_transceivers[1].imotor_transceiver.tx_out_p
 [pattern_trace] 1
 [pattern_trace] 0

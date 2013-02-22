@@ -9,7 +9,8 @@ TESTBENCH = imotor_module_tb
 FILES = \
   ../hdl/imotor_module_pkg.vhd \
   ../../utils/hdl/*.vhd \
-  ../../spislave/hdl/bus_pkg.vhd
+  ../../spislave/hdl/bus_pkg.vhd \
+  ../../peripheral_register/hdl/*.vhd
 
 ifeq ($(TESTBENCH), imotor_timer_tb)
 FILES += \
@@ -39,7 +40,7 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
-GHDL_SIM_OPT = --stop-time=50us
+GHDL_SIM_OPT = --stop-time=500us
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]

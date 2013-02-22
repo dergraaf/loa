@@ -33,7 +33,8 @@ entity imotor_sender is
       -- parallel data in
       data_in_p : in imotor_input_type(DATA_WORDS - 1 downto 0);
 
-      data_out_p  : out std_logic_vector(DATA_WIDTH - 1 downto 0);
+      -- parallel data to UART TX
+      data_out_p  : out std_logic_vector(7 downto 0);
       start_out_p : out std_logic;      -- start a transmission of data_in_p
       busy_in_p   : in  std_logic;      -- high when busy
 
