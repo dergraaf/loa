@@ -118,6 +118,9 @@ package body reg_file_pkg is
    ----------------------------------------------------------------------------
    -- Debug functions to simulate bus activity
    ----------------------------------------------------------------------------
+
+   -- Read a word from the internal bus
+   -- Example usage: readWord(addr => BASE_ADDRESS + 1, bus_i => bus_i, clk => clk);
    procedure readWord(
       constant addr :     natural range 0 to 2**15-1;
       signal bus_i  : out busdevice_in_type;
@@ -136,6 +139,8 @@ package body reg_file_pkg is
       bus_i.re   <= '0';
    end procedure readWord;
 
+   -- Write a word to the internal bus
+   -- Example usage: writeWord(addr => 16#0010#, data => 16#0055#, bus_i => bus_i, clk => clk);
    procedure writeWord (
       constant addr : in  natural range 0 to 2**15-1;
       constant data : in  natural range 0 to 2**16-1;
