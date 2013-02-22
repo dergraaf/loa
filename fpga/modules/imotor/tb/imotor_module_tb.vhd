@@ -14,6 +14,7 @@ use ieee.std_logic_1164.all;
 
 library work;
 use work.bus_pkg.all;
+use work.reg_file_pkg.all;
 use work.imotor_module_pkg.all;
 
 -------------------------------------------------------------------------------
@@ -67,6 +68,21 @@ begin  -- architecture behavourial
       -- insert signal assignments here
 
       wait until clk = '1';
+
+      -- Fill registers
+
+      -- iMotor #0, PWM
+      writeWord(addr => 16#0100#, data => 16#2211#, bus_i => bus_i, clk => clk);
+
+      -- iMotor #0, CUR
+      writeWord(addr => 16#0101#, data => 16#4433#, bus_i => bus_i, clk => clk);
+
+      -- iMotor #1, PWM
+      writeWord(addr => 16#0102#, data => 16#6655#, bus_i => bus_i, clk => clk);
+
+      -- iMotor #1, CUR
+      writeWord(addr => 16#0103#, data => 16#8877#, bus_i => bus_i, clk => clk);
+
 
       wait until false;
 
