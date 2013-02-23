@@ -26,7 +26,8 @@ FILES += \
   ../hdl/imotor_sender.vhd 
 else ifeq ($(TESTBENCH), imotor_receiver_tb)
 FILES += \
-  ../hdl/imotor_receiver.vhd
+  ../hdl/imotor_receiver.vhd \
+  ../hdl/imotor_timer.vhd
 else ifeq ($(TESTBENCH), imotor_module_tb)
 FILES += \
   ../hdl/imotor_uart_tx.vhd \

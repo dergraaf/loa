@@ -25,6 +25,8 @@ end entity imotor_receiver_tb;
 architecture behavourial of imotor_receiver_tb is
 
    -- component generics
+   constant DATA_WORDS : positive := 2;
+   constant DATA_WIDTH : positive := 16;
 
    -- Component ports
 
@@ -33,22 +35,29 @@ architecture behavourial of imotor_receiver_tb is
 
    signal clock_s : imotor_timer_type;
 
-   signal imotor_input_s : imotor_input_type(1 downto 0) := (x"0403", x"0201");
+   signal data_rx_in_s    : std_logic_vector(7 downto 0) := (others => '0');
+   signal imotor_output_s : imotor_output_type(1 downto 0);
 
-   signal data_tx_s : std_logic_vector(7 downto 0);
-
-   signal start_tx_s : std_logic;
-   signal busy_tx_s  : std_logic;
-   signal txd_out_s  : std_logic;
+   signal ready_rx_s : std_logic := '0';
 
 begin  -- architecture behavourial
 
    -- component instantiation
+   imotor_receiver_1 : entity work.imotor_receiver
+      generic map (
+         DATA_WORDS => DATA_WORDS,
+         DATA_WIDTH => DATA_WIDTH)
+      port map (
+         data_out_p        => imotor_output_s,
+         data_in_p         => data_rx_in_s,
+         parity_error_in_p => '0',     -- parity_error_in_p,
+         ready_in_p        => ready_rx_s,
+         clk               => clk);
 
    imotor_timer_1 : imotor_timer
       generic map (
          CLOCK          => 50E6,
-         BAUD           => 10E6,
+         BAUD           => 1E6,
          SEND_FREQUENCY => 1E5)
       port map (
          clock_out_p => clock_s,
@@ -60,10 +69,55 @@ begin  -- architecture behavourial
    -- waveform generation
    WaveGen_Proc : process
    begin
-      -- insert signal assignments here
-
+      -- Start byte of slave
+      wait until clock_s.rx = '1';
+      data_rx_in_s <= x"51";
+      
+      ready_rx_s <= '1';
       wait until clk = '1';
+      ready_rx_s <= '0';
 
+      -- First data byte
+      wait until clock_s.rx = '1';
+      data_rx_in_s <= x"12";
+      
+      ready_rx_s <= '1';
+      wait until clk = '1';
+      ready_rx_s <= '0';
+
+      --
+      wait until clock_s.rx = '1';
+      data_rx_in_s <= x"34";
+      
+      ready_rx_s <= '1';
+      wait until clk = '1';
+      ready_rx_s <= '0';
+
+      --
+      wait until clock_s.rx = '1';
+      data_rx_in_s <= x"56";
+      
+      ready_rx_s <= '1';
+      wait until clk = '1';
+      ready_rx_s <= '0';
+
+      -- 
+      wait until clock_s.rx = '1';
+      data_rx_in_s <= x"78";
+      
+      ready_rx_s <= '1';
+      wait until clk = '1';
+      ready_rx_s <= '0';
+
+      -- End Byte
+      wait until clock_s.rx = '1';
+      data_rx_in_s <= x"A1";
+      
+      ready_rx_s <= '1';
+      wait until clk = '1';
+      ready_rx_s <= '0';
+
+      
       wait until false;
 
    end process WaveGen_Proc;
