@@ -11,6 +11,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 library work;
 use work.imotor_module_pkg.all;
@@ -50,7 +51,7 @@ begin  -- architecture behavourial
       port map (
          data_out_p        => imotor_output_s,
          data_in_p         => data_rx_in_s,
-         parity_error_in_p => '0',     -- parity_error_in_p,
+         parity_error_in_p => '0',      -- parity_error_in_p,
          ready_in_p        => ready_rx_s,
          clk               => clk);
 
@@ -68,56 +69,47 @@ begin  -- architecture behavourial
 
    -- waveform generation
    WaveGen_Proc : process
+      variable test_vector : unsigned(7 downto 0) := x"01";
+
    begin
-      -- Start byte of slave
-      wait until clock_s.rx = '1';
-      data_rx_in_s <= x"51";
-      
-      ready_rx_s <= '1';
-      wait until clk = '1';
-      ready_rx_s <= '0';
+      while true loop
 
-      -- First data byte
-      wait until clock_s.rx = '1';
-      data_rx_in_s <= x"12";
-      
-      ready_rx_s <= '1';
-      wait until clk = '1';
-      ready_rx_s <= '0';
+         -- Start byte of slave
+         wait until clock_s.rx = '1';
+         data_rx_in_s <= x"51";
 
-      --
-      wait until clock_s.rx = '1';
-      data_rx_in_s <= x"34";
-      
-      ready_rx_s <= '1';
-      wait until clk = '1';
-      ready_rx_s <= '0';
+         ready_rx_s <= '1';
+         wait until clk = '1';
+         ready_rx_s <= '0';
 
-      --
-      wait until clock_s.rx = '1';
-      data_rx_in_s <= x"56";
-      
-      ready_rx_s <= '1';
-      wait until clk = '1';
-      ready_rx_s <= '0';
+         -- Four data bytes
+         for ii in 0 to 3 loop
+            wait until clock_s.rx = '1';
+            data_rx_in_s <= std_logic_vector(test_vector);
+            test_vector  := test_vector + x"22";
 
-      -- 
-      wait until clock_s.rx = '1';
-      data_rx_in_s <= x"78";
-      
-      ready_rx_s <= '1';
-      wait until clk = '1';
-      ready_rx_s <= '0';
+            ready_rx_s <= '1';
+            wait until clk = '1';
+            ready_rx_s <= '0';
+         end loop;  -- ii
 
-      -- End Byte
-      wait until clock_s.rx = '1';
-      data_rx_in_s <= x"A1";
-      
-      ready_rx_s <= '1';
-      wait until clk = '1';
-      ready_rx_s <= '0';
+         -- End Byte
+         wait until clock_s.rx = '1';
+         data_rx_in_s <= x"A1";
 
-      
+         ready_rx_s <= '1';
+         wait until clk = '1';
+         ready_rx_s <= '0';
+
+         -- Next Message, after a small pause
+         wait until clock_s.rx = '1';
+         wait until clock_s.rx = '0';
+
+         wait until clock_s.rx = '1';
+         wait until clock_s.rx = '0';
+
+      end loop;
+
       wait until false;
 
    end process WaveGen_Proc;

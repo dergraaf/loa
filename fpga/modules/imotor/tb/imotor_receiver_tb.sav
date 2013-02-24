@@ -1,0 +1,39 @@
+[*]
+[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
+[*] Sun Feb 24 21:47:44 2013
+[*]
+[dumpfile] "/media/user/home_common/rca/loa/fpga/modules/imotor/tb/simulation/imotor_receiver_tb.ghw"
+[dumpfile_mtime] "Sun Feb 24 21:46:55 2013"
+[dumpfile_size] 416219
+[savefile] "/media/user/home_common/rca/loa/fpga/modules/imotor/tb/imotor_receiver_tb.sav"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-31.145050 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.imotor_receiver_tb.
+[treeopen] top.imotor_receiver_tb.imotor_receiver_1.
+[sst_width] 210
+[signals_width] 266
+[sst_expanded] 1
+[sst_vpaned_height] 215
+@28
+top.imotor_receiver_tb.clk
+top.imotor_receiver_tb.ready_rx_s
+@22
+#{top.imotor_receiver_tb.data_rx_in_s[7:0]} top.imotor_receiver_tb.data_rx_in_s[7] top.imotor_receiver_tb.data_rx_in_s[6] top.imotor_receiver_tb.data_rx_in_s[5] top.imotor_receiver_tb.data_rx_in_s[4] top.imotor_receiver_tb.data_rx_in_s[3] top.imotor_receiver_tb.data_rx_in_s[2] top.imotor_receiver_tb.data_rx_in_s[1] top.imotor_receiver_tb.data_rx_in_s[0]
+@200
+-Receiver
+@28
+top.imotor_receiver_tb.imotor_receiver_1.r.state
+top.imotor_receiver_tb.imotor_receiver_1.r.byte_count
+@22
+#{top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][15:0]} top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][15] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][14] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][13] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][12] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][11] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][10] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][9] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][8] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][7] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][6] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][5] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][4] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][3] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][2] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][1] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[0][0]
+#{top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][15:0]} top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][15] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][14] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][13] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][12] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][11] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][10] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][9] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][8] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][7] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][6] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][5] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][4] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][3] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][2] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][1] top.imotor_receiver_tb.imotor_receiver_1.r.data_store[1][0]
+@200
+-Register File
+@22
+#{top.imotor_receiver_tb.imotor_output_s[0][15:0]} top.imotor_receiver_tb.imotor_output_s[0][15] top.imotor_receiver_tb.imotor_output_s[0][14] top.imotor_receiver_tb.imotor_output_s[0][13] top.imotor_receiver_tb.imotor_output_s[0][12] top.imotor_receiver_tb.imotor_output_s[0][11] top.imotor_receiver_tb.imotor_output_s[0][10] top.imotor_receiver_tb.imotor_output_s[0][9] top.imotor_receiver_tb.imotor_output_s[0][8] top.imotor_receiver_tb.imotor_output_s[0][7] top.imotor_receiver_tb.imotor_output_s[0][6] top.imotor_receiver_tb.imotor_output_s[0][5] top.imotor_receiver_tb.imotor_output_s[0][4] top.imotor_receiver_tb.imotor_output_s[0][3] top.imotor_receiver_tb.imotor_output_s[0][2] top.imotor_receiver_tb.imotor_output_s[0][1] top.imotor_receiver_tb.imotor_output_s[0][0]
+#{top.imotor_receiver_tb.imotor_output_s[1][15:0]} top.imotor_receiver_tb.imotor_output_s[1][15] top.imotor_receiver_tb.imotor_output_s[1][14] top.imotor_receiver_tb.imotor_output_s[1][13] top.imotor_receiver_tb.imotor_output_s[1][12] top.imotor_receiver_tb.imotor_output_s[1][11] top.imotor_receiver_tb.imotor_output_s[1][10] top.imotor_receiver_tb.imotor_output_s[1][9] top.imotor_receiver_tb.imotor_output_s[1][8] top.imotor_receiver_tb.imotor_output_s[1][7] top.imotor_receiver_tb.imotor_output_s[1][6] top.imotor_receiver_tb.imotor_output_s[1][5] top.imotor_receiver_tb.imotor_output_s[1][4] top.imotor_receiver_tb.imotor_output_s[1][3] top.imotor_receiver_tb.imotor_output_s[1][2] top.imotor_receiver_tb.imotor_output_s[1][1] top.imotor_receiver_tb.imotor_output_s[1][0]
+[pattern_trace] 1
+[pattern_trace] 0
