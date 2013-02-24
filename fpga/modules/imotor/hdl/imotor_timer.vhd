@@ -5,7 +5,7 @@
 -------------------------------------------------------------------------------
 -- Description: The iMotor Timer generates clock enables for
 --              * UART transmit clock (e.g. 1 MHz for sending at 1 MBit)
---              * UART receive clock  (e.g. 4 MHz for 4x oversampling at 1 MBit)
+--              * UART receive clock  (e.g. 5 MHz for 5x oversampling at 1 MBit)
 --              * Send state machine  (e.g. 1 kHz for sending messages)
 -------------------------------------------------------------------------------
 -- Copyright (c) 2013 strongly-typed
@@ -54,7 +54,7 @@ begin  -- architecture behavourial
 
    clock_divider_rx : clock_divider
       generic map (
-         DIV => CLOCK / BAUD / 4)
+         DIV => CLOCK / BAUD / 5)
       port map (
          clk_out_p => clock_out_p.rx,
          clk       => clk);
