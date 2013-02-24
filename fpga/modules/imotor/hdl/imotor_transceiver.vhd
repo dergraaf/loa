@@ -53,9 +53,17 @@ architecture behavioural of imotor_transceiver is
    constant PARITY     : parity_type := Odd;
 
    signal uart_start_s : std_logic;
-   signal uart_busy_s : std_logic;
+   signal uart_busy_s  : std_logic;
+   signal uart_ready_s : std_logic;
 
    signal data_tx_s : std_logic_vector(7 downto 0);
+
+   signal data_rx_s : std_logic_vector(7 downto 0);  -- Received data from uart
+                                                     -- to receiver
+
+   signal parity_error_s : std_logic;  -- Info about parity error from uart to receiver
+
+
 
    -----------------------------------------------------------------------------
    -- Component declarations
@@ -104,5 +112,32 @@ begin  -- architecture behavourial
          txd_out_p     => tx_out_p,
          clock_tx_in_p => timer_in_p.tx,
          clk           => clk);
+
+   imotor_uart_rx_1 : entity work.imotor_uart_rx
+      generic map (
+         START_BITS => START_BITS,
+         DATA_BITS  => DATA_BITS,
+         STOP_BITS  => STOP_BITS,
+         PARITY     => PARITY)
+      port map (
+         data_out_p         => data_rx_s,
+         rxd_in_p           => rx_in_p,
+         deaf_in_p          => uart_busy_s,  -- make the receiver deaf when the
+                                             -- transmitter is active
+         ready_out_p        => uart_ready_s,
+         parity_error_out_p => parity_error_s,
+         clock_rx_in_p      => timer_in_p.rx,
+         clk                => clk);
+
+   imotor_receiver_1 : entity work.imotor_receiver
+      generic map (
+         DATA_WORDS => DATA_WORDS,
+         DATA_WIDTH => DATA_WIDTH)
+      port map (
+         data_out_p        => data_out_p,
+         data_in_p         => data_rx_s,
+         parity_error_in_p => parity_error_s,
+         ready_in_p        => uart_ready_s,
+         clk               => clk);
 
 end behavioural;

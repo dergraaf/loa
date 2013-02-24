@@ -27,7 +27,7 @@ entity imotor_module is
       MOTORS         : positive := 8;
       CLOCK          : positive := 50E6;
       BAUD           : positive := 1E6;
-      SEND_FREQUENCY : positive := 1E4
+      SEND_FREQUENCY : positive := 5E3
       );
    port (
       tx_out_p : out std_logic_vector(MOTORS - 1 downto 0);
