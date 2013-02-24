@@ -70,6 +70,22 @@ package imotor_module_pkg is
          clk         : in  std_logic);
    end component;
 
+   component imotor_uart_rx is
+      generic (
+         START_BITS : positive;
+         DATA_BITS  : positive;
+         STOP_BITS  : positive;
+         PARITY     : parity_type);
+      port (
+         data_out_p         : in  std_logic_vector(DATA_BITS - 1 downto 0);
+         rxd_in_p           : in  std_logic;
+         deaf_in_p          : in  std_logic;
+         ready_out_p        : out std_logic;
+         parity_error_out_p : out std_logic;
+         clock_rx_in_p      : in  std_logic;
+         clk                : in  std_logic);
+   end component imotor_uart_rx;
+   
    component imotor_receiver is
       generic (
          DATA_WORDS : positive;
