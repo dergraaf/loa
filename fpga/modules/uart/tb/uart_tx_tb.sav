@@ -1,0 +1,23 @@
+[timestart] 113000000
+[size] 1627 1037
+[pos] -1 -1
+*-29.286968 2190000000 2110000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.uart_tx_tb.
+[treeopen] top.uart_tx_tb.dut.
+@28
+top.uart_tx_tb.dut.clk
+top.uart_tx_tb.empty
+top.uart_tx_tb.re
+@200
+-
+@28
+top.uart_tx_tb.dut.empty_p
+top.uart_tx_tb.dut.r.state
+@200
+-
+@28
+top.uart_tx_tb.dut.clk_tx_en
+top.uart_tx_tb.txd
+[pattern_trace] 1
+[pattern_trace] 0
