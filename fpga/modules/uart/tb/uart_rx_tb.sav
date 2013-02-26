@@ -1,0 +1,34 @@
+[timestart] 0
+[size] 1732 990
+[pos] -1 -1
+*-27.782986 310000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.uart_rx_tb.
+[treeopen] top.uart_rx_tb.dut.
+[treeopen] top.uart_rx_tb.dut.r.
+@28
+top.uart_rx_tb.clk
+top.uart_rx_tb.clk_rx_en
+top.uart_rx_tb.rxd
+@200
+-
+@28
+top.uart_rx_tb.we
+top.uart_rx_tb.error
+@22
+#{top.uart_rx_tb.data[7:0]} top.uart_rx_tb.data[7] top.uart_rx_tb.data[6] top.uart_rx_tb.data[5] top.uart_rx_tb.data[4] top.uart_rx_tb.data[3] top.uart_rx_tb.data[2] top.uart_rx_tb.data[1] top.uart_rx_tb.data[0]
+@200
+-
+@28
+top.uart_rx_tb.dut.rxd_p
+top.uart_rx_tb.dut.r.state
+top.uart_rx_tb.dut.r.samplecount
+top.uart_rx_tb.dut.r.bitcount
+@22
+#{top.uart_rx_tb.dut.r.samples[4:0]} top.uart_rx_tb.dut.r.samples[4] top.uart_rx_tb.dut.r.samples[3] top.uart_rx_tb.dut.r.samples[2] top.uart_rx_tb.dut.r.samples[1] top.uart_rx_tb.dut.r.samples[0]
+@28
+top.uart_rx_tb.dut.voter_output
+@22
+#{top.uart_rx_tb.dut.r.shift_reg[9:0]} top.uart_rx_tb.dut.r.shift_reg[9] top.uart_rx_tb.dut.r.shift_reg[8] top.uart_rx_tb.dut.r.shift_reg[7] top.uart_rx_tb.dut.r.shift_reg[6] top.uart_rx_tb.dut.r.shift_reg[5] top.uart_rx_tb.dut.r.shift_reg[4] top.uart_rx_tb.dut.r.shift_reg[3] top.uart_rx_tb.dut.r.shift_reg[2] top.uart_rx_tb.dut.r.shift_reg[1] top.uart_rx_tb.dut.r.shift_reg[0]
+[pattern_trace] 1
+[pattern_trace] 0

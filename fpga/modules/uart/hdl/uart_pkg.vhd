@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- Title      : UART package
 -------------------------------------------------------------------------------
--- Standard   : VHDL'87
+-- Standard   : VHDL'x
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
@@ -24,6 +24,20 @@ package uart_pkg is
          re_p    : out std_logic;       -- Read enable
 
          clk_tx_en : in std_logic;      -- Enable pulse for the bitrate
+         clk       : in std_logic);
+   end component;
+
+   component uart_rx
+      port (
+         rxd_p : in std_logic;          -- Input pin
+
+         -- FIFO interface
+         data_p  : out std_logic_vector(7 downto 0);
+         we_p    : out std_logic;       -- Write enable
+         error_p : out std_logic;       -- Framing or parity error
+         full_p  : in  std_logic;  -- Set if FIFO is full and can't receive any further data
+
+         clk_rx_en : in std_logic;  -- Enable pulse for the rx bitrate, needs to be five timer higher than the actual bitrate
          clk       : in std_logic);
    end component;
 

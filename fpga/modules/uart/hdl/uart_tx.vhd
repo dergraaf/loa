@@ -6,6 +6,15 @@
 -- Description:
 -- 
 -- Data is send with LSB (Least Significat Bit) first.
+-- Odd-parity. Example:
+--
+--    0000 0000 => parity 1
+--    0000 0001 => parity 0
+--    0000 0010 => parity 0
+--    0000 0011 => parity 1
+--       ...
+--    1111 1111 => parity 1
+-- 
 -------------------------------------------------------------------------------
 -- Copyright (c) 2013 Fabian Greif
 -------------------------------------------------------------------------------
@@ -39,8 +48,8 @@ architecture behavioural of uart_tx is
    type uart_tx_type is record
       state      : transmit_states;
       state_fifo : fifo_states;
-      bitcount  : integer range 0 to 8;
-      parity : std_logic;
+      bitcount   : integer range 0 to 8;
+      parity     : std_logic;
       txd        : std_logic;           -- Output pin
       -- Input FIFO
       shift_reg  : std_logic_vector(7 downto 0);
@@ -50,8 +59,8 @@ architecture behavioural of uart_tx is
    signal r, rin : uart_tx_type := (
       state      => IDLE,
       state_fifo => IDLE,
-      bitcount  => 0,
-      parity    => '0',
+      bitcount   => 0,
+      parity     => '0',
       txd        => '1',
       shift_reg  => (others => '0'),
       fifo_re    => '0');
@@ -87,10 +96,10 @@ begin
 
          when START =>
             if clk_tx_en = '1' then
-               v.txd := '0';
-               v.state := DATA;
+               v.txd      := '0';
+               v.state    := DATA;
                v.bitcount := 0;
-               v.parity := '0';
+               v.parity   := '0';
             end if;
 
          when DATA =>
@@ -105,7 +114,7 @@ begin
                --   1 + 1 => 0
                -- => xor
                v.parity := r.parity xor r.shift_reg(0);
-               
+
                v.shift_reg := '0' & r.shift_reg(7 downto 1);
                if r.bitcount = 7 then
                   v.state := PARITY;
@@ -116,13 +125,13 @@ begin
 
          when PARITY =>
             if clk_tx_en = '1' then
-               v.txd := not r.parity;
+               v.txd   := not r.parity;
                v.state := STOP;
             end if;
 
          when STOP =>
             if clk_tx_en = '1' then
-               v.txd := '1';
+               v.txd   := '1';
                v.state := IDLE;
             end if;
       end case;
