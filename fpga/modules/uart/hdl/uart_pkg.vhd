@@ -32,7 +32,8 @@ package uart_pkg is
    -- UART receiver
    component uart_rx
       port (
-         rxd_p : in std_logic;          -- Input pin
+         rxd_p     : in std_logic;      -- Input pin
+         deaf_in_p : in std_logic;      -- Disable receiver when high
 
          -- Set high to disable the reception of any data. Aborts any
          -- incoming transmission.

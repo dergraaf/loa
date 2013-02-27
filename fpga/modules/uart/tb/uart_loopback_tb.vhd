@@ -52,6 +52,7 @@ begin
    dut_rx : entity work.uart_rx
       port map (
          rxd_p     => rxd,
+         deaf_in_p => '0',
          data_p    => data_recv,
          we_p      => we,
          error_p   => rx_error,
