@@ -1,20 +1,23 @@
 
 # Name of the testbench without extenstion
-#TESTBENCH = uart_rx_tb
-#TESTBENCH = uart_tx_tb
-TESTBENCH = uart_loopback_tb
+#TESTBENCH ?= uart_rx_tb
+#TESTBENCH ?= uart_tx_tb
+TESTBENCH ?= uart_loopback_tb
 
 # VHDL files
 ifeq ($(TESTBENCH), uart_rx_tb)
-FILES = ../hdl/*.vhd
+FILES = uart_tb_pkg.vhd\
+	../hdl/*.vhd
 GHDL_SIM_OPT = --stop-time=6us
 
 else ifeq ($(TESTBENCH), uart_tx_tb)
-FILES = ../hdl/*.vhd
+FILES = uart_tb_pkg.vhd\
+	../hdl/*.vhd
 GHDL_SIM_OPT = --stop-time=6us
 
 else ifeq ($(TESTBENCH), uart_loopback_tb)
-FILES = ../hdl/*.vhd
+FILES = uart_tb_pkg.vhd\
+	../hdl/*.vhd
 GHDL_SIM_OPT = --stop-time=10us
 endif
 

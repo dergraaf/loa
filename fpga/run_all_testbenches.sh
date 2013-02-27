@@ -75,6 +75,12 @@ pushd modules/spislave/tb
 make TESTBENCH=spi_slave_tb
 popd
 
+pushd modules/uart/tb
+make TESTBENCH=uart_tx_tb
+make TESTBENCH=uart_rx_tb
+make TESTBENCH=uart_loopback_tb
+popd
+
 pushd modules/uss_rx/tb
 # make TESTBENCH=_tb
 # make TESTBENCH=_tb

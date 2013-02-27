@@ -64,12 +64,13 @@ architecture behavioural of uart_rx is
       fifo_we     => '0',
       fifo_error  => '0');
 
-   signal voter_input  : std_logic_vector(4 downto 0) := (others => '0');
    signal voter_output : std_logic                    := '0';
    
-   procedure voter (
-      signal samples : in  std_logic_vector(4 downto 0);
-      signal value   : out std_logic) is
+   -- Five bit majority voter.
+   --
+   -- Returns '1' if more than two bits in the input vector are set, and
+   -- '0' otherwise.
+   function voter(samples : in std_logic_vector(4 downto 0)) return std_logic is
       variable cnt : integer range 0 to 5 := 0;
    begin
       for c in 0 to 4 loop
@@ -78,9 +79,9 @@ architecture behavioural of uart_rx is
          end if;
       end loop;
       if cnt >= 3 then
-         value <= '1';
+         return '1';
       else
-         value <= '0';
+         return '0';
       end if;
    end voter;
 
@@ -99,7 +100,7 @@ begin
    end process seq_proc;
 
    -- Combinatorial part of FSM
-   comb_proc : process(clk_rx_en, r, rxd_p, voter_input, voter_output)
+   comb_proc : process(clk_rx_en, r, rxd_p, voter_output)
       variable v : uart_rx_type;
    begin
       v := r;
@@ -108,6 +109,11 @@ begin
       v.fifo_error := '0';
       v.fifo_data  := (others => '0');
 
+      -- RXD line is constantly sampled.
+      if clk_rx_en = '1' then
+         v.samples := r.samples(3 downto 0) & rxd_p;
+      end if;
+      
       case r.state is
          when IDLE =>
             if rxd_p <= '0' then
@@ -118,11 +124,9 @@ begin
 
          when START =>
             if clk_rx_en = '1' then
-               v.samples := r.samples(3 downto 0) & rxd_p;
                if r.samplecount = 3 then
-                  voter_input <= v.samples;
-                  voter(voter_input, voter_output);
-
+                  voter_output <= voter(r.samples);
+                  
                   if voter_output = '0' then
                      v.state       := DATA;
                      v.samplecount := 0;
@@ -137,12 +141,10 @@ begin
             
          when DATA =>
             if clk_rx_en = '1' then
-               v.samples := r.samples(3 downto 0) & rxd_p;
                if r.samplecount = 4 then
                   v.samplecount := 0;
 
-                  voter_input <= v.samples;
-                  voter(voter_input, voter_output);
+                  voter_output <= voter(r.samples);
 
                   v.shift_reg := voter_output & r.shift_reg(9 downto 1);
                   v.parity    := r.parity xor voter_output;
@@ -170,5 +172,5 @@ begin
       rin <= v;
    end process comb_proc;
 
-   -- Component instantiations   
+   -- Component instantiations
 end behavioural;

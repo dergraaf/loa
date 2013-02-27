@@ -14,6 +14,7 @@ use ieee.std_logic_1164.all;
 
 library work;
 use work.uart_pkg.all;
+use work.uart_tb_pkg.all;
 
 -------------------------------------------------------------------------------
 entity uart_rx_tb is
@@ -30,6 +31,7 @@ architecture behavourial of uart_rx_tb is
    signal full      : std_logic := '1';
    signal clk_rx_en : std_logic := '0';
    signal clk       : std_logic := '0';
+   
 begin
 
    -- component instantiation
@@ -67,43 +69,21 @@ begin
       wait until rising_edge(clk);
       rxd <= '1';
       wait for 100 ns;
-      
-      -- correct transmission
-      wait until rising_edge(clk);
 
-      -- start
-      rxd <= '0';
-      wait for 100 ns;
-      -- bit 0
-      rxd <= '0';
-      wait for 100 ns;
-      -- bit 1
-      rxd <= '0';
-      wait for 100 ns;
-      -- bit 2
-      rxd <= '1';
-      wait for 100 ns;
-      -- bit 3
-      rxd <= '1';
-      wait for 100 ns;
-      -- bit 4
-      rxd <= '1';
-      wait for 100 ns;
-      -- bit 5
-      rxd <= '1';
-      wait for 100 ns;
-      -- bit 6
-      rxd <= '1';
-      wait for 100 ns;
-      -- bit 7
-      rxd <= '0';
-      wait for 100 ns;
-      -- parity
-      rxd <= '0';
-      wait for 100 ns;
-      -- end
-      rxd <= '1';
-      wait for 100 ns;
+      -- correct transmission
+      uart_transmit(rxd, "001111100", 10000000);
+      wait for 200 ns;
+
+      -- check slightly off baudrates
+      uart_transmit(rxd, "001111100", 10500000);
+      wait for 200 ns;
+      uart_transmit(rxd, "001111100",  9700000);
+      wait for 200 ns;
+
+      -- send a wrong parity bit
+      uart_transmit(rxd, "101111100", 10000000);
+      wait for 200 ns;
+      
       wait;
       
    end process waveform;
