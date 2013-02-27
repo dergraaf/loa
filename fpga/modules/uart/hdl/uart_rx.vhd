@@ -113,16 +113,23 @@ begin
             if rxd_p <= '0' then
                v.state       := START;
                v.samplecount := 0;
-               v.samples     := (others => '0');
+               v.samples     := "00001";
             end if;
 
          when START =>
             if clk_rx_en = '1' then
                v.samples := r.samples(3 downto 0) & rxd_p;
                if r.samplecount = 3 then
-                  v.state       := DATA;
-                  v.samplecount := 0;
-                  v.bitcount    := 0;
+                  voter_input <= v.samples;
+                  voter(voter_input, voter_output);
+
+                  if voter_output = '0' then
+                     v.state       := DATA;
+                     v.samplecount := 0;
+                     v.bitcount    := 0;
+                  else
+                     v.state := IDLE;
+                  end if;
                else
                   v.samplecount := r.samplecount + 1;
                end if;
@@ -136,10 +143,10 @@ begin
 
                   voter_input <= v.samples;
                   voter(voter_input, voter_output);
-                  
+
                   v.shift_reg := voter_output & r.shift_reg(9 downto 1);
                   v.parity    := r.parity xor voter_output;
-                  
+
                   if r.bitcount = 9 then
                      v.state   := IDLE;
                      v.samples := (others => '0');

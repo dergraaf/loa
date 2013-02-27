@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 -- Title      : Testbench for design "uart_rx"
 -------------------------------------------------------------------------------
--- Author     : strongly-typed
--- Standard   : VHDL'93/02
+-- Author     : Fabian Greif
+-- Standard   : VHDL'x
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ architecture behavourial of uart_rx_tb is
    signal rxd       : std_logic := '1';
    signal data      : std_logic_vector(7 downto 0);
    signal we        : std_logic;
-   signal error     : std_logic;
+   signal rx_error  : std_logic;
    signal full      : std_logic := '1';
    signal clk_rx_en : std_logic := '0';
    signal clk       : std_logic := '0';
@@ -38,7 +38,7 @@ begin
          rxd_p     => rxd,
          data_p    => data,
          we_p      => we,
-         error_p   => error,
+         error_p   => rx_error,
          full_p    => full,
          clk_rx_en => clk_rx_en,
          clk       => clk);
@@ -60,6 +60,15 @@ begin
    -- waveform generation
    waveform : process
    begin
+      wait until rising_edge(clk);
+
+      -- glitch
+      rxd <= '0';
+      wait until rising_edge(clk);
+      rxd <= '1';
+      wait for 100 ns;
+      
+      -- correct transmission
       wait until rising_edge(clk);
 
       -- start
