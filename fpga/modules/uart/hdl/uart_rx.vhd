@@ -6,7 +6,7 @@
 -- Description:
 -- 
 -- Data is received with LSB (Least Significat Bit) first.
--- The receiver uses 4x oversampling, therefore clk_rx_en needs to four times
+-- The receiver uses 5x oversampling, therefore clk_rx_en needs to five times
 -- higher than the desired bitrate.
 -- 
 -------------------------------------------------------------------------------
@@ -25,6 +25,7 @@ entity uart_rx is
 
    port (
       rxd_p     : in  std_logic;
+      disable_p : in  std_logic;
       data_p    : out std_logic_vector(7 downto 0);
       we_p      : out std_logic;
       error_p   : out std_logic;
@@ -45,7 +46,11 @@ architecture behavioural of uart_rx is
       samplecount : integer range 0 to 4;
       samples     : std_logic_vector(4 downto 0);
       parity      : std_logic;
-      shift_reg   : std_logic_vector(9 downto 0);
+
+      -- is set when the reception has been
+      -- disabled during the last byte
+      disabled  : std_logic;
+      shift_reg : std_logic_vector(9 downto 0);
 
       -- Output FIFO
       fifo_data  : std_logic_vector(7 downto 0);
@@ -59,13 +64,14 @@ architecture behavioural of uart_rx is
       samplecount => 0,
       samples     => (others => '0'),
       parity      => '0',
+      disabled    => '0',
       shift_reg   => (others => '0'),
       fifo_data   => (others => '0'),
       fifo_we     => '0',
       fifo_error  => '0');
 
-   signal voter_output : std_logic                    := '0';
-   
+   signal voter_output : std_logic := '0';
+
    -- Five bit majority voter.
    --
    -- Returns '1' if more than two bits in the input vector are set, and
@@ -100,7 +106,7 @@ begin
    end process seq_proc;
 
    -- Combinatorial part of FSM
-   comb_proc : process(clk_rx_en, r, rxd_p, voter_output)
+   comb_proc : process(clk_rx_en, disable_p, r, rxd_p, voter_output)
       variable v : uart_rx_type;
    begin
       v := r;
@@ -111,22 +117,25 @@ begin
 
       -- RXD line is constantly sampled.
       if clk_rx_en = '1' then
-         v.samples := r.samples(3 downto 0) & rxd_p;
+         v.samples    := r.samples(3 downto 0) & rxd_p;
+         voter_output <= voter(r.samples);
       end if;
-      
+
+      if disable_p = '1' then
+         v.disabled := '1';
+      end if;
+
       case r.state is
          when IDLE =>
             if rxd_p <= '0' then
                v.state       := START;
                v.samplecount := 0;
-               v.samples     := "00001";
             end if;
 
          when START =>
             if clk_rx_en = '1' then
                if r.samplecount = 3 then
-                  voter_output <= voter(r.samples);
-                  
+
                   if voter_output = '0' then
                      v.state       := DATA;
                      v.samplecount := 0;
@@ -144,15 +153,18 @@ begin
                if r.samplecount = 4 then
                   v.samplecount := 0;
 
-                  voter_output <= voter(r.samples);
-
                   v.shift_reg := voter_output & r.shift_reg(9 downto 1);
                   v.parity    := r.parity xor voter_output;
 
                   if r.bitcount = 9 then
-                     v.state   := IDLE;
-                     v.samples := (others => '0');
-                     v.fifo_we := '1';
+                     v.state    := IDLE;
+                     v.disabled := '0';
+
+                     -- Only forward the received data if the receiver
+                     -- wasn't disabled during the receiption.
+                     if r.disabled = '0' then
+                        v.fifo_we := '1';
+                     end if;
 
                      -- Check for framing errors (= no stop bit) or parity errors
                      if v.shift_reg(9) = '0' or v.parity = '1' then
@@ -167,10 +179,11 @@ begin
                   v.samplecount := r.samplecount + 1;
                end if;
             end if;
+
       end case;
 
       rin <= v;
    end process comb_proc;
 
-   -- Component instantiations
+-- Component instantiations
 end behavioural;

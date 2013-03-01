@@ -24,6 +24,7 @@ architecture behavourial of uart_tx_tb is
 
    -- component ports
    signal txd       : std_logic;
+   signal busy : std_logic;
    signal data      : std_logic_vector(7 downto 0) := (others => '0');
    signal empty     : std_logic                    := '1';
    signal re        : std_logic;
@@ -35,6 +36,7 @@ begin
    dut : entity work.uart_tx
       port map (
          txd_p     => txd,
+         busy_p    => busy,
          data_p    => data,
          empty_p   => empty,
          re_p      => re,

@@ -31,6 +31,7 @@ entity uart_tx is
 
    port (
       txd_p     : out std_logic;
+      busy_p    : out std_logic;
       data_p    : in  std_logic_vector(7 downto 0);
       empty_p   : in  std_logic;
       re_p      : out std_logic;
@@ -67,8 +68,9 @@ architecture behavioural of uart_tx is
 
 begin
    -- Connections between ports and signals
-   txd_p <= r.txd;
-   re_p  <= r.fifo_re;
+   txd_p  <= r.txd;
+   re_p   <= r.fifo_re;
+   busy_p <= '0' when r.state = IDLE else '1';
 
    -- Sequential part of finite state machine (FSM)
    seq_proc : process(clk)

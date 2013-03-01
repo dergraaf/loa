@@ -1,6 +1,6 @@
-[timestart] 113000000
+[timestart] 0
 [size] 1627 1037
-[pos] -1 -1
+[pos] 0 -1
 *-29.286968 2190000000 2110000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.uart_tx_tb.
@@ -19,5 +19,6 @@ top.uart_tx_tb.dut.r.state
 @28
 top.uart_tx_tb.dut.clk_tx_en
 top.uart_tx_tb.txd
+top.uart_tx_tb.busy
 [pattern_trace] 1
 [pattern_trace] 0

@@ -1,0 +1,29 @@
+[timestart] 0
+[size] 1386 762
+[pos] -496 -381
+*-29.811022 4540000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.uart_rx_disable_tb.
+[treeopen] top.uart_rx_disable_tb.dut.
+@28
+top.uart_rx_disable_tb.clk
+top.uart_rx_disable_tb.clk_rx_en
+@200
+-
+@28
+top.uart_rx_disable_tb.rxd
+top.uart_rx_disable_tb.disable
+@200
+-
+@28
+top.uart_rx_disable_tb.we
+top.uart_rx_disable_tb.rx_error
+@22
+#{top.uart_rx_disable_tb.data[7:0]} top.uart_rx_disable_tb.data[7] top.uart_rx_disable_tb.data[6] top.uart_rx_disable_tb.data[5] top.uart_rx_disable_tb.data[4] top.uart_rx_disable_tb.data[3] top.uart_rx_disable_tb.data[2] top.uart_rx_disable_tb.data[1] top.uart_rx_disable_tb.data[0]
+@200
+-
+@28
+top.uart_rx_disable_tb.dut.r.disabled
+top.uart_rx_disable_tb.dut.r.bitcount
+[pattern_trace] 1
+[pattern_trace] 0

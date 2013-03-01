@@ -1,0 +1,38 @@
+[timestart] 340000000
+[size] 1666 760
+[pos] -1 -1
+*-31.489185 10010000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.uart_tb.
+[treeopen] top.uart_tb.dut.
+[treeopen] top.uart_tb.dut.rx.
+@28
+top.uart_tb.clk
+top.uart_tb.clk_en
+@29
+top.uart_tb.dut.tx.clk_tx_en
+@200
+-
+@28
+top.uart_tb.txd
+top.uart_tb.rxd
+top.uart_tb.rxd_combined
+@200
+-
+@28
+top.uart_tb.full
+top.uart_tb.empty
+top.uart_tb.error
+top.uart_tb.re
+top.uart_tb.we
+@22
+#{top.uart_tb.dout[7:0]} top.uart_tb.dout[7] top.uart_tb.dout[6] top.uart_tb.dout[5] top.uart_tb.dout[4] top.uart_tb.dout[3] top.uart_tb.dout[2] top.uart_tb.dout[1] top.uart_tb.dout[0]
+#{top.uart_tb.din[7:0]} top.uart_tb.din[7] top.uart_tb.din[6] top.uart_tb.din[5] top.uart_tb.din[4] top.uart_tb.din[3] top.uart_tb.din[2] top.uart_tb.din[1] top.uart_tb.din[0]
+@200
+-
+@28
+top.uart_tb.dut.rx.disable_p
+top.uart_tb.dut.tx.busy_p
+top.uart_tb.dut.rx.r.bitcount
+[pattern_trace] 1
+[pattern_trace] 0

@@ -17,15 +17,15 @@ use work.uart_pkg.all;
 use work.uart_tb_pkg.all;
 
 -------------------------------------------------------------------------------
-entity uart_rx_tb is
-end entity uart_rx_tb;
+entity uart_rx_disable_tb is
+end entity uart_rx_disable_tb;
 
 -------------------------------------------------------------------------------
-architecture behavourial of uart_rx_tb is
+architecture behavourial of uart_rx_disable_tb is
 
    -- component ports
    signal rxd       : std_logic := '1';
-   signal disable : std_logic := '0';
+   signal disable   : std_logic := '0';
    signal data      : std_logic_vector(7 downto 0);
    signal we        : std_logic;
    signal rx_error  : std_logic;
@@ -65,29 +65,32 @@ begin
    waveform : process
    begin
       wait until rising_edge(clk);
-
-      -- glitch
-      rxd <= '0';
-      wait until rising_edge(clk);
-      rxd <= '1';
-      wait for 100 ns;
-
-      -- correct transmission
+      uart_transmit(rxd, "001111100", 10000000);
+      wait for 200 ns;
+      uart_transmit(rxd, "001111100", 10000000);
+      wait for 200 ns;
       uart_transmit(rxd, "001111100", 10000000);
       wait for 200 ns;
 
-      -- check slightly off baudrates
-      uart_transmit(rxd, "001111100", 10500000);
-      wait for 200 ns;
-      uart_transmit(rxd, "001111100",  9700000);
-      wait for 200 ns;
+      wait;
+   end process waveform;
 
-      -- send a wrong parity bit
-      uart_transmit(rxd, "101111100", 10000000);
+   gen_disable : process
+   begin
+      wait until rising_edge(clk);
+      wait for 50 ns;
+
+      disable <= '1';
+      wait for 20 ns;
+      disable <= '0';
+
+      wait for 3 us;
+      
+      disable <= '1';
       wait for 200 ns;
+      disable <= '0';
       
       wait;
-      
-   end process waveform;
+   end process;
 
 end architecture behavourial;
