@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
--- Title      : Testbench for design "entity_name"
+-- Title      : Testbench for design "imotor_timer_tb"
 -------------------------------------------------------------------------------
 -- Author     : strongly-typed
 -- Standard   : VHDL'93/02

@@ -17,6 +17,7 @@ use ieee.numeric_std.all;
 
 library work;
 use work.imotor_module_pkg.all;
+use work.uart_pkg.all;
 
 -------------------------------------------------------------------------------
 

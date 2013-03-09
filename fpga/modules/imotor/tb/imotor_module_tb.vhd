@@ -49,6 +49,7 @@ begin  -- architecture behavourial
 
    -- component instantiation
 
+   -- MUT
    imotor_module_1 : entity work.imotor_module
       generic map (
          BASE_ADDRESS => BASE_ADDRESS,
@@ -70,11 +71,13 @@ begin  -- architecture behavourial
 
    -- waveform generation
    WaveGen_Proc : process
-      variable rxd_testvector : std_logic_vector(0 to 49) :=
-         "00000" & "11111" & "00000" & "11111" & "00000" &
-         "00000" & "00000" & "00000" & "11111" & "11111";
-      -- startbit x"A1" stopbit, 5x oversampling
-
+      variable rxd_testvector : std_logic_vector(0 to 54) :=
+         "00000" & -- startbit
+         "11111" & "00000" & "00000" & "00000" &
+         "11111" & "00000" & "11111" & "00000" & "00000" &
+         -- x"51" with odd parity = 0, LSB is sent first
+         "11111";                       -- stop bit, 5x oversampling
+      
    begin
       -- insert signal assignments here
 
@@ -99,7 +102,7 @@ begin  -- architecture behavourial
       wait for 300 us;
 
       -- Simulate data from iMotor to receiver
-      for ii in 0 to 49 loop
+      for ii in 0 to rxd_testvector'length - 1 loop
          for jj in 0 to 9 loop
             wait until rising_edge(clk);
          end loop;  -- jj

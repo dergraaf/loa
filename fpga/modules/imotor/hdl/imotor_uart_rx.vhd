@@ -5,7 +5,7 @@
 -------------------------------------------------------------------------------
 -- Description: Simple UART that receives serial data.
 --
--- This implementation does not have an baud rate generator. As the intention
+-- This implementation does not have a baud rate generator. As the intention
 -- of this entity is to be used in parallel a global baud rate generator is
 -- used. 
 -------------------------------------------------------------------------------

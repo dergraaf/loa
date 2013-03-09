@@ -31,9 +31,12 @@ FILES += \
 else ifeq ($(TESTBENCH), imotor_module_tb)
 FILES += \
   ../hdl/imotor_uart_tx.vhd \
-  ../hdl/imotor_uart_rx.vhd \
+  ../../uart/hdl/uart_pkg.vhd \
+  ../../uart/hdl/uart_tx.vhd \
+  ../../uart/hdl/uart_rx.vhd \
   ../hdl/imotor_timer.vhd \
   ../hdl/imotor_sender.vhd \
+  ../hdl/imotor_receiver.vhd \
   ../hdl/imotor_transceiver.vhd \
   ../hdl/imotor_module.vhd
 else

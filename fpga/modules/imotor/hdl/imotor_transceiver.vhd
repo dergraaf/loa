@@ -53,6 +53,7 @@ architecture behavioural of imotor_transceiver is
    constant PARITY     : parity_type := Odd;
 
    signal uart_start_s : std_logic;
+   signal uart_start_ns : std_logic;
    signal uart_busy_s  : std_logic;
    signal uart_ready_s : std_logic;
 
@@ -75,6 +76,7 @@ begin  -- architecture behavourial
    ----------------------------------------------------------------------------
    -- Connections between ports and signals
    ----------------------------------------------------------------------------
+   uart_start_ns <= not uart_start_s;
 
    ----------------------------------------------------------------------------
    -- Sequential part of finite state machine (FSM)
@@ -99,35 +101,56 @@ begin  -- architecture behavourial
          start_in_p  => timer_in_p.send,
          clk         => clk);
 
-   imotor_uart_tx_1 : entity work.imotor_uart_tx
-      generic map (
-         START_BITS => START_BITS,
-         DATA_BITS  => DATA_BITS,
-         STOP_BITS  => STOP_BITS,
-         PARITY     => PARITY)
-      port map (
-         data_in_p     => data_tx_s,
-         start_in_p    => uart_start_s,
-         busy_out_p    => uart_busy_s,
-         txd_out_p     => tx_out_p,
-         clock_tx_in_p => timer_in_p.tx,
-         clk           => clk);
+   --imotor_uart_tx_1 : entity work.imotor_uart_tx
+   --   generic map (
+   --      START_BITS => START_BITS,
+   --      DATA_BITS  => DATA_BITS,
+   --      STOP_BITS  => STOP_BITS,
+   --      PARITY     => PARITY)
+   --   port map (
+   --      data_in_p     => data_tx_s,
+   --      start_in_p    => uart_start_s,
+   --      busy_out_p    => uart_busy_s,
+   --      txd_out_p     => tx_out_p,
+   --      clock_tx_in_p => timer_in_p.tx,
+   --      clk           => clk);
 
-   imotor_uart_rx_1 : entity work.imotor_uart_rx
-      generic map (
-         START_BITS => START_BITS,
-         DATA_BITS  => DATA_BITS,
-         STOP_BITS  => STOP_BITS,
-         PARITY     => PARITY)
+   uart_tx_1: entity work.uart_tx
       port map (
-         data_out_p         => data_rx_s,
-         rxd_in_p           => rx_in_p,
-         deaf_in_p          => uart_busy_s,  -- make the receiver deaf when the
-                                             -- transmitter is active
-         ready_out_p        => uart_ready_s,
-         parity_error_out_p => parity_error_s,
-         clock_rx_in_p      => timer_in_p.rx,
-         clk                => clk);
+         txd_p     => tx_out_p,
+         busy_p    => uart_busy_s,
+         data_p    => data_tx_s,
+         empty_p   => uart_start_ns,
+         re_p      => open,
+         clk_tx_en => timer_in_p.tx,
+         clk       => clk);
+   
+   uart_rx_1: entity work.uart_rx
+      port map (
+         rxd_p     => rx_in_p,
+         disable_p => uart_busy_s,
+         data_p    => data_rx_s,
+         we_p      => uart_ready_s,
+         error_p   => parity_error_s,
+         full_p    => '0',              -- always get data
+         clk_rx_en => timer_in_p.rx,
+         clk       => clk);
+   
+   --imotor_uart_rx_1 : entity work.imotor_uart_rx
+   --   generic map (
+   --      START_BITS => START_BITS,
+   --      DATA_BITS  => DATA_BITS,
+   --      STOP_BITS  => STOP_BITS,
+   --      PARITY     => PARITY)
+   --   port map (
+   --      data_out_p         => data_rx_s,
+   --      rxd_in_p           => rx_in_p,
+   --      deaf_in_p          => uart_busy_s,  -- make the receiver deaf when the
+   --                                          -- transmitter is active
+   --      ready_out_p        => uart_ready_s,
+   --      parity_error_out_p => parity_error_s,
+   --      clock_rx_in_p      => timer_in_p.rx,
+   --      clk                => clk);
 
    imotor_receiver_1 : entity work.imotor_receiver
       generic map (
