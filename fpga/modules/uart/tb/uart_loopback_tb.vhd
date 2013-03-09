@@ -30,7 +30,7 @@ architecture behavourial of uart_loopback_tb is
    signal clk_tx_en : std_logic                    := '0';
 
    signal rxd       : std_logic := '1';
-   signal data_recv   : std_logic_vector(7 downto 0);
+   signal data_recv : std_logic_vector(7 downto 0);
    signal we        : std_logic;
    signal rx_error  : std_logic;
    signal full      : std_logic := '1';
@@ -52,12 +52,12 @@ begin
    dut_rx : entity work.uart_rx
       port map (
          rxd_p     => rxd,
-         deaf_in_p => '0',
          data_p    => data_recv,
          we_p      => we,
          error_p   => rx_error,
          full_p    => full,
          clk_rx_en => clk_rx_en,
+         disable_p => '0',
          clk       => clk);
 
    rxd <= txd;
@@ -101,7 +101,7 @@ begin
       empty    <= '1';
 
       wait;
-      
+
    end process waveform;
 
 end architecture behavourial;

@@ -77,17 +77,11 @@ architecture behavioural of uart_rx is
    -- Returns '1' if more than two bits in the input vector are set, and
    -- '0' otherwise.
    function voter(samples : in std_logic_vector(4 downto 0)) return std_logic is
-   signal voter_input  : std_logic_vector(4 downto 0) := (others => '0');
-   signal voter_output : std_logic                    := '0';
-
-   procedure voter (
-      signal samples : in  std_logic_vector(4 downto 0);
-      signal value   : out std_logic) is
       variable cnt : integer range 0 to 5 := 0;
    begin
       for c in 0 to 4 loop
          if samples(c) = '1' then
-            cnt := cnt + 1;
+            cnt := cnt+1;
          end if;
       end loop;
       if cnt >= 3 then
@@ -153,7 +147,7 @@ begin
                   v.samplecount := r.samplecount + 1;
                end if;
             end if;
-
+            
          when DATA =>
             if clk_rx_en = '1' then
                if r.samplecount = 4 then
