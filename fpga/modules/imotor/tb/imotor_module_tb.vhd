@@ -35,6 +35,13 @@ architecture behavourial of imotor_module_tb is
    signal rx_in     : std_logic_vector(MOTORS-1 downto 0) := (others => '1');
    signal rx_in_can : std_logic_vector(MOTORS-1 downto 0);  -- simulated signal on the CAN link
 
+   signal tx_busy_s  : std_logic;
+   signal tx_data_s  : std_logic_vector(7 downto 0) := (others => '0');
+   signal tx_empty_s : std_logic                    := '1';
+   signal tx_re_s    : std_logic;
+
+   signal clk_tx_s : std_logic := '0';
+
    signal bus_o : busdevice_out_type;
    signal bus_i : busdevice_in_type :=
       (addr => (others => '0'),
@@ -61,8 +68,29 @@ begin  -- architecture behavourial
          bus_i    => bus_i,
          clk      => clk);
 
+   -- Simulates the answer of an iMotor
+   uart_tx_1 : entity work.uart_tx
+      port map (
+         txd_p     => rx_in(0),
+         busy_p    => tx_busy_s,
+         data_p    => tx_data_s,
+         empty_p   => tx_empty_s,
+         re_p      => tx_re_s,
+         clk_tx_en => clk_tx_s,
+         clk       => clk);
+
    -- clock generation 50 MHz
    clk <= not clk after 10 ns;
+
+   -- Generate a Tx bit clock
+   bitclock : process
+   begin
+      wait until rising_edge(clk);
+      clk_tx_s <= '1';
+      wait until rising_edge(clk);
+      clk_tx_s <= '0';
+      wait for 970 ns;
+   end process bitclock;
 
    -- CAN simulation
    can_sim : for ii in 0 to MOTORS-1 generate
@@ -71,16 +99,8 @@ begin  -- architecture behavourial
 
    -- waveform generation
    WaveGen_Proc : process
-      variable rxd_testvector : std_logic_vector(0 to 54) :=
-         "00000" & -- startbit
-         "11111" & "00000" & "00000" & "00000" &
-         "11111" & "00000" & "11111" & "00000" & "00000" &
-         -- x"51" with odd parity = 0, LSB is sent first
-         "11111";                       -- stop bit, 5x oversampling
-      
-   begin
-      -- insert signal assignments here
 
+   begin
       wait until clk = '1';
 
       -- Fill registers at simulation start
@@ -97,22 +117,41 @@ begin  -- architecture behavourial
       -- iMotor #1, CUR
       writeWord(addr => 16#0103#, data => 16#8877#, bus_i => bus_i, clk => clk);
 
-
-
       wait for 300 us;
 
-      -- Simulate data from iMotor to receiver
-      for ii in 0 to rxd_testvector'length - 1 loop
-         for jj in 0 to 9 loop
-            wait until rising_edge(clk);
-         end loop;  -- jj
-         -- 50 MHz / 10  = 5 MHz = 1 MBit x 5 OS
+      tx_data_s  <= x"51";
+      tx_empty_s <= '0';
+      wait until falling_edge(tx_re_s);
+      tx_empty_s <= '1';
 
-         rx_in(0) <= rxd_testvector(ii);
-      end loop;  -- ii
+      tx_data_s  <= x"aa";
+      tx_empty_s <= '0';
+      wait until falling_edge(tx_re_s);
+      tx_empty_s <= '1';
 
+      tx_data_s  <= x"bb";
+      tx_empty_s <= '0';
+      wait until falling_edge(tx_re_s);
+      tx_empty_s <= '1';
 
-      wait until false;
+      tx_data_s  <= x"cc";
+      tx_empty_s <= '0';
+      wait until falling_edge(tx_re_s);
+      tx_empty_s <= '1';
+
+      tx_data_s  <= x"dd";
+      tx_empty_s <= '0';
+      wait until falling_edge(tx_re_s);
+      tx_empty_s <= '1';
+
+      tx_data_s  <= x"a1";
+      tx_empty_s <= '0';
+      wait until falling_edge(tx_re_s);
+      tx_empty_s <= '1';
+
+      
+
+      wait;
 
    end process WaveGen_Proc;
 

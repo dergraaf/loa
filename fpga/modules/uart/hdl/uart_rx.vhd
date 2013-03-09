@@ -6,7 +6,7 @@
 -- Description:
 -- 
 -- Data is received with LSB (Least Significat Bit) first.
--- The receiver uses 5x oversampling, therefore clk_rx_en needs to five times
+-- The receiver uses 5x oversampling, therefore clk_rx_en needs to be five times
 -- higher than the desired bitrate.
 -- 
 -------------------------------------------------------------------------------
