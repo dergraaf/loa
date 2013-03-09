@@ -32,8 +32,8 @@ package uart_pkg is
    -- UART receiver
    component uart_rx
       port (
-         rxd_p     : in std_logic;      -- Input pin
- 
+         rxd_p : in std_logic;          -- Input pin
+
          -- Set high to disable the reception of any data. Aborts any
          -- incoming transmission.
          disable_p : in std_logic;
@@ -42,7 +42,7 @@ package uart_pkg is
          data_p  : out std_logic_vector(7 downto 0);
          we_p    : out std_logic;       -- Write enable
          error_p : out std_logic;       -- Framing or parity error
-         full_p  : in  std_logic;  -- Set if FIFO is full and can't receive any further data
+         full_p  : in  std_logic;       -- Set if FIFO is full and can't receive any further data
 
          -- Enable pulse for the rx bitrate, needs to be five timer higher
          -- than the actual bitrate
@@ -76,5 +76,5 @@ package uart_pkg is
          clk    : in std_logic);
 
    end component;
-   
+
 end uart_pkg;

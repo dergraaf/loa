@@ -70,7 +70,7 @@ begin
    -- Connections between ports and signals
    txd_p  <= r.txd;
    re_p   <= r.fifo_re;
-   busy_p <= '0' when r.state = IDLE else '1';
+   busy_p <= '0' when ((r.state = IDLE) and (empty_p = '1')) else '1';
 
    -- Sequential part of finite state machine (FSM)
    seq_proc : process(clk)
