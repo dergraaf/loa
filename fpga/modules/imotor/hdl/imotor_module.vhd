@@ -14,6 +14,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library work;
+use work.utils_pkg.all;
 use work.bus_pkg.all;
 use work.reg_file_pkg.all;
 use work.imotor_module_pkg.all;
@@ -48,9 +49,9 @@ architecture behavioural of imotor_module is
    ----------------------------------------------------------------------------
    -- Module constants
    -----------------------------------------------------------------------------
-   constant REG_ADDR_BIT : natural := 2;  -- up to 8 motors,
-                                          -- TODO calc from MOTORS
-
+   constant REG_ADDR_BIT : natural := required_bits(MOTORS);
+   
+   -- Each word is 16 bit wide. Corresponds to the data bus width. 
    constant WORDS_SEND : positive := 2;  -- Number of words transmitted to each iMotor
    constant WORDS_READ : positive := 2;  -- Number of words received from each iMotor
 
