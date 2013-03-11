@@ -26,6 +26,9 @@ use work.servo_module_pkg.all;
 use work.adc_mcp3008_pkg.all;
 use work.reg_file_pkg.all;
 
+-- Read the bus addresses from a file
+use work.memory_map_pkg.all;
+
 -------------------------------------------------------------------------------
 entity toplevel is
    port (
@@ -61,31 +64,33 @@ entity toplevel is
       -- FSMC Connections to the STM32F407
       -- TBD
 
-      load_p  : in std_logic;  -- On the rising edge encoders etc are sampled
+      load_p : in std_logic;  -- On the rising edge encoders etc are sampled
 
       -- ADC on loa v2b / v2c
       -- TBD
-      
+
       clk : in std_logic
       );
 end toplevel;
 
 architecture structural of toplevel is
-   signal load_r  : std_logic_vector(1 downto 0) := (others => '0');
-   signal load    : std_logic;
-
+   signal load_r : std_logic_vector(1 downto 0) := (others => '0');
+   signal load   : std_logic;
+   
+   -- Number of motors (BLDC and DC, excluding iMotors) directly connected on the carrier board
+   constant MOTOR_COUNT : positive := 5;
+   
    signal sw_1r        : std_logic_vector(1 downto 0);
    signal sw_2r        : std_logic_vector(1 downto 0);
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
 
    signal adc_values_out       : adc_mcp3008_values_type(7 downto 0);
-   signal comparator_values_in : comparator_values_type(2 downto 0);
-   signal current_limit        : std_logic_vector(2 downto 0) := (others => '0');
-   signal current_limit_hold   : std_logic_vector(2 downto 0) := (others => '0');
+   signal comparator_values_in : comparator_values_type(MOTOR_COUNT-1 downto 0);
+   signal current_limit        : std_logic_vector(MOTOR_COUNT-1 downto 0) := (others => '0');
+   signal current_limit_hold   : std_logic_vector(MOTOR_COUNT-1 downto 0) := (others => '0');
    signal current_next_period  : std_logic                    := '1';
 
-   signal motor3_sd     : std_logic := '1';
    signal encoder_index : std_logic := '0';
 
    signal servo_signals : std_logic_vector(3 downto 2);
@@ -100,8 +105,10 @@ architecture structural of toplevel is
 
    signal bus_bldc0_out         : busdevice_out_type;
    signal bus_bldc0_encoder_out : busdevice_out_type;
+   signal bus_encoder0_out      : busdevice_out_type;
    signal bus_bldc1_out         : busdevice_out_type;
    signal bus_bldc1_encoder_out : busdevice_out_type;
+   signal bus_encoder1_out      : busdevice_out_type;
 
    signal bus_motor3_pwm_out : busdevice_out_type;
    signal bus_comparator_out : busdevice_out_type;
@@ -116,9 +123,9 @@ begin
       end if;
    end process;
 
-   load  <= load_r(1);
+   load <= load_r(1);
 
-   current_hold : for n in 2 downto 0 generate
+   current_hold : for n in MOTOR_COUNT-1 downto 0 generate
       event_hold_stage_1 : event_hold_stage
          port map (
             dout_p   => current_limit_hold(n),
@@ -143,6 +150,8 @@ begin
    -- FSMC connection to the STM32F4xx and Busmaster
    -- for the internal bus
 
+   -- TBD
+
    bus_i.data <= bus_register_out.data or
                  bus_adc_out.data or
                  bus_bldc0_out.data or bus_bldc0_encoder_out.data or
@@ -155,7 +164,7 @@ begin
    -- Register
    preg : peripheral_register
       generic map (
-         BASE_ADDRESS => 16#0000#)
+         BASE_ADDRESS => BASE_ADDRESS_REG)
       port map (
          dout_p => register_out,
          din_p  => register_in,
@@ -163,7 +172,9 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   register_in <= x"46" & "0" & current_limit_hold & "00" & sw_2r;
+   -- FIXME
+   -- What does it do?
+   -- register_in <= x"46" & "0" & current_limit_hold & "00" & sw_2r;
 
    ----------------------------------------------------------------------------
    -- component instantiation
@@ -172,7 +183,7 @@ begin
    -- BLDC motors 0 & 1
    bldc0 : bldc_motor_module
       generic map (
-         BASE_ADDRESS => 16#0010#,
+         BASE_ADDRESS => BASE_ADDRESS_BLDC0,
          WIDTH        => 10,
          PRESCALER    => 1)
       port map (
@@ -185,7 +196,7 @@ begin
 
    bldc0_encoder : encoder_module_extended
       generic map (
-         BASE_ADDRESS => 16#0012#)
+         BASE_ADDRESS => BASE_ADDRESS_BLDC0_ENCODER)
       port map (
          encoder_p => bldc0_encoder_p,
          index_p   => encoder_index,
@@ -195,11 +206,20 @@ begin
          clk       => clk);
 
    -- odometry encoder 0
-   -- TBD
-   
+   odemetry0_encoder0 : entity work.encoder_module_extended
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_ODOMETRY0_ENCODER)
+      port map (
+         encoder_p => encoder0_p,
+         index_p   => encoder_index,
+         load_p    => load,
+         bus_o     => bus_encoder0_out,
+         bus_i     => bus_o,
+         clk       => clk);
+
    bldc1 : bldc_motor_module
       generic map (
-         BASE_ADDRESS => 16#0020#,
+         BASE_ADDRESS => BASE_ADDRESS_BLDC1,
          WIDTH        => 10,
          PRESCALER    => 1)
       port map (
@@ -212,7 +232,7 @@ begin
 
    bldc1_encoder : encoder_module_extended
       generic map (
-         BASE_ADDRESS => 16#0022#)
+         BASE_ADDRESS => BASE_ADDRESS_BLDC1_ENCODER)
       port map (
          encoder_p => bldc1_encoder_p,
          index_p   => encoder_index,
@@ -221,11 +241,22 @@ begin
          bus_i     => bus_o,
          clk       => clk);
 
+   odometry1_encoder : entity work.encoder_module_extended
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_ODOMETRY1_ENCODER)
+      port map (
+         encoder_p => encoder1_p,
+         index_p   => encoder_index,
+         load_p    => load,
+         bus_o     => bus_encoder1_out,
+         bus_i     => bus_o,
+         clk       => clk);
+
    ----------------------------------------------------------------------------
    -- DC Motors 0 to 2
    --motor3_pwm_module : dc_motor_module
    --   generic map (
-   --      BASE_ADDRESS => 16#0030#,
+   --      BASE_ADDRESS => BASE_ADDRESS_DC0,
    --      WIDTH        => 10,
    --      PRESCALER    => 1)
    --   port map (
@@ -243,7 +274,7 @@ begin
    -- Servos
    servo_module_1 : servo_module
       generic map (
-         BASE_ADDRESS => 16#0040#,
+         BASE_ADDRESS => BASE_ADDRESS_SERVO,
          SERVO_COUNT  => 2)
       port map (
          servo_p => servo_signals,
@@ -257,11 +288,13 @@ begin
    -- Current limiter
    -- 0x0080/1 -> BLDC1 (upper, lower)
    -- 0x0082/3 -> BLDC2 (upper, lower)
-   -- 0x0084/5 -> Motor 3 (upper, lower)
+   -- 0x0084/5 -> DC0   (upper, lower)
+   -- 0x0086/7 -> DC1   (upper, lower)
+   -- 0x0088/9 -> DC2   (upper, lower)
    comparator_module_1 : comparator_module
       generic map (
-         BASE_ADDRESS => 16#0080#,
-         CHANNELS     => 3)
+         BASE_ADDRESS => BASE_ADDRESS_COMPARATOR,
+         CHANNELS     => MOTOR_COUNT)
       port map (
          value_p    => comparator_values_in,
          overflow_p => current_limit,
@@ -269,7 +302,7 @@ begin
          bus_i      => bus_o,
          clk        => clk);
 
-   convert : for n in 2 downto 0 generate
+   convert : for n in MOTOR_COUNT-1 downto 0 generate
       comparator_values_in(n) <= adc_values_out(n);
    end generate;
 
