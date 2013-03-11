@@ -35,6 +35,11 @@ package motor_control_pkg is
       c : half_bridge_type;             -- Channel 3 (W,Z)
    end record;
 
+   type dc_driver_stage_type is record
+      a : half_bridge_type;
+      b : half_bridge_type;
+   end record dc_driver_stage_type;
+
    component dc_motor_module is
       generic (
          BASE_ADDRESS : integer range 0 to 32767;

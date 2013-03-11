@@ -12,29 +12,29 @@ NET "servo_p<3>"	LOC = P75;
 
 # ----------------------------------------------------------------------------
 # iMotors 0 to 4
-NET "imotor0_tx_p"		LOC = P9;
-NET "imotor0_rx_p"		LOC = P10;
-NET "imotor1_tx_p"		LOC = P15;
-NET "imotor1_rx_p"		LOC = P16;
-NET "imotor2_tx_p"		LOC = P17;
-NET "imotor2_rx_p"		LOC = P11;
-NET "imotor3_tx_p"		LOC = P22;
-NET "imotor3_rx_p"		LOC = P35;
-NET "imotor4_tx_p"		LOC = P21;
-NET "imotor4_rx_p"		LOC = P23;
+NET "imotor_tx_p<0>"		LOC = P9;
+NET "imotor_rx_p<0>"		LOC = P10;
+NET "imotor_tx_p<1>"		LOC = P15;
+NET "imotor_rx_p<1>"		LOC = P16;
+NET "imotor_tx_p<2>"		LOC = P17;
+NET "imotor_rx_p<2>"		LOC = P11;
+NET "imotor_tx_p<3>"		LOC = P22;
+NET "imotor_rx_p<3>"		LOC = P35;
+NET "imotor_tx_p<4>"		LOC = P21;
+NET "imotor_rx_p<4>"		LOC = P23;
 
 # ----------------------------------------------------------------------------
 # Pumps and Valves
 
-NET "valve0_p"			LOC = P118;
-NET "valve1_p"			LOC = P117;
-NET "valve2_p"			LOC = P66;
-NET "valve3_p"			LOC = P78;
+NET "valve_p<0>"		LOC = P118;
+NET "valve_p<1>"		LOC = P117;
+NET "valve_p<2>"		LOC = P66;
+NET "valve_p<3>"		LOC = P78;
 
-NET "pump0_p"			LOC = P38;
-NET "pump1_p"			LOC = P116;
-NET "pump2_p"			LOC = P80;
-NET "pump3_p"			LOC = P79;
+NET "pump_p<0>"			LOC = P38;
+NET "pump_p<1>"			LOC = P116;
+NET "pump_p<2>"			LOC = P80;
+NET "pump_p<3>"			LOC = P79;
 
 # ----------------------------------------------------------------------------
 # BLDC 0 & 1
@@ -52,7 +52,7 @@ NET "bldc0_hall_p_c"		LOC = P120;
 
 NET "bldc0_encoder_p_a"		LOC = P143;
 NET "bldc0_encoder_p_b"		LOC = P7;
-NET "bldc0_encoder_p_i"		LOC = P8;
+# NET "bldc0_encoder_p_i"		LOC = P8;
 
 # Odometry encoders
 NET "encoder0_p_a"		LOC = P119;
@@ -73,7 +73,7 @@ NET "bldc1_hall_p_c"		LOC = P140;
 
 NET "bldc1_encoder_p_a"		LOC = P1;
 NET "bldc1_encoder_p_b"		LOC = P6;
-NET "bldc1_encoder_p_i"		LOC = P2;
+# NET "bldc1_encoder_p_i"		LOC = P2;
 
 # Odometry encoders
 NET "encoder1_p_a"		LOC = P5;
@@ -84,16 +84,16 @@ NET "encoder1_p_i"		LOC = P12;
 # DC Motor 0 & 1
 
 NET "dc0_driver_p_a_high"	LOC = P111;
-NET "dc0_driver_p_a_low"	LOC = P114;
+NET "dc0_driver_p_a_low_n"	LOC = P114;
 NET "dc0_driver_p_b_high"	LOC = P81;
-NET "dc0_driver_p_b_low"	LOC = P67;
+NET "dc0_driver_p_b_low_n"	LOC = P67;
 
 NET "dc1_driver_p_a_high"	LOC = P82;
-NET "dc1_driver_p_a_low"	LOC = P115;
+NET "dc1_driver_p_a_low_n"	LOC = P115;
 NET "dc1_driver_p_b_high"	LOC = P88;
-NET "dc1_driver_p_b_low"	LOC = P83;
+NET "dc1_driver_p_b_low_n"	LOC = P83;
 
 NET "dc2_driver_p_a_high"	LOC = P84;
-NET "dc2_driver_p_a_low"	LOC = P112;
+NET "dc2_driver_p_a_low_n"	LOC = P112;
 NET "dc2_driver_p_b_high"	LOC = P85;
-NET "dc2_driver_p_b_low"	LOC = P87;
+NET "dc2_driver_p_b_low_n"	LOC = P87;
