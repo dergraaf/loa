@@ -9,6 +9,10 @@
 -- Description:
 --
 -- Generates a symmetric (center-aligned) PWM with deadtime
+--
+-- Memory Map:
+--   Base Address + 0     | W |   PWM value
+--   Base Address + 0     | R |   unused
 -------------------------------------------------------------------------------
 
 library ieee;
