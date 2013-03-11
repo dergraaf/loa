@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="imotor_module.svg">
+   sodipodi:docname="imotor_module.svg"
+   inkscape:export-filename="/home/alpha/rca/loa/fpga/modules/imotor/doc/imotor_module.png"
+   inkscape:export-xdpi="71.963226"
+   inkscape:export-ydpi="71.963226">
   <defs
      id="defs4">
     <marker
@@ -53,16 +56,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.40683395"
+     inkscape:zoom="0.8136679"
      inkscape:cx="1072.0263"
-     inkscape:cy="372.69035"
+     inkscape:cy="372.69038"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1024"
-     inkscape:window-height="744"
+     inkscape:window-height="718"
      inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-y="1024"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -78,7 +81,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -509,7 +512,7 @@
          y="305.46265"
          x="982.77057"
          id="tspan4718"
-         sodipodi:role="line">imotor_uart_rx_1</tspan></text>
+         sodipodi:role="line">uart_rx_1</tspan></text>
     <rect
        ry="5"
        rx="5"
@@ -696,7 +699,7 @@
          id="tspan4962"
          x="982.77057"
          y="339.56198"
-         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Bold">deaf_in_p</tspan></text>
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Bold">disable_in_p</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
        d="m 912.73371,192.08449 0,144.2578 33.12507,0"
