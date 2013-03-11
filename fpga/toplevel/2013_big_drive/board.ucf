@@ -1,0 +1,41 @@
+# All hardware directly situated on the LOA v2b / v2c board
+
+# all IO-Pins are 3.3V
+NET "*"			IOSTANDARD = LVCMOS33;
+
+# ----------------------------------------------------------------------------
+# Connections to the STM32F407
+NET "cs_np"		LOC = P65;
+NET "sck_p"		LOC = P53;
+NET "miso_p"	LOC = P60;
+NET "mosi_p"	LOC = P59;
+
+NET "load_p"	LOC = P55;	# PE7
+NET "reset_n"	LOC = P56;	# PB2 (BOOT0)
+
+# P63 -> ? (PE2)
+# P58 -> output, InitB	(PA8)
+
+# ----------------------------------------------------------------------------
+# Connections on the carrier board 2013
+NET "led_np<0>" LOC = P141;
+NET "led_np<1>" LOC = P140;
+NET "led_np<2>" LOC = P137;
+NET "led_np<3>" LOC = P135;
+
+NET "sw_np<0>"	LOC = P21;	# Button 3
+NET "sw_np<1>"	LOC = P20;	# Button 4
+
+# ADC (connected via SPI)
+# ...
+
+NET "adc_out_p_mosi"	LOC = P122;
+NET "adc_out_p_cs_n"	LOC = P125;
+NET "adc_out_p_sck"	LOC = P124;
+NET "adc_in_p_miso"	LOC = P123;
+
+
+# Clock (connected to a 50 MHz oscillator)
+NET "clk"		LOC = P127;
+NET "clk"		TNM_NET = clk;
+TIMESPEC TS_clk = PERIOD "clk" 50 MHz HIGH 50%;
