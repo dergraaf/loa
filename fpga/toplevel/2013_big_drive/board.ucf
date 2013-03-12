@@ -5,37 +5,69 @@ NET "*"			IOSTANDARD = LVCMOS33;
 
 # ----------------------------------------------------------------------------
 # Connections to the STM32F407
-NET "cs_np"		LOC = P65;
-NET "sck_p"		LOC = P53;
-NET "miso_p"	LOC = P60;
-NET "mosi_p"	LOC = P59;
-
-NET "load_p"	LOC = P55;	# PE7
-NET "reset_n"	LOC = P56;	# PB2 (BOOT0)
-
-# P63 -> ? (PE2)
-# P58 -> output, InitB	(PA8)
+#?NET "load_p"	LOC = P55;	# PE7
+#?NET "reset_n"	LOC = P56;	# PB2 (BOOT0)
 
 # ----------------------------------------------------------------------------
-# Connections on the carrier board 2013
-NET "led_np<0>" LOC = P141;
-NET "led_np<1>" LOC = P140;
-NET "led_np<2>" LOC = P137;
-NET "led_np<3>" LOC = P135;
-
-NET "sw_np<0>"	LOC = P21;	# Button 3
-NET "sw_np<1>"	LOC = P20;	# Button 4
-
-# ADC (connected via SPI)
-# ...
-
-NET "adc_out_p_mosi"	LOC = P122;
-NET "adc_out_p_cs_n"	LOC = P125;
-NET "adc_out_p_sck"	LOC = P124;
-NET "adc_in_p_miso"	LOC = P123;
-
+# Connections between stm and fpga
 
 # Clock (connected to a 50 MHz oscillator)
-NET "clk"		LOC = P127;
+NET "clk"		LOC = P55;
 NET "clk"		TNM_NET = clk;
 TIMESPEC TS_clk = PERIOD "clk" 50 MHz HIGH 50%;
+
+
+
+
+# ADC (connected via SPI)
+NET "ADC_CS" 		LOC = P126; # !ADC_CS
+NET "ADC_CLK" 		LOC = P124;
+NET "ADC_DOUTA" 	LOC = P121;
+NET "ADC_DOUTB" 	LOC = P123;
+NET "ADC_A<0>" 		LOC = P127;
+NET "ADC_A<1>" 		LOC = P131;
+NET "ADC_A<2>" 		LOC = P132;
+NET "ADC_SGL_DIFF"	LOC = P133;
+
+
+
+#JTAG:
+#SUSPEND	P73
+#TCK 		P109
+#TDI		P110
+#TDO		P106
+#TMS		P107
+
+
+# FSMC
+NET "FSMC_D<0>"		LOC = P65; # D14
+NET "FSMC_D<1>"		LOC = P62; # D15
+NET "FSMC_D<2>"		LOC = P61; # D0
+NET "FSMC_D<3>"		LOC = P46; # D1
+NET "FSMC_D<4>"		LOC = P45; # E7
+NET "FSMC_D<5>"		LOC = P44; # E8
+NET "FSMC_D<6>"		LOC = P43; # E9
+NET "FSMC_D<7>"		LOC = P48; # E10
+NET "FSMC_D<8>"		LOC = P41; # E11
+NET "FSMC_D<9>"		LOC = P40; # E12
+NET "FSMC_D<10>"	LOC = P59; # E13
+NET "FSMC_D<11>"	LOC = P58; # E14
+NET "FSMC_D<12>"	LOC = P57; # E15
+NET "FSMC_D<13>"	LOC = P56; # D8
+NET "FSMC_D<14>"	LOC = P51; # D9
+NET "FSMC_D<15>"	LOC = P50; # D10
+
+NET "FSMC_NADV"		LOC = P32; # B7
+NET "FSMC_CLK"		LOC = P24; # D3
+NET "FSMC_NOE"		LOC = P27; # D4
+NET "FSMC_NWE"		LOC = P26; # D5
+NET "FSMC_NWAIT"	LOC = P29; # D6
+NET "FSMC_NE1"		LOC = P30; # D7
+NET "FSMC_NBL0"		LOC = P33; # E0
+NET "FSMC_NBL1"		LOC = P34; # E1
+NET "DONE"			LOC = P71; # C13
+
+NET "PROGRAM_B"		LOC = P37; # B2/Boot1
+NET "INIT_B"		LOC = P39; # B1
+NET "CCLK"			LOC = P70; # B0
+
