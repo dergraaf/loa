@@ -15,7 +15,7 @@ use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
-use work.spislave_pkg.all;
+use work.fsmcslave_pkg.all;
 use work.motor_control_pkg.all;
 use work.utils_pkg.all;
 
@@ -62,7 +62,9 @@ entity toplevel is
       valve_p : out std_logic_vector(3 downto 0);
 
       -- FSMC Connections to the STM32F407
-      -- TBD
+      fsmc_out_p   : out   fsmc_out_type;
+      fsmc_in_p    : in    fsmc_in_type;
+      fsmc_inout_p : inout fsmc_inout_type;
 
       load_p : in std_logic;  -- On the rising edge encoders etc are sampled
 
@@ -153,6 +155,14 @@ begin
    ----------------------------------------------------------------------------
    -- FSMC connection to the STM32F4xx and Busmaster
    -- for the internal bus
+   fsmc_slave : entity work.fsmc_slave
+      port map (
+         bus_o        => bus_o,
+         bus_i        => bus_i,
+         fsmc_inout_p => fsmc_inout_p,
+         fsmc_in_p    => fsmc_in_p,
+         fsmc_out_p   => fsmc_out_p,
+         clk          => clk);
 
    -- TBD
 
