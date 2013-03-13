@@ -23,7 +23,7 @@ use work.pwm_module_pkg.all;
 use work.motor_control_pkg.all;
 use work.encoder_module_pkg.all;
 use work.servo_module_pkg.all;
-use work.adc_mcp3008_pkg.all;
+use work.adc_ad7266_pkg.all;
 use work.reg_file_pkg.all;
 
 -- Read the bus addresses from a file
@@ -66,8 +66,9 @@ entity toplevel is
 
       load_p : in std_logic;  -- On the rising edge encoders etc are sampled
 
-      -- ADC on loa v2b / v2c
-      -- TBD
+      -- ADC AD7266 on loa v2b / v2c
+      adc_out_p : out adc_ad7266_spi_out_type;
+      adc_in_p  : in  adc_ad7266_spi_in_type;
 
       clk : in std_logic
       );
@@ -76,24 +77,26 @@ end toplevel;
 architecture structural of toplevel is
    signal load_r : std_logic_vector(1 downto 0) := (others => '0');
    signal load   : std_logic;
-   
+
    -- Number of motors (BLDC and DC, excluding iMotors) directly connected on the carrier board
    constant MOTOR_COUNT : positive := 5;
-   
+
    signal sw_1r        : std_logic_vector(1 downto 0);
    signal sw_2r        : std_logic_vector(1 downto 0);
    signal register_out : std_logic_vector(15 downto 0);
    signal register_in  : std_logic_vector(15 downto 0);
 
-   signal adc_values_out       : adc_mcp3008_values_type(7 downto 0);
+   signal adc_values_out       : adc_ad7266_values_type(11 downto 0);
    signal comparator_values_in : comparator_values_type(MOTOR_COUNT-1 downto 0);
    signal current_limit        : std_logic_vector(MOTOR_COUNT-1 downto 0) := (others => '0');
    signal current_limit_hold   : std_logic_vector(MOTOR_COUNT-1 downto 0) := (others => '0');
-   signal current_next_period  : std_logic                    := '1';
+   signal current_next_period  : std_logic                                := '1';
 
    signal encoder_index : std_logic := '0';
 
    signal servo_signals : std_logic_vector(3 downto 2);
+
+   signal pumps_valves_s : std_logic_vector(15 downto 0) := (others => '0');
 
    -- Connection to the Busmaster
    signal bus_o : busmaster_out_type;
@@ -113,6 +116,7 @@ architecture structural of toplevel is
    signal bus_motor3_pwm_out : busdevice_out_type;
    signal bus_comparator_out : busdevice_out_type;
    signal bus_servo_out      : busdevice_out_type;
+
 begin
    -- synchronize asynchronous  signals
    process (clk)
@@ -205,7 +209,6 @@ begin
          bus_i     => bus_o,
          clk       => clk);
 
-   -- odometry encoder 0
    odemetry0_encoder0 : entity work.encoder_module_extended
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_ODOMETRY0_ENCODER)
@@ -271,6 +274,21 @@ begin
 --   motor3_sd_np <= not motor3_sd;
 
    ----------------------------------------------------------------------------
+   -- Pumps and Valves
+   pumps_valves_register : entity work.peripheral_register
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_PUMPS_VALVES)
+      port map (
+         dout_p => pumps_valves_s,
+         din_p  => (others => '0'),
+         bus_o  => open,
+         bus_i  => bus_o,
+         clk    => clk);
+
+   valve_p <= pumps_valves_s(3 downto 0);
+   pump_p  <= pumps_valves_s(7 downto 4);
+
+   ----------------------------------------------------------------------------
    -- Servos
    servo_module_1 : servo_module
       generic map (
@@ -303,7 +321,20 @@ begin
          clk        => clk);
 
    convert : for n in MOTOR_COUNT-1 downto 0 generate
-      comparator_values_in(n) <= adc_values_out(n);
+      comparator_values_in(n) <= adc_values_out(n)(11 downto 2);
    end generate;
+
+   ----------------------------------------------------------------------------
+   -- ADC
+   adc_ad7266_single_ended_module_1 : entity work.adc_ad7266_single_ended_module
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_ADC)
+      port map (
+         adc_out_p    => adc_out_p,
+         adc_in_p     => adc_in_p,
+         bus_o        => bus_adc_out,
+         bus_i        => bus_o,
+         adc_values_o => adc_values_out,
+         clk          => clk);
 
 end structural;

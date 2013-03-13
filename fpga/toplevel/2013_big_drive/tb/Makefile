@@ -12,7 +12,7 @@ FILES =  \
 	../../../modules/pwm/hdl/*.vhd \
 	../../../modules/utils/hdl/*.vhd \
 	../../../modules/servo/hdl/*.vhd \
-	../../../modules/adc_mcp3008/hdl/*.vhd \
+	../../../modules/adc_ad7266/hdl/*.vhd \
 	../../../../../software/season/big/generated/drive/fpga_memory_map.vhd 
 
 # Default settings for gtkwave (visable signal etc.)

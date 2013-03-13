@@ -20,7 +20,7 @@ use work.pwm_module_pkg.all;
 use work.motor_control_pkg.all;
 use work.encoder_module_pkg.all;
 use work.servo_module_pkg.all;
-use work.adc_mcp3008_pkg.all;
+use work.adc_ad7266_pkg.all;
 use work.reg_file_pkg.all;
 use work.utils_pkg.all;
 
@@ -50,6 +50,8 @@ architecture tb of toplevel_tb is
          pump_p          : out std_logic_vector(3 downto 0);
          valve_p         : out std_logic_vector(3 downto 0);
          load_p          : in  std_logic;
+         adc_out_p       : out adc_ad7266_spi_out_type;
+         adc_in_p        : in  adc_ad7266_spi_in_type;
          clk             : in  std_logic);
    end component toplevel;
 
@@ -70,6 +72,9 @@ architecture tb of toplevel_tb is
    signal imotor_rx_p     : std_logic_vector(4 downto 0);
    signal pump_p          : std_logic_vector(3 downto 0);
    signal valve_p         : std_logic_vector(3 downto 0);
+
+   signal adc_in_p  : adc_ad7266_spi_in_type;
+   signal adc_out_p : adc_ad7266_spi_out_type;
 
    signal load_p : std_logic;
 
@@ -95,6 +100,8 @@ begin  -- tb
          imotor_rx_p     => imotor_rx_p,
          imotor_tx_p     => imotor_tx_p,
          load_p          => load_p,
+         adc_out_p       => adc_out_p,
+         adc_in_p        => adc_in_p,
          clk             => clk);
 
    -- clock generation
