@@ -44,9 +44,9 @@ entity toplevel is
       encoder1_p      : in  encoder_type;
 
       -- DC Motors 0 & 1
-      dc0_driver_p : out dc_driver_stage_type;
-      dc1_driver_p : out dc_driver_stage_type;
-      dc2_driver_p : out dc_driver_stage_type;
+      dc0_driver_p : out dc_driver_stage_st_type;
+      dc1_driver_p : out dc_driver_stage_st_type;
+      dc2_driver_p : out dc_driver_stage_st_type;
 
       -- Servos 2 and 3
       servo_p : out std_logic_vector(3 downto 2);
