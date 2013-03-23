@@ -131,12 +131,15 @@ architecture structural of toplevel is
 
    signal bus_comparator_out : busdevice_out_type;
    signal bus_servo_out      : busdevice_out_type;
+	
+	signal toggle : std_logic := '1';
 
 begin
    -- synchronize asynchronous  signals
    process (clk)
    begin
       if rising_edge(clk) then
+			toggle <= not toggle;
       --load_r <= load_r(0) & load_p;
       end if;
    end process;
@@ -275,8 +278,8 @@ begin
 
    bldc1_driver_stage_converter: entity work.bldc_driver_stage_converter
       port map (
-         bldc_driver_stage    => bldc0_driver_stage_s,
-         bldc_driver_stage_st => bldc0_driver_st_p);
+         bldc_driver_stage    => bldc1_driver_stage_s,
+         bldc_driver_stage_st => bldc1_driver_st_p);
 
    bldc1_encoder : encoder_module_extended
       generic map (
@@ -318,13 +321,25 @@ begin
          bus_i   => bus_o,
          clk     => clk);
 
-   dc0_driver_st_p.a.high <= '0';
+	dc0_driver_st_p.a.high <= toggle;
    dc0_driver_st_p.a.low_n <= '0';
+   dc0_driver_st_p.b.high <= '0';
+   dc0_driver_st_p.b.low_n <= '0';
+	
    dc1_driver_st_p.a.high <= '0';
    dc1_driver_st_p.a.low_n <= '0';
+   dc1_driver_st_p.b.high <= '0';
+   dc1_driver_st_p.b.low_n <= '0';
+
    dc2_driver_st_p.a.high <= '0';
    dc2_driver_st_p.a.low_n <= '0';
+   dc2_driver_st_p.b.high <= '0';
+   dc2_driver_st_p.b.low_n <= '0';
    
+   ----------------------------------------------------------------------------
+   -- iMotors
+	imotor_tx_p(4 downto 0) <= (others => '0');
+
    ----------------------------------------------------------------------------
    -- Pumps and Valves
    pumps_valves_register : entity work.peripheral_register
@@ -378,15 +393,22 @@ begin
 
    ----------------------------------------------------------------------------
    -- ADC
-   adc_ad7266_single_ended_module_1 : entity work.adc_ad7266_single_ended_module
-      generic map (
-         BASE_ADDRESS => BASE_ADDRESS_ADC)
-      port map (
-         adc_out_p    => adc_out_p,
-         adc_in_p     => adc_in_p,
-         bus_o        => bus_adc_out,
-         bus_i        => bus_o,
-         adc_values_o => adc_values_out,
-         clk          => clk);
+--   adc_ad7266_single_ended_module_1 : entity work.adc_ad7266_single_ended_module
+--      generic map (
+--         BASE_ADDRESS => BASE_ADDRESS_ADC)
+--      port map (
+--         adc_out_p    => adc_out_p,
+--         adc_in_p     => adc_in_p,
+--         bus_o        => bus_adc_out,
+--         bus_i        => bus_o,
+--         adc_values_o => adc_values_out,
+--         clk          => clk);
+
+	adc_out_p.sgl_diff <= '0';
+	adc_out_p.sck <= '1';
+	adc_out_p.cs_n <= '1';
+	adc_out_p.a(2 downto 0) <= (others => '0');
+	
+	
 
 end structural;

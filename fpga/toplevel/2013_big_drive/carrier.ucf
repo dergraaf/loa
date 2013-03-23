@@ -38,13 +38,12 @@ NET "pump_p<3>"			LOC = P79;
 
 # ----------------------------------------------------------------------------
 # BLDC 0 & 1
-
-NET "bldc0_driver_p_a_high"	LOC = P98;
-NET "bldc0_driver_p_a_low"	LOC = P95;
-NET "bldc0_driver_p_b_high"	LOC = P97;
-NET "bldc0_driver_p_b_low"	LOC = P92;
-NET "bldc0_driver_p_c_high"	LOC = P94;
-NET "bldc0_driver_p_c_low"	LOC = P93;
+NET "bldc0_driver_st_p_a_high"	LOC = P98;
+NET "bldc0_driver_st_p_a_low_n"	LOC = P95;
+NET "bldc0_driver_st_p_b_high"	LOC = P97;
+NET "bldc0_driver_st_p_b_low_n"	LOC = P92;
+NET "bldc0_driver_st_p_c_high"	LOC = P94;
+NET "bldc0_driver_st_p_c_low_n"	LOC = P93;
 
 NET "bldc0_hall_p_a"		LOC = P138;
 NET "bldc0_hall_p_b"		LOC = P134;
@@ -60,12 +59,12 @@ NET "encoder0_p_b"		LOC = P141;
 # NET "encoder0_p_i"		LOC = P142;
 
 
-NET "bldc1_driver_p_a_high"	LOC = P100;
-NET "bldc1_driver_p_a_low"	LOC = P99;
-NET "bldc1_driver_p_b_high"	LOC = P104;
-NET "bldc1_driver_p_b_low"	LOC = P105;
-NET "bldc1_driver_p_c_high"	LOC = P102;
-NET "bldc1_driver_p_c_low"	LOC = P101;
+NET "bldc1_driver_st_p_a_high"	LOC = P100;
+NET "bldc1_driver_st_p_a_low_n"	LOC = P99;
+NET "bldc1_driver_st_p_b_high"	LOC = P104;
+NET "bldc1_driver_st_p_b_low_n"	LOC = P105;
+NET "bldc1_driver_st_p_c_high"	LOC = P102;
+NET "bldc1_driver_st_p_c_low_n"	LOC = P101;
 
 NET "bldc1_hall_p_a"		LOC = P137;
 NET "bldc1_hall_p_b"		LOC = P139;
@@ -81,19 +80,19 @@ NET "encoder1_p_b"		LOC = P14;
 # NET "encoder1_p_i"		LOC = P12;
 
 # ----------------------------------------------------------------------------
-# DC Motor 0 & 1
+# DC Motor 0, 1 and 2
 
-NET "dc0_driver_p_a_high"	LOC = P111;
-NET "dc0_driver_p_a_low_n"	LOC = P114;
-NET "dc0_driver_p_b_high"	LOC = P81;
-NET "dc0_driver_p_b_low_n"	LOC = P67;
+NET "dc0_driver_st_p_a_high"	LOC = P111;
+NET "dc0_driver_st_p_a_low_n"	LOC = P114;
+NET "dc0_driver_st_p_b_high"	LOC = P81;
+NET "dc0_driver_st_p_b_low_n"	LOC = P67;
 
-NET "dc1_driver_p_a_high"	LOC = P82;
-NET "dc1_driver_p_a_low_n"	LOC = P115;
-NET "dc1_driver_p_b_high"	LOC = P88;
-NET "dc1_driver_p_b_low_n"	LOC = P83;
+NET "dc1_driver_st_p_a_high"	LOC = P82;
+NET "dc1_driver_st_p_a_low_n"	LOC = P115;
+NET "dc1_driver_st_p_b_high"	LOC = P88;
+NET "dc1_driver_st_p_b_low_n"	LOC = P83;
 
-NET "dc2_driver_p_a_high"	LOC = P84;
-NET "dc2_driver_p_a_low_n"	LOC = P112;
-NET "dc2_driver_p_b_high"	LOC = P85;
-NET "dc2_driver_p_b_low_n"	LOC = P87;
+NET "dc2_driver_st_p_a_high"	LOC = P84;
+NET "dc2_driver_st_p_a_low_n"	LOC = P112;
+NET "dc2_driver_st_p_b_high"	LOC = P85;
+NET "dc2_driver_st_p_b_low_n"	LOC = P87;
