@@ -35,20 +35,20 @@ use work.memory_map_pkg.all;
 entity toplevel is
    port (
       -- BLDC 0 & 1
-      bldc0_driver_p  : out bldc_driver_stage_type;
-      bldc0_hall_p    : in  hall_sensor_type;
-      bldc0_encoder_p : in  encoder_type;
-      encoder0_p      : in  encoder_type;
+      bldc0_driver_st_p : out bldc_driver_stage_st_type;
+      bldc0_hall_p            : in  hall_sensor_type;
+      bldc0_encoder_p         : in  encoder_type;
+      encoder0_p              : in  encoder_type;
 
-      bldc1_driver_p  : out bldc_driver_stage_type;
-      bldc1_hall_p    : in  hall_sensor_type;
-      bldc1_encoder_p : in  encoder_type;
-      encoder1_p      : in  encoder_type;
+      bldc1_driver_st_p : out bldc_driver_stage_st_type;
+      bldc1_hall_p            : in  hall_sensor_type;
+      bldc1_encoder_p         : in  encoder_type;
+      encoder1_p              : in  encoder_type;
 
       -- DC Motors 0 & 1
-      dc0_driver_p : out dc_driver_stage_st_type;
-      dc1_driver_p : out dc_driver_stage_st_type;
-      dc2_driver_p : out dc_driver_stage_st_type;
+      dc0_driver_st_p : out dc_driver_stage_st_type;
+      dc1_driver_st_p : out dc_driver_stage_st_type;
+      dc2_driver_st_p : out dc_driver_stage_st_type;
 
       -- Servos 2 and 3
       servo_p : out std_logic_vector(3 downto 2);
@@ -73,7 +73,7 @@ entity toplevel is
       sck_p  : in  std_logic;
       miso_p : out std_logic;
       mosi_p : in  std_logic;
-      
+
       -- ADC AD7266 on loa v2b / v2c
       adc_out_p : out adc_ad7266_spi_out_type;
       adc_in_p  : in  adc_ad7266_spi_in_type;
@@ -88,6 +88,10 @@ architecture structural of toplevel is
 
    -- Number of motors (BLDC and DC, excluding iMotors) directly connected on the carrier board
    constant MOTOR_COUNT : positive := 5;
+
+   -- Non-inverted driver stages
+   signal bldc0_driver_stage_s : bldc_driver_stage_type;
+   signal bldc1_driver_stage_s : bldc_driver_stage_type;
 
    signal sw_1r        : std_logic_vector(1 downto 0);
    signal sw_2r        : std_logic_vector(1 downto 0);
@@ -121,7 +125,10 @@ architecture structural of toplevel is
    signal bus_bldc1_encoder_out : busdevice_out_type;
    signal bus_encoder1_out      : busdevice_out_type;
 
-   signal bus_motor3_pwm_out : busdevice_out_type;
+   signal bus_motor0_pwm_out : busdevice_out_type;
+   signal bus_motor1_pwm_out : busdevice_out_type;
+   signal bus_motor2_pwm_out : busdevice_out_type;
+
    signal bus_comparator_out : busdevice_out_type;
    signal bus_servo_out      : busdevice_out_type;
 
@@ -130,7 +137,7 @@ begin
    process (clk)
    begin
       if rising_edge(clk) then
-         --load_r <= load_r(0) & load_p;
+      --load_r <= load_r(0) & load_p;
       end if;
    end process;
 
@@ -170,7 +177,7 @@ begin
    --      clk          => clk);
 
    -- SPI connection to STM32F4xx
-   spi_slave: entity work.spi_slave
+   spi_slave : entity work.spi_slave
       port map (
          miso_p => miso_p,
          mosi_p => mosi_p,
@@ -180,13 +187,15 @@ begin
          bus_o => bus_o,
          bus_i => bus_i,
 
-         clk   => clk);
+         clk => clk);
 
    bus_i.data <= bus_register_out.data or
                  bus_adc_out.data or
                  bus_bldc0_out.data or bus_bldc0_encoder_out.data or
                  bus_bldc1_out.data or bus_bldc1_encoder_out.data or
-                 bus_motor3_pwm_out.data or
+                 bus_motor0_pwm_out.data or
+                 bus_motor1_pwm_out.data or
+                 bus_motor2_pwm_out.data or
                  bus_comparator_out.data or
                  bus_servo_out.data;
 
@@ -217,12 +226,17 @@ begin
          WIDTH        => 10,
          PRESCALER    => 1)
       port map (
-         driver_stage_p => bldc0_driver_p,
+         driver_stage_p => bldc0_driver_stage_s,
          hall_p         => bldc0_hall_p,
          break_p        => current_limit(1),
          bus_o          => bus_bldc0_out,
          bus_i          => bus_o,
          clk            => clk);
+
+   bldc0_driver_stage_converter : entity work.bldc_driver_stage_converter
+      port map (
+         bldc_driver_stage    => bldc0_driver_stage_s,
+         bldc_driver_stage_st => bldc0_driver_st_p);
 
    bldc0_encoder : encoder_module_extended
       generic map (
@@ -252,12 +266,17 @@ begin
          WIDTH        => 10,
          PRESCALER    => 1)
       port map (
-         driver_stage_p => bldc1_driver_p,
+         driver_stage_p => bldc1_driver_stage_s,
          hall_p         => bldc1_hall_p,
          break_p        => current_limit(0),
          bus_o          => bus_bldc1_out,
          bus_i          => bus_o,
          clk            => clk);
+
+   bldc1_driver_stage_converter: entity work.bldc_driver_stage_converter
+      port map (
+         bldc_driver_stage    => bldc0_driver_stage_s,
+         bldc_driver_stage_st => bldc0_driver_st_p);
 
    bldc1_encoder : encoder_module_extended
       generic map (
@@ -281,24 +300,31 @@ begin
          bus_i     => bus_o,
          clk       => clk);
 
+   -- As 2012 but low-side inverted
+
    ----------------------------------------------------------------------------
    -- DC Motors 0 to 2
-   --motor3_pwm_module : dc_motor_module
-   --   generic map (
-   --      BASE_ADDRESS => BASE_ADDRESS_DC0,
-   --      WIDTH        => 10,
-   --      PRESCALER    => 1)
-   --   port map (
-   --      pwm1_p  => motor3_pwm1_p,
-   --      pwm2_p  => motor3_pwm2_p,
-   --      sd_p    => motor3_sd,
-   --      break_p => current_limit(2),
-   --      bus_o   => bus_motor3_pwm_out,
-   --      bus_i   => bus_o,
-   --      clk     => clk);
+   motor0_pwm_module : dc_motor_module
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_DC0,
+         WIDTH        => 10,
+         PRESCALER    => 1)
+      port map (
+         pwm1_p  => open, -- First halfbridge
+         pwm2_p  => open, -- Second halfbride
+         sd_p    => open, -- shutdown
+         break_p => current_limit(2),
+         bus_o   => bus_motor0_pwm_out,
+         bus_i   => bus_o,
+         clk     => clk);
 
---   motor3_sd_np <= not motor3_sd;
-
+   dc0_driver_st_p.a.high <= '0';
+   dc0_driver_st_p.a.low_n <= '0';
+   dc1_driver_st_p.a.high <= '0';
+   dc1_driver_st_p.a.low_n <= '0';
+   dc2_driver_st_p.a.high <= '0';
+   dc2_driver_st_p.a.low_n <= '0';
+   
    ----------------------------------------------------------------------------
    -- Pumps and Valves
    pumps_valves_register : entity work.peripheral_register

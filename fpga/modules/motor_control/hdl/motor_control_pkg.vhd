@@ -24,39 +24,53 @@ package motor_control_pkg is
       c : std_logic;  -- Channel C -> Phase W magnetic field detection
    end record;
 
+   -- A single halfbridge
    type half_bridge_type is record
       high : std_logic;                 -- Highside
       low  : std_logic;                 -- Lowside
    end record;
 
-   -- Halfbride with drivers from ST where the low side is inverted
+   -- Halfbridge with drivers from ST where the low side is inverted
    type half_bridge_st_type is record   
       high  : std_logic;                -- Highside
       low_n : std_logic;                -- Lowside inverted
    end record half_bridge_st_type;
 
+
+   -- Three halfbridges for brushless DC motors
    type bldc_driver_stage_type is record
       a : half_bridge_type;             -- Channel 1 (U,X)
       b : half_bridge_type;             -- Channel 2 (V,Y)
       c : half_bridge_type;             -- Channel 3 (W,Z)
    end record;
 
+   -- Halfbridge with drivers from ST where the low side is inverted
    type bldc_driver_stage_st_type is record
-      a : half_bridge_st_type;          -- Channel 1 (U,x)
+      a : half_bridge_st_type;          -- Channel 1 (U,X)
       b : half_bridge_st_type;          -- Channel 2 (V,Y)
       c : half_bridge_st_type;          -- Channel 3 (W,Z)
    end record bldc_driver_stage_st_type;
 
+
+   -- Two halfbridges for brushed DC motors
    type dc_driver_stage_type is record
       a : half_bridge_type;
       b : half_bridge_type;
    end record dc_driver_stage_type;
 
-   type dc_Driver_stage_st_type is record
+   -- Halfbridge with drivers from ST where the low side is inverted
+   type dc_driver_stage_st_type is record
       a : half_bridge_st_type;
       b : half_bridge_st_type;
    end record dc_Driver_stage_st_type;
 
+   -- Convert a driver stage to ST type
+   component bldc_driver_stage_converter is
+      port (
+         bldc_driver_stage    : in  bldc_driver_stage_type;
+         bldc_driver_stage_st : out bldc_driver_stage_st_type);
+   end component bldc_driver_stage_converter;
+   
    component dc_motor_module is
       generic (
          BASE_ADDRESS : integer range 0 to 32767;
