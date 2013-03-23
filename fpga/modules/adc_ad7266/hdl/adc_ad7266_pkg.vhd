@@ -50,7 +50,8 @@ package adc_ad7266_pkg is
          start_p    : in  std_logic;
          adc_mode_p : in  std_logic;
          channel_p  : in  std_logic_vector(2 downto 0);
-         value_p    : out std_logic_vector(11 downto 0);
+         value_a_p  : out std_logic_vector(11 downto 0);
+         value_b_p  : out std_logic_vector(11 downto 0);
          done_p     : out std_logic;
          clk        : in  std_logic);
    end component;
