@@ -15,7 +15,9 @@ use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
-use work.fsmcslave_pkg.all;
+-- use work.fsmcslave_pkg.all;
+use work.spislave_pkg.all;
+
 use work.motor_control_pkg.all;
 use work.utils_pkg.all;
 
@@ -62,12 +64,16 @@ entity toplevel is
       valve_p : out std_logic_vector(3 downto 0);
 
       -- FSMC Connections to the STM32F407
-      fsmc_out_p   : out   fsmc_out_type;
-      fsmc_in_p    : in    fsmc_in_type;
-      fsmc_inout_p : inout fsmc_inout_type;
+      --fsmc_out_p   : out   fsmc_out_type;
+      --fsmc_in_p    : in    fsmc_in_type;
+      --fsmc_inout_p : inout fsmc_inout_type;
 
-      load_p : in std_logic;  -- On the rising edge encoders etc are sampled
-
+      -- SPI Connection to the STM32F407
+      cs_np  : in  std_logic;
+      sck_p  : in  std_logic;
+      miso_p : out std_logic;
+      mosi_p : in  std_logic;
+      
       -- ADC AD7266 on loa v2b / v2c
       adc_out_p : out adc_ad7266_spi_out_type;
       adc_in_p  : in  adc_ad7266_spi_in_type;
@@ -124,8 +130,7 @@ begin
    process (clk)
    begin
       if rising_edge(clk) then
-         -- load signal for the synchronisation of the encoder signals
-         load_r <= load_r(0) & load_p;
+         --load_r <= load_r(0) & load_p;
       end if;
    end process;
 
@@ -155,16 +160,27 @@ begin
    ----------------------------------------------------------------------------
    -- FSMC connection to the STM32F4xx and Busmaster
    -- for the internal bus
-   fsmc_slave : entity work.fsmc_slave
-      port map (
-         bus_o        => bus_o,
-         bus_i        => bus_i,
-         fsmc_inout_p => fsmc_inout_p,
-         fsmc_in_p    => fsmc_in_p,
-         fsmc_out_p   => fsmc_out_p,
-         clk          => clk);
+   --fsmc_slave : entity work.fsmc_slave
+   --   port map (
+   --      bus_o        => bus_o,
+   --      bus_i        => bus_i,
+   --      fsmc_inout_p => fsmc_inout_p,
+   --      fsmc_in_p    => fsmc_in_p,
+   --      fsmc_out_p   => fsmc_out_p,
+   --      clk          => clk);
 
-   -- TBD
+   -- SPI connection to STM32F4xx
+   spi_slave: entity work.spi_slave
+      port map (
+         miso_p => miso_p,
+         mosi_p => mosi_p,
+         sck_p  => sck_p,
+         csn_p  => cs_np,
+
+         bus_o => bus_o,
+         bus_i => bus_i,
+
+         clk   => clk);
 
    bus_i.data <= bus_register_out.data or
                  bus_adc_out.data or

@@ -41,15 +41,18 @@ architecture tb of toplevel_tb is
          bldc1_hall_p    : in  hall_sensor_type;
          bldc1_encoder_p : in  encoder_type;
          encoder1_p      : in  encoder_type;
-         dc0_driver_p    : out dc_driver_stage_type;
-         dc1_driver_p    : out dc_driver_stage_type;
-         dc2_driver_p    : out dc_driver_stage_type;
+         dc0_driver_p    : out dc_driver_stage_st_type;
+         dc1_driver_p    : out dc_driver_stage_st_type;
+         dc2_driver_p    : out dc_driver_stage_st_type;
          servo_p         : out std_logic_vector(3 downto 2);
          imotor_tx_p     : out std_logic_vector(4 downto 0);
          imotor_rx_p     : in  std_logic_vector(4 downto 0);
          pump_p          : out std_logic_vector(3 downto 0);
          valve_p         : out std_logic_vector(3 downto 0);
-         load_p          : in  std_logic;
+         cs_np           : in  std_logic;
+         sck_p           : in  std_logic;
+         miso_p          : out std_logic;
+         mosi_p          : in  std_logic;
          adc_out_p       : out adc_ad7266_spi_out_type;
          adc_in_p        : in  adc_ad7266_spi_in_type;
          clk             : in  std_logic);
@@ -64,9 +67,9 @@ architecture tb of toplevel_tb is
    signal bldc1_hall_p    : hall_sensor_type;
    signal bldc1_encoder_p : encoder_type;
    signal encoder1_p      : encoder_type;
-   signal dc0_driver_p    : dc_driver_stage_type;
-   signal dc1_driver_p    : dc_driver_stage_type;
-   signal dc2_driver_p    : dc_driver_stage_type;
+   signal dc0_driver_p    : dc_driver_stage_st_type;
+   signal dc1_driver_p    : dc_driver_stage_st_type;
+   signal dc2_driver_p    : dc_driver_stage_st_type;
    signal servo_p         : std_logic_vector(3 downto 2);
    signal imotor_tx_p     : std_logic_vector(4 downto 0);
    signal imotor_rx_p     : std_logic_vector(4 downto 0);
@@ -76,10 +79,12 @@ architecture tb of toplevel_tb is
    signal adc_in_p  : adc_ad7266_spi_in_type;
    signal adc_out_p : adc_ad7266_spi_out_type;
 
-   signal load_p : std_logic;
+   signal cs_np  : std_logic;
+   signal sck_p  : std_logic;
+   signal miso_p : std_logic;
+   signal mosi_p : std_logic;
 
-   signal reset_n : std_logic := '1';
-   signal clk     : std_logic := '0';
+   signal clk : std_logic := '0';
 
 begin  -- tb
 
@@ -99,9 +104,12 @@ begin  -- tb
          servo_p         => servo_p,
          imotor_rx_p     => imotor_rx_p,
          imotor_tx_p     => imotor_tx_p,
-         load_p          => load_p,
          adc_out_p       => adc_out_p,
          adc_in_p        => adc_in_p,
+         cs_np           => cs_np,
+         sck_p           => sck_p,
+         miso_p          => miso_p,
+         mosi_p          => mosi_p,
          clk             => clk);
 
    -- clock generation
