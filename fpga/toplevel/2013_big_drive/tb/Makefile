@@ -8,12 +8,14 @@ FILES =  \
 	../../../modules/spislave/hdl/*.vhd \
 	../../../modules/peripheral_register/hdl/*.vhd \
 	../../../modules/motor_control/hdl/*.vhd \
+	../../../modules/imotor/hdl/*.vhd \
+	../../../modules/uart/hdl/*.vhd \
 	../../../modules/encoder/hdl/*.vhd \
 	../../../modules/pwm/hdl/*.vhd \
 	../../../modules/utils/hdl/*.vhd \
 	../../../modules/servo/hdl/*.vhd \
 	../../../modules/adc_ad7266/hdl/*.vhd \
-	../../../../../software/season/big/generated/drive/fpga_memory_map.vhd 
+	../../../../../season/big/generated/drive/fpga_memory_map.vhd 
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file
