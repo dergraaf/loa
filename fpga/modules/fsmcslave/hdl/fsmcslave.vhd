@@ -32,7 +32,6 @@ entity fsmc_slave is
 end fsmc_slave;
 
 -------------------------------------------------------------------------------
-
 architecture behavioral of fsmc_slave is
 begin
 

@@ -3,6 +3,8 @@
 NET "*"			IOSTANDARD = LVCMOS33;
 
 # ----------------------------------------------------------------------------
+# Connections on the Breakout Board
+
 # Connections to the STM32F103
 NET "data_p<0>" LOC = P65;
 NET "data_p<1>" LOC = P62;
@@ -18,8 +20,7 @@ NET "data_p<7>" LOC = P48;
 #NET LOC = P41;
 #NET LOC = P70;	# CCLK
 
-# ----------------------------------------------------------------------------
-# Connections on the Damballa Board
+# LEDs
 NET "led_p<0>" LOC = P111;
 NET "led_p<1>" LOC = P112;
 NET "led_p<2>" LOC = P114;
@@ -31,3 +32,4 @@ NET "led_p<5>" LOC = P117;
 NET "clk"		LOC = P123;
 NET "clk"		TNM_NET = clk;
 TIMESPEC TS_clk = PERIOD "clk" 50 MHz HIGH 50%;
+

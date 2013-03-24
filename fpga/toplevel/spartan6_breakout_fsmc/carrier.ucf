@@ -1,0 +1,36 @@
+
+NET "fsmc_data_p<0>" LOC = P24;
+NET "fsmc_data_p<1>" LOC = P23;
+NET "fsmc_data_p<2>" LOC = P22;
+NET "fsmc_data_p<3>" LOC = P21;
+NET "fsmc_data_p<4>" LOC = P17;
+NET "fsmc_data_p<5>" LOC = P16;
+NET "fsmc_data_p<6>" LOC = P15;
+NET "fsmc_data_p<7>" LOC = P14;
+
+NET "fsmc_data_p<8>" LOC = P12;
+NET "fsmc_data_p<9>" LOC = P11;
+NET "fsmc_data_p<10>" LOC = P10;
+NET "fsmc_data_p<11>" LOC = P9;
+NET "fsmc_data_p<12>" LOC = P8;
+NET "fsmc_data_p<13>" LOC = P7;
+NET "fsmc_data_p<14>" LOC = P6;
+NET "fsmc_data_p<15>" LOC = P5;
+
+#NET "fsmc_addr_p<16>" LOC = P2;
+#NET "fsmc_addr_p<17>" LOC = P1;
+#NET "fsmc_addr_p<18>" LOC = P144;
+#NET "fsmc_addr_p<19>" LOC = P143;
+#NET "fsmc_addr_p<20>" LOC = P142;
+#NET "fsmc_addr_p<21>" LOC = P141;
+#NET "fsmc_addr_p<22>" LOC = P140;
+#NET "fsmc_addr_p<23>" LOC = P139;
+
+NET "fsmc_clk_p" LOC = P134;
+NET "fsmc_oe_np" LOC = P133;	# NOE
+NET "fsmc_we_np" LOC = P132;	# NWE
+NET "fsmc_wait_np" LOC = P131;	# NWAIT
+NET "fsmc_cs_np" LOC = P127;	# NE1
+NET "fsmc_adv_np" LOC = P126;	# NADV
+NET "fsmc_bl_np<0>" LOC = P121;	# NBL0
+NET "fsmc_bl_np<1>" LOC = P120;	# NBL1
