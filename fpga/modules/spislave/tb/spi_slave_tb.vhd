@@ -91,28 +91,28 @@ begin  -- tb
       csn <= '1';
       sck  <= '0';
       mosi <= '0';
-      wait for 50 ns;
+      wait for 250 ns;
       csn <= '0';
 
 
       for i in 31 downto 0 loop
          sck  <= '0';
          mosi <= d(i);
-         wait for 50 ns;
+         wait for 250 ns;
          sck  <= '1';
-         wait for 50 ns;
+         wait for 250 ns;
          
       end loop;  -- i
 
       -- no pause between two transfers: 
       if false then
          sck  <= '0';
-         wait for 50 ns;
+         wait for 250 ns;
          csn  <= '1';
          mosi <= 'Z';
-         wait for 50 ns;
+         wait for 250 ns;
          csn  <= '0';
-         wait for 50 ns;
+         wait for 250 ns;
       end if;
 
       -- write access to addr 0xf0f with data 0x1234
@@ -121,14 +121,14 @@ begin  -- tb
       for i in 31 downto 0 loop
          sck  <= '0';
          mosi <= d(i);
-         wait for 50 ns;
+         wait for 250 ns;
          sck  <= '1';
-         wait for 50 ns;
+         wait for 250 ns;
          
       end loop;  -- i
 
       sck  <= '0';
-      wait for 50 ns;
+      wait for 250 ns;
       csn  <= '1';
       mosi <= 'Z';
       
