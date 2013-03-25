@@ -134,7 +134,7 @@ architecture structural of toplevel is
    signal bus_dc1_pwm_out : busdevice_out_type;
    signal bus_dc2_pwm_out : busdevice_out_type;
 
-   signal bus_imotor_out : busmaster_out_type;
+   signal bus_imotor_out : busdevice_out_type;
 
    signal bus_comparator_out : busdevice_out_type;
    signal bus_servo_out      : busdevice_out_type;
@@ -219,8 +219,10 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
+   register_in <= x"2838";
+
    -- FIXME
-   -- What does it do?
+   -- What does it do?      1 bit         3 bits       2 bits 2 bits
    -- register_in <= x"46" & "0" & current_limit_hold & "00" & sw_2r;
 
    ----------------------------------------------------------------------------
@@ -386,8 +388,8 @@ begin
       port map (
          tx_out_p => imotor_tx_p,
          rx_in_p  => imotor_rx_p,
-         bus_o    => bus_i,
-         bus_i    => bus_imotor_out,
+         bus_o    => bus_imotor_out,
+         bus_i    => bus_o,
          clk      => clk);
 
    ----------------------------------------------------------------------------
