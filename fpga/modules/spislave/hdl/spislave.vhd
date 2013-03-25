@@ -91,6 +91,7 @@ begin
 
       variable v                       : spi_slave_state_type;
       variable rising_sck, falling_csn : std_logic;
+      variable falling_sck : std_logic;
       
    begin
       v := r;
@@ -101,6 +102,7 @@ begin
 
       rising_sck  := v.sck(1) and not v.sck(2);
       falling_csn := v.csn(2) and not v.csn(1);
+      falling_sck := v.sck(2) and not v.sck(1);
 
       v.bus_we   := '0';
       v.bus_re   := '0';
@@ -134,7 +136,10 @@ begin
                   v.bus_we   := '1';
                   v.state    := WR;
                end if;
+            end if;
 
+            -- Update output at falling edge of SCK
+            if falling_sck = '1' then
                if not (v.bit_cnt = 0) then
                   v.bit_cnt := v.bit_cnt - 1;
                end if;
