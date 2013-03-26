@@ -1,0 +1,32 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Tue Mar 26 21:24:52 2013
+[*]
+[dumpfile] "/home/rca/software/loa/fpga/modules/motor_control/tb/simulation/dc_driver_stage_converter_tb.ghw"
+[dumpfile_mtime] "Tue Mar 26 21:24:25 2013"
+[dumpfile_size] 1683
+[savefile] "/home/rca/software/loa/fpga/modules/motor_control/tb/dc_driver_stage_converter_tb.sav"
+[timestart] 0
+[size] 1000 515
+[pos] -1 -1
+*-26.226059 125900000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.dc_driver_stage_converter_tb.
+[treeopen] top.dc_driver_stage_converter_tb.dc_driver_stage_st_out_p.
+[sst_width] 342
+[signals_width] 102
+[sst_expanded] 1
+[sst_vpaned_height] 130
+@28
+top.dc_driver_stage_converter_tb.clk
+top.dc_driver_stage_converter_tb.sd_in_p
+top.dc_driver_stage_converter_tb.pwm2_in_p
+top.dc_driver_stage_converter_tb.pwm1_in_p
+@29
+top.dc_driver_stage_converter_tb.dc_driver_stage_st_out_p.a.high
+@28
+top.dc_driver_stage_converter_tb.dc_driver_stage_st_out_p.a.low_n
+top.dc_driver_stage_converter_tb.dc_driver_stage_st_out_p.b.high
+top.dc_driver_stage_converter_tb.dc_driver_stage_st_out_p.b.low_n
+[pattern_trace] 1
+[pattern_trace] 0
