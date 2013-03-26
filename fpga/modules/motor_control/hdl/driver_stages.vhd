@@ -51,7 +51,7 @@ end dc_driver_stage_converter;
 architecture structural of dc_driver_stage_converter is
 
 begin
-   process (sd_in_p)
+   process (pwm1_in_p, pwm2_in_p, sd_in_p)
    begin
       if sd_in_p = '1' then
          -- disable both
