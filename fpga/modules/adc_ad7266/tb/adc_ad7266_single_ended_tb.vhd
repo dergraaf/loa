@@ -2,9 +2,6 @@
 -- Title      : Testbench for design "adc_ad7266_single_ended"
 -- Project    : 
 -------------------------------------------------------------------------------
--- File       : adc_ad7266_single_ended_tb.vhd
--- Author     : RCA  <rca@rca-vm>
--- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
 -- Description: 

@@ -59,7 +59,8 @@ package adc_ad7266_pkg is
 
    component adc_ad7266_single_ended_module
       generic (
-         BASE_ADDRESS : integer range 0 to 32767);
+         BASE_ADDRESS : integer range 0 to 32767;
+         CHANNELS : positive);
       port (
          adc_out_p    : out adc_ad7266_spi_out_type;
          adc_in_p     : in  adc_ad7266_spi_in_type;
