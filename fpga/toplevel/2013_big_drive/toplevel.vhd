@@ -238,7 +238,7 @@ begin
       port map (
          driver_stage_p => bldc0_driver_stage_s,
          hall_p         => bldc0_hall_p,
-         break_p        => current_limit(1),
+         break_p        => '0',         -- TODO current_limit(1),
          bus_o          => bus_bldc0_out,
          bus_i          => bus_o,
          clk            => clk);
@@ -279,7 +279,7 @@ begin
       port map (
          driver_stage_p => bldc1_driver_stage_s,
          hall_p         => bldc1_hall_p,
-         break_p        => current_limit(0),
+         break_p        => '0',         -- TOOD current_limit(0),
          bus_o          => bus_bldc1_out,
          bus_i          => bus_o,
          clk            => clk);
@@ -324,7 +324,7 @@ begin
          pwm1_p  => dc_pwm1_s(0),       -- First halfbridge
          pwm2_p  => dc_pwm2_s(0),       -- Second halfbride
          sd_p    => dc_sd_s(0),         -- shutdown
-         break_p => current_limit(2),
+         break_p => '0',                -- current_limit(2),
          bus_o   => bus_dc0_pwm_out,
          bus_i   => bus_o,
          clk     => clk);
@@ -338,7 +338,7 @@ begin
          pwm1_p  => dc_pwm1_s(1),       -- First halfbridge
          pwm2_p  => dc_pwm2_s(1),       -- Second halfbride
          sd_p    => dc_sd_s(1),         -- shutdown
-         break_p => current_limit(2),
+         break_p => '0',                -- current_limit(2),
          bus_o   => bus_dc1_pwm_out,
          bus_i   => bus_o,
          clk     => clk);
@@ -352,7 +352,7 @@ begin
          pwm1_p  => dc_pwm1_s(2),       -- First halfbridge
          pwm2_p  => dc_pwm2_s(2),       -- Second halfbride
          sd_p    => dc_sd_s(2),         -- shutdown
-         break_p => current_limit(2),
+         break_p => '0',                -- current_limit(2),
          bus_o   => bus_dc2_pwm_out,
          bus_i   => bus_o,
          clk     => clk);
@@ -448,7 +448,7 @@ begin
 
    ----------------------------------------------------------------------------
    -- ADC
---   adc_ad7266_single_ended_module_1 : entity work.adc_ad7266_single_ended_module
+--   adc_ad7266_single_ended_module : entity work.adc_ad7266_single_ended_module
 --      generic map (
 --         BASE_ADDRESS => BASE_ADDRESS_ADC)
 --      port map (
