@@ -1,0 +1,29 @@
+Read
+   Status      1 word  =  1 word
+2x BLDC enc =  2 words =  4 words
+2x Enc      =  2 words =  4 words
+5x iMotor   =  3 words = 15 words
+===================================
+                         25 words
+
+Write
+10x Compara  =  1 word  = 10 words
+ 2x Servo    =  2 words =  2 words
+ 5x iMotor   =  2 words = 10 words
+ 2x BLDC     =  1 word  =  2 words
+ 3x DC       =  1 word  =  3 words
+    PV        = 1 word  =  1 word
+ ==================================
+                          28 words
+ 
+ 30 words lesen, 
+ 120 bytes lesen
+ 
+ 30 words schreiben
+ 120 bytes
+ 
+ 240 bytes = 2400 bits = 500 usec 
+ 
+ 
+ Measured with LA:
+ 10 usec at 5.25 MBit for one word write access (4 bytes traffic)
