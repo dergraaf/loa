@@ -66,6 +66,11 @@ NET "ADC_OUT_P_SGL_DIFF"	LOC = P133;
 # NET "FSMC_OUT_P_NBL<0>"		LOC = P33; # E0
 # NET "FSMC_OUT_P_NBL<1>"		LOC = P34; # E1
 
+NET "MOSI_P"		LOC = P56;
+NET "MISO_P"		LOC = P51;
+NET "SCK_P"		LOC = P50;
+NET "CS_NP"		LOC = P65;
+
 # Programming pins, may be used after configuration
 # NET "DONE"			LOC = P71; # C13
 # NET "PROGRAM_B"		LOC = P37; # B2/Boot1

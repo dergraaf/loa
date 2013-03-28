@@ -25,10 +25,12 @@ entity imotor_module is
 
    generic (
       BASE_ADDRESS   : integer range 0 to 32767;
-      MOTORS         : positive := 8;
-      CLOCK          : positive := 50E6;
-      BAUD           : positive := 1E6;
-      SEND_FREQUENCY : positive := 1E3
+      MOTORS         : positive := 8;   -- Number of motors controlled by this
+                                        -- module
+      CLOCK          : positive := 50E6;  -- Clock frequency of clk, for baud
+                                          -- rate calculation
+      BAUD           : positive := 1E6;   -- Baud rate of the communication
+      SEND_FREQUENCY : positive := 1E3  -- Frequency of update cycle to iMotors
       );
    port (
       tx_out_p : out std_logic_vector(MOTORS - 1 downto 0);
@@ -49,11 +51,14 @@ architecture behavioural of imotor_module is
    ----------------------------------------------------------------------------
    -- Module constants
    -----------------------------------------------------------------------------
-   constant REG_ADDR_BIT : natural := required_bits(MOTORS);
-   
+
    -- Each word is 16 bit wide. Corresponds to the data bus width. 
    constant WORDS_SEND : positive := 2;  -- Number of words transmitted to each iMotor
    constant WORDS_READ : positive := 2;  -- Number of words received from each iMotor
+
+   constant WORDS : positive := MAX(WORDS_SEND, WORDS_READ);
+
+   constant REG_ADDR_BIT : natural := required_bits(MOTORS * WORDS);
 
 
    -----------------------------------------------------------------------------
@@ -65,8 +70,8 @@ architecture behavioural of imotor_module is
    -- in = from the bus
    -- out = to the bus
    -- Each motor has WORDS_* registers
-   signal reg_data_in  : reg_file_type((MOTORS * WORDS_SEND) - 1 downto 0);
-   signal reg_data_out : reg_file_type((MOTORS * WORDS_READ) - 1 downto 0);
+   signal reg_data_in  : reg_file_type(2**REG_ADDR_BIT - 1 downto 0) := (others => (others => '0'));
+   signal reg_data_out : reg_file_type(2**REG_ADDR_BIT - 1 downto 0) := (others => (others => '0'));
 
    -- Data to and from each iMotor
    type imotor_inputs_type is array (MOTORS-1 downto 0) of imotor_input_type(WORDS_SEND-1 downto 0);
@@ -125,7 +130,7 @@ begin  -- architecture behavourial
    end generate imotor_transceivers;
 
    -- Connect signals of transceivers to bus registers
-   imotor_conn: for register_idx in (MOTORS * WORDS_SEND) - 1 downto 0 generate
+   imotor_conn : for register_idx in (MOTORS * WORDS_SEND) - 1 downto 0 generate
       imotor_datas_in(register_idx / 2)(register_idx mod 2) <= reg_data_in(register_idx);
    end generate imotor_conn;
 

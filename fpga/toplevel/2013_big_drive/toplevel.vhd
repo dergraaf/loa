@@ -22,9 +22,9 @@ use work.motor_control_pkg.all;
 use work.utils_pkg.all;
 
 use work.pwm_module_pkg.all;
-use work.motor_control_pkg.all;
 use work.encoder_module_pkg.all;
 use work.servo_module_pkg.all;
+use work.imotor_module_pkg.all;
 use work.adc_ad7266_pkg.all;
 use work.reg_file_pkg.all;
 
@@ -36,14 +36,14 @@ entity toplevel is
    port (
       -- BLDC 0 & 1
       bldc0_driver_st_p : out bldc_driver_stage_st_type;
-      bldc0_hall_p            : in  hall_sensor_type;
-      bldc0_encoder_p         : in  encoder_type;
-      encoder0_p              : in  encoder_type;
+      bldc0_hall_p      : in  hall_sensor_type;
+      bldc0_encoder_p   : in  encoder_type;
+      encoder0_p        : in  encoder_type;
 
       bldc1_driver_st_p : out bldc_driver_stage_st_type;
-      bldc1_hall_p            : in  hall_sensor_type;
-      bldc1_encoder_p         : in  encoder_type;
-      encoder1_p              : in  encoder_type;
+      bldc1_hall_p      : in  hall_sensor_type;
+      bldc1_encoder_p   : in  encoder_type;
+      encoder1_p        : in  encoder_type;
 
       -- DC Motors 0 & 1
       dc0_driver_st_p : out dc_driver_stage_st_type;
@@ -93,6 +93,11 @@ architecture structural of toplevel is
    signal bldc0_driver_stage_s : bldc_driver_stage_type;
    signal bldc1_driver_stage_s : bldc_driver_stage_type;
 
+   signal dc_pwm1_s : std_logic_vector(0 to 2);
+   signal dc_pwm2_s : std_logic_vector(0 to 2);
+   signal dc_sd_s   : std_logic_vector(0 to 2);
+
+
    signal sw_1r        : std_logic_vector(1 downto 0);
    signal sw_2r        : std_logic_vector(1 downto 0);
    signal register_out : std_logic_vector(15 downto 0);
@@ -125,21 +130,20 @@ architecture structural of toplevel is
    signal bus_bldc1_encoder_out : busdevice_out_type;
    signal bus_encoder1_out      : busdevice_out_type;
 
-   signal bus_motor0_pwm_out : busdevice_out_type;
-   signal bus_motor1_pwm_out : busdevice_out_type;
-   signal bus_motor2_pwm_out : busdevice_out_type;
+   signal bus_dc0_pwm_out : busdevice_out_type;
+   signal bus_dc1_pwm_out : busdevice_out_type;
+   signal bus_dc2_pwm_out : busdevice_out_type;
+
+   signal bus_imotor_out : busdevice_out_type;
 
    signal bus_comparator_out : busdevice_out_type;
    signal bus_servo_out      : busdevice_out_type;
-	
-	signal toggle : std_logic := '1';
 
 begin
-   -- synchronize asynchronous  signals
+   -- synchronize asynchronous signals
    process (clk)
    begin
       if rising_edge(clk) then
-			toggle <= not toggle;
       --load_r <= load_r(0) & load_p;
       end if;
    end process;
@@ -194,11 +198,12 @@ begin
 
    bus_i.data <= bus_register_out.data or
                  bus_adc_out.data or
-                 bus_bldc0_out.data or bus_bldc0_encoder_out.data or
-                 bus_bldc1_out.data or bus_bldc1_encoder_out.data or
-                 bus_motor0_pwm_out.data or
-                 bus_motor1_pwm_out.data or
-                 bus_motor2_pwm_out.data or
+                 bus_bldc0_out.data or bus_bldc0_encoder_out.data or bus_encoder0_out.data or
+                 bus_bldc1_out.data or bus_bldc1_encoder_out.data or bus_encoder1_out.data or
+                 bus_dc0_pwm_out.data or
+                 bus_dc1_pwm_out.data or
+                 bus_dc2_pwm_out.data or
+                 bus_imotor_out.data or
                  bus_comparator_out.data or
                  bus_servo_out.data;
 
@@ -214,8 +219,10 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
+   register_in <= x"2838";
+
    -- FIXME
-   -- What does it do?
+   -- What does it do?      1 bit         3 bits       2 bits 2 bits
    -- register_in <= x"46" & "0" & current_limit_hold & "00" & sw_2r;
 
    ----------------------------------------------------------------------------
@@ -231,7 +238,7 @@ begin
       port map (
          driver_stage_p => bldc0_driver_stage_s,
          hall_p         => bldc0_hall_p,
-         break_p        => current_limit(1),
+         break_p        => '0',         -- TODO current_limit(1),
          bus_o          => bus_bldc0_out,
          bus_i          => bus_o,
          clk            => clk);
@@ -263,6 +270,7 @@ begin
          bus_i     => bus_o,
          clk       => clk);
 
+
    bldc1 : bldc_motor_module
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_BLDC1,
@@ -271,12 +279,12 @@ begin
       port map (
          driver_stage_p => bldc1_driver_stage_s,
          hall_p         => bldc1_hall_p,
-         break_p        => current_limit(0),
+         break_p        => '0',         -- TOOD current_limit(0),
          bus_o          => bus_bldc1_out,
          bus_i          => bus_o,
          clk            => clk);
 
-   bldc1_driver_stage_converter: entity work.bldc_driver_stage_converter
+   bldc1_driver_stage_converter : entity work.bldc_driver_stage_converter
       port map (
          bldc_driver_stage    => bldc1_driver_stage_s,
          bldc_driver_stage_st => bldc1_driver_st_p);
@@ -307,41 +315,88 @@ begin
 
    ----------------------------------------------------------------------------
    -- DC Motors 0 to 2
-   motor0_pwm_module : dc_motor_module
+   dc0_pwm_module : dc_motor_module
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_DC0,
          WIDTH        => 10,
          PRESCALER    => 1)
       port map (
-         pwm1_p  => open, -- First halfbridge
-         pwm2_p  => open, -- Second halfbride
-         sd_p    => open, -- shutdown
-         break_p => current_limit(2),
-         bus_o   => bus_motor0_pwm_out,
+         pwm1_p  => dc_pwm1_s(0),       -- First halfbridge
+         pwm2_p  => dc_pwm2_s(0),       -- Second halfbride
+         sd_p    => dc_sd_s(0),         -- shutdown
+         break_p => '0',                -- current_limit(2),
+         bus_o   => bus_dc0_pwm_out,
          bus_i   => bus_o,
          clk     => clk);
 
-	dc0_driver_st_p.a.high <= toggle;
-   dc0_driver_st_p.a.low_n <= '0';
-   dc0_driver_st_p.b.high <= '0';
-   dc0_driver_st_p.b.low_n <= '0';
-	
-   dc1_driver_st_p.a.high <= '0';
-   dc1_driver_st_p.a.low_n <= '0';
-   dc1_driver_st_p.b.high <= '0';
-   dc1_driver_st_p.b.low_n <= '0';
+   dc1_pwm_module : dc_motor_module
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_DC1,
+         WIDTH        => 10,
+         PRESCALER    => 1)
+      port map (
+         pwm1_p  => dc_pwm1_s(1),       -- First halfbridge
+         pwm2_p  => dc_pwm2_s(1),       -- Second halfbride
+         sd_p    => dc_sd_s(1),         -- shutdown
+         break_p => '0',                -- current_limit(2),
+         bus_o   => bus_dc1_pwm_out,
+         bus_i   => bus_o,
+         clk     => clk);
 
-   dc2_driver_st_p.a.high <= '0';
-   dc2_driver_st_p.a.low_n <= '0';
-   dc2_driver_st_p.b.high <= '0';
-   dc2_driver_st_p.b.low_n <= '0';
-   
+   dc2_pwm_module : dc_motor_module
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_DC2,
+         WIDTH        => 10,
+         PRESCALER    => 1)
+      port map (
+         pwm1_p  => dc_pwm1_s(2),       -- First halfbridge
+         pwm2_p  => dc_pwm2_s(2),       -- Second halfbride
+         sd_p    => dc_sd_s(2),         -- shutdown
+         break_p => '0',                -- current_limit(2),
+         bus_o   => bus_dc2_pwm_out,
+         bus_i   => bus_o,
+         clk     => clk);
+
+   -- convert from 2012-style motor-bridge to 2013-style
+   dc0_driver_stage_converter : entity work.dc_driver_stage_converter
+      port map (
+         pwm1_in_p                => dc_pwm1_s(0),
+         pwm2_in_p                => dc_pwm2_s(0),
+         sd_in_p                  => dc_sd_s(0),
+         dc_driver_stage_st_out_p => dc0_driver_st_p);
+
+   dc1_driver_stage_converter : entity work.dc_driver_stage_converter
+      port map (
+         pwm1_in_p                => dc_pwm1_s(1),
+         pwm2_in_p                => dc_pwm2_s(1),
+         sd_in_p                  => dc_sd_s(1),
+         dc_driver_stage_st_out_p => dc1_driver_st_p);
+
+   dc2_driver_stage_converter : entity work.dc_driver_stage_converter
+      port map (
+         pwm1_in_p                => dc_pwm1_s(2),
+         pwm2_in_p                => dc_pwm2_s(2),
+         sd_in_p                  => dc_sd_s(2),
+         dc_driver_stage_st_out_p => dc2_driver_st_p);
+
    ----------------------------------------------------------------------------
-   -- iMotors
-	imotor_tx_p(4 downto 0) <= (others => '0');
+   -- All iMotors with one module
+   imotor_module : entity work.imotor_module
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_IMOTOR,
+         MOTORS       => 5)
+      port map (
+         tx_out_p => imotor_tx_p,
+         rx_in_p  => imotor_rx_p,
+         bus_o    => bus_imotor_out,
+         bus_i    => bus_o,
+         clk      => clk);
 
    ----------------------------------------------------------------------------
    -- Pumps and Valves
+   -- Do PWM for pumps because battery voltage is higher than nominal voltage
+   -- of pumps
+
    pumps_valves_register : entity work.peripheral_register
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_PUMPS_VALVES)
@@ -393,7 +448,7 @@ begin
 
    ----------------------------------------------------------------------------
    -- ADC
---   adc_ad7266_single_ended_module_1 : entity work.adc_ad7266_single_ended_module
+--   adc_ad7266_single_ended_module : entity work.adc_ad7266_single_ended_module
 --      generic map (
 --         BASE_ADDRESS => BASE_ADDRESS_ADC)
 --      port map (
@@ -404,11 +459,11 @@ begin
 --         adc_values_o => adc_values_out,
 --         clk          => clk);
 
-	adc_out_p.sgl_diff <= '0';
-	adc_out_p.sck <= '1';
-	adc_out_p.cs_n <= '1';
-	adc_out_p.a(2 downto 0) <= (others => '0');
-	
-	
+   adc_out_p.sgl_diff      <= '0';
+   adc_out_p.sck           <= '1';
+   adc_out_p.cs_n          <= '1';
+   adc_out_p.a(2 downto 0) <= (others => '0');
+
+
 
 end structural;

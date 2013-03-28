@@ -79,10 +79,10 @@ architecture tb of toplevel_tb is
    signal adc_in_p  : adc_ad7266_spi_in_type;
    signal adc_out_p : adc_ad7266_spi_out_type;
 
-   signal cs_np  : std_logic;
-   signal sck_p  : std_logic;
+   signal cs_np  : std_logic := '0';
+   signal sck_p  : std_logic := '0';
    signal miso_p : std_logic;
-   signal mosi_p : std_logic;
+   signal mosi_p : std_logic := '0';
 
    signal clk : std_logic := '0';
 

@@ -6,6 +6,18 @@
 -- Description: This is an SPI slave that is a busmaster to the local bus.
 --              Data can be transfered to and from the bus slaves on the bus.
 --
+--              This modules uses some black magic:
+--              * On the detection of the rising edge of SCK the input is
+--                sampled and the output is set. This violates the SPI protocol
+--                which expects setting the MISO at one edge and sampling the
+--                MOSI at the other edge.
+--                
+--              * Due to the synchronisation of the asynchronous external SCK
+--                signal The detection of the falling edge of SCK is delayed by
+--                3 internal clock cycles. At 50 MHz this leads to a delay of
+--                60 usec which fulfills the setup and hold times of the
+--                SPI master. 
+--
 -- Protocol:    The SPI transfers are always 32 bits
 --              SPI mode 0, CPOL = 0, CPAH = 0
 --              The first 16 bits are the address and the second 16 bits are
@@ -43,7 +55,7 @@ entity spi_slave is
       bus_o : out busmaster_out_type;
       bus_i : in  busmaster_in_type;
 
-      clk   : in std_logic
+      clk : in std_logic
       );
 
 end spi_slave;
@@ -83,7 +95,7 @@ architecture behavioral of spi_slave is
       bus_we   => '0',
       state    => IDLE
       );
-   
+
 begin
 
    spi_cmb : process (bus_i.data, csn_p, mosi_p, r, r.csn(1 downto 0),
@@ -91,7 +103,7 @@ begin
 
       variable v                       : spi_slave_state_type;
       variable rising_sck, falling_csn : std_logic;
-      
+
    begin
       v := r;
 
@@ -113,7 +125,7 @@ begin
                v.state   := SEL;
                v.bit_cnt := 31;
             end if;
-            
+
          when SEL =>
             v.miso := v.oreg(v.bit_cnt);
 
@@ -144,7 +156,7 @@ begin
          -- some time to output their data
          when WAIT_RD =>
             v.state := RD;
-            
+
          when RD =>
             v.oreg(31 downto 16) := bus_i.data;
 
@@ -176,7 +188,7 @@ begin
    spi_seq : process (clk)
    begin
       if rising_edge(clk) then
-            r <= rin;
+         r <= rin;
       end if;
    end process spi_seq;
 

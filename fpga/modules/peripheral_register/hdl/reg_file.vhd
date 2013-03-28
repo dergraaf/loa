@@ -67,7 +67,7 @@ begin  -- str
       variable index : integer := 0;
    begin  -- process
       if rising_edge(clk) then
-         index := to_integer(unsigned (bus_i.addr(REG_ADDR_BIT-1 downto 0)));
+         index := to_integer(unsigned(bus_i.addr(REG_ADDR_BIT-1 downto 0)));
          if bus_i.addr(14 downto REG_ADDR_BIT) = BASE_ADDRESS_VECTOR(14 downto REG_ADDR_BIT) then
             if bus_i.we = '1' then
                reg(index) <= bus_i.data;
