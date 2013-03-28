@@ -83,8 +83,8 @@ entity toplevel is
 end toplevel;
 
 architecture structural of toplevel is
-   signal load_r : std_logic_vector(1 downto 0) := (others => '0');
-   signal load   : std_logic;
+   --signal load_r : std_logic_vector(1 downto 0) := (others => '0');
+   --signal load   : std_logic;
 
    -- Number of motors (BLDC and DC, excluding iMotors) directly connected on the carrier board
    constant MOTOR_COUNT : positive := 5;
@@ -148,7 +148,7 @@ begin
       end if;
    end process;
 
-   load <= load_r(1);
+   -- load <= load_r(1);
 
    current_hold : for n in MOTOR_COUNT-1 downto 0 generate
       event_hold_stage_1 : event_hold_stage
@@ -159,17 +159,17 @@ begin
             clk      => clk);
    end generate;
 
-   process (clk) is
-   begin
-      if rising_edge(clk) then
-         if load_r = "01" then
-            -- rising edge of the load signal
-            current_next_period <= '1';
-         else
-            current_next_period <= '0';
-         end if;
-      end if;
-   end process;
+   --process (clk) is
+   --begin
+   --   if rising_edge(clk) then
+   --      if load_r = "01" then
+   --         -- rising edge of the load signal
+   --         current_next_period <= '1';
+   --      else
+   --         current_next_period <= '0';
+   --      end if;
+   --   end if;
+   --end process;
 
    ----------------------------------------------------------------------------
    -- FSMC connection to the STM32F4xx and Busmaster
@@ -254,7 +254,7 @@ begin
       port map (
          encoder_p => bldc0_encoder_p,
          index_p   => encoder_index,
-         load_p    => load,
+         load_p    => '1', -- load,
          bus_o     => bus_bldc0_encoder_out,
          bus_i     => bus_o,
          clk       => clk);
@@ -265,7 +265,7 @@ begin
       port map (
          encoder_p => encoder0_p,
          index_p   => encoder_index,
-         load_p    => load,
+         load_p    => '1', -- load,
          bus_o     => bus_encoder0_out,
          bus_i     => bus_o,
          clk       => clk);
@@ -295,7 +295,7 @@ begin
       port map (
          encoder_p => bldc1_encoder_p,
          index_p   => encoder_index,
-         load_p    => load,
+         load_p    => '1', -- TODO always: load,
          bus_o     => bus_bldc1_encoder_out,
          bus_i     => bus_o,
          clk       => clk);
@@ -306,7 +306,7 @@ begin
       port map (
          encoder_p => encoder1_p,
          index_p   => encoder_index,
-         load_p    => load,
+         load_p    => '1', -- load,
          bus_o     => bus_encoder1_out,
          bus_i     => bus_o,
          clk       => clk);
