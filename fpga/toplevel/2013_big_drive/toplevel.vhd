@@ -386,7 +386,9 @@ begin
    imotor_module : entity work.imotor_module
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_IMOTOR,
-         MOTORS       => 5)
+         MOTORS       => 5,
+         DATA_WORDS_SEND => 2,
+         DATA_WORDS_READ => 2)
       port map (
          tx_out_p => imotor_tx_p,
          rx_in_p  => imotor_rx_p,
