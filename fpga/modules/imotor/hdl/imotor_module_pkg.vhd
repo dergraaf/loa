@@ -85,7 +85,7 @@ package imotor_module_pkg is
          clock_rx_in_p      : in  std_logic;
          clk                : in  std_logic);
    end component imotor_uart_rx;
-   
+
    component imotor_receiver is
       generic (
          DATA_WORDS : positive;
@@ -99,7 +99,7 @@ package imotor_module_pkg is
          ready_in_p        : in  std_logic;
          clk               : in  std_logic);
    end component imotor_receiver;
-   
+
    component imotor_transceiver is
       generic (
          DATA_WORDS : positive;
@@ -112,11 +112,13 @@ package imotor_module_pkg is
          timer_in_p : in  imotor_timer_type;
          clk        : in  std_logic);
    end component imotor_transceiver;
-   
+
    component imotor_module is
       generic (
-         BASE_ADDRESS : integer range 0 to 32767;
-         MOTORS       : positive);
+         BASE_ADDRESS    : integer range 0 to 32767;
+         MOTORS          : positive;
+         DATA_WORDS_SEND : positive;
+         DATA_WORDS_READ : positive);
       port (
          tx_out_p : out std_logic_vector(MOTORS - 1 downto 0);
          rx_in_p  : in  std_logic_vector(MOTORS - 1 downto 0);

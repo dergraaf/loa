@@ -20,13 +20,14 @@ use work.imotor_module_pkg.all;
 entity imotor_transceiver is
 
    generic (
-      DATA_WORDS : positive := 2;
+      DATA_WORDS_SEND : positive;
+      DATA_WORDS_READ : positive;
       DATA_WIDTH : positive := 16
       );
    port (
       -- parallel data in and out
-      data_in_p  : in  imotor_input_type(DATA_WORDS - 1 downto 0);
-      data_out_p : out imotor_output_type(DATA_WORDS - 1 downto 0);
+      data_in_p  : in  imotor_input_type(DATA_WORDS_SEND - 1 downto 0);
+      data_out_p : out imotor_output_type(DATA_WORDS_READ - 1 downto 0);
 
       -- UART RX/TX
       tx_out_p : out std_logic;
@@ -91,7 +92,7 @@ begin  -- architecture behavourial
    -----------------------------------------------------------------------------
    imotor_sender_1 : entity work.imotor_sender
       generic map (
-         DATA_WORDS => DATA_WORDS,
+         DATA_WORDS => DATA_WORDS_SEND,
          DATA_WIDTH => DATA_WIDTH)
       port map (
          data_in_p   => data_in_p,
@@ -154,7 +155,7 @@ begin  -- architecture behavourial
 
    imotor_receiver_1 : entity work.imotor_receiver
       generic map (
-         DATA_WORDS => DATA_WORDS,
+         DATA_WORDS => DATA_WORDS_READ,
          DATA_WIDTH => DATA_WIDTH)
       port map (
          data_out_p        => data_out_p,
