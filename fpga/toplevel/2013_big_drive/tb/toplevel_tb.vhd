@@ -55,6 +55,7 @@ architecture tb of toplevel_tb is
          mosi_p            : in  std_logic;
          adc_out_p         : out adc_ad7266_spi_out_type;
          adc_in_p          : in  adc_ad7266_spi_in_type;
+         load_p            : in  std_logic;
          clk               : in  std_logic);
    end component toplevel;
 
@@ -84,6 +85,8 @@ architecture tb of toplevel_tb is
    signal miso_p : std_logic;
    signal mosi_p : std_logic := '0';
 
+   signal load_p : std_logic := '1';
+
    signal clk : std_logic := '0';
 
 begin  -- tb
@@ -110,6 +113,7 @@ begin  -- tb
          sck_p             => sck_p,
          miso_p            => miso_p,
          mosi_p            => mosi_p,
+         load_p            => load_p,
          clk               => clk);
 
    -- clock generation
