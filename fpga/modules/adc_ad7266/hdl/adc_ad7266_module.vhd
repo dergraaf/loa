@@ -49,8 +49,7 @@ architecture behavioral of adc_ad7266_single_ended_module is
    type adc_ad7266_module_type is record
       state      : adc_ad7266_module_state_type;
       start      : std_logic;
-      current_ch : integer range 0 to (CHANNELS / 2) - 1;  -- Two ADCs of each
-                                                           -- 6 channels.
+      current_ch : integer range 0 to (CHANNELS / 2) - 1;
       reg        : reg_file_type(2**REG_ADDR_BIT-1 downto 0);
    end record;
 
@@ -65,12 +64,12 @@ architecture behavioral of adc_ad7266_single_ended_module is
 
    signal adc_mode_s : std_logic;
    signal channel_s  : std_logic_vector(2 downto 0);
-   signal value_a_s    : std_logic_vector(11 downto 0);  --AD7266 converts two
+   signal value_a_s  : std_logic_vector(11 downto 0);  --AD7266 converts two
                                                          --channels a,b at one
                                                          --address (12 channels
                                                          --vs 6 addresses)
    signal value_b_s : std_logic_vector(11 downto 0);
-   signal done_s     : std_logic;
+   signal done_s    : std_logic;
 
    signal reg_o : reg_file_type(2**REG_ADDR_BIT-1 downto 0);
    signal reg_i : reg_file_type(2**REG_ADDR_BIT-1 downto 0);
@@ -80,7 +79,7 @@ begin
 
    -- mapping signals to adc i/f
    adc_mode_s <= '1';                   -- we don't use differential mode
-   channel_s  <= std_logic_vector(to_unsigned(r.current_ch, 3)); --
+   channel_s  <= std_logic_vector(to_unsigned(r.current_ch, 3));
    reg_i      <= r.reg;
 
    -- present last value of each channel on this modules ports
