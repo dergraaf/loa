@@ -114,6 +114,7 @@ architecture structural of toplevel is
    signal encoder_index : std_logic := '0';
 
    signal servo_signals : std_logic_vector(3 downto 2);
+   signal pwm : std_logic;              -- PWM for valves and pumps
 
    signal pumps_valves_s : std_logic_vector(15 downto 0) := (others => '0');
 
@@ -150,7 +151,7 @@ begin
       end if;
    end process;
 
-   load <= load_r(1);
+   load <= '1'; -- load_r(1); TODO
 
    current_hold : for n in MOTOR_COUNT-1 downto 0 generate
       event_hold_stage_1 : event_hold_stage
@@ -221,7 +222,7 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   register_in <= x"2838";
+   register_in <= x"ff56";
 
    -- FIXME
    -- What does it do?      1 bit         3 bits       2 bits 2 bits
@@ -411,9 +412,21 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   valve_p <= pumps_valves_s(3 downto 0);
-   pump_p  <= pumps_valves_s(7 downto 4);
+   pwm_1: entity work.pwm
+      generic map (
+         WIDTH => 12)
+      port map (
+         clk_en_p => '1',               -- no prescaler
+         value_p  => x"800",
+         output_p => pwm,
+         reset    => '0',
+         clk      => clk);
+   
+   valve_p <= pumps_valves_s(3 downto 0) when pwm = '1' else (others => '0');
+   pump_p  <= pumps_valves_s(7 downto 4) when pwm = '1' else (others => '0');
 
+
+   
    ----------------------------------------------------------------------------
    -- Servos
    servo_module_1 : servo_module
