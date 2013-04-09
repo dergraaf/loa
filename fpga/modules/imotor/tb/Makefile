@@ -18,7 +18,8 @@ FILES += \
   ../hdl/imotor_timer.vhd 
 else ifeq ($(TESTBENCH), imotor_uart_tx_tb)
 FILES += \
-  ../hdl/imotor_uart_tx.vhd
+  ../hdl/imotor_uart_tx.vhd \
+  ../hdl/imotor_timer.vhd
 else ifeq ($(TESTBENCH), imotor_sender_tb)
 FILES += \
   ../hdl/imotor_uart_tx.vhd \
@@ -26,6 +27,7 @@ FILES += \
   ../hdl/imotor_sender.vhd 
 else ifeq ($(TESTBENCH), imotor_receiver_tb)
 FILES += \
+  ../../uart/hdl/uart_pkg.vhd \
   ../hdl/imotor_receiver.vhd \
   ../hdl/imotor_timer.vhd
 else ifeq ($(TESTBENCH), imotor_module_tb)
