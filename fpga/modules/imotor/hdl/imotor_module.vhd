@@ -166,6 +166,6 @@ begin  -- architecture behavourial
    end generate imotor_conn_1;
 
    imotor_conn_2 : for register_idx in (MOTORS * DATA_WORDS_READ) - 1 downto 0 generate
-      reg_data_out(register_idx) <= imotor_datas_out(register_idx / 2)(register_idx mod 2);
+      reg_data_out(register_idx) <= imotor_datas_out(register_idx / DATA_WORDS_READ)(register_idx mod DATA_WORDS_READ);
    end generate imotor_conn_2;
 end behavioural;
