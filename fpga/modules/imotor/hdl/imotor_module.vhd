@@ -162,7 +162,7 @@ begin  -- architecture behavourial
    -- Connect signals of transceivers to bus registers
    -- From bus to iMotors
    imotor_conn_1 : for register_idx in (MOTORS * DATA_WORDS_SEND) - 1 downto 0 generate
-      imotor_datas_in(register_idx / 2)(register_idx mod 2) <= reg_data_in(register_idx);
+      imotor_datas_in(register_idx / DATA_WORDS_SEND)(register_idx mod DATA_WORDS_SEND) <= reg_data_in(register_idx);
    end generate imotor_conn_1;
 
    imotor_conn_2 : for register_idx in (MOTORS * DATA_WORDS_READ) - 1 downto 0 generate
