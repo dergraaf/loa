@@ -1,5 +1,8 @@
 
-PORT = /dev/ttyUSB0
+# PORT = /dev/tty.SLAB_USBtoUART
+# PORT = /dev/tty.usbserial-AH000JY3
+# PORT = /dev/tty.usbserial
+PORT = /dev/tty.usbserial-A900LKAF
 
 toplevel.svf: ise/toplevel.bit
 	impact -batch impact.cmd
