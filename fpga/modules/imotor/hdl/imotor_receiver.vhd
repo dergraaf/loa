@@ -63,7 +63,7 @@ architecture behavioural of imotor_receiver is
       -- The output to the register file is only updated when proper end byte
       -- received. 
       data_out   : imotor_output_type(DATA_WORDS - 1 downto 0);
-      byte_count : integer range 0 to ((DATA_WORDS * 2) - 1);
+      byte_count : integer range 0 to (DATA_WORDS * 2);
    end record;
 
    constant last_byte : natural := DATA_WORDS * 2 - 1;  -- index of last data byte
