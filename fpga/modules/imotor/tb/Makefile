@@ -4,7 +4,8 @@
 #TESTBENCH = imotor_uart_tx_tb
 #TESTBENCH = imotor_sender_tb
 #TESTBENCH = imotor_receiver_tb
-TESTBENCH = imotor_module_tb
+TESTBENCH = imotor_transceiver_tb
+#TESTBENCH = imotor_module_tb
 
 # VHDL files
 FILES = \
@@ -30,9 +31,17 @@ FILES += \
   ../../uart/hdl/uart_pkg.vhd \
   ../hdl/imotor_receiver.vhd \
   ../hdl/imotor_timer.vhd
-else ifeq ($(TESTBENCH), imotor_module_tb)
+else ifeq ($(TESTBENCH), imotor_transceiver_tb)
+FILES +=\
+  ../../uart/hdl/uart_pkg.vhd \
+  ../../uart/hdl/uart_tx.vhd \
+  ../../uart/hdl/uart_rx.vhd \
+  ../hdl/imotor_timer.vhd \
+  ../hdl/imotor_sender.vhd \
+  ../hdl/imotor_receiver.vhd \
+  ../hdl/imotor_transceiver.vhd
+else ifeq ($(TESTBENCH), imotor_modulde_tb)
 FILES += \
-  ../hdl/imotor_uart_tx.vhd \
   ../../uart/hdl/uart_pkg.vhd \
   ../../uart/hdl/uart_tx.vhd \
   ../../uart/hdl/uart_rx.vhd \
