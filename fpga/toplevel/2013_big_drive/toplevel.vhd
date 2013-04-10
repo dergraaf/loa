@@ -114,7 +114,7 @@ architecture structural of toplevel is
    signal encoder_index : std_logic := '0';
 
    signal servo_signals : std_logic_vector(3 downto 2);
-   signal pwm : std_logic;              -- PWM for valves and pumps
+   signal pwm           : std_logic;    -- PWM for valves and pumps
 
    signal pumps_valves_s : std_logic_vector(15 downto 0) := (others => '0');
 
@@ -123,8 +123,10 @@ architecture structural of toplevel is
    signal bus_i : busmaster_in_type;
 
    -- Outputs form the Bus devices
-   signal bus_register_out : busdevice_out_type;
-   signal bus_adc_out      : busdevice_out_type;
+   signal bus_register_out         : busdevice_out_type;
+   signal bus_register_check_out   : busdevice_out_type;
+   signal bus_register_check_2_out : busdevice_out_type;
+   signal bus_adc_out              : busdevice_out_type;
 
    signal bus_bldc0_out         : busdevice_out_type;
    signal bus_bldc0_encoder_out : busdevice_out_type;
@@ -142,6 +144,10 @@ architecture structural of toplevel is
    signal bus_comparator_out : busdevice_out_type;
    signal bus_servo_out      : busdevice_out_type;
 
+   -- Check STM to FPGA communication
+   signal preg_check_2_s : unsigned(15 downto 0) := (others => '0');
+   signal clk_out_check_p : std_logic;
+   
 begin
    -- synchronize asynchronous signals
    process (clk)
@@ -151,7 +157,7 @@ begin
       end if;
    end process;
 
-   load <= '1'; -- load_r(1); TODO
+   load <= '1';                         -- load_r(1); TODO
 
    current_hold : for n in MOTOR_COUNT-1 downto 0 generate
       event_hold_stage_1 : event_hold_stage
@@ -200,6 +206,8 @@ begin
          clk => clk);
 
    bus_i.data <= bus_register_out.data or
+                 bus_register_check_out.data or
+                 bus_register_check_2_out.data or
                  bus_adc_out.data or
                  bus_bldc0_out.data or bus_bldc0_encoder_out.data or bus_encoder0_out.data or
                  bus_bldc1_out.data or bus_bldc1_encoder_out.data or bus_encoder1_out.data or
@@ -227,6 +235,43 @@ begin
    -- FIXME
    -- What does it do?      1 bit         3 bits       2 bits 2 bits
    -- register_in <= x"46" & "0" & current_limit_hold & "00" & sw_2r;
+
+   peripheral_register_check : entity work.peripheral_register
+      generic map (
+         BASE_ADDRESS => 16#0100#)
+      port map (
+         dout_p => open,
+         din_p  => x"5703",
+         bus_o  => bus_register_check_out,
+         bus_i  => bus_o,
+         clk    => clk);
+
+   peripheral_register_check_2 : entity work.peripheral_register
+      generic map (
+         BASE_ADDRESS => 16#0101#)
+      port map (
+         dout_p => open,
+         din_p  => std_logic_vector(preg_check_2_s),
+         bus_o  => bus_register_check_2_out,
+         bus_i  => bus_o,
+         clk    => clk);
+  
+   -- count preg_check_2_s
+   clock_divider_preg_check: entity work.clock_divider
+      generic map (
+         DIV => 50000000)
+      port map (
+         clk_out_p => clk_out_check_p,
+         clk       => clk);
+
+   preg_cnt: process (clk) is
+   begin  -- process preg_cnt
+      if rising_edge(clk) then
+         if clk_out_check_p = '1' then
+            preg_check_2_s <= preg_check_2_s + 1;
+         end if;
+      end if;
+   end process preg_cnt;
 
    ----------------------------------------------------------------------------
    -- component instantiation
@@ -386,8 +431,8 @@ begin
    -- All iMotors with one module
    imotor_module : entity work.imotor_module
       generic map (
-         BASE_ADDRESS => BASE_ADDRESS_IMOTOR,
-         MOTORS       => 5,
+         BASE_ADDRESS    => BASE_ADDRESS_IMOTOR,
+         MOTORS          => 5,
          DATA_WORDS_SEND => 2,
          DATA_WORDS_READ => 3)
       port map (
@@ -412,7 +457,7 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   pwm_1: entity work.pwm
+   pwm_1 : entity work.pwm
       generic map (
          WIDTH => 12)
       port map (
@@ -421,12 +466,12 @@ begin
          output_p => pwm,
          reset    => '0',
          clk      => clk);
-   
+
    valve_p <= pumps_valves_s(3 downto 0) when pwm = '1' else (others => '0');
    pump_p  <= pumps_valves_s(7 downto 4) when pwm = '1' else (others => '0');
 
 
-   
+
    ----------------------------------------------------------------------------
    -- Servos
    servo_module_1 : servo_module
