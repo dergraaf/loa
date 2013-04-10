@@ -39,7 +39,7 @@ public class Upload implements Communicatable {
 		connection = new Connection(new loa.sab.Decoder());
 		connection.addCommunicatable(this);
 		
-		connection.connect(new PortIdentifier(portName));
+		connection.connect(new PortIdentifier(portName), baudrate);
 		if (!connection.isConnected()) {
 			throw new IOException("Could not open '" + portName + "'");
 		}

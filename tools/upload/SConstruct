@@ -12,6 +12,6 @@ classes = env.Java(target='classes', source='src')
 jar = env.Jar(target='upload.jar', source=classes + ['resources/manifest.mf'] + env.Glob('resources/*.jar'))
 
 env.Alias('build', jar)
-env.Alias('run', env.Command('thisfileshouldnotexist', classes, '@java -jar beverage.jar account.xml'))
+#env.Alias('run', env.Command('thisfileshouldnotexist', classes, '@java -jar upload.jar'))
 env.Default('build')
 

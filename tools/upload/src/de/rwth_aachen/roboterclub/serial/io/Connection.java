@@ -77,11 +77,11 @@ public class Connection implements Sender, MessageDistributor {
 	}
 
 	public Enumeration<PortIdentifier> enumPorts() {
-		Enumeration<?> enu = CommPortIdentifier.getPortIdentifiers();
+		@SuppressWarnings("unchecked")
+		Enumeration<CommPortIdentifier> enu = CommPortIdentifier.getPortIdentifiers();
 		Vector<PortIdentifier> identifiers = new Vector<PortIdentifier>();
 		while (enu.hasMoreElements())
-			identifiers.add(new PortIdentifier((CommPortIdentifier) enu
-					.nextElement()));
+			identifiers.add(new PortIdentifier(enu.nextElement()));
 		return identifiers.elements();
 	}
 
@@ -95,14 +95,14 @@ public class Connection implements Sender, MessageDistributor {
 	public boolean isConnected() {
 		return inputOutputProcess != null && inputOutputProcess.isConnected();
 	}
-
+	
 	public boolean connect(Object portIdentifier) {
 		SerialPortParams spp = new SerialPortParams(115200);
-		//SerialPortParams spp = new SerialPortParams(9600);
-		//SerialPortParams spp = new SerialPortParams(4800);
-
-//		serialPort.setSerialPortParams(115200, SerialPort.DATABITS_8,
-//				SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+		return connect(portIdentifier, spp);
+	}
+	
+	public boolean connect(Object portIdentifier, int baudrate) {
+		SerialPortParams spp = new SerialPortParams(baudrate);
 		return connect(portIdentifier, spp);
 	}
 	
