@@ -52,6 +52,12 @@ architecture tb of adc_ad7266_module_tb is
    signal adc_values_o : adc_ad7266_values_type(CHANNELS - 1 downto 0);
    signal clk          : std_logic := '1';
 
+    -- adc_stimulus parametres (vectors are mirrored)
+   signal bitstream_a : std_logic_vector(11 downto 0) := "111000111001"; -- result 0x9C7 
+   signal bitstream_b : std_logic_vector(11 downto 0) := "010111100110"; -- result 0x67A
+   signal bitcounter : integer range 0 to 16;
+   
+   
 begin  -- tb
 
    
@@ -69,7 +75,7 @@ begin  -- tb
          clk          => clk);
 
   -- clock generation
-  clk <= not clk after 10 ns;
+  clk <= not clk after 20 ns;
 
   -- waveform generation
   bus_stimulus_proc: process
@@ -155,83 +161,124 @@ begin  -- tb
    -- ADC side stimulus
    -----------------------------------------------------------------------------
 
-  process
-  begin
-  --  adc_in.d_a <= 'Z';
-  --  adc_in.d_b <= 'Z';
+--  process
+--  begin
+--  --  adc_in.d_a <= 'Z';
+--  --  adc_in.d_b <= 'Z';
 
-    wait until adc_out.cs_n = '0';
-    adc_in.d_a <= '0';
-    adc_in.d_b <= '0';
+--    wait until adc_out.cs_n = '0';
+--    adc_in.d_a <= '0';
+--    adc_in.d_b <= '0';
 
-   -- wait until sck_p = '1';
-   -- wait until sck_p = '0';
-   -- wait until sck_p = '0';
-   -- wait until sck_p = '0';
-   -- wait until sck_p = '0';
-   -- wait until sck_p = '0';
-   -- wait until sck_p = '0';
+--   -- wait until sck_p = '1';
+--   -- wait until sck_p = '0';
+--   -- wait until sck_p = '0';
+--   -- wait until sck_p = '0';
+--   -- wait until sck_p = '0';
+--   -- wait until sck_p = '0';
+--   -- wait until sck_p = '0';
 
-    -- leading zero of AD7266
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '0';
-    adc_in.d_b <= '0';
+--    -- leading zero of AD7266
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '0';
+--    adc_in.d_b <= '0';
     
-    -- actual MSB of conversion
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '1';
-    adc_in.d_b <= '1';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '0';
-    adc_in.d_b <= '1';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '0';
-    adc_in.d_b <= '1';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '1';
-    adc_in.d_b <= '0';
+--    -- actual MSB of conversion
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '1';
+--    adc_in.d_b <= '1';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '0';
+--    adc_in.d_b <= '1';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '0';
+--    adc_in.d_b <= '1';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '1';
+--    adc_in.d_b <= '0';
     
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '1';
-    adc_in.d_b <= '0';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '1';
-    adc_in.d_b <= '1';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '0';
-    adc_in.d_b <= '1';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '0';
-    adc_in.d_b <= '1';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '1';
+--    adc_in.d_b <= '0';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '1';
+--    adc_in.d_b <= '1';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '0';
+--    adc_in.d_b <= '1';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '0';
+--    adc_in.d_b <= '1';
     
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '0';
-    adc_in.d_b <= '1';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '1';
-    adc_in.d_b <= '0';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '1';
-    adc_in.d_b <= '1';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '1';
-    adc_in.d_b <= '0';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '0';
+--    adc_in.d_b <= '1';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '1';
+--    adc_in.d_b <= '0';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '1';
+--    adc_in.d_b <= '1';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '1';
+--    adc_in.d_b <= '0';
 
---trailing TWO zeros
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '0';
-    adc_in.d_b <= '0';
-    wait until adc_out.sck = '0';
-    adc_in.d_a <= '0';
-    adc_in.d_b <= '0';
+----trailing TWO zeros
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '0';
+--    adc_in.d_b <= '0';
+--    wait until adc_out.sck = '0';
+--    adc_in.d_a <= '0';
+--    adc_in.d_b <= '0';
 
- ------------------------------------------------------------------------------
-    wait until adc_out.sck = '0';
-   -- adc_in.d_a <= 'Z';
-   -- adc_in.d_b <= 'Z';
+-- ------------------------------------------------------------------------------
+--    wait until adc_out.sck = '0';
+--   -- adc_in.d_a <= 'Z';
+--   -- adc_in.d_b <= 'Z';
     
-  end process;
-   
+--  end process;
+
+-------------------------------------------------------------------------------
+-- ADC stimulus
+------------------------------------------------------------------------------
+
+   ADC_input: process
+      begin
+         wait for 14900 ns;
+             bitstream_a <= "111000111010"; -- result
+             bitstream_b <= "010111100111"; -- result
+      end process ADC_input;
+ 
+ ADC_stimulus: process(adc_out.sck, adc_out.cs_n)
+     -- bitstream with second leading and two trailing zeros
+     -- DUT should set cs_n HIGH bevor trailing zeros are read in
+    variable v_bitstream_a : std_logic_vector(14 downto 0) := '0' & bitstream_a(11 downto 0) & "00";
+    variable v_bitstream_b : std_logic_vector(14 downto 0) := '0' & bitstream_b(11 downto 0) & "00";
+    variable vbitcounter : integer range 0 to 16 := bitcounter;
+ begin
+    v_bitstream_a := '0' & bitstream_a(11 downto 0) & "00";
+    v_bitstream_b := '0' & bitstream_b(11 downto 0) & "00";
+       if falling_edge(adc_out.cs_n) then
+          -- first leading zero
+          adc_in.d_a <= '0';
+          adc_in.d_b <= '0';
+          -- reset bitcounter
+          vbitcounter := 0;
+       elsif adc_out.cs_n = '0' then
+           if vbitcounter < 15 then
+               if falling_edge(adc_out.sck) then
+                  vbitcounter := vbitcounter + 1;
+                  adc_in.d_a <= v_bitstream_a(vbitcounter);
+                  adc_in.d_b <= v_bitstream_b(vbitcounter);
+               end if;
+           end if;
+       else
+           adc_in.d_a <= 'Z';
+           adc_in.d_b <= 'Z';
+       end if;
+       bitcounter <= vbitcounter;
+    end process ADC_stimulus;
+
 
 end tb;
 

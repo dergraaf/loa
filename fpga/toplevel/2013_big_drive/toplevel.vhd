@@ -74,6 +74,8 @@ entity toplevel is
       miso_p : out std_logic;
       mosi_p : in  std_logic;
 
+      load_p : in std_logic;
+
       -- ADC AD7266 on loa v2b / v2c
       adc_out_p : out adc_ad7266_spi_out_type;
       adc_in_p  : in  adc_ad7266_spi_in_type;
@@ -112,6 +114,7 @@ architecture structural of toplevel is
    signal encoder_index : std_logic := '0';
 
    signal servo_signals : std_logic_vector(3 downto 2);
+   signal pwm : std_logic;              -- PWM for valves and pumps
 
    signal pumps_valves_s : std_logic_vector(15 downto 0) := (others => '0');
 
@@ -144,11 +147,11 @@ begin
    process (clk)
    begin
       if rising_edge(clk) then
-      --load_r <= load_r(0) & load_p;
+         load_r <= load_r(0) & load_p;
       end if;
    end process;
 
-   load <= load_r(1);
+   load <= '1'; -- load_r(1); TODO
 
    current_hold : for n in MOTOR_COUNT-1 downto 0 generate
       event_hold_stage_1 : event_hold_stage
@@ -219,7 +222,7 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   register_in <= x"2838";
+   register_in <= x"ff56";
 
    -- FIXME
    -- What does it do?      1 bit         3 bits       2 bits 2 bits
@@ -384,7 +387,9 @@ begin
    imotor_module : entity work.imotor_module
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_IMOTOR,
-         MOTORS       => 5)
+         MOTORS       => 5,
+         DATA_WORDS_SEND => 2,
+         DATA_WORDS_READ => 2)
       port map (
          tx_out_p => imotor_tx_p,
          rx_in_p  => imotor_rx_p,
@@ -407,9 +412,21 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   valve_p <= pumps_valves_s(3 downto 0);
-   pump_p  <= pumps_valves_s(7 downto 4);
+   pwm_1: entity work.pwm
+      generic map (
+         WIDTH => 12)
+      port map (
+         clk_en_p => '1',               -- no prescaler
+         value_p  => x"800",
+         output_p => pwm,
+         reset    => '0',
+         clk      => clk);
+   
+   valve_p <= pumps_valves_s(3 downto 0) when pwm = '1' else (others => '0');
+   pump_p  <= pumps_valves_s(7 downto 4) when pwm = '1' else (others => '0');
 
+
+   
    ----------------------------------------------------------------------------
    -- Servos
    servo_module_1 : servo_module

@@ -1,7 +1,7 @@
 
 # Name of the testbench without extenstion
-TESTBENCH = adc_ad7266_single_ended_tb
-#TESTBENCH = adc_ad7266_module_tb
+#TESTBENCH = adc_ad7266_single_ended_tb
+TESTBENCH = adc_ad7266_module_tb
 
 # VHDL files
 ifeq ($(TESTBENCH), adc_ad7266_single_ended_tb)
