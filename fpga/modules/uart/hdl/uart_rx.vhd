@@ -81,7 +81,7 @@ architecture behavioural of uart_rx is
    begin
       for c in 0 to 4 loop
          if samples(c) = '1' then
-            cnt := cnt+1;
+            cnt := cnt + 1;
          end if;
       end loop;
       if cnt >= 3 then
@@ -127,7 +127,7 @@ begin
 
       case r.state is
          when IDLE =>
-            if rxd_p <= '0' then
+            if rxd_p = '0' then
                v.state       := START;
                v.samplecount := 0;
             end if;
@@ -140,6 +140,7 @@ begin
                      v.state       := DATA;
                      v.samplecount := 0;
                      v.bitcount    := 0;
+                     v.parity      := '0';
                   else
                      v.state := IDLE;
                   end if;
@@ -147,7 +148,7 @@ begin
                   v.samplecount := r.samplecount + 1;
                end if;
             end if;
-            
+
          when DATA =>
             if clk_rx_en = '1' then
                if r.samplecount = 4 then
