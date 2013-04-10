@@ -64,6 +64,7 @@ begin
    -- waveform generation
    waveform : process
    begin
+      wait for 100 ns;
       wait until rising_edge(clk);
 
       -- glitch
@@ -72,8 +73,9 @@ begin
       rxd <= '1';
       wait for 100 ns;
 
-      -- correct transmission
-      uart_transmit(rxd, "001111100", 10000000);
+      -- correct transmission, odd parity in MSB
+      uart_transmit(rxd, "001010001", 10000000);
+      uart_transmit(rxd, "101010000", 10000000);
       wait for 200 ns;
 
       -- check slightly off baudrates
