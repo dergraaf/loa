@@ -127,9 +127,11 @@ begin
 
       case r.state is
          when IDLE =>
-            if rxd_p = '0' then
-               v.state       := START;
-               v.samplecount := 0;
+            if clk_rx_en = '1' then               
+               if rxd_p = '0' then
+                  v.state       := START;
+                  v.samplecount := 0;
+               end if;
             end if;
 
          when START =>

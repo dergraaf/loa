@@ -85,8 +85,19 @@ entity toplevel is
 end toplevel;
 
 architecture structural of toplevel is
+   -- debug connectors
+   signal debug_output : std_logic_vector(7 downto 0) := "00000001";
+
+
+
+   -- synchronise external asynchronous signals
    signal load_r : std_logic_vector(1 downto 0) := (others => '0');
    signal load   : std_logic;
+
+   -- Registers for asynchronous input
+   type imotor_rx_sync_type is array (1 downto 0) of std_logic_vector(4 downto 0);
+   signal imotor_rx_r : imotor_rx_sync_type := (others => (others => '0'));
+   signal imotor_rx_s : std_logic_vector(4 downto 0);
 
    -- Number of motors (BLDC and DC, excluding iMotors) directly connected on the carrier board
    constant MOTOR_COUNT : positive := 5;
@@ -118,6 +129,9 @@ architecture structural of toplevel is
 
    signal pumps_valves_s : std_logic_vector(15 downto 0) := (others => '0');
 
+   signal imotor_debug_data : reg_file_type(2**3 - 1 downto 0) := (others => (others => '0'));
+
+
    -- Connection to the Busmaster
    signal bus_o : busmaster_out_type;
    signal bus_i : busmaster_in_type;
@@ -139,25 +153,34 @@ architecture structural of toplevel is
    signal bus_dc1_pwm_out : busdevice_out_type;
    signal bus_dc2_pwm_out : busdevice_out_type;
 
-   signal bus_imotor_out : busdevice_out_type;
+   signal bus_imotor_out       : busdevice_out_type;
+   signal bus_imotor_debug_out : busdevice_out_type;
 
    signal bus_comparator_out : busdevice_out_type;
    signal bus_servo_out      : busdevice_out_type;
 
    -- Check STM to FPGA communication
-   signal preg_check_2_s : unsigned(15 downto 0) := (others => '0');
+   signal preg_check_2_s  : unsigned(15 downto 0) := (others => '0');
    signal clk_out_check_p : std_logic;
-   
+
+   signal clock_out_imotor_s : imotor_timer_type;
+   signal imotor_data_s      : std_logic_vector(7 downto 0);
+   signal imotor_we_s        : std_logic;
+   signal imotor_error_s     : std_logic;
+
 begin
    -- synchronize asynchronous signals
    process (clk)
    begin
       if rising_edge(clk) then
-         load_r <= load_r(0) & load_p;
+         load_r      <= load_r(0) & load_p;
+         imotor_rx_r <= imotor_rx_r(0) & imotor_rx_p;
       end if;
    end process;
 
-   load <= '1';                         -- load_r(1); TODO
+   load        <= '1';                  -- load_r(1); TODO
+   imotor_rx_s <= imotor_rx_r(1);
+
 
    current_hold : for n in MOTOR_COUNT-1 downto 0 generate
       event_hold_stage_1 : event_hold_stage
@@ -215,6 +238,7 @@ begin
                  bus_dc1_pwm_out.data or
                  bus_dc2_pwm_out.data or
                  bus_imotor_out.data or
+                 bus_imotor_debug_out.data or
                  bus_comparator_out.data or
                  bus_servo_out.data;
 
@@ -246,6 +270,10 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
+   -------------------------------------------------------------------------------
+   -- Debugging Registers
+   -------------------------------------------------------------------------------
+
    peripheral_register_check_2 : entity work.peripheral_register
       generic map (
          BASE_ADDRESS => 16#0101#)
@@ -255,16 +283,16 @@ begin
          bus_o  => bus_register_check_2_out,
          bus_i  => bus_o,
          clk    => clk);
-  
+
    -- count preg_check_2_s
-   clock_divider_preg_check: entity work.clock_divider
+   clock_divider_preg_check : entity work.clock_divider
       generic map (
          DIV => 50000000)
       port map (
          clk_out_p => clk_out_check_p,
          clk       => clk);
 
-   preg_cnt: process (clk) is
+   preg_cnt : process (clk) is
    begin  -- process preg_cnt
       if rising_edge(clk) then
          if clk_out_check_p = '1' then
@@ -273,10 +301,123 @@ begin
       end if;
    end process preg_cnt;
 
+
+   ----------------------------------------------------------------------------
+   -- iMotor Debug
+   -- Receive serial data without error detection and store it to a register
+   ----------------------------------------------------------------------------
+
+   reg_file_imotor_debug : entity work.reg_file
+      generic map (
+         BASE_ADDRESS => 16#0110#,
+         REG_ADDR_BIT => 3)
+      port map (
+         bus_o => bus_imotor_debug_out,
+         bus_i => bus_o,
+         reg_o => open,
+         reg_i => imotor_debug_data,
+         clk   => clk);
+
+   imotor_timer_2 : entity work.imotor_timer
+      generic map (
+         CLOCK          => 50000000,
+         BAUD           => 1000000,
+         SEND_FREQUENCY => 1000)
+      port map (
+         clock_out_p => clock_out_imotor_s,
+         clk         => clk);
+
+   uart_rx_1 : entity work.uart_rx
+      port map (
+         rxd_p     => imotor_rx_s(0),
+         disable_p => '0',
+         data_p    => imotor_data_s,    -- received data
+         we_p      => imotor_we_s,      -- enable when data received
+         error_p   => imotor_error_s,   -- high when error during reception
+         full_p    => '0',
+         clk_rx_en => clock_out_imotor_s.rx,
+         clk       => clk);
+
+   debug_output <= imotor_data_s;
+
+   -- purpose: Copy received serial data to register file
+   -- type   : sequential
+   -- inputs : clk
+   -- outputs: 
+   imotor_dbg : process (clk) is
+      variable counter : integer range 0 to 8 := 0;
+   begin  -- process imotor_dbg
+      if rising_edge(clk) then
+         if imotor_we_s = '1' then
+            imotor_debug_data(counter) <= "00000000" & imotor_data_s;
+            counter                    := counter + 1;
+            if counter = 8 then
+               counter := 0;
+            end if;
+         end if;
+      end if;
+   end process imotor_dbg;
+
+
+   -- purpose: Test the debug ports by doing a 50 MHz shift
+   -- type   : sequential
+   -- inputs : clk
+   -- outputs: 
+   dbg_test : process (clk) is
+      variable counter : unsigned(7 downto 0) := (others => '0');
+   begin  -- process dbg_test
+      if rising_edge(clk) then
+         -- debug_output <= std_logic_vector(counter);
+         counter := counter + 1;
+         if counter = 255 then
+            counter := (others => '0');
+         end if;
+      end if;
+   end process dbg_test;
+
+   -- Map debug_data to pins
+   bldc0_driver_st_p.a.high  <= '0';
+   bldc0_driver_st_p.a.low_n <= debug_output(1);
+   bldc0_driver_st_p.b.high  <= '0';
+   bldc0_driver_st_p.b.low_n <= '0';
+   bldc0_driver_st_p.c.high  <= '0';
+   bldc0_driver_st_p.c.low_n <= debug_output(0);
+
+
+   bldc1_driver_st_p.a.low_n <= debug_output(2);
+   bldc1_driver_st_p.a.high  <= '0';
+   bldc1_driver_st_p.c.low_n <= debug_output(3);
+   bldc1_driver_st_p.c.high  <= '0';
+   bldc1_driver_st_p.b.low_n <= debug_output(4);
+   bldc1_driver_st_p.b.high  <= debug_output(5);
+
+   dc0_driver_st_p.a.low_n <= debug_output(6);
+   -- dc0_driver_st_p.a.high  <= '0';
+   -- dc0_driver_st_p.b.low_n <= '0';
+   -- dc0_driver_st_p.b.high  <= '0';
+
+   dc1_driver_st_p.a.low_n <= debug_output(7);
+   -- dc1_driver_st_p.a.high  <= '0';
+   dc1_driver_st_p.b.low_n <= '0';
+   dc1_driver_st_p.b.high  <= '0';
+
+
+   dc2_driver_st_p.a.low_n <= '0';
+   dc2_driver_st_p.a.high  <= '0';
+   dc2_driver_st_p.b.low_n <= '0';
+   dc2_driver_st_p.b.high  <= '0';
+
+   dc0_driver_st_p.b.low_n <= imotor_we_s;     -- D8
+   dc0_driver_st_p.a.high  <= imotor_error_s;  -- D9
+   dc1_driver_st_p.a.high  <= imotor_rx_s(0);  -- D10
+   dc0_driver_st_p.b.high  <= clock_out_imotor_s.rx; -- D11
+
+
+
    ----------------------------------------------------------------------------
    -- component instantiation
+   ----------------------------------------------------------------------------
 
-   -----------------------------------------------------------------------------
    -- BLDC motors 0 & 1
    bldc0 : bldc_motor_module
       generic map (
@@ -294,7 +435,8 @@ begin
    bldc0_driver_stage_converter : entity work.bldc_driver_stage_converter
       port map (
          bldc_driver_stage    => bldc0_driver_stage_s,
-         bldc_driver_stage_st => bldc0_driver_st_p);
+         bldc_driver_stage_st => open   -- bldc0_driver_st_p
+         );
 
    bldc0_encoder : encoder_module_extended
       generic map (
@@ -335,7 +477,8 @@ begin
    bldc1_driver_stage_converter : entity work.bldc_driver_stage_converter
       port map (
          bldc_driver_stage    => bldc1_driver_stage_s,
-         bldc_driver_stage_st => bldc1_driver_st_p);
+         bldc_driver_stage_st => open   -- bldc1_driver_st_p
+         );
 
    bldc1_encoder : encoder_module_extended
       generic map (
@@ -411,21 +554,24 @@ begin
          pwm1_in_p                => dc_pwm1_s(0),
          pwm2_in_p                => dc_pwm2_s(0),
          sd_in_p                  => dc_sd_s(0),
-         dc_driver_stage_st_out_p => dc0_driver_st_p);
+         dc_driver_stage_st_out_p => open  --dc0_driver_st_p
+         );
 
    dc1_driver_stage_converter : entity work.dc_driver_stage_converter
       port map (
          pwm1_in_p                => dc_pwm1_s(1),
          pwm2_in_p                => dc_pwm2_s(1),
          sd_in_p                  => dc_sd_s(1),
-         dc_driver_stage_st_out_p => dc1_driver_st_p);
+         dc_driver_stage_st_out_p => open  -- dc1_driver_st_p
+         );
 
    dc2_driver_stage_converter : entity work.dc_driver_stage_converter
       port map (
          pwm1_in_p                => dc_pwm1_s(2),
          pwm2_in_p                => dc_pwm2_s(2),
          sd_in_p                  => dc_sd_s(2),
-         dc_driver_stage_st_out_p => dc2_driver_st_p);
+         dc_driver_stage_st_out_p => open  -- dc2_driver_st_p
+         );
 
    ----------------------------------------------------------------------------
    -- All iMotors with one module
@@ -437,7 +583,7 @@ begin
          DATA_WORDS_READ => 3)
       port map (
          tx_out_p => imotor_tx_p,
-         rx_in_p  => imotor_rx_p,
+         rx_in_p  => imotor_rx_s,
          bus_o    => bus_imotor_out,
          bus_i    => bus_o,
          clk      => clk);
@@ -451,7 +597,7 @@ begin
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_PUMPS_VALVES)
       port map (
-         dout_p => pumps_valves_s,
+         dout_p => open,                -- pumps_valves_s,
          din_p  => (others => '0'),
          bus_o  => open,
          bus_i  => bus_o,
@@ -469,8 +615,6 @@ begin
 
    valve_p <= pumps_valves_s(3 downto 0) when pwm = '1' else (others => '0');
    pump_p  <= pumps_valves_s(7 downto 4) when pwm = '1' else (others => '0');
-
-
 
    ----------------------------------------------------------------------------
    -- Servos

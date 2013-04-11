@@ -48,17 +48,18 @@ begin
          clk       => clk);
 
    -- clock generation
-   clk <= not clk after 10 ns;
+   clk <= not clk after 20 ns;
 
    -- Generate a bit clock
    bitclock : process
    begin
+      wait until rising_edge(clk);
       clk_rx_en <= '1';
       wait until rising_edge(clk);
---      clk_rx_en <= '1';
---      wait until rising_edge(clk);
---      clk_rx_en <= '0';
---      wait for 40 ns;
+      clk_rx_en <= '0';
+      wait until rising_edge(clk);
+      wait until rising_edge(clk);
+      wait until rising_edge(clk);
    end process bitclock;
 
    -- waveform generation
@@ -68,25 +69,27 @@ begin
       wait until rising_edge(clk);
 
       -- glitch
-      rxd <= '0';
-      wait until rising_edge(clk);
-      rxd <= '1';
-      wait for 100 ns;
+      --rxd <= '0';
+      --wait until rising_edge(clk);
+      --rxd <= '1';
+      --wait for 100 ns;
 
+
+      wait for 800 ns;
       -- correct transmission, odd parity in MSB
-      uart_transmit(rxd, "001010001", 10000000);
-      uart_transmit(rxd, "101010000", 10000000);
-      wait for 200 ns;
+      uart_transmit(rxd, "111111111", 1000000);
+      uart_transmit(rxd, "111111111", 1000000);
+      --wait for 200 ns;
 
-      -- check slightly off baudrates
-      uart_transmit(rxd, "001111100", 10500000);
-      wait for 200 ns;
-      uart_transmit(rxd, "001111100",  9700000);
-      wait for 200 ns;
+      ---- check slightly off baudrates
+      --uart_transmit(rxd, "001111100", 10500000);
+      --wait for 200 ns;
+      --uart_transmit(rxd, "001111100",  9700000);
+      --wait for 200 ns;
 
-      -- send a wrong parity bit
-      uart_transmit(rxd, "101111100", 10000000);
-      wait for 200 ns;
+      ---- send a wrong parity bit
+      --uart_transmit(rxd, "101111100", 10000000);
+      --wait for 200 ns;
       
       wait;
       
