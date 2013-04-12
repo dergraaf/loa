@@ -178,7 +178,7 @@ begin
    end process;
 
    -- Use synchronised signals in design
-   load        <= load_r(1)
+   load        <= load_r(1);
    imotor_rx_s <= imotor_rx_r(1);
 
 
