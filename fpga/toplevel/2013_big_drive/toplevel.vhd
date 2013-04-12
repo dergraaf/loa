@@ -85,22 +85,23 @@ entity toplevel is
 end toplevel;
 
 architecture structural of toplevel is
-   -- debug connectors
-   signal debug_output : std_logic_vector(7 downto 0) := "00000001";
-
-
-
-   -- synchronise external asynchronous signals
-   signal load_r : std_logic_vector(1 downto 0) := (others => '0');
-   signal load   : std_logic;
-
-   -- Registers for asynchronous input
-   type imotor_rx_sync_type is array (1 downto 0) of std_logic_vector(4 downto 0);
-   signal imotor_rx_r : imotor_rx_sync_type := (others => (others => '0'));
-   signal imotor_rx_s : std_logic_vector(4 downto 0);
+   -- Number of iMotors in design
+   constant IMOTOR_COUNT : positive := 5;
 
    -- Number of motors (BLDC and DC, excluding iMotors) directly connected on the carrier board
    constant MOTOR_COUNT : positive := 5;
+
+   -- Reuse pins for H-bridges for a debug connector
+   signal debug_output      : std_logic_vector(7 downto 0)     := (others => '0');
+   signal imotor_debug_data : reg_file_type(2**3 - 1 downto 0) := (others => (others => '0'));
+
+   -- Registers for asynchronous input
+   signal load_r : std_logic_vector(1 downto 0) := (others => '0');
+   signal load   : std_logic;
+
+   type imotor_rx_sync_type is array (1 downto 0) of std_logic_vector(IMOTOR_COUNT - 1 downto 0);
+   signal imotor_rx_r : imotor_rx_sync_type := (others => (others => '0'));
+   signal imotor_rx_s : std_logic_vector(4 downto 0);
 
    -- Non-inverted driver stages
    signal bldc0_driver_stage_s : bldc_driver_stage_type;
@@ -128,8 +129,6 @@ architecture structural of toplevel is
    signal pwm           : std_logic;    -- PWM for valves and pumps
 
    signal pumps_valves_s : std_logic_vector(15 downto 0) := (others => '0');
-
-   signal imotor_debug_data : reg_file_type(2**3 - 1 downto 0) := (others => (others => '0'));
 
 
    -- Connection to the Busmaster
@@ -178,7 +177,8 @@ begin
       end if;
    end process;
 
-   load        <= '1';                  -- load_r(1); TODO
+   -- Use synchronised signals in design
+   load        <= load_r(1)
    imotor_rx_s <= imotor_rx_r(1);
 
 
@@ -305,6 +305,7 @@ begin
    ----------------------------------------------------------------------------
    -- iMotor Debug
    -- Receive serial data without error detection and store it to a register
+   -- that can be read from the STM32
    ----------------------------------------------------------------------------
 
    reg_file_imotor_debug : entity work.reg_file
@@ -329,7 +330,7 @@ begin
 
    uart_rx_1 : entity work.uart_rx
       port map (
-         rxd_p     => imotor_rx_s(0),
+         rxd_p     => imotor_rx_s(0),   -- Receive data from iMotor 0
          disable_p => '0',
          data_p    => imotor_data_s,    -- received data
          we_p      => imotor_we_s,      -- enable when data received
@@ -358,61 +359,43 @@ begin
       end if;
    end process imotor_dbg;
 
-
-   -- purpose: Test the debug ports by doing a 50 MHz shift
-   -- type   : sequential
-   -- inputs : clk
-   -- outputs: 
-   dbg_test : process (clk) is
-      variable counter : unsigned(7 downto 0) := (others => '0');
-   begin  -- process dbg_test
-      if rising_edge(clk) then
-         -- debug_output <= std_logic_vector(counter);
-         counter := counter + 1;
-         if counter = 255 then
-            counter := (others => '0');
-         end if;
-      end if;
-   end process dbg_test;
-
+   -- Reuse H-Bridge pins for a debug connector
    -- Map debug_data to pins
-   bldc0_driver_st_p.a.high  <= '0';
-   bldc0_driver_st_p.a.low_n <= debug_output(1);
-   bldc0_driver_st_p.b.high  <= '0';
-   bldc0_driver_st_p.b.low_n <= '0';
-   bldc0_driver_st_p.c.high  <= '0';
-   bldc0_driver_st_p.c.low_n <= debug_output(0);
+   --bldc0_driver_st_p.a.high  <= '0';
+   --bldc0_driver_st_p.a.low_n <= debug_output(1);
+   --bldc0_driver_st_p.b.high  <= '0';
+   --bldc0_driver_st_p.b.low_n <= '0';
+   --bldc0_driver_st_p.c.high  <= '0';
+   --bldc0_driver_st_p.c.low_n <= debug_output(0);
 
 
-   bldc1_driver_st_p.a.low_n <= debug_output(2);
-   bldc1_driver_st_p.a.high  <= '0';
-   bldc1_driver_st_p.c.low_n <= debug_output(3);
-   bldc1_driver_st_p.c.high  <= '0';
-   bldc1_driver_st_p.b.low_n <= debug_output(4);
-   bldc1_driver_st_p.b.high  <= debug_output(5);
+   --bldc1_driver_st_p.a.low_n <= debug_output(2);
+   --bldc1_driver_st_p.a.high  <= '0';
+   --bldc1_driver_st_p.c.low_n <= debug_output(3);
+   --bldc1_driver_st_p.c.high  <= '0';
+   --bldc1_driver_st_p.b.low_n <= debug_output(4);
+   --bldc1_driver_st_p.b.high  <= debug_output(5);
 
-   dc0_driver_st_p.a.low_n <= debug_output(6);
+   --dc0_driver_st_p.a.low_n <= debug_output(6);
    -- dc0_driver_st_p.a.high  <= '0';
    -- dc0_driver_st_p.b.low_n <= '0';
    -- dc0_driver_st_p.b.high  <= '0';
 
-   dc1_driver_st_p.a.low_n <= debug_output(7);
+   --dc1_driver_st_p.a.low_n <= debug_output(7);
    -- dc1_driver_st_p.a.high  <= '0';
-   dc1_driver_st_p.b.low_n <= '0';
-   dc1_driver_st_p.b.high  <= '0';
+   --dc1_driver_st_p.b.low_n <= '0';
+   --dc1_driver_st_p.b.high  <= '0';
 
 
-   dc2_driver_st_p.a.low_n <= '0';
-   dc2_driver_st_p.a.high  <= '0';
-   dc2_driver_st_p.b.low_n <= '0';
-   dc2_driver_st_p.b.high  <= '0';
+   --dc2_driver_st_p.a.low_n <= '0';
+   --dc2_driver_st_p.a.high  <= '0';
+   --dc2_driver_st_p.b.low_n <= '0';
+   --dc2_driver_st_p.b.high  <= '0';
 
-   dc0_driver_st_p.b.low_n <= imotor_we_s;     -- D8
-   dc0_driver_st_p.a.high  <= imotor_error_s;  -- D9
-   dc1_driver_st_p.a.high  <= imotor_rx_s(0);  -- D10
-   dc0_driver_st_p.b.high  <= clock_out_imotor_s.rx; -- D11
-
-
+   --dc0_driver_st_p.b.low_n <= imotor_we_s;            -- D8
+   --dc0_driver_st_p.a.high  <= imotor_error_s;         -- D9
+   --dc1_driver_st_p.a.high  <= imotor_rx_s(0);         -- D10
+   --dc0_driver_st_p.b.high  <= clock_out_imotor_s.rx;  -- D11
 
    ----------------------------------------------------------------------------
    -- component instantiation
@@ -435,7 +418,7 @@ begin
    bldc0_driver_stage_converter : entity work.bldc_driver_stage_converter
       port map (
          bldc_driver_stage    => bldc0_driver_stage_s,
-         bldc_driver_stage_st => open   -- bldc0_driver_st_p
+         bldc_driver_stage_st => bldc0_driver_st_p
          );
 
    bldc0_encoder : encoder_module_extended
@@ -477,7 +460,7 @@ begin
    bldc1_driver_stage_converter : entity work.bldc_driver_stage_converter
       port map (
          bldc_driver_stage    => bldc1_driver_stage_s,
-         bldc_driver_stage_st => open   -- bldc1_driver_st_p
+         bldc_driver_stage_st => bldc1_driver_st_p
          );
 
    bldc1_encoder : encoder_module_extended
@@ -554,7 +537,7 @@ begin
          pwm1_in_p                => dc_pwm1_s(0),
          pwm2_in_p                => dc_pwm2_s(0),
          sd_in_p                  => dc_sd_s(0),
-         dc_driver_stage_st_out_p => open  --dc0_driver_st_p
+         dc_driver_stage_st_out_p => dc0_driver_st_p
          );
 
    dc1_driver_stage_converter : entity work.dc_driver_stage_converter
@@ -562,7 +545,7 @@ begin
          pwm1_in_p                => dc_pwm1_s(1),
          pwm2_in_p                => dc_pwm2_s(1),
          sd_in_p                  => dc_sd_s(1),
-         dc_driver_stage_st_out_p => open  -- dc1_driver_st_p
+         dc_driver_stage_st_out_p => dc1_driver_st_p
          );
 
    dc2_driver_stage_converter : entity work.dc_driver_stage_converter
@@ -570,7 +553,7 @@ begin
          pwm1_in_p                => dc_pwm1_s(2),
          pwm2_in_p                => dc_pwm2_s(2),
          sd_in_p                  => dc_sd_s(2),
-         dc_driver_stage_st_out_p => open  -- dc2_driver_st_p
+         dc_driver_stage_st_out_p => dc2_driver_st_p
          );
 
    ----------------------------------------------------------------------------
@@ -597,7 +580,7 @@ begin
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_PUMPS_VALVES)
       port map (
-         dout_p => open,                -- pumps_valves_s,
+         dout_p => pumps_valves_s,
          din_p  => (others => '0'),
          bus_o  => open,
          bus_i  => bus_o,
