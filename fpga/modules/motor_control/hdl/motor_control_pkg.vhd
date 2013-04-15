@@ -86,6 +86,21 @@ package motor_control_pkg is
          clk     : in  std_logic);
    end component dc_motor_module;
 
+   component dc_motor_module_extended
+      generic (
+         BASE_ADDRESS : integer range 0 to 32767;
+         WIDTH        : positive;
+         PRESCALER    : positive);
+      port (
+         pwm1_p  : out std_logic;
+         pwm2_p  : out std_logic;
+         sd_p    : out std_logic;
+         break_p : in  std_logic;
+         bus_o   : out busdevice_out_type;
+         bus_i   : in  busdevice_in_type;
+         clk     : in  std_logic);
+   end component;
+
    component bldc_motor_module is
       generic (
          BASE_ADDRESS : integer range 0 to 32767;

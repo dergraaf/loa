@@ -181,7 +181,6 @@ begin
    load        <= load_r(1);
    imotor_rx_s <= imotor_rx_r(1);
 
-
    current_hold : for n in MOTOR_COUNT-1 downto 0 generate
       event_hold_stage_1 : event_hold_stage
          port map (
@@ -489,7 +488,7 @@ begin
 
    ----------------------------------------------------------------------------
    -- DC Motors 0 to 2
-   dc0_pwm_module : dc_motor_module
+   dc0_pwm_module_extended : entity work.dc_motor_module_extended
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_DC0,
          WIDTH        => 10,
@@ -498,12 +497,12 @@ begin
          pwm1_p  => dc_pwm1_s(0),       -- First halfbridge
          pwm2_p  => dc_pwm2_s(0),       -- Second halfbride
          sd_p    => dc_sd_s(0),         -- shutdown
-         break_p => '0',                -- current_limit(2),
+         break_p => '0',
          bus_o   => bus_dc0_pwm_out,
          bus_i   => bus_o,
          clk     => clk);
 
-   dc1_pwm_module : dc_motor_module
+   dc1_pwm_module_extended : entity work.dc_motor_module_extended
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_DC1,
          WIDTH        => 10,
@@ -512,12 +511,12 @@ begin
          pwm1_p  => dc_pwm1_s(1),       -- First halfbridge
          pwm2_p  => dc_pwm2_s(1),       -- Second halfbride
          sd_p    => dc_sd_s(1),         -- shutdown
-         break_p => '0',                -- current_limit(2),
+         break_p => '0',
          bus_o   => bus_dc1_pwm_out,
          bus_i   => bus_o,
          clk     => clk);
 
-   dc2_pwm_module : dc_motor_module
+   dc2_pwm_module_extended : entity work.dc_motor_module_extended
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_DC2,
          WIDTH        => 10,
@@ -599,6 +598,11 @@ begin
    valve_p <= pumps_valves_s(3 downto 0) when pwm = '1' else (others => '0');
    pump_p  <= pumps_valves_s(7 downto 4) when pwm = '1' else (others => '0');
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
    ----------------------------------------------------------------------------
    -- Servos
    servo_module_1 : servo_module

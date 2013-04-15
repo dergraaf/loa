@@ -74,6 +74,9 @@ begin
       rxd <= '1';
       wait for 100 ns;
 
+      -- correct transmission
+      uart_transmit(rxd, "001111100", 10000000);
+      --wait for 200 ns;
 
       wait for 800 ns;
       -- correct transmission, odd parity in MSB
@@ -83,9 +86,9 @@ begin
 
       ---- check slightly off baudrates
       uart_transmit(rxd, "001111100", 10500000);
-      wait for 200 ns;
+      --wait for 200 ns;
       uart_transmit(rxd, "001111100",  9700000);
-      wait for 200 ns;
+      --wait for 200 ns;
 
       -- send a wrong parity bit
       uart_transmit(rxd, "101111100", 10000000);

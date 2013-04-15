@@ -3,12 +3,12 @@ package de.rwth_aachen.roboterclub.serial.io;
 import java.util.Vector;
 import java.util.Enumeration;
 import de.rwth_aachen.roboterclub.serial.io.messages.Message;
-import de.rwth_aachen.roboterclub.serial.ui.PnlConnection; //import javax.comm.*;
+//import javax.comm.*;
 import gnu.io.*;
 
 public class Connection implements Sender, MessageDistributor {
 	// Variablen für die Grafik
-	private PnlConnection pnlConnection = null;
+	private ConnectionSupervisor pnlConnection = null;
 
 	// Variablen zur MessageVerwaltung
 	private Vector<Communicatable> communicatables = new Vector<Communicatable>();
@@ -38,7 +38,7 @@ public class Connection implements Sender, MessageDistributor {
 		return decoder;
 	}
 
-	public void setPnlConnection(PnlConnection pnlConnection) {
+	public void setPnlConnection(ConnectionSupervisor pnlConnection) {
 		this.pnlConnection = pnlConnection;
 	}
 
@@ -76,8 +76,8 @@ public class Connection implements Sender, MessageDistributor {
 		return false;
 	}
 
-	@SuppressWarnings( { "unchecked" } )
 	public Enumeration<PortIdentifier> enumPorts() {
+		@SuppressWarnings("unchecked")
 		Enumeration<CommPortIdentifier> enu = CommPortIdentifier.getPortIdentifiers();
 		Vector<PortIdentifier> identifiers = new Vector<PortIdentifier>();
 		while (enu.hasMoreElements())
@@ -95,16 +95,26 @@ public class Connection implements Sender, MessageDistributor {
 	public boolean isConnected() {
 		return inputOutputProcess != null && inputOutputProcess.isConnected();
 	}
-
+	
+	public boolean connect(Object portIdentifier) {
+		SerialPortParams spp = new SerialPortParams(115200);
+		return connect(portIdentifier, spp);
+	}
+	
+	public boolean connect(Object portIdentifier, int baudrate) {
+		SerialPortParams spp = new SerialPortParams(baudrate);
+		return connect(portIdentifier, spp);
+	}
+	
 	/**
 	 * connect
 	 * 
-	 * @param portIdentifier
-	 *            Object
+	 * @param portIdentifier PortIdentifier
+	 * @param serialPortParams 
 	 * @return boolean
 	 * @todo Destroy anders machen
 	 */
-	public boolean connect(Object portIdentifier) {
+	public boolean connect(Object portIdentifier, SerialPortParams serialPortParams) {
 		if (inputOutputProcess != null && inputOutputProcess.isConnected()
 				|| portIdentifier == null) {
 			return false;
@@ -115,20 +125,18 @@ public class Connection implements Sender, MessageDistributor {
 			try {
 				if (inputOutputProcess != null && inputOutputProcess.isAlive())
 					throw new RuntimeException("InputOutput still alive"); // TODO
-
+				
 				serialPort = (SerialPort) ((PortIdentifier) portIdentifier)
 						.getCi().open("CanCommunications", 2000);
 				// int baud = serialPort.getBaudRate();
-				serialPort.setSerialPortParams(115200, SerialPort.DATABITS_8,
-						SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-				// serialPort.setSerialPortParams(9600,
-				// SerialPort.DATABITS_8,
-				// SerialPort.STOPBITS_1,
-				// SerialPort.paPARITY_NONE);
+				serialPort.setSerialPortParams(serialPortParams.baudRate, serialPortParams.dataBits,
+						serialPortParams.stopBits, serialPortParams.parity);
 				serialPort.enableReceiveTimeout(500);
 				inputOutputProcess = new InputOutputProcess(this, serialPort, verbose);
 				if (inputOutputProcess != null)
 					inputOutputProcess.start();
+				if (pnlConnection != null)
+					pnlConnection.setShowState(ConnectionSupervisor.STATE_CONNECTED);
 				return true;
 			} catch (PortInUseException piuEx) {
 				System.err.println(piuEx.getMessage());
@@ -148,7 +156,7 @@ public class Connection implements Sender, MessageDistributor {
 	 */
 	protected void portClosed() {
 		if (pnlConnection != null) {
-			pnlConnection.setShowState(PnlConnection.STATE_DISCONNECTED);
+			pnlConnection.setShowState(ConnectionSupervisor.STATE_DISCONNECTED);
 		}
 	}
 
