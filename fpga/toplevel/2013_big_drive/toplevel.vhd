@@ -114,7 +114,7 @@ architecture structural of toplevel is
    signal encoder_index : std_logic := '0';
 
    signal servo_signals : std_logic_vector(3 downto 2);
-   signal pwm : std_logic;              -- PWM for valves and pumps
+   signal pwm           : std_logic;    -- PWM for valves and pumps
 
    signal pumps_valves_s : std_logic_vector(15 downto 0) := (others => '0');
 
@@ -151,7 +151,7 @@ begin
       end if;
    end process;
 
-   load <= '1'; -- load_r(1); TODO
+   load <= '1';                         -- load_r(1); TODO
 
    current_hold : for n in MOTOR_COUNT-1 downto 0 generate
       event_hold_stage_1 : event_hold_stage
@@ -318,7 +318,7 @@ begin
 
    ----------------------------------------------------------------------------
    -- DC Motors 0 to 2
-   dc0_pwm_module : dc_motor_module
+   dc0_pwm_module_extended : entity work.dc_motor_module_extended
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_DC0,
          WIDTH        => 10,
@@ -327,12 +327,12 @@ begin
          pwm1_p  => dc_pwm1_s(0),       -- First halfbridge
          pwm2_p  => dc_pwm2_s(0),       -- Second halfbride
          sd_p    => dc_sd_s(0),         -- shutdown
-         break_p => '0',                -- current_limit(2),
+         break_p => '0',
          bus_o   => bus_dc0_pwm_out,
          bus_i   => bus_o,
          clk     => clk);
 
-   dc1_pwm_module : dc_motor_module
+   dc1_pwm_module_extended : entity work.dc_motor_module_extended
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_DC1,
          WIDTH        => 10,
@@ -341,12 +341,12 @@ begin
          pwm1_p  => dc_pwm1_s(1),       -- First halfbridge
          pwm2_p  => dc_pwm2_s(1),       -- Second halfbride
          sd_p    => dc_sd_s(1),         -- shutdown
-         break_p => '0',                -- current_limit(2),
+         break_p => '0',
          bus_o   => bus_dc1_pwm_out,
          bus_i   => bus_o,
          clk     => clk);
 
-   dc2_pwm_module : dc_motor_module
+   dc2_pwm_module_extended : entity work.dc_motor_module_extended
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_DC2,
          WIDTH        => 10,
@@ -386,8 +386,8 @@ begin
    -- All iMotors with one module
    imotor_module : entity work.imotor_module
       generic map (
-         BASE_ADDRESS => BASE_ADDRESS_IMOTOR,
-         MOTORS       => 5,
+         BASE_ADDRESS    => BASE_ADDRESS_IMOTOR,
+         MOTORS          => 5,
          DATA_WORDS_SEND => 2,
          DATA_WORDS_READ => 3)
       port map (
@@ -412,7 +412,7 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   pwm_1: entity work.pwm
+   pwm_1 : entity work.pwm
       generic map (
          WIDTH => 12)
       port map (
@@ -421,12 +421,12 @@ begin
          output_p => pwm,
          reset    => '0',
          clk      => clk);
-   
+
    valve_p <= pumps_valves_s(3 downto 0) when pwm = '1' else (others => '0');
    pump_p  <= pumps_valves_s(7 downto 4) when pwm = '1' else (others => '0');
 
 
-   
+
    ----------------------------------------------------------------------------
    -- Servos
    servo_module_1 : servo_module

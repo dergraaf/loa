@@ -111,7 +111,7 @@
     </file>
     <file xil_pn:name="../../../modules/motor_control/hdl/dc_motor_module.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="35"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="34"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
     <file xil_pn:name="../../../modules/motor_control/hdl/deadtime.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="36"/>
@@ -241,7 +241,7 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="68"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="15"/>
     </file>
-    <file xil_pn:name="../../../../../season/big/generated/drive/fpga_memory_map.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="../../../../../season/big/generated/drive_robot/fpga_memory_map.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="69"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="26"/>
     </file>
@@ -256,6 +256,10 @@
     <file xil_pn:name="../../../modules/motor_control/hdl/driver_stages.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="108"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="33"/>
+    </file>
+    <file xil_pn:name="../../../modules/motor_control/hdl/dc_motor_module_extended.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="114"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="34"/>
     </file>
   </files>
 
