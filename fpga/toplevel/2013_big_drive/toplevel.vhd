@@ -598,11 +598,6 @@ begin
    valve_p <= pumps_valves_s(3 downto 0) when pwm = '1' else (others => '0');
    pump_p  <= pumps_valves_s(7 downto 4) when pwm = '1' else (others => '0');
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> master
    ----------------------------------------------------------------------------
    -- Servos
    servo_module_1 : servo_module
