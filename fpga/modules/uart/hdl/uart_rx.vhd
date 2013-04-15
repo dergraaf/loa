@@ -79,12 +79,12 @@ architecture behavioural of uart_rx is
    function voter(samples : in std_logic_vector(4 downto 0)) return std_logic is
       variable cnt : integer range 0 to 5 := 0;
    begin
-      for c in 0 to 4 loop
+      for c in 1 to 3 loop
          if samples(c) = '1' then
             cnt := cnt+1;
          end if;
       end loop;
-      if cnt >= 3 then
+      if cnt >= 2 then
          return '1';
       else
          return '0';
