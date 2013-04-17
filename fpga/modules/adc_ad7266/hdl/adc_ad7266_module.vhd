@@ -168,6 +168,8 @@ begin
 
 -- ADC interface module 
 adc_ad7266_1 : adc_ad7266_single_ended
+   generic map (
+      DELAY => 1)
    port map (
       adc_out    => adc_out_p,
       adc_in     => adc_in_p,

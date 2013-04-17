@@ -636,22 +636,18 @@ begin
 
    ----------------------------------------------------------------------------
    -- ADC
---   adc_ad7266_single_ended_module : entity work.adc_ad7266_single_ended_module
---      generic map (
---         BASE_ADDRESS => BASE_ADDRESS_ADC)
---      port map (
---         adc_out_p    => adc_out_p,
---         adc_in_p     => adc_in_p,
---         bus_o        => bus_adc_out,
---         bus_i        => bus_o,
---         adc_values_o => adc_values_out,
---         clk          => clk);
+   adc_ad7266_single_ended_module : entity work.adc_ad7266_single_ended_module
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_ADC,
+         CHANNELS     => 12)
+      port map (
+         adc_out_p    => adc_out_p,
+         adc_in_p     => adc_in_p,
+         bus_o        => bus_adc_out,
+         bus_i        => bus_o,
+         adc_values_o => adc_values_out,
+         clk          => clk);
 
    adc_out_p.sgl_diff      <= '0';
-   adc_out_p.sck           <= '1';
-   adc_out_p.cs_n          <= '1';
-   adc_out_p.a(2 downto 0) <= (others => '0');
-
-
 
 end structural;
