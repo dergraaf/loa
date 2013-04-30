@@ -125,9 +125,9 @@ architecture structural of toplevel is
 
    signal encoder_index : std_logic := '0';
 
-   signal servo_signals : std_logic_vector(3 downto 2);
-   signal pwm           : std_logic;    -- PWM for valves and pumps
-
+   signal servo_signals  : std_logic_vector(3 downto 2);
+   signal pwm5v          : std_logic;   -- PWM for valves and pumps
+   signal pwm12v         : std_logic;   -- PWM for pumps
    signal pumps_valves_s : std_logic_vector(15 downto 0) := (others => '0');
 
 
@@ -585,18 +585,33 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   pwm_1 : entity work.pwm
+   -- PWM for 12 Volt pumps at 22 Volt Cell Voltage
+   pwm_12v : entity work.pwm
       generic map (
          WIDTH => 12)
       port map (
          clk_en_p => '1',               -- no prescaler
          value_p  => x"800",
-         output_p => pwm,
+         output_p => pwm12v,
          reset    => '0',
          clk      => clk);
 
-   valve_p <= pumps_valves_s(3 downto 0) when pwm = '1' else (others => '0');
-   pump_p  <= pumps_valves_s(7 downto 4) when pwm = '1' else (others => '0');
+   -- PWM for 5 Volt pumps at 22 Volt Cell Voltage
+   pwm_5v : entity work.pwm
+      generic map (
+         WIDTH => 12)
+      port map (
+         clk_en_p => '1',               -- no prescaler
+         value_p  => x"555",
+         output_p => pwm5v,
+         reset    => '0',
+         clk      => clk);
+
+
+
+   valve_p            <= pumps_valves_s(3 downto 0) when pwm12v = '1' else (others => '0');
+   pump_p(1 downto 0) <= pumps_valves_s(5 downto 4) when pwm12v = '1' else (others => '0');
+   pump_p(3 downto 2) <= pumps_valves_s(7 downto 6) when pwm5v = '1'  else (others => '0');
 
    ----------------------------------------------------------------------------
    -- Servos
@@ -648,6 +663,6 @@ begin
          adc_values_o => adc_values_out,
          clk          => clk);
 
-   adc_out_p.sgl_diff      <= '0';
+   adc_out_p.sgl_diff <= '0';
 
 end structural;
