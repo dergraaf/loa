@@ -21,7 +21,7 @@ entity goertzel_control_unit is
    
    generic (
       SAMPLES     : positive := 250;
-      FREQUENCIES : positive := 5;
+      FREQUENCIES : positive;
       CHANNELS    : positive := 12);
 
    port (

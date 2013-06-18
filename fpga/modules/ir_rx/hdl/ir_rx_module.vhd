@@ -178,7 +178,6 @@ architecture structural of ir_rx_module is
    ----------------------------------------------------------------------------
 
    constant Q           : natural := 13;
-   -- constant SAMPLES     : natural := 500;
    constant CHANNELS    : natural := 12;
    constant FREQUENCIES : natural := 2;
 
