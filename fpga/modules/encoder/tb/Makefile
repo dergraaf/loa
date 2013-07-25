@@ -10,7 +10,11 @@ FILES = ../hdl/*.vhd \
 	../../spislave/hdl/bus_pkg.vhd
 GHDL_SIM_OPT = --stop-time=2us
 else ifeq ($(TESTBENCH), quadrature_decoder_tb)
-FILES = ../hdl/quadrature_decoder.vhd
+FILES = ../hdl/*.vhd \
+	../../spislave/hdl/bus_pkg.vhd 
+GHDL_SIM_OPT = --stop-time=2us
+else ifeq ($(TESTBENCH), hall_sensor_decoder_tb)
+FILES = ../hdl/hall_sensor_decoder.vhd
 GHDL_SIM_OPT = --stop-time=2us
 else  ifeq ($(TESTBENCH), input_capture_tb)
 FILES = ../hdl/input_capture.vhd
