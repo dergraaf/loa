@@ -15,7 +15,7 @@ FILES =  \
 	../../../modules/utils/hdl/*.vhd \
 	../../../modules/servo/hdl/*.vhd \
 	../../../modules/adc_ad7266/hdl/*.vhd \
-	../../../../../season/big/generated/drive_robot/fpga_memory_map.vhd 
+	../../../../../season2013/big/generated/drive_robot/fpga_memory_map.vhd 
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file

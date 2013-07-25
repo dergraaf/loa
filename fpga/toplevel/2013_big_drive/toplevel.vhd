@@ -141,12 +141,16 @@ architecture structural of toplevel is
    signal bus_register_check_2_out : busdevice_out_type;
    signal bus_adc_out              : busdevice_out_type;
 
-   signal bus_bldc0_out         : busdevice_out_type;
-   signal bus_bldc0_encoder_out : busdevice_out_type;
-   signal bus_encoder0_out      : busdevice_out_type;
-   signal bus_bldc1_out         : busdevice_out_type;
-   signal bus_bldc1_encoder_out : busdevice_out_type;
-   signal bus_encoder1_out      : busdevice_out_type;
+   signal bus_bldc0_out                     : busdevice_out_type;
+   signal bus_bldc0_encoder_out             : busdevice_out_type;
+   signal bus_bldc0_hall_sensor_encoder_out : busdevice_out_type;
+
+   signal bus_bldc1_out                     : busdevice_out_type;
+   signal bus_bldc1_encoder_out             : busdevice_out_type;
+   signal bus_bldc1_hall_sensor_encoder_out : busdevice_out_type;
+
+   signal bus_encoder0_out                  : busdevice_out_type;
+   signal bus_encoder1_out                  : busdevice_out_type;
 
    signal bus_dc0_pwm_out : busdevice_out_type;
    signal bus_dc1_pwm_out : busdevice_out_type;
@@ -231,8 +235,8 @@ begin
                  bus_register_check_out.data or
                  bus_register_check_2_out.data or
                  bus_adc_out.data or
-                 bus_bldc0_out.data or bus_bldc0_encoder_out.data or bus_encoder0_out.data or
-                 bus_bldc1_out.data or bus_bldc1_encoder_out.data or bus_encoder1_out.data or
+                 bus_bldc0_out.data or bus_bldc0_encoder_out.data or bus_encoder0_out.data or bus_bldc0_hall_sensor_encoder_out.data or
+                 bus_bldc1_out.data or bus_bldc1_encoder_out.data or bus_encoder1_out.data or bus_bldc1_hall_sensor_encoder_out.data or
                  bus_dc0_pwm_out.data or
                  bus_dc1_pwm_out.data or
                  bus_dc2_pwm_out.data or
@@ -420,7 +424,8 @@ begin
          bldc_driver_stage_st => bldc0_driver_st_p
          );
 
-   bldc0_encoder : encoder_module_extended
+   -- Motor encoder
+   bldc0_encoder : entity work.encoder_module_extended
       generic map (
          BASE_ADDRESS => BASE_ADDRESS_BLDC0_ENCODER)
       port map (
@@ -430,6 +435,17 @@ begin
          bus_o     => bus_bldc0_encoder_out,
          bus_i     => bus_o,
          clk       => clk);
+
+   -- Hall Sensor as encoder
+   bldc0_hall_sensor_module_1 : entity work.encoder_hall_sensor_module
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_BLDC0_HALL_SENSOR_ENCODER)
+      port map (
+         hall_sensor_p => bldc0_hall_p,
+         load_p        => load,
+         bus_o         => bus_bldc0_hall_sensor_encoder_out,
+         bus_i         => bus_o,
+         clk           => clk);
 
    odemetry0_encoder0 : entity work.encoder_module_extended
       generic map (
@@ -472,6 +488,17 @@ begin
          bus_o     => bus_bldc1_encoder_out,
          bus_i     => bus_o,
          clk       => clk);
+
+   -- Hall Sensor as encoder
+   bldc1_hall_sensor_module_1 : entity work.encoder_hall_sensor_module
+      generic map (
+         BASE_ADDRESS => BASE_ADDRESS_BLDC1_HALL_SENSOR_ENCODER)
+      port map (
+         hall_sensor_p => bldc1_hall_p,
+         load_p        => load,
+         bus_o         => bus_bldc1_hall_sensor_encoder_out,
+         bus_i         => bus_o,
+         clk           => clk);
 
    odometry1_encoder : entity work.encoder_module_extended
       generic map (
