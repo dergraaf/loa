@@ -1,6 +1,7 @@
 
 # Name of the testbench without extenstion
-TESTBENCH = uss_tx_module_tb
+# TESTBENCH = uss_tx_module_tb
+TESTBENCH = serialiser_tb
 
 # VHDL files
 ifeq ($(TESTBENCH), uss_tx_module_tb)
@@ -14,6 +15,10 @@ FILES = \
 ../../utils/hdl/fractional_clock_divider_variable.vhd \
 ../hdl/uss_tx_pkg.vhd \
 ../hdl/uss_tx_module.vhd
+else ifeq ($(TESTBENCH), serialiser_tb)
+FILES = ../hdl/serialiser.vhd \
+../../utils/hdl/utils_pkg.vhd \
+../../utils/hdl/fractional_clock_divider.vhd
 endif
 
 # Default settings for gtkwave (visable signal etc.)

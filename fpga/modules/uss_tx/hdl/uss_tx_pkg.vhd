@@ -35,4 +35,14 @@ package uss_tx_pkg is
       clk              : in  std_logic);
   end component;
 
+  component serialiser is
+     generic (
+        BITPATTERN_WIDTH : positive);
+     port (
+        pattern_in_p    : in  std_logic_vector(BITPATTERN_WIDTH - 1 downto 0);
+        bitstream_out_p : out std_logic;
+        clk_bit         : in  std_logic;
+        clk             : in  std_logic);
+  end component serialiser;
+
 end uss_tx_pkg;
