@@ -34,7 +34,7 @@ end serialiser;
 architecture behavioural of serialiser is
 
    type serialiser_type is record
-      counter : positive range 0 to BITPATTERN_WIDTH;
+      counter : integer range 0 to BITPATTERN_WIDTH;
    end record;
 
    -----------------------------------------------------------------------------
