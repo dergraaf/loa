@@ -129,6 +129,7 @@ begin  -- behavioral
    -- generate clocks with deadtime
    clk_uss_n <= not clk_uss;
 
+   -- output to the H-bridges
    deadtime_on : deadtime
       generic map (
          T_DEAD => 250)                 -- 5000ns
