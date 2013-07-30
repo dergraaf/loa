@@ -2,8 +2,6 @@
 -- Title      : Ultrasound Receiver Package
 -- Project    : 
 -------------------------------------------------------------------------------
--- File       : us_rx_module_pkg.vhd
--- Author     : strongly-typed
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
 -- Description: 
