@@ -23,7 +23,7 @@ package ir_tx_pkg is
   -----------------------------------------------------------------------------
   component ir_tx_module
     generic (
-      BASE_ADDRESS : integer range 0 to 32767);
+      BASE_ADDRESS : integer range 0 to 16#7FFF#);
     port (
       ir_tx_p          : out std_logic;
       modulation_p     : in  std_logic;

@@ -26,7 +26,7 @@ architecture tb of adc_ad7266_module_tb is
    
    component adc_ad7266_single_ended_module
       generic (
-         BASE_ADDRESS : integer range 0 to 32767;
+         BASE_ADDRESS : integer range 0 to 16#7FFF#;
          CHANNELS     : positive);
       port (
            adc_out_p    : out adc_ad7266_spi_out_type;
@@ -38,7 +38,7 @@ architecture tb of adc_ad7266_module_tb is
    end component;
 
    -- component generics
-   constant   BASE_ADDRESS : integer range 0 to 32767 := 0;
+   constant   BASE_ADDRESS : integer range 0 to 16#7FFF# := 0;
    constant CHANNELS     : positive := 12;
 
    -- component ports

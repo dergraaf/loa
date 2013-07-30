@@ -67,7 +67,7 @@ package adc_ltc2351_pkg is
 
    component adc_ltc2351_module
       generic (
-         BASE_ADDRESS : integer range 0 to 32767);
+         BASE_ADDRESS : integer range 0 to 16#7FFF#);
       port (
          adc_out_p    : out adc_ltc2351_spi_out_type;
          adc_in_p     : in  adc_ltc2351_spi_in_type;

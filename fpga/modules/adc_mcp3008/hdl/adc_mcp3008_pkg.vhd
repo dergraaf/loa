@@ -54,7 +54,7 @@ package adc_mcp3008_pkg is
 
    component adc_mcp3008_module
       generic (
-         BASE_ADDRESS : integer range 0 to 32767);
+         BASE_ADDRESS : integer range 0 to 16#7FFF#);
       port (
          adc_out_p    : out adc_mcp3008_spi_out_type;
          adc_in_p     : in  adc_mcp3008_spi_in_type;

@@ -33,7 +33,7 @@ package reg_file_pkg is
    -- A single 16-bit register. 
    component peripheral_register is
       generic (
-         BASE_ADDRESS : integer range 0 to 32767);
+         BASE_ADDRESS : integer range 0 to 16#7FFF#);
       port (
          dout_p : out std_logic_vector(15 downto 0);
          din_p  : in  std_logic_vector(15 downto 0);

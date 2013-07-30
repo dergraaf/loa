@@ -22,7 +22,7 @@ use work.up_down_counter_pkg.all;
 -------------------------------------------------------------------------------
 entity encoder_hall_sensor_module is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767
+      BASE_ADDRESS : integer range 0 to 16#7FFF#
       );
    port (
       hall_sensor_p : in hall_sensor_type;

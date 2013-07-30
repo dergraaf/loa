@@ -127,15 +127,15 @@ entity ir_rx_module is
    
    generic (
       -- Base address at the internal data bus of the register for the coefficients
-      BASE_ADDRESS_COEFS : integer range 0 to 32767;
+      BASE_ADDRESS_COEFS : integer range 0 to 16#7FFF#;
 
       -- Base address at the internal data bus of the dual port block RAM register for
       -- the  results
-      BASE_ADDRESS_RESULTS : integer range 0 to 32767;
+      BASE_ADDRESS_RESULTS : integer range 0 to 16#7FFF#;
 
       -- Base address at the internal data bus of the register with the
       -- timestamp of the last sample. 
-      BASE_ADDRESS_TIMESTAMP : integer range 0 to 32767;
+      BASE_ADDRESS_TIMESTAMP : integer range 0 to 16#7FFF#;
 
       -- How many samples should make a set of goertzel values
       SAMPLES : natural := 500

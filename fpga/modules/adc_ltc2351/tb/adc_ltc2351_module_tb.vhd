@@ -36,7 +36,7 @@ architecture tb of adc_ltc2351_module_tb is
   use work.bus_pkg.all;
 
   -- component generics
-  constant BASE_ADDRESS : integer range 0 to 32767 := 0;
+  constant BASE_ADDRESS : integer range 0 to 16#7FFF# := 0;
 
   -- component ports
   signal adc_out_p : adc_ltc2351_spi_out_type;

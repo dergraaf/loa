@@ -115,7 +115,7 @@ package imotor_module_pkg is
 
    component imotor_module is
       generic (
-         BASE_ADDRESS    : integer range 0 to 32767;
+         BASE_ADDRESS    : integer range 0 to 16#7FFF#;
          MOTORS          : positive;
          DATA_WORDS_SEND : positive;
          DATA_WORDS_READ : positive);

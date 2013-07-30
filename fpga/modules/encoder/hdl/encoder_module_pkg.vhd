@@ -15,7 +15,7 @@ package encoder_module_pkg is
 
    component encoder_module
       generic (
-         BASE_ADDRESS : integer range 0 to 32767);
+         BASE_ADDRESS : integer range 0 to 16#7FFF#);
       port (
          encoder_p : in  encoder_type;
          index_p   : in  std_logic;
@@ -27,7 +27,7 @@ package encoder_module_pkg is
 
    component encoder_module_extended is
       generic (
-         BASE_ADDRESS : integer range 0 to 32767);
+         BASE_ADDRESS : integer range 0 to 16#7FFF#);
       port (
          encoder_p : in  encoder_type;
          index_p   : in  std_logic;
@@ -39,7 +39,7 @@ package encoder_module_pkg is
 
    component encoder_hall_sensor_module is
       generic (
-         BASE_ADDRESS : integer range 0 to 32767);
+         BASE_ADDRESS : integer range 0 to 16#7FFF#);
       port (
          hall_sensor_p : in  hall_sensor_type;
          load_p        : in  std_logic;

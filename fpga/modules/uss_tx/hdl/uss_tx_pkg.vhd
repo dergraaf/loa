@@ -23,7 +23,7 @@ package uss_tx_pkg is
   -----------------------------------------------------------------------------
   component uss_tx_module
     generic (
-      BASE_ADDRESS : integer range 0 to 32767);
+      BASE_ADDRESS : integer range 0 to 16#7FFF#);
     port (
       uss_tx0_out_p    : out half_bridge_type;
       uss_tx1_out_p    : out half_bridge_type;

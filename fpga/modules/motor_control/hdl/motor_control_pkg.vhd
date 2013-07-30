@@ -73,7 +73,7 @@ package motor_control_pkg is
    
    component dc_motor_module is
       generic (
-         BASE_ADDRESS : integer range 0 to 32767;
+         BASE_ADDRESS : integer range 0 to 16#7FFF#;
          WIDTH        : positive;
          PRESCALER    : positive);
       port (
@@ -88,7 +88,7 @@ package motor_control_pkg is
 
    component dc_motor_module_extended
       generic (
-         BASE_ADDRESS : integer range 0 to 32767;
+         BASE_ADDRESS : integer range 0 to 16#7FFF#;
          WIDTH        : positive;
          PRESCALER    : positive);
       port (
@@ -103,7 +103,7 @@ package motor_control_pkg is
 
    component bldc_motor_module is
       generic (
-         BASE_ADDRESS : integer range 0 to 32767;
+         BASE_ADDRESS : integer range 0 to 16#7FFF#;
          WIDTH        : positive;
          PRESCALER    : positive);
       port (
@@ -119,7 +119,7 @@ package motor_control_pkg is
 
    component comparator_module is
       generic (
-         BASE_ADDRESS : integer range 0 to 32767;
+         BASE_ADDRESS : integer range 0 to 16#7FFF#;
          CHANNELS     : positive := 8);
       port (
          value_p    : in  comparator_values_type(CHANNELS-1 downto 0);

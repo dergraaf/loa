@@ -21,7 +21,7 @@ use work.adc_ad7266_pkg.all;
 
 entity adc_ad7266_single_ended_module is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767;
+      BASE_ADDRESS : integer range 0 to 16#7FFF#;
       CHANNELS     : positive := 12);  -- AD7266 has 12 single ended channels
    port (
       adc_out_p : out adc_ad7266_spi_out_type;

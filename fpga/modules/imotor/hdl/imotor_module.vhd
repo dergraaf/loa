@@ -54,7 +54,7 @@ use work.imotor_module_pkg.all;
 entity imotor_module is
 
    generic (
-      BASE_ADDRESS    : integer range 0 to 32767;
+      BASE_ADDRESS    : integer range 0 to 16#7FFF#;
       MOTORS          : positive := 8;  -- Number of motors controlled by this
       -- module
       DATA_WORDS_SEND : positive;       -- Number of words transmitted to each

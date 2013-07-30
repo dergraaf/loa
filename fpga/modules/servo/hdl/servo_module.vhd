@@ -18,7 +18,7 @@ package servo_module_pkg is
 
    component servo_module is
       generic (
-         BASE_ADDRESS : integer range 0 to 32767;
+         BASE_ADDRESS : integer range 0 to 16#7FFF#;
          SERVO_COUNT  : positive);
       port (
          servo_p : out std_logic_vector(SERVO_COUNT-1 downto 0);
@@ -43,7 +43,7 @@ use work.servo_channel_pkg.all;
 
 entity servo_module is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767;
+      BASE_ADDRESS : integer range 0 to 16#7FFF#;
       SERVO_COUNT  : positive           -- Number of conntected servos
       );
    port (

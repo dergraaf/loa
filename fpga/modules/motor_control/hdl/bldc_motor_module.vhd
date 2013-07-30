@@ -28,7 +28,7 @@ use work.commutation_pkg.all;
 
 entity bldc_motor_module is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767;
+      BASE_ADDRESS : integer range 0 to 16#7FFF#;
 
       -- Number of bits for the PWM generation (e.g. 12 => 0..4095)
       WIDTH     : positive := 12;

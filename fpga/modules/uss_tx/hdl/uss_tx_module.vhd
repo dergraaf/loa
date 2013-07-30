@@ -36,7 +36,7 @@ use work.reg_file_pkg.all;
 entity uss_tx_module is
 
    generic (
-      BASE_ADDRESS : integer range 0 to 32767  -- Base address at the internal data bus
+      BASE_ADDRESS : integer range 0 to 16#7FFF#  -- Base address at the internal data bus
       );
    port (
       -- Ports to the ultrasonic transmitters

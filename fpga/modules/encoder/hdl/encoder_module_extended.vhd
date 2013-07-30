@@ -39,7 +39,7 @@ use work.input_capture_pkg.all;
 -------------------------------------------------------------------------------
 entity encoder_module_extended is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767
+      BASE_ADDRESS : integer range 0 to 16#7FFF#
       );
    port (
       encoder_p : in encoder_type;

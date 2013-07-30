@@ -32,7 +32,7 @@ use work.symmetric_pwm_pkg.all;
 
 entity dc_motor_module_extended is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767;
+      BASE_ADDRESS : integer range 0 to 16#7FFF#;
       WIDTH        : positive := 12;  -- Number of bits for the PWM generation (e.g. 12 => 0..4095)
       PRESCALER    : positive
       );
