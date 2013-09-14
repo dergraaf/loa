@@ -1,0 +1,94 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Wed Sep 11 12:24:41 2013
+[*]
+[dumpfile] "/home/calle/projects/loa/fpga/modules/hdlc/tb/simulation/hdlc_busmaster_tb.ghw"
+[dumpfile_mtime] "Wed Sep 11 12:24:04 2013"
+[dumpfile_size] 9411
+[savefile] "/home/calle/projects/loa/fpga/modules/hdlc/tb/hdlc_busmaster_tb.sav"
+[timestart] 0
+[size] 1912 1004
+[pos] 1920 0
+*-28.380430 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.hdlc_busmaster_tb.
+[treeopen] top.hdlc_busmaster_tb.bus_to_master.
+[treeopen] top.hdlc_busmaster_tb.dec_to_busmaster.
+[treeopen] top.hdlc_busmaster_tb.dut_bus_mst.
+[treeopen] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.
+[treeopen] top.hdlc_busmaster_tb.dut_bus_mst.din_p.
+[treeopen] top.hdlc_busmaster_tb.dut_bus_mst.dout_p.
+[treeopen] top.hdlc_busmaster_tb.dut_bus_mst.r.
+[treeopen] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.
+[treeopen] top.hdlc_busmaster_tb.dut_reg.r.
+[treeopen] top.hdlc_busmaster_tb.enc_to_dec.
+[treeopen] top.hdlc_busmaster_tb.tb_to_enc.
+[sst_width] 216
+[signals_width] 326
+[sst_expanded] 1
+[sst_vpaned_height] 192
+@28
+top.hdlc_busmaster_tb.clk
+@200
+-
+-Data & Enable from Testbench
+@22
+#{top.hdlc_busmaster_tb.tb_to_enc.data[8:0]} top.hdlc_busmaster_tb.tb_to_enc.data[8] top.hdlc_busmaster_tb.tb_to_enc.data[7] top.hdlc_busmaster_tb.tb_to_enc.data[6] top.hdlc_busmaster_tb.tb_to_enc.data[5] top.hdlc_busmaster_tb.tb_to_enc.data[4] top.hdlc_busmaster_tb.tb_to_enc.data[3] top.hdlc_busmaster_tb.tb_to_enc.data[2] top.hdlc_busmaster_tb.tb_to_enc.data[1] top.hdlc_busmaster_tb.tb_to_enc.data[0]
+@28
+top.hdlc_busmaster_tb.tb_to_enc.enable
+top.hdlc_busmaster_tb.enc_busy
+@200
+-
+-
+-Data & Enable from Encoder to Decoder
+@22
+#{top.hdlc_busmaster_tb.enc_to_dec.data[7:0]} top.hdlc_busmaster_tb.enc_to_dec.data[7] top.hdlc_busmaster_tb.enc_to_dec.data[6] top.hdlc_busmaster_tb.enc_to_dec.data[5] top.hdlc_busmaster_tb.enc_to_dec.data[4] top.hdlc_busmaster_tb.enc_to_dec.data[3] top.hdlc_busmaster_tb.enc_to_dec.data[2] top.hdlc_busmaster_tb.enc_to_dec.data[1] top.hdlc_busmaster_tb.enc_to_dec.data[0]
+@28
+top.hdlc_busmaster_tb.enc_to_dec.enable
+@200
+-
+-
+-Data & Enable Output from Decoder
+@22
+#{top.hdlc_busmaster_tb.dec_to_busmaster.data[8:0]} top.hdlc_busmaster_tb.dec_to_busmaster.data[8] top.hdlc_busmaster_tb.dec_to_busmaster.data[7] top.hdlc_busmaster_tb.dec_to_busmaster.data[6] top.hdlc_busmaster_tb.dec_to_busmaster.data[5] top.hdlc_busmaster_tb.dec_to_busmaster.data[4] top.hdlc_busmaster_tb.dec_to_busmaster.data[3] top.hdlc_busmaster_tb.dec_to_busmaster.data[2] top.hdlc_busmaster_tb.dec_to_busmaster.data[1] top.hdlc_busmaster_tb.dec_to_busmaster.data[0]
+@28
+top.hdlc_busmaster_tb.dec_to_busmaster.enable
+@200
+-
+-Busmaster State
+@28
+top.hdlc_busmaster_tb.dut_bus_mst.r.state
+@23
+#{top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[7:0]} top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[7] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[6] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[5] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[4] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[3] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[2] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[1] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[0]
+@22
+#{top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[7:0]} top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[7] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[6] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[5] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[4] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[3] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[2] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[1] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[0]
+@200
+-
+-Bus Signals
+@28
+top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.re
+top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.we
+@22
+#{top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[14:0]} top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[14] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[13] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[12] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[11] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[10] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[9] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[8] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[7] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[6] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[5] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[4] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[3] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[2] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[1] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.addr[0]
+#{top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[15:0]} top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[15] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[14] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[13] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[12] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[11] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[10] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[9] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[8] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[7] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[6] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[5] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[4] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[3] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[2] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[1] top.hdlc_busmaster_tb.dut_bus_mst.r.bus_o.data[0]
+@200
+-bus_i
+@22
+#{top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[15:0]} top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[15] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[14] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[13] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[12] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[11] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[10] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[9] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[8] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[7] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[6] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[5] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[4] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[3] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[2] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[1] top.hdlc_busmaster_tb.dut_bus_mst.bus_i.data[0]
+@200
+-
+-
+-Replay Path
+@22
+#{top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[8:0]} top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[8] top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[7] top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[6] top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[5] top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[4] top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[3] top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[2] top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[1] top.hdlc_busmaster_tb.dut_bus_mst.dout_p.data[0]
+@28
+top.hdlc_busmaster_tb.dut_bus_mst.dout_p.enable
+@200
+-
+-
+@22
+#{top.hdlc_busmaster_tb.dut_bus_mst.r.data[15:0]} top.hdlc_busmaster_tb.dut_bus_mst.r.data[15] top.hdlc_busmaster_tb.dut_bus_mst.r.data[14] top.hdlc_busmaster_tb.dut_bus_mst.r.data[13] top.hdlc_busmaster_tb.dut_bus_mst.r.data[12] top.hdlc_busmaster_tb.dut_bus_mst.r.data[11] top.hdlc_busmaster_tb.dut_bus_mst.r.data[10] top.hdlc_busmaster_tb.dut_bus_mst.r.data[9] top.hdlc_busmaster_tb.dut_bus_mst.r.data[8] top.hdlc_busmaster_tb.dut_bus_mst.r.data[7] top.hdlc_busmaster_tb.dut_bus_mst.r.data[6] top.hdlc_busmaster_tb.dut_bus_mst.r.data[5] top.hdlc_busmaster_tb.dut_bus_mst.r.data[4] top.hdlc_busmaster_tb.dut_bus_mst.r.data[3] top.hdlc_busmaster_tb.dut_bus_mst.r.data[2] top.hdlc_busmaster_tb.dut_bus_mst.r.data[1] top.hdlc_busmaster_tb.dut_bus_mst.r.data[0]
+#{top.hdlc_busmaster_tb.dut_reg.din_p[15:0]} top.hdlc_busmaster_tb.dut_reg.din_p[15] top.hdlc_busmaster_tb.dut_reg.din_p[14] top.hdlc_busmaster_tb.dut_reg.din_p[13] top.hdlc_busmaster_tb.dut_reg.din_p[12] top.hdlc_busmaster_tb.dut_reg.din_p[11] top.hdlc_busmaster_tb.dut_reg.din_p[10] top.hdlc_busmaster_tb.dut_reg.din_p[9] top.hdlc_busmaster_tb.dut_reg.din_p[8] top.hdlc_busmaster_tb.dut_reg.din_p[7] top.hdlc_busmaster_tb.dut_reg.din_p[6] top.hdlc_busmaster_tb.dut_reg.din_p[5] top.hdlc_busmaster_tb.dut_reg.din_p[4] top.hdlc_busmaster_tb.dut_reg.din_p[3] top.hdlc_busmaster_tb.dut_reg.din_p[2] top.hdlc_busmaster_tb.dut_reg.din_p[1] top.hdlc_busmaster_tb.dut_reg.din_p[0]
+#{top.hdlc_busmaster_tb.dut_reg.dout_p[15:0]} top.hdlc_busmaster_tb.dut_reg.dout_p[15] top.hdlc_busmaster_tb.dut_reg.dout_p[14] top.hdlc_busmaster_tb.dut_reg.dout_p[13] top.hdlc_busmaster_tb.dut_reg.dout_p[12] top.hdlc_busmaster_tb.dut_reg.dout_p[11] top.hdlc_busmaster_tb.dut_reg.dout_p[10] top.hdlc_busmaster_tb.dut_reg.dout_p[9] top.hdlc_busmaster_tb.dut_reg.dout_p[8] top.hdlc_busmaster_tb.dut_reg.dout_p[7] top.hdlc_busmaster_tb.dut_reg.dout_p[6] top.hdlc_busmaster_tb.dut_reg.dout_p[5] top.hdlc_busmaster_tb.dut_reg.dout_p[4] top.hdlc_busmaster_tb.dut_reg.dout_p[3] top.hdlc_busmaster_tb.dut_reg.dout_p[2] top.hdlc_busmaster_tb.dut_reg.dout_p[1] top.hdlc_busmaster_tb.dut_reg.dout_p[0]
+[pattern_trace] 1
+[pattern_trace] 0

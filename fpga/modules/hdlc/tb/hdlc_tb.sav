@@ -1,0 +1,53 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Sun Aug 18 12:16:39 2013
+[*]
+[dumpfile] "/home/calle/projects/loa/fpga/modules/hdlc/tb/simulation/hdlc_tb.ghw"
+[dumpfile_mtime] "Sun Aug 18 10:32:03 2013"
+[dumpfile_size] 5161
+[savefile] "/home/calle/projects/loa/fpga/modules/hdlc/tb/hdlc_tb.sav"
+[timestart] 0
+[size] 1920 1007
+[pos] 1920 0
+*-26.165966 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.hdlc_tb.
+[treeopen] top.hdlc_tb.dec_to_tb.
+[treeopen] top.hdlc_tb.dut_dec.
+[treeopen] top.hdlc_tb.dut_dec.dout_p.
+[treeopen] top.hdlc_tb.dut_enc.
+[treeopen] top.hdlc_tb.dut_enc.din_p.
+[treeopen] top.hdlc_tb.enc_to_dec.
+[sst_width] 216
+[signals_width] 326
+[sst_expanded] 1
+[sst_vpaned_height] 279
+@28
+top.hdlc_tb.clk
+@200
+-
+-Data & Enable from Testbench
+@28
+top.hdlc_tb.dut_enc.din_p.enable
+@22
+#{top.hdlc_tb.dut_enc.din_p.data[8:0]} top.hdlc_tb.dut_enc.din_p.data[8] top.hdlc_tb.dut_enc.din_p.data[7] top.hdlc_tb.dut_enc.din_p.data[6] top.hdlc_tb.dut_enc.din_p.data[5] top.hdlc_tb.dut_enc.din_p.data[4] top.hdlc_tb.dut_enc.din_p.data[3] top.hdlc_tb.dut_enc.din_p.data[2] top.hdlc_tb.dut_enc.din_p.data[1] top.hdlc_tb.dut_enc.din_p.data[0]
+@28
+top.hdlc_tb.dut_enc.busy_p
+@200
+-
+-
+-Data & Enable from Encoder to Decoder
+@28
+top.hdlc_tb.enc_to_dec.enable
+@22
+#{top.hdlc_tb.enc_to_dec.data[7:0]} top.hdlc_tb.enc_to_dec.data[7] top.hdlc_tb.enc_to_dec.data[6] top.hdlc_tb.enc_to_dec.data[5] top.hdlc_tb.enc_to_dec.data[4] top.hdlc_tb.enc_to_dec.data[3] top.hdlc_tb.enc_to_dec.data[2] top.hdlc_tb.enc_to_dec.data[1] top.hdlc_tb.enc_to_dec.data[0]
+@200
+-
+-
+-Data & Enable Output from Decoder
+@28
+top.hdlc_tb.dec_to_tb.enable
+@22
+#{top.hdlc_tb.dec_to_tb.data[8:0]} top.hdlc_tb.dec_to_tb.data[8] top.hdlc_tb.dec_to_tb.data[7] top.hdlc_tb.dec_to_tb.data[6] top.hdlc_tb.dec_to_tb.data[5] top.hdlc_tb.dec_to_tb.data[4] top.hdlc_tb.dec_to_tb.data[3] top.hdlc_tb.dec_to_tb.data[2] top.hdlc_tb.dec_to_tb.data[1] top.hdlc_tb.dec_to_tb.data[0]
+[pattern_trace] 1
+[pattern_trace] 0
