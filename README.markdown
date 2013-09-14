@@ -18,5 +18,5 @@ or PC connected via USB or a fast UART bus.
 Naming
 ------
 
-A "Loa" is a allknowing ghost in Voodoo. The differend boards are named
+A "Loa" is a allknowing ghost in Voodoo. The different boards are named
 after loas.
