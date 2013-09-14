@@ -1,11 +1,17 @@
 -------------------------------------------------------------------------------
 -- Title      : Title String
 -------------------------------------------------------------------------------
--- Standard   : VHDL'87
+-- Author     : AUTHOR
+-- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
 -- Description: 
 -------------------------------------------------------------------------------
--- Copyright (c) 2013
+-- Copyright (c) 2013, AUTHOR
+-- All Rights Reserved.
+--
+-- The file is part for the Loa project and is released under the
+-- 3-clause BSD license. See the file `LICENSE` for the full license
+-- governing this code.
 -------------------------------------------------------------------------------
 
 library ieee;

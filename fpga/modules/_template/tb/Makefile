@@ -1,3 +1,14 @@
+###############################################################################
+#
+# Copyright (c) 2013, AUTHOR
+# All Rights Reserved.
+#
+# The file is part for the Loa project and is released under the
+# 3-clause BSD license. See the file `LICENSE` for the full license
+# governing this code.
+#
+###############################################################################
+
 
 # Name of the testbench without extenstion
 TESTBENCH = entity_name_tb
@@ -16,7 +27,7 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Simulation break condition
 #GHDL_SIM_OPT = --assert-level=error
-GHDL_SIM_OPT = --stop-time=2us
+GHDL_SIM_OPT = --stop-time=5us
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]
