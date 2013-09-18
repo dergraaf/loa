@@ -12,6 +12,7 @@
 .settings
 .classpath
 *.gise
+*.pyc
 .DS_Store
 par_usage_statistics.html
 
