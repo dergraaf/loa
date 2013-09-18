@@ -22,6 +22,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+library work;
+use work.motor_control_pkg.all;
+
 -------------------------------------------------------------------------------
 
 entity dc_driver_stage_converter_tb is
