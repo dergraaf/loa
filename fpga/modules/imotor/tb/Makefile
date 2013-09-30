@@ -40,7 +40,7 @@ FILES +=\
   ../hdl/imotor_sender.vhd \
   ../hdl/imotor_receiver.vhd \
   ../hdl/imotor_transceiver.vhd
-else ifeq ($(TESTBENCH), imotor_modulde_tb)
+else ifeq ($(TESTBENCH), imotor_module_tb)
 FILES += \
   ../../uart/hdl/uart_pkg.vhd \
   ../../uart/hdl/uart_tx.vhd \
@@ -50,8 +50,6 @@ FILES += \
   ../hdl/imotor_receiver.vhd \
   ../hdl/imotor_transceiver.vhd \
   ../hdl/imotor_module.vhd
-else
-FILES = ../hdl/*.vhd
 endif
 
 # Default settings for gtkwave (visable signal etc.)
