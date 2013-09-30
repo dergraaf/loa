@@ -28,7 +28,7 @@ end reg_file_bram_double_buffered_tb;
 architecture tb of reg_file_bram_double_buffered_tb is
 
    -- component generics
-   constant BASE_ADDRESS : integer range 0 to 32767 := 0;
+   constant BASE_ADDRESS : integer range 0 to 16#7FFF# := 0;
 
    -- component ports
    signal bus_o : busdevice_out_type := (data => (others => '0'));

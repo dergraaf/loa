@@ -60,6 +60,8 @@ begin  -- architecture behavourial
    imotor_module_1 : entity work.imotor_module
       generic map (
          BASE_ADDRESS => BASE_ADDRESS,
+         DATA_WORDS_READ => 3,
+         DATA_WORDS_SEND => 2,
          MOTORS       => MOTORS)
       port map (
          tx_out_p => tx_out,

@@ -21,7 +21,7 @@ use work.up_down_counter_pkg.all;
 -------------------------------------------------------------------------------
 entity encoder_module is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767
+      BASE_ADDRESS : integer range 0 to 16#7FFF#
       );
    port (
       encoder_p : in encoder_type;
@@ -50,7 +50,7 @@ architecture behavioral of encoder_module is
 
    signal step         : std_logic := '0';
    signal up_down      : std_logic := '0';  -- Direction for the counter ('1' = up, '0' = down)
-   signal decode_error : std_logic;  -- Decoding Error (A and B lines changes at the same time), current not used
+   signal decode_error : std_logic;  -- Decoding Error (A and B lines changes at the same time), currently not used
    signal counter      : std_logic_vector(15 downto 0);
 begin
 

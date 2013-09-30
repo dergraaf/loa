@@ -50,7 +50,8 @@ package adc_ad7266_pkg is
          start_p    : in  std_logic;
          adc_mode_p : in  std_logic;
          channel_p  : in  std_logic_vector(2 downto 0);
-         value_p    : out std_logic_vector(11 downto 0);
+         value_a_p  : out std_logic_vector(11 downto 0);
+         value_b_p  : out std_logic_vector(11 downto 0);
          done_p     : out std_logic;
          clk        : in  std_logic);
    end component;
@@ -58,7 +59,8 @@ package adc_ad7266_pkg is
 
    component adc_ad7266_single_ended_module
       generic (
-         BASE_ADDRESS : integer range 0 to 32767);
+         BASE_ADDRESS : integer range 0 to 16#7FFF#;
+         CHANNELS : positive);
       port (
          adc_out_p    : out adc_ad7266_spi_out_type;
          adc_in_p     : in  adc_ad7266_spi_in_type;

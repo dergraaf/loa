@@ -79,12 +79,12 @@ architecture behavioural of uart_rx is
    function voter(samples : in std_logic_vector(4 downto 0)) return std_logic is
       variable cnt : integer range 0 to 5 := 0;
    begin
-      for c in 0 to 4 loop
+      for c in 1 to 3 loop
          if samples(c) = '1' then
-            cnt := cnt+1;
+            cnt := cnt + 1;
          end if;
       end loop;
-      if cnt >= 3 then
+      if cnt >= 2 then
          return '1';
       else
          return '0';
@@ -127,9 +127,11 @@ begin
 
       case r.state is
          when IDLE =>
-            if rxd_p <= '0' then
-               v.state       := START;
-               v.samplecount := 0;
+            if clk_rx_en = '1' then               
+               if rxd_p = '0' then
+                  v.state       := START;
+                  v.samplecount := 0;
+               end if;
             end if;
 
          when START =>
@@ -140,6 +142,7 @@ begin
                      v.state       := DATA;
                      v.samplecount := 0;
                      v.bitcount    := 0;
+                     v.parity      := '0';
                   else
                      v.state := IDLE;
                   end if;
@@ -147,7 +150,7 @@ begin
                   v.samplecount := r.samplecount + 1;
                end if;
             end if;
-            
+
          when DATA =>
             if clk_rx_en = '1' then
                if r.samplecount = 4 then
@@ -169,9 +172,9 @@ begin
                      -- Check for framing errors (= no stop bit) or parity errors
                      if v.shift_reg(9) = '0' or v.parity = '1' then
                         v.fifo_error := '1';
-                     else
-                        v.fifo_data := v.shift_reg(7 downto 0);
                      end if;
+                                              
+                     v.fifo_data := v.shift_reg(7 downto 0);
                   else
                      v.bitcount := r.bitcount + 1;
                   end if;

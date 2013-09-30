@@ -1,0 +1,17 @@
+
+import os
+
+env = Environment(tools=['javac', 'jar'], ENV = os.environ)
+env.Append(JAVACFLAGS = '-source 6 -target 6 -encoding utf-8 ' \
+						'-Xlint:deprecation -Xlint:unchecked')
+env.Append(JAVACLASSPATH='resources/*:classes')
+if str(Platform()) == 'posix':
+	env.Append(JAVACLASSPATH='/usr/share/java/RXTXcomm.jar')
+
+classes = env.Java(target='classes', source='src')
+jar = env.Jar(target='upload.jar', source=classes + ['resources/manifest.mf'] + env.Glob('resources/*.jar'))
+
+env.Alias('build', jar)
+#env.Alias('run', env.Command('thisfileshouldnotexist', classes, '@java -jar upload.jar'))
+env.Default('build')
+

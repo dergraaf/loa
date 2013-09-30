@@ -216,7 +216,6 @@ begin
          uss_tx0_out_p    => us_tx0_p,
          uss_tx1_out_p    => us_tx1_p,
          uss_tx2_out_p    => us_tx2_p,
-         modulation_p     => modulation_us,
          clk_uss_enable_p => open,
          bus_o            => bus_adc_us_out,
          bus_i            => bus_spi_out,

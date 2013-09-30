@@ -23,7 +23,7 @@ use work.adc_ltc2351_pkg.all;
 -------------------------------------------------------------------------------
 entity adc_ltc2351_module is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767
+      BASE_ADDRESS : integer range 0 to 16#7FFF#
       );
    port (
       -- signals to and from real hardware

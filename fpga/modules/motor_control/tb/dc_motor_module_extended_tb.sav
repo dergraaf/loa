@@ -1,0 +1,28 @@
+[timestart] 0
+[size] 1133 684
+[pos] 48 31
+*-36.611420 156400000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.dc_motor_module_extended_tb.
+[treeopen] top.dc_motor_module_extended_tb.bus_i.
+[treeopen] top.dc_motor_module_extended_tb.bus_o.
+@28
+top.dc_motor_module_extended_tb.clk
+top.dc_motor_module_extended_tb.break
+top.dc_motor_module_extended_tb.sd
+top.dc_motor_module_extended_tb.pwm1
+top.dc_motor_module_extended_tb.pwm2
+@200
+-
+@22
+#{top.dc_motor_module_extended_tb.bus_i.addr[14:0]} top.dc_motor_module_extended_tb.bus_i.addr[14] top.dc_motor_module_extended_tb.bus_i.addr[13] top.dc_motor_module_extended_tb.bus_i.addr[12] top.dc_motor_module_extended_tb.bus_i.addr[11] top.dc_motor_module_extended_tb.bus_i.addr[10] top.dc_motor_module_extended_tb.bus_i.addr[9] top.dc_motor_module_extended_tb.bus_i.addr[8] top.dc_motor_module_extended_tb.bus_i.addr[7] top.dc_motor_module_extended_tb.bus_i.addr[6] top.dc_motor_module_extended_tb.bus_i.addr[5] top.dc_motor_module_extended_tb.bus_i.addr[4] top.dc_motor_module_extended_tb.bus_i.addr[3] top.dc_motor_module_extended_tb.bus_i.addr[2] top.dc_motor_module_extended_tb.bus_i.addr[1] top.dc_motor_module_extended_tb.bus_i.addr[0]
+@28
+top.dc_motor_module_extended_tb.bus_i.we
+@22
+#{top.dc_motor_module_extended_tb.bus_i.data[15:0]} top.dc_motor_module_extended_tb.bus_i.data[15] top.dc_motor_module_extended_tb.bus_i.data[14] top.dc_motor_module_extended_tb.bus_i.data[13] top.dc_motor_module_extended_tb.bus_i.data[12] top.dc_motor_module_extended_tb.bus_i.data[11] top.dc_motor_module_extended_tb.bus_i.data[10] top.dc_motor_module_extended_tb.bus_i.data[9] top.dc_motor_module_extended_tb.bus_i.data[8] top.dc_motor_module_extended_tb.bus_i.data[7] top.dc_motor_module_extended_tb.bus_i.data[6] top.dc_motor_module_extended_tb.bus_i.data[5] top.dc_motor_module_extended_tb.bus_i.data[4] top.dc_motor_module_extended_tb.bus_i.data[3] top.dc_motor_module_extended_tb.bus_i.data[2] top.dc_motor_module_extended_tb.bus_i.data[1] top.dc_motor_module_extended_tb.bus_i.data[0]
+@28
+top.dc_motor_module_extended_tb.bus_i.re
+@22
+#{top.dc_motor_module_extended_tb.bus_o.data[15:0]} top.dc_motor_module_extended_tb.bus_o.data[15] top.dc_motor_module_extended_tb.bus_o.data[14] top.dc_motor_module_extended_tb.bus_o.data[13] top.dc_motor_module_extended_tb.bus_o.data[12] top.dc_motor_module_extended_tb.bus_o.data[11] top.dc_motor_module_extended_tb.bus_o.data[10] top.dc_motor_module_extended_tb.bus_o.data[9] top.dc_motor_module_extended_tb.bus_o.data[8] top.dc_motor_module_extended_tb.bus_o.data[7] top.dc_motor_module_extended_tb.bus_o.data[6] top.dc_motor_module_extended_tb.bus_o.data[5] top.dc_motor_module_extended_tb.bus_o.data[4] top.dc_motor_module_extended_tb.bus_o.data[3] top.dc_motor_module_extended_tb.bus_o.data[2] top.dc_motor_module_extended_tb.bus_o.data[1] top.dc_motor_module_extended_tb.bus_o.data[0]
+[pattern_trace] 1
+[pattern_trace] 0

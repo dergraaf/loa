@@ -20,13 +20,14 @@ use work.imotor_module_pkg.all;
 entity imotor_transceiver is
 
    generic (
-      DATA_WORDS : positive := 2;
-      DATA_WIDTH : positive := 16
+      DATA_WORDS_SEND : positive;
+      DATA_WORDS_READ : positive;
+      DATA_WIDTH      : positive := 16
       );
    port (
       -- parallel data in and out
-      data_in_p  : in  imotor_input_type(DATA_WORDS - 1 downto 0);
-      data_out_p : out imotor_output_type(DATA_WORDS - 1 downto 0);
+      data_in_p  : in  imotor_input_type(DATA_WORDS_SEND - 1 downto 0);
+      data_out_p : out imotor_output_type(DATA_WORDS_READ - 1 downto 0);
 
       -- UART RX/TX
       tx_out_p : out std_logic;
@@ -52,10 +53,10 @@ architecture behavioural of imotor_transceiver is
    constant STOP_BITS  : positive    := 1;
    constant PARITY     : parity_type := Odd;
 
-   signal uart_start_s : std_logic;
+   signal uart_start_s  : std_logic;
    signal uart_start_ns : std_logic;
-   signal uart_busy_s  : std_logic;
-   signal uart_ready_s : std_logic;
+   signal uart_busy_s   : std_logic;
+   signal uart_ready_s  : std_logic;
 
    signal data_tx_s : std_logic_vector(7 downto 0);
 
@@ -91,7 +92,7 @@ begin  -- architecture behavourial
    -----------------------------------------------------------------------------
    imotor_sender_1 : entity work.imotor_sender
       generic map (
-         DATA_WORDS => DATA_WORDS,
+         DATA_WORDS => DATA_WORDS_SEND,
          DATA_WIDTH => DATA_WIDTH)
       port map (
          data_in_p   => data_in_p,
@@ -115,7 +116,7 @@ begin  -- architecture behavourial
    --      clock_tx_in_p => timer_in_p.tx,
    --      clk           => clk);
 
-   uart_tx_1: entity work.uart_tx
+   uart_tx_1 : entity work.uart_tx
       port map (
          txd_p     => tx_out_p,
          busy_p    => uart_busy_s,
@@ -124,8 +125,8 @@ begin  -- architecture behavourial
          re_p      => open,
          clk_tx_en => timer_in_p.tx,
          clk       => clk);
-   
-   uart_rx_1: entity work.uart_rx
+
+   uart_rx_1 : entity work.uart_rx
       port map (
          rxd_p     => rx_in_p,
          disable_p => uart_busy_s,
@@ -135,7 +136,7 @@ begin  -- architecture behavourial
          full_p    => '0',              -- always get data
          clk_rx_en => timer_in_p.rx,
          clk       => clk);
-   
+
    --imotor_uart_rx_1 : entity work.imotor_uart_rx
    --   generic map (
    --      START_BITS => START_BITS,
@@ -154,7 +155,7 @@ begin  -- architecture behavourial
 
    imotor_receiver_1 : entity work.imotor_receiver
       generic map (
-         DATA_WORDS => DATA_WORDS,
+         DATA_WORDS => DATA_WORDS_READ,
          DATA_WIDTH => DATA_WIDTH)
       port map (
          data_out_p        => data_out_p,

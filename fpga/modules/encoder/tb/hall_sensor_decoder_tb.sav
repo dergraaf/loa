@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Thu Jul 25 18:25:07 2013
+[*]
+[dumpfile] "/media/sf_software/loa/fpga/modules/encoder/tb/simulation/hall_sensor_decoder_tb.ghw"
+[dumpfile_mtime] "Thu Jul 25 18:24:45 2013"
+[dumpfile_size] 2656
+[savefile] "/media/sf_software/loa/fpga/modules/encoder/tb/hall_sensor_decoder_tb.sav"
+[timestart] 428900000
+[size] 959 547
+[pos] -1 -1
+*-27.265085 520000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.hall_sensor_decoder_tb.
+[treeopen] top.hall_sensor_decoder_tb.dut.
+[sst_width] 223
+[signals_width] 142
+[sst_expanded] 1
+[sst_vpaned_height] 142
+@28
+top.hall_sensor_decoder_tb.clk
+@201
+-In
+@28
+top.hall_sensor_decoder_tb.abc.a
+top.hall_sensor_decoder_tb.abc.b
+top.hall_sensor_decoder_tb.abc.c
+@200
+-Out
+@28
+top.hall_sensor_decoder_tb.dut.step_p
+top.hall_sensor_decoder_tb.dut.dir_p
+top.hall_sensor_decoder_tb.dut.error_p
+[pattern_trace] 1
+[pattern_trace] 0

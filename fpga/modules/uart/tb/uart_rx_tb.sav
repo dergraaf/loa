@@ -1,11 +1,23 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Wed Apr 10 16:59:30 2013
+[*]
+[dumpfile] "/home/rca/software/loa/fpga/modules/uart/tb/simulation/uart_rx_tb.ghw"
+[dumpfile_mtime] "Wed Apr 10 16:28:24 2013"
+[dumpfile_size] 8404
+[savefile] "/home/rca/software/loa/fpga/modules/uart/tb/uart_rx_tb.sav"
 [timestart] 0
-[size] 2048 1128
+[size] 1615 957
 [pos] -1 -1
-*-27.782986 235000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-29.782986 2110000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.uart_rx_tb.
 [treeopen] top.uart_rx_tb.dut.
 [treeopen] top.uart_rx_tb.dut.r.
+[sst_width] 223
+[signals_width] 192
+[sst_expanded] 1
+[sst_vpaned_height] 286
 @28
 top.uart_rx_tb.clk
 top.uart_rx_tb.clk_rx_en
@@ -14,7 +26,8 @@ top.uart_rx_tb.rxd
 -
 @28
 top.uart_rx_tb.we
-top.uart_rx_tb.error
+@29
+top.uart_rx_tb.dut.error_p
 @22
 #{top.uart_rx_tb.data[7:0]} top.uart_rx_tb.data[7] top.uart_rx_tb.data[6] top.uart_rx_tb.data[5] top.uart_rx_tb.data[4] top.uart_rx_tb.data[3] top.uart_rx_tb.data[2] top.uart_rx_tb.data[1] top.uart_rx_tb.data[0]
 @200

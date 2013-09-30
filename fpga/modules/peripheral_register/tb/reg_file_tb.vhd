@@ -26,8 +26,8 @@ end reg_file_tb;
 architecture tb of reg_file_tb is
 
    -- component generics
-   constant BASE_ADDRESS : integer range 0 to 32767 := 16#0010#;
-   constant REG_ADDR_BIT : natural                  := 1;
+   constant BASE_ADDRESS : integer range 0 to 16#7FFF# := 16#0010#;
+   constant REG_ADDR_BIT : natural                     := 1;
 
    -- component ports
    signal bus_o : busdevice_out_type;

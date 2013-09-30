@@ -26,7 +26,7 @@ architecture tb of adc_mcp3008_module_tb is
    use work.bus_pkg.all;
 
    -- component generics
-   constant BASE_ADDRESS : integer range 0 to 32767 := 0;
+   constant BASE_ADDRESS : integer range 0 to 16#7FFF# := 0;
 
    -- component ports
    signal adc_out_p : adc_mcp3008_spi_out_type;

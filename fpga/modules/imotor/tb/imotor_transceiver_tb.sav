@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Wed Apr 10 17:23:49 2013
+[*]
+[dumpfile] "/home/rca/software/loa/fpga/modules/imotor/tb/simulation/imotor_transceiver_tb.ghw"
+[dumpfile_mtime] "Wed Apr 10 17:27:19 2013"
+[dumpfile_size] 367814
+[savefile] "/home/rca/software/loa/fpga/modules/imotor/tb/imotor_transceiver_tb.sav"
+[timestart] 0
+[size] 1615 957
+[pos] -1 -1
+*-36.347122 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.imotor_transceiver_tb.
+[treeopen] top.imotor_transceiver_tb.dut.
+[treeopen] top.imotor_transceiver_tb.dut.uart_rx_1.
+[treeopen] top.imotor_transceiver_tb.dut.uart_tx_1.
+[sst_width] 223
+[signals_width] 210
+[sst_expanded] 1
+[sst_vpaned_height] 286
+@28
+top.imotor_transceiver_tb.clk
+top.imotor_transceiver_tb.rx_in_p
+top.imotor_transceiver_tb.tx_out_p
+top.imotor_transceiver_tb.dut.uart_rx_1.disable_p
+top.imotor_transceiver_tb.dut.uart_rx_1.r.disabled
+@29
+top.imotor_transceiver_tb.dut.uart_tx_1.busy_p
+[pattern_trace] 1
+[pattern_trace] 0

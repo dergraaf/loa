@@ -20,27 +20,20 @@ use work.bus_pkg.all;
 
 -------------------------------------------------------------------------------
 entity fsmc_slave is
-
    port (
+      fsmc_i : out fsmc_out_type;
+      fsmc_o : in  fsmc_in_type;
 
       bus_o : out busmaster_out_type;
       bus_i : in  busmaster_in_type;
 
-      fsmc_inout_p : inout fsmc_inout_type;
-      fsmc_in_p    : in    fsmc_in_type;
-      fsmc_out_p   : out   fsmc_out_type;
-
       clk : in std_logic
       );
-
 end fsmc_slave;
 
 -------------------------------------------------------------------------------
-
 architecture behavioral of fsmc_slave is
-
 begin
-   bus_o.data <= (others => '0');
 
 end behavioral;
 

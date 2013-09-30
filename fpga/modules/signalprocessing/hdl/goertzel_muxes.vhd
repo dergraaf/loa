@@ -22,7 +22,7 @@ use work.signalprocessing_pkg.all;
 entity goertzel_muxes is
    generic (
       CHANNELS    : positive := 12;
-      FREQUENCIES : positive := 5);
+      FREQUENCIES : positive);
    port (
       -- control pins of the muxes, from control unit
       mux_delay1_p : in  std_logic;

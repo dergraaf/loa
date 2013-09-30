@@ -1,0 +1,22 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Tue Jul 30 08:06:19 2013
+[*]
+[dumpfile] "/media/sf_software/loa/fpga/modules/us_rx/tb/simulation/us_rx_module_tb.ghw"
+[dumpfile_mtime] "Tue Jul 30 08:05:47 2013"
+[dumpfile_size] 1614
+[savefile] "/media/sf_software/loa/fpga/modules/us_rx/tb/us_rx_module_tb.sav"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-29.172703 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.us_rx_module_tb.
+[sst_width] 223
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 160
+@28
+top.us_rx_module_tb.clk
+[pattern_trace] 1
+[pattern_trace] 0

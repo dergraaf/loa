@@ -39,7 +39,6 @@ architecture tb of uss_tx_module_tb is
   signal uss_tx2_out_s : half_bridge_type;
 
   signal clk_uss_enable_p : std_logic;
-  signal modulation_p     : std_logic_vector(2 downto 0) := "111";
 
   signal bus_o : busdevice_out_type;
   signal bus_i : busdevice_in_type;
@@ -61,7 +60,6 @@ begin  -- tb
       uss_tx1_out_p => uss_tx1_out_s,
       uss_tx2_out_p => uss_tx2_out_s,
 
-      modulation_p     => modulation_p,
       clk_uss_enable_p => clk_uss_enable_p,
 
       bus_o => bus_o,
@@ -83,7 +81,7 @@ begin  -- tb
     bus_i.data <= (others => '0');
     bus_i.re   <= '0';
     bus_i.we   <= '0';
-
+    
     wait until clk = '1';
 
     -- write 0x0000 (MUL) to 0x00
@@ -110,6 +108,18 @@ begin  -- tb
     bus_i.data <= (others => '0');
     bus_i.we   <= '0';
 
+    -- write 0x5501 pattern to 0x02
+    wait until clk = '1';
+    bus_i.addr(0) <= '0';
+    bus_i.addr(1) <= '1';
+    bus_i.data    <= x"5501";
+    bus_i.re      <= '0';
+    bus_i.we      <= '1';
+
+    wait until clk = '1';
+    bus_i.data <= (others => '0');
+    bus_i.we   <= '0';
+    
     wait for 200 us;
 
     -- decrease frequency by writing 0x0500 to 0x01

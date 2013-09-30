@@ -30,7 +30,7 @@ use work.signalprocessing_pkg.all;
 entity goertzel_pipelined_v2 is
    
    generic (
-      FREQUENCIES  : positive := 5;
+      FREQUENCIES  : positive;
       CHANNELS     : positive := 12;
       SAMPLES      : positive := 250;
       Q            : positive := 13);

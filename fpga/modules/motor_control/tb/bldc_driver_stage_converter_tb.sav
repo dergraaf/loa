@@ -1,0 +1,44 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Wed Mar 27 19:43:56 2013
+[*]
+[dumpfile] "/home/rca/software/loa/fpga/modules/motor_control/tb/simulation/bldc_driver_stage_converter_tb.ghw"
+[dumpfile_mtime] "Wed Mar 27 19:41:51 2013"
+[dumpfile_size] 1282
+[savefile] "/home/rca/software/loa/fpga/modules/motor_control/tb/bldc_driver_stage_converter_tb.sav"
+[timestart] 0
+[size] 1187 875
+[pos] -1 -1
+*-27.813288 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.bldc_driver_stage_converter_tb.
+[treeopen] top.bldc_driver_stage_converter_tb.dut.
+[treeopen] top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage.
+[treeopen] top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage_st.
+[sst_width] 289
+[signals_width] 86
+[sst_expanded] 1
+[sst_vpaned_height] 257
+@28
+top.bldc_driver_stage_converter_tb.clk
+@200
+-BLDC
+@28
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage.a.high
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage.a.low
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage.b.low
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage.b.high
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage.c.high
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage.c.low
+@200
+-BLDC_ST
+@28
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage_st.a.high
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage_st.a.low_n
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage_st.b.high
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage_st.b.low_n
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage_st.c.high
+@29
+top.bldc_driver_stage_converter_tb.dut.bldc_driver_stage_st.c.low_n
+[pattern_trace] 1
+[pattern_trace] 0

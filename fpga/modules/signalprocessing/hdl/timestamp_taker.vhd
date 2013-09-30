@@ -27,7 +27,7 @@ use work.signalprocessing_pkg.all;
 
 entity timestamp_taker is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767  -- Base address of the timestamp registers
+      BASE_ADDRESS : integer range 0 to 16#7FFF#  -- Base address of the timestamp registers
       );
    port (
       -- Timestamp in

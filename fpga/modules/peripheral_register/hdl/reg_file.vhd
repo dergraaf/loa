@@ -28,7 +28,7 @@ use work.reg_file_pkg.all;
 entity reg_file is
 
    generic (
-      BASE_ADDRESS : integer range 0 to 32767;  -- Base address of the registers
+      BASE_ADDRESS : integer range 0 to 16#7FFF#;  -- Base address of the registers
       REG_ADDR_BIT : natural := 0       -- number of bits not to compare in
                                         -- address. Gives 2**n registers
       );

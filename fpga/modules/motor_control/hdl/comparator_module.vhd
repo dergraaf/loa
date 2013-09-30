@@ -35,7 +35,7 @@ use work.motor_control_pkg.all;
 -- 
 entity comparator_module is
    generic (
-      BASE_ADDRESS : integer range 0 to 32767;  -- Base address of the module
+      BASE_ADDRESS : integer range 0 to 16#7FFF#;  -- Base address of the module
       CHANNELS     : positive := 8      -- Number of Channels
       );
    port (

@@ -63,8 +63,11 @@ architecture behavioural of imotor_receiver is
       -- The output to the register file is only updated when proper end byte
       -- received. 
       data_out   : imotor_output_type(DATA_WORDS - 1 downto 0);
-      byte_count : integer range 0 to 5;
+      byte_count : integer range 0 to (DATA_WORDS * 2);
    end record;
+
+   constant last_byte : natural := DATA_WORDS * 2 - 1;  -- index of last data byte
+                                                        -- before end byte
 
    -----------------------------------------------------------------------------
    -- Internal signal declarations
@@ -108,17 +111,17 @@ begin  -- architecture behavourial
       v := r;
 
       case r.state is
-         
+
          when IDLE =>
             if ready_in_p = '1' and data_in_p = START_BYTE then
                -- It is the correct byte
                v.byte_count := 0;
                v.state      := DATA;
             end if;
-            
+
          when DATA =>
             if ready_in_p = '1' then
-               -- Store byte in data_store
+               -- Store byte in data_store, 
                if r.byte_count mod 2 = 0 then
                   v.data_store(r.byte_count / 2)(7 downto 0) := data_in_p;
                else
@@ -126,14 +129,14 @@ begin  -- architecture behavourial
                end if;
 
                -- All received?
-               if v.byte_count = 3 then
+               if v.byte_count = last_byte then
                   v.state := STOP;      -- expect END byte
                end if;
 
                -- Always count
                v.byte_count := r.byte_count + 1;
             end if;
-            
+
          when STOP =>
             if ready_in_p = '1' then
                -- Next state is always idle
@@ -143,7 +146,7 @@ begin  -- architecture behavourial
                   v.data_out := r.data_store;
                end if;
             end if;
-            
+
       end case;
 
       rin <= v;

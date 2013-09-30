@@ -2,8 +2,6 @@
 -- Title      : 1.5Msps 6-channel synchronously sampling ADC LTC2351
 -- Project    : 
 -------------------------------------------------------------------------------
--- File       : adc_ltc2351.vhd
--- Author     : strongly-typed
 -- Created    : 2012-04-10
 -- Platform   : 
 -- Standard   : VHDL'87
