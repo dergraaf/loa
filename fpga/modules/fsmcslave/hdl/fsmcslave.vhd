@@ -5,7 +5,7 @@
 -------------------------------------------------------------------------------
 -- Description: This is slave to the flexible static memory controller (FSMC)
 --              of a STM32 device. The slave is a busmaster to the local bus.
---              Data can be transfered to and from the bus slaves on the bus.
+--              Data can be transferred to and from the bus slaves on the bus.
 --              
 -------------------------------------------------------------------------------
 -- Copyright (c) 2013

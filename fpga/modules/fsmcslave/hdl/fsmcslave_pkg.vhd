@@ -35,5 +35,5 @@ package fsmcslave_pkg is
          clk : in std_logic
          );
    end component;
-   
+
 end package fsmcslave_pkg;
