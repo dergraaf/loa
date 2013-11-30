@@ -7,14 +7,16 @@ use work.fsmcslave_pkg.all;
 
 package fsmcmaster_pkg is
 
-   constant FSMC_ADDSET : natural := 25;
+   constant FSMC_ADDSET : natural := 15;
    constant FSMC_ADDHLD : natural := 0;
-   constant FSMC_DATAST : natural := 25;
+   constant FSMC_DATAST : natural := 15;
    constant FSMC_HCLK_PERIOD : time := 5952 ps;  -- ~168MHz
 
    procedure fsmcMasterWrite (
       signal addr  : in std_logic_vector(15 downto 0);
       signal data  : in std_logic_vector(15 downto 0);
+      -- Simulated Clock
+      signal hclk : out std_logic;
       -- "STM32 Pins"
       signal fsmc_o : out fsmcmaster_out_type;
       signal fsmc_i : in  fsmcmaster_in_type;
@@ -24,10 +26,17 @@ package fsmcmaster_pkg is
    procedure fsmcMasterRead (
       signal addr  : in  std_logic_vector(15 downto 0);
       signal data  : out std_logic_vector(15 downto 0);
+      -- Simulated Clock
+      signal hclk : out std_logic;
       -- "STM32 Pins"
       signal fsmc_o : out fsmcmaster_out_type;
       signal fsmc_i : in  fsmcmaster_in_type;
       signal fsmc_oe : out std_logic
+      );
+
+   procedure fsmcWait (
+      constant CLOCK_CYCLES : in  natural;
+      signal hclk           : out std_logic
       );
 
 end package fsmcmaster_pkg;
@@ -37,7 +46,9 @@ package body fsmcmaster_pkg is
    procedure fsmcMasterWrite(
       signal addr  : in std_logic_vector(15 downto 0);
       signal data  : in std_logic_vector(15 downto 0);
-      -- "STM32 Pins"
+       -- Simulated Clock
+      signal hclk : out std_logic;
+     -- "STM32 Pins"
       signal fsmc_o : out fsmcmaster_out_type;
       signal fsmc_i : in fsmcmaster_in_type;
       signal fsmc_oe : out std_logic
@@ -51,14 +62,18 @@ package body fsmcmaster_pkg is
          fsmc_o.oe_n  <= '1';
          fsmc_o.we_n  <= '1';
          fsmc_o.ad <= addr;
-         wait for FSMC_HCLK_PERIOD * FSMC_ADDSET;
+         fsmcWait(FSMC_ADDSET, hclk);
+         ----------------------------------------------------------------------
          fsmc_o.adv_n <= '1';
          fsmc_o.we_n  <= '0';
-         wait for FSMC_HCLK_PERIOD * FSMC_ADDHLD;
+         fsmcWait(FSMC_ADDHLD, hclk);
+         ----------------------------------------------------------------------
          fsmc_o.ad <= data;
-         wait for FSMC_HCLK_PERIOD * FSMC_DATAST;
+         fsmcWait(FSMC_DATAST, hclk);
+         ----------------------------------------------------------------------
          fsmc_o.we_n <= '1';
-         wait for FSMC_HCLK_PERIOD;
+         fsmcWait(1, hclk);
+         ----------------------------------------------------------------------
          fsmc_o.adv_n <= 'X';
          fsmc_o.cs_n  <= '1';                  -- do no longer select chip
          fsmc_o.oe_n  <= 'X';
@@ -69,6 +84,8 @@ package body fsmcmaster_pkg is
    procedure fsmcMasterRead(
       signal addr  : in  std_logic_vector(15 downto 0);
       signal data  : out std_logic_vector(15 downto 0);
+      -- Simulated Clock
+      signal hclk : out std_logic;
       -- "STM32 Pins"
       signal fsmc_o : out fsmcmaster_out_type;
       signal fsmc_i : in  fsmcmaster_in_type;
@@ -82,13 +99,16 @@ package body fsmcmaster_pkg is
          fsmc_o.oe_n  <= '1';
          fsmc_o.we_n  <= '1';
          fsmc_o.ad <= addr;
-         wait for FSMC_HCLK_PERIOD * FSMC_ADDSET;
+         fsmcWait(FSMC_ADDSET, hclk);
+         ----------------------------------------------------------------------
          fsmc_o.adv_n <= '1';
          fsmc_o.ad    <= (others => 'X');
-         wait for FSMC_HCLK_PERIOD * FSMC_ADDHLD;
+         fsmcWait(FSMC_ADDHLD, hclk);
+         ----------------------------------------------------------------------
          fsmc_oe      <= '0';
          fsmc_o.oe_n  <= '0';                  -- allow slave to write
-         wait for FSMC_HCLK_PERIOD * FSMC_DATAST;
+         fsmcWait(FSMC_DATAST, hclk);
+         ----------------------------------------------------------------------
          data  <= fsmc_i.ad;
          fsmc_o.adv_n <= '1';
          fsmc_o.cs_n  <= '1';                  -- do no longer select chip
@@ -97,5 +117,19 @@ package body fsmcmaster_pkg is
          fsmc_oe <= '1';
          -- wait for FSMC_HCLK_PERIOD;                -- TODO: find nicer way to do this
          fsmc_o.ad    <= (others => 'X');
-      end procedure;
+    end procedure;
+
+    procedure fsmcWait (
+       constant CLOCK_CYCLES : in  natural;
+       signal hclk           : out std_logic
+       ) is
+       begin
+         for ii in 0 to CLOCK_CYCLES-1 loop
+            hclk <= '1';
+            wait for FSMC_HCLK_PERIOD / 2;
+            hclk <= '0';
+            wait for FSMC_HCLK_PERIOD / 2;
+         end loop;  -- ii
+    end procedure;
+
 end package body fsmcmaster_pkg;
