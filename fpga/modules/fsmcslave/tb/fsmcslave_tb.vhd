@@ -39,8 +39,10 @@ architecture tb of fsmcslave_tb is
    -- FSMC master output enable
    signal fsmcmaster_oe : std_logic := '0';
 
-   signal bus_data_in  : unsigned(15 downto 0) := (others => '0');
-   signal bus_data_out : std_logic_vector(15 downto 0) := (others => '0');
+   signal bus_data_count  : unsigned(15 downto 0) := (others => '0');
+   signal bus_data_in     : std_logic_vector(15 downto 0) := (others => '0');
+   signal bus_data_out    : std_logic_vector(15 downto 0) := (others => '0');
+   signal bus_data_connect_counter : std_logic := '0';
 
    signal debug_addr : std_logic_vector(14 downto 0);
    signal debug_data : std_logic_vector(15 downto 0);
@@ -78,12 +80,12 @@ begin  -- tb
    process (clk) is
    begin  -- process
       if rising_edge(clk) then          -- rising clock edge
-          bus_data_in   <= bus_data_in + 1;
+          bus_data_count   <= bus_data_count + 1;
       end if;
    end process;
 
      -- read bus
-    bus_bhv : process (clk) is
+    bus_counter : process (clk) is
     begin
        if clk'event and clk = '1' then
           if bus_o.we = '1' then
@@ -92,11 +94,20 @@ begin  -- tb
        end if;
     end process;
 
+   bus_mux: process (bus_data_count, bus_data_in, bus_data_connect_counter) is
+   begin  -- process bus_mux
+      if bus_data_connect_counter = '1' then
+         bus_i.data <= std_logic_vector(bus_data_count);
+      else
+         bus_i.data <= bus_data_in;
+      end if;
+   end process bus_mux;
+
 
    process
    begin
+      bus_data_in <= (others => '0');
       addr <= "1111000011110000";
-      bus_i.data <= (others => '0');
 
       wait for FSMC_HCLK_PERIOD * 20;
 
@@ -111,7 +122,7 @@ begin  -- tb
          master_write_in_progress <= '0';
          wait until clk = '1';          -- wait for rising edge
          wait for 1 ps;                 -- ugly!!!
-         assert bus_data_out = data report "Oh no! Failed to write data via FSMC." severity warning;
+         assert bus_data_out = data report "Oh no! Failed to write data via FSMC." severity failure;
          -- clock shift
          wait for FSMC_HCLK_PERIOD / N_TEST_DATA;
       end loop;  -- ii
@@ -122,13 +133,13 @@ begin  -- tb
       data <= (others => 'X');          -- fsmc Master is going to write to data
 
       for ii in 0 to N_TEST_DATA-1 loop
-         bus_i.data <= TEST_DATA(ii);
+         bus_data_in <= TEST_DATA(ii);
          master_read_in_progress <= '1';
          fsmcMasterRead(addr => addr, data => data, hclk => hclk, fsmc_o => fsmc_i, fsmc_i => fsmc_o, fsmc_oe => fsmcmaster_oe);
          master_read_in_progress <= '0';
          wait until clk = '1';          -- wait for rising edge
          wait for 1 ps;                 -- ugly!!!
-         assert data = bus_i.data report "Oh no! Failed to read data via FSMC." severity warning;
+         assert data = bus_data_in report "Oh no! Failed to read data via FSMC." severity failure;
          -- clock shift
          wait for FSMC_HCLK_PERIOD / N_TEST_DATA;
       end loop;  -- ii
@@ -136,7 +147,7 @@ begin  -- tb
       -------------------------------------------------------------------------
       -- Test Read Timing
       -------------------------------------------------------------------------
-      bus_i.data <= std_logic_vector(bus_data_in);
+      bus_data_connect_counter <= '1';   -- connect counter to bus input
 
       for ii in 0 to N_TEST_DATA-1 loop
          master_read_in_progress <= '1';
@@ -146,6 +157,8 @@ begin  -- tb
          -- clock shift
          wait for FSMC_HCLK_PERIOD / N_TEST_DATA;
       end loop;  -- ii
+
+      bus_data_connect_counter <= '0';
 
       wait;
    end process;

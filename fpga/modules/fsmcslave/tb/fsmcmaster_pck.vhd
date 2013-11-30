@@ -7,9 +7,9 @@ use work.fsmcslave_pkg.all;
 
 package fsmcmaster_pkg is
 
-   constant FSMC_ADDSET : natural := 15;
+   constant FSMC_ADDSET : natural := 13;
    constant FSMC_ADDHLD : natural := 0;
-   constant FSMC_DATAST : natural := 15;
+   constant FSMC_DATAST : natural := 13;
    constant FSMC_HCLK_PERIOD : time := 5952 ps;  -- ~168MHz
 
    procedure fsmcMasterWrite (
