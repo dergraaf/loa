@@ -3,34 +3,31 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 library work;
+use work.fsmcslave_pkg.all;
 
 package fsmcmaster_pkg is
 
-   constant FSMC_ADDSET : natural := 3;
-   constant FSMC_ADDHLD : natural := 3;
-   constant FSMC_DATAST : natural := 3;
-   constant FSMC_HCLK_PERIOD : time := 50 ns;  -- 20MHz
+   constant FSMC_ADDSET : natural := 25;
+   constant FSMC_ADDHLD : natural := 0;
+   constant FSMC_DATAST : natural := 25;
+   constant FSMC_HCLK_PERIOD : time := 5952 ps;  -- ~168MHz
 
    procedure fsmcMasterWrite (
       signal addr  : in std_logic_vector(15 downto 0);
       signal data  : in std_logic_vector(15 downto 0);
       -- "STM32 Pins"
-      signal adv_n : out std_logic;       -- address valid
-      signal e1_n  : out std_logic;       -- chip select
-      signal oe_n  : out std_logic;       -- output enable
-      signal we_n  : out std_logic;       -- write enable
-      signal ad    : out std_logic_vector(15 downto 0)   -- address and data
+      signal fsmc_o : out fsmcmaster_out_type;
+      signal fsmc_i : in  fsmcmaster_in_type;
+      signal fsmc_oe : out std_logic
       );
 
    procedure fsmcMasterRead (
       signal addr  : in  std_logic_vector(15 downto 0);
       signal data  : out std_logic_vector(15 downto 0);
       -- "STM32 Pins"
-      signal adv_n : out std_logic;       -- address valid
-      signal e1_n  : out std_logic;       -- chip select
-      signal oe_n  : out std_logic;       -- output enable
-      signal we_n  : out std_logic;       -- write enable
-      signal ad    : inout std_logic_vector(15 downto 0)   -- address and data
+      signal fsmc_o : out fsmcmaster_out_type;
+      signal fsmc_i : in  fsmcmaster_in_type;
+      signal fsmc_oe : out std_logic
       );
 
 end package fsmcmaster_pkg;
@@ -41,64 +38,64 @@ package body fsmcmaster_pkg is
       signal addr  : in std_logic_vector(15 downto 0);
       signal data  : in std_logic_vector(15 downto 0);
       -- "STM32 Pins"
-      signal adv_n : out std_logic;       -- address valid
-      signal e1_n  : out std_logic;       -- chip select
-      signal oe_n  : out std_logic;       -- output enable
-      signal we_n  : out std_logic;       -- write enable
-      signal ad    : out std_logic_vector(15 downto 0)   -- address and data
+      signal fsmc_o : out fsmcmaster_out_type;
+      signal fsmc_i : in fsmcmaster_in_type;
+      signal fsmc_oe : out std_logic
       ) is
       begin
+         -- we will just output data
+         fsmc_oe <= '1';
          -- Figure 417. Multiplexed write access
-         adv_n <= '0';                  -- address valid
-         e1_n  <= '0';                  -- chip selected
-         oe_n  <= '1';
-         we_n  <= '1';
-         ad <= addr;
+         fsmc_o.adv_n <= '0';           -- address valid
+         fsmc_o.cs_n  <= '0';                  -- chip selected
+         fsmc_o.oe_n  <= '1';
+         fsmc_o.we_n  <= '1';
+         fsmc_o.ad <= addr;
          wait for FSMC_HCLK_PERIOD * FSMC_ADDSET;
-         adv_n <= '1';
-         we_n  <= '0';
+         fsmc_o.adv_n <= '1';
+         fsmc_o.we_n  <= '0';
          wait for FSMC_HCLK_PERIOD * FSMC_ADDHLD;
-         ad <= data;
+         fsmc_o.ad <= data;
          wait for FSMC_HCLK_PERIOD * FSMC_DATAST;
-         we_n <= '1';
+         fsmc_o.we_n <= '1';
          wait for FSMC_HCLK_PERIOD;
-         adv_n <= 'X';
-         e1_n  <= '1';                  -- do no longer select chip
-         oe_n  <= 'X';
-         we_n  <= '1';
-         ad    <= (others => 'X');
+         fsmc_o.adv_n <= 'X';
+         fsmc_o.cs_n  <= '1';                  -- do no longer select chip
+         fsmc_o.oe_n  <= 'X';
+         fsmc_o.we_n  <= '1';
+         fsmc_o.ad    <= (others => 'X');
       end procedure;
 
    procedure fsmcMasterRead(
       signal addr  : in  std_logic_vector(15 downto 0);
       signal data  : out std_logic_vector(15 downto 0);
       -- "STM32 Pins"
-      signal adv_n : out std_logic;       -- address valid
-      signal e1_n  : out std_logic;       -- chip select
-      signal oe_n  : out std_logic;       -- output enable
-      signal we_n  : out std_logic;       -- write enable
-      signal ad    : inout std_logic_vector(15 downto 0)   -- address and data
+      signal fsmc_o : out fsmcmaster_out_type;
+      signal fsmc_i : in  fsmcmaster_in_type;
+      signal fsmc_oe : out std_logic
       )is
       begin
+         fsmc_oe <= '1';
          -- Figure 417. Multiplexed write access
-         adv_n <= '0';                  -- address valid
-         e1_n  <= '0';                  -- chip selected
-         oe_n  <= '1';
-         we_n  <= '1';
-         ad <= addr;
+         fsmc_o.adv_n <= '0';                  -- address valid
+         fsmc_o.cs_n  <= '0';                  -- chip selected
+         fsmc_o.oe_n  <= '1';
+         fsmc_o.we_n  <= '1';
+         fsmc_o.ad <= addr;
          wait for FSMC_HCLK_PERIOD * FSMC_ADDSET;
-         adv_n <= '1';
-         ad    <= (others => 'X');
+         fsmc_o.adv_n <= '1';
+         fsmc_o.ad    <= (others => 'X');
          wait for FSMC_HCLK_PERIOD * FSMC_ADDHLD;
-         ad    <= (others => 'Z');
-         oe_n  <= '0';                  -- allow slave to write
+         fsmc_oe      <= '0';
+         fsmc_o.oe_n  <= '0';                  -- allow slave to write
          wait for FSMC_HCLK_PERIOD * FSMC_DATAST;
-         data  <= ad;
-         adv_n <= '1';
-         e1_n  <= '1';                  -- do no longer select chip
-         oe_n  <= '1';
-         we_n  <= '1';
+         data  <= fsmc_i.ad;
+         fsmc_o.adv_n <= '1';
+         fsmc_o.cs_n  <= '1';                  -- do no longer select chip
+         fsmc_o.oe_n  <= '1';
+         fsmc_o.we_n  <= '1';
+         fsmc_oe <= '1';
          -- wait for FSMC_HCLK_PERIOD;                -- TODO: find nicer way to do this
-         ad    <= (others => 'X');
+         fsmc_o.ad    <= (others => 'X');
       end procedure;
 end package body fsmcmaster_pkg;

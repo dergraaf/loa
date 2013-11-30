@@ -4,7 +4,7 @@ TESTBENCH = fsmcslave_tb
 
 # VHDL files
 FILES =  \
-	fsmcmaster_pck.vhd ../hdl/*.vhd
+	../../spislave/hdl/bus_pkg.vhd fsmcmaster_pck.vhd ../hdl/*.vhd
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file
