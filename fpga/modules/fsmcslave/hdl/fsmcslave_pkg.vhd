@@ -8,6 +8,25 @@ use work.bus_pkg.all;
 package fsmcslave_pkg is
 
    -- Naming is from the viewpoint of the external FSMC master (the STM32)
+
+
+   ----------------------------------------------------------------------------
+   -- External FSMC Connections
+   ----------------------------------------------------------------------------
+   type fsmc_in_type is record
+      adv_n : std_logic;
+      oe_n  : std_logic;                -- Bus master read (output enable)
+      we_n  : std_logic;                -- Bus master write (write enable)
+      e1_n  : std_logic;                -- Chip select
+   end record fsmc_in_type;
+
+   type fsmc_inout_type is record
+     ad   : std_logic_vector(15 downto 0);
+   end record fsmc_inout_type;
+
+   ----------------------------------------------------------------------------
+   -- Internal FSMC Connections
+   ----------------------------------------------------------------------------
    type fsmcmaster_out_type is record
       adv_n : std_logic;
       oe_n  : std_logic;                -- Bus master read (output enable)
