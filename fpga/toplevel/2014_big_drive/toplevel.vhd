@@ -6,7 +6,7 @@
 -- Platform   : Spartan 6
 -------------------------------------------------------------------------------
 -- Description:
--- Main control board of the 2013 robot "big".
+-- Main control board of the 2014 robot "big".
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -15,8 +15,8 @@ use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
--- use work.fsmcslave_pkg.all;
-use work.spislave_pkg.all;
+use work.fsmcslave_pkg.all;
+-- use work.spislave_pkg.all;
 
 use work.motor_control_pkg.all;
 use work.utils_pkg.all;
@@ -227,7 +227,7 @@ begin
    fsmc_i.oe_n  <= fsmc_in_p.oe_n;
    fsmc_i.we_n  <= fsmc_in_p.we_n;
    fsmc_i.cs_n  <= fsmc_in_p.e1_n;
-   fsmc_i.ad    <= fsmc_inout.ad;
+   fsmc_i.ad    <= fsmc_inout_p.ad;
    fsmc_inout_p.ad <= fsmc_o.ad when fsmc_oe = '1' else (others => 'Z');
 
    -- SPI connection to STM32F4xx

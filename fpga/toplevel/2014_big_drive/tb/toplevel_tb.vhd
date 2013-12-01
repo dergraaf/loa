@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- Title      : Testbench for design "2013_big_drive"
 -------------------------------------------------------------------------------
--- Description: 
+-- Description:
 -------------------------------------------------------------------------------
 -- Copyright (c) 2013 strongly-typed
 -------------------------------------------------------------------------------
@@ -12,7 +12,7 @@ use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
-use work.spislave_pkg.all;
+use work.fsmcslave_pkg.all;
 use work.motor_control_pkg.all;
 use work.utils_pkg.all;
 
@@ -49,13 +49,15 @@ architecture tb of toplevel_tb is
          imotor_rx_p       : in  std_logic_vector(4 downto 0);
          pump_p            : out std_logic_vector(3 downto 0);
          valve_p           : out std_logic_vector(3 downto 0);
-         cs_np             : in  std_logic;
-         sck_p             : in  std_logic;
-         miso_p            : out std_logic;
-         mosi_p            : in  std_logic;
+         fsmc_in_p         : in  fsmc_in_type;
+         fsmc_inout_p      : inout  fsmc_inout_type;
+--         cs_np             : in  std_logic;
+--         sck_p             : in  std_logic;
+--         miso_p            : out std_logic;
+--         mosi_p            : in  std_logic;
+         load_p            : in  std_logic;
          adc_out_p         : out adc_ad7266_spi_out_type;
          adc_in_p          : in  adc_ad7266_spi_in_type;
-         load_p            : in  std_logic;
          clk               : in  std_logic);
    end component toplevel;
 
@@ -77,13 +79,17 @@ architecture tb of toplevel_tb is
    signal pump_p            : std_logic_vector(3 downto 0);
    signal valve_p           : std_logic_vector(3 downto 0);
 
+   signal fsmc_in_p         : fsmc_in_type;
+   signal fsmc_inout_p      : fsmc_inout_type;
+
    signal adc_in_p  : adc_ad7266_spi_in_type;
    signal adc_out_p : adc_ad7266_spi_out_type;
 
-   signal cs_np  : std_logic := '0';
-   signal sck_p  : std_logic := '0';
-   signal miso_p : std_logic;
-   signal mosi_p : std_logic := '0';
+--   signal cs_np  : std_logic := '0';
+--   signal sck_p  : std_logic := '0';
+--   signal miso_p : std_logic;
+--   signal mosi_p : std_logic := '0';
+
 
    signal load_p : std_logic := '1';
 
@@ -107,13 +113,17 @@ begin  -- tb
          servo_p           => servo_p,
          imotor_rx_p       => imotor_rx_p,
          imotor_tx_p       => imotor_tx_p,
+         pump_p            => pump_p,
+         valve_p           => valve_p,
+         fsmc_in_p         => fsmc_in_p,
+         fsmc_inout_p      => fsmc_inout_p,
+         load_p            => load_p,
          adc_out_p         => adc_out_p,
          adc_in_p          => adc_in_p,
-         cs_np             => cs_np,
-         sck_p             => sck_p,
-         miso_p            => miso_p,
-         mosi_p            => mosi_p,
-         load_p            => load_p,
+--         cs_np             => cs_np,
+--         sck_p             => sck_p,
+--         miso_p            => miso_p,
+--         mosi_p            => mosi_p,
          clk               => clk);
 
    -- clock generation
@@ -126,4 +136,3 @@ begin  -- tb
    end process;
 
 end tb;
-

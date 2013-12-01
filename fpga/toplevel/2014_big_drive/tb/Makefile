@@ -5,8 +5,8 @@ TESTBENCH = toplevel_tb
 # VHDL files
 FILES =  \
 	../toplevel.vhd \
-	../../../modules/spislave/hdl/*.vhd \
 	../../../modules/fsmcslave/hdl/*.vhd \
+	../../../modules/spislave/hdl/*.vhd \
 	../../../modules/peripheral_register/hdl/*.vhd \
 	../../../modules/motor_control/hdl/*.vhd \
 	../../../modules/imotor/hdl/*.vhd \
