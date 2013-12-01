@@ -166,7 +166,8 @@ begin
          -- undefined behavior of the fsmc master or run into deadlocks, we
          -- could add a timeout here.
          when ST_WAIT_FOR_DATA =>
-            v.state := ST_IDLE;         -- escape if invalid pin configuration
+            -- TODO: add timeout
+            -- v.state := ST_IDLE;         -- escape if invalid pin configuration
             if ReadAddressxS = '1' then
                v.state := ST_WAIT_FOR_DATA;  -- stay in state waiting
             end if;

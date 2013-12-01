@@ -65,6 +65,10 @@ package body fsmcmaster_pkg is
          fsmcWait(FSMC_ADDSET, hclk);
          ----------------------------------------------------------------------
          fsmc_o.adv_n <= '1';
+         -- this is not mentioned in the Reference Manual but can be observed
+         -- in reality
+         fsmcWait(1, hclk);
+         ----------------------------------------------------------------------
          fsmc_o.we_n  <= '0';
          fsmcWait(FSMC_ADDHLD, hclk);
          ----------------------------------------------------------------------
@@ -102,7 +106,11 @@ package body fsmcmaster_pkg is
          fsmcWait(FSMC_ADDSET, hclk);
          ----------------------------------------------------------------------
          fsmc_o.adv_n <= '1';
-         fsmc_o.ad    <= (others => 'X');
+         -- this is not mentioned in the Reference Manual but can be observed
+         -- in reality
+         fsmcWait(1, hclk);
+         ----------------------------------------------------------------------
+         -- fsmc_o.ad    <= (others => 'X');
          fsmcWait(FSMC_ADDHLD, hclk);
          ----------------------------------------------------------------------
          fsmc_oe      <= '0';
