@@ -1,0 +1,13 @@
+* Replace resistor packages by single resistors.
+  Single resistors are more ruddged for hand soldering
+  * RN3
+  * RN6
+  * RN7
+  * RN4
+* Add CAN Transceiver to board
+* JTAG Termination
+* Replace serial flash by a more economic one
+  * AT45DB081D-SO (package too long): 1.30 EUR @ Reichelt
+    * Spansion S25FL208K0RMFI041: 0.27 + 0.05 = 0.32 @ Digikey
+	* Winbond W25Q80BVSNIG:       0.34 + 0.06 = 0.40 @ Digikey
+	Both alternatives are pin-compatible
