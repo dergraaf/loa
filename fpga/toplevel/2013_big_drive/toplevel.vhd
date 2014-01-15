@@ -257,7 +257,7 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   register_in <= x"ff56";
+   register_in <= x"4600";
 
    -- FIXME
    -- What does it do?      1 bit         3 bits       2 bits 2 bits
