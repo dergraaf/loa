@@ -175,6 +175,10 @@ architecture structural of toplevel is
    signal imotor_we_s        : std_logic;
    signal imotor_error_s     : std_logic;
 
+   --signal reg_test_s : reg_file_type(128-1 downto 0) := (others => (others => '0'));
+   --signal bus_test_reg_out : busdevice_out_type;
+   --constant BASE_ADDR_TESTING: natural := 16#0f00#;
+
 begin
    -- synchronize asynchronous signals
    process (clk)
@@ -269,7 +273,7 @@ begin
          bus_i  => bus_o,
          clk    => clk);
 
-   register_in <= x"ff56";
+   register_in <= x"1993";
 
    -- FIXME
    -- What does it do?      1 bit         3 bits       2 bits 2 bits
@@ -703,5 +707,19 @@ begin
          clk          => clk);
 
    adc_out_p.sgl_diff <= '0';
+
+
+   ----------------------------------------------------------------------------
+   -- reg_file for testing
+   --reg_file_testing : reg_file
+   --   generic map (
+   --      BASE_ADDRESS => BASE_ADDR_TESTING,
+   --      REG_ADDR_BIT => 7)             -- 2**7 = 128 values
+   --   port map (
+   --      bus_o => bus_test_reg_out,
+   --      bus_i => bus_o,
+   --      reg_o => reg_test_s,
+   --      reg_i => reg_test_s,
+   --      clk   => clk);
 
 end structural;
