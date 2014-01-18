@@ -7,6 +7,7 @@ ise/_ngo/
 ise/_xmsgs/
 ise/xst/
 ise/xlnx_auto_0_xdb/
+ise/netgen/
 toplevel.svf
 _impactbatch.log
 tb/simulation
