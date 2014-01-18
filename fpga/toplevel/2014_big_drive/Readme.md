@@ -29,7 +29,7 @@ There is a java tool
 	  |
 	  | Xilinx ISE: xst, ngdbuild, map, par, trce, bitgen
 	  v
-	 ise/toplevel.bit
+	 ise/toplevel.bin
 	  |
 	  | 
 	  v
