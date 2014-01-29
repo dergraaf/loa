@@ -59,7 +59,18 @@ class ModuleDescription():
 							'pwm4', 'current4',
 							]}
 	comparator_module = {
-						'read':[], 
+						'read':[
+							'upperLimit0',
+							'lowerLimit0',
+							'upperLimit1',
+							'lowerLimit1',
+							'upperLimit2',
+							'lowerLimit2',
+							'upperLimit3',
+							'lowerLimit3',
+							'upperLimit4',
+							'lowerLimit4',
+							], 
 						'write':[
 							'upperLimit0',
 							'lowerLimit0',
