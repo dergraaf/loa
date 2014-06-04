@@ -38,6 +38,41 @@ class ModuleDescription():
 		
 	peripheral_register =        {'read' : ['value'],         'write' : ['value']}
 	bldc_motor_module          = {'read' : [],                'write' : ['pwm']}
+	uss_tx_module              = {'read' : [
+									'fractionalClockDividerMul',
+									'fractionalClockDividerDiv',
+									'bitPattern0',
+									'bitPattern1',
+									'bitPattern2',
+									'bitPattern3'
+								],
+								'write' : [
+									'fractionalClockDividerMul',
+									'fractionalClockDividerDiv',
+									'bitPattern0',
+									'bitPattern1',
+									'bitPattern2',
+									'bitPattern3'
+								]}
+	ir_tx_module               = {'read' : [
+									'fractionalClockDividerMul',
+									'fractionalClockDividerDiv',
+								],
+								'write' : [
+									'fractionalClockDividerMul',
+									'fractionalClockDividerDiv',
+								]}
+	ir_rx_coefs               = {
+								'read'  : [], 
+								'write' : ['goertzelCoefficient0', 'goertzelCoefficient1']}
+	ir_rx_results  =            {
+	    						'read'  : [],
+								'write' : []
+								}
+	ir_rx_timestamp  =          {
+	    						'read'  : [],
+								'write' : []
+								}
 	encoder_module_extended    = {'read' : ['steps', 'time'], 'write' : []}
 	encoder_hall_sensor_module = {'read' : ['steps'],         'write' : []}
 	dc_motor_module            = {'read' : [],                'write' : ['pwm']}
