@@ -184,6 +184,9 @@ begin  -- behavioral
    pattern(31 downto 16) <= reg_o(3);
    pattern(47 downto 32) <= reg_o(4);
    pattern(63 downto 48) <= reg_o(5);
+	
+	-- enable readback of configurations
+	reg_i <= reg_o;
 
    clk_uss_enable_p <= clk_uss_enable;
 
