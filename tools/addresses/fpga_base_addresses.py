@@ -77,7 +77,8 @@ class ModuleDescription():
 	encoder_hall_sensor_module = {'read' : ['steps'],         'write' : []}
 	dc_motor_module            = {'read' : [],                'write' : ['pwm']}
 	dc_motor_module_extended   = {'read' : [],                'write' : ['pwm0', 'pwm1']}
-	servo_module               = {'read' : [],                'write' : ['servo2', 'servo3']}
+	servo_module               = {'read' : [],                'write' : ['servo0', 'servo1', 'servo2', 'servo3', 'servo4', 'servo5', 'servo6',
+'servo7', 'servo8', 'servo9', 'servo10', 'servo11]}
 	imotor_module = {
 					'read' : [
 							'encoder0', 'current0', 'status0',
