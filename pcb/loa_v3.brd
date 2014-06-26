@@ -2086,16 +2086,24 @@ Covered vias can be set in Masks (Limit).
 </pass>
 </autorouter>
 <elements>
-<element name="X3" library="con-cypressindustries" package="32005-201" value="MINI-USB" x="11.1124" y="4.7625" rot="R90"/>
+<element name="X3" library="con-cypressindustries" package="32005-201" value="MINI-USB" x="11.1124" y="4.7625" rot="R90">
+<attribute name="REICHELT#" value="USB BWM SMD" x="11.1124" y="4.7625" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
 <element name="C10" library="rcl" package="C0603" value="10n" x="15.875" y="45.56125" rot="R270"/>
 <element name="C11" library="rcl" package="C0603" value="10n" x="26.5112" y="58.42" rot="MR0"/>
 <element name="C12" library="rcl" package="C0603" value="10n" x="31.5913" y="46.5137" rot="MR0"/>
 <element name="C13" library="rcl" package="C0603" value="10n" x="17.64861875" y="43.2729125" rot="R180"/>
 <element name="R12" library="rcl" package="R0603" value="22" x="14.1286" y="12.2239" rot="R180"/>
 <element name="R13" library="rcl" package="R0603" value="22" x="14.92255" y="10.6363" rot="R180"/>
-<element name="LED1" library="led" package="CHIPLED_0805" value="Red" x="37.1475" y="11.5888" rot="R90"/>
-<element name="LED2" library="led" package="CHIPLED_0805" value="Red" x="37.1476" y="13.1762" rot="R90"/>
-<element name="LED9" library="led" package="CHIPLED_0805" value="Green" x="43.65625" y="41.7512" rot="R270"/>
+<element name="LED1" library="led" package="CHIPLED_0805" value="Red" x="37.1475" y="11.5888" rot="R90">
+<attribute name="REICHELT#" value="SMD-LED 0805 RT" x="37.1475" y="11.5888" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="LED2" library="led" package="CHIPLED_0805" value="Yellow" x="37.1476" y="13.1762" rot="R90">
+<attribute name="REICHELT#" value="SMD-LED 0805 GE" x="37.1476" y="13.1762" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="LED9" library="led" package="CHIPLED_0805" value="Green" x="43.65625" y="41.7512" rot="R270">
+<attribute name="REICHELT#" value="SMD-LED 0805 GN" x="43.65625" y="41.7512" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
 <element name="R22" library="rcl" package="R0603" value="330" x="44.76755" y="39.37" rot="R90"/>
 <element name="C14" library="rcl" package="C0603" value="100n" x="19.3675" y="56.1975" rot="MR0"/>
 <element name="C15" library="rcl" package="C0603" value="100n" x="32.0675" y="70.96125"/>
@@ -2105,86 +2113,136 @@ Covered vias can be set in Masks (Limit).
 <element name="C19" library="rcl" package="C0603" value="100n" x="36.9859" y="67.5034" rot="R45"/>
 <element name="C20" library="rcl" package="C0603" value="100n" x="41.3049" y="61.1852" rot="R180"/>
 <element name="C21" library="rcl" package="C0603" value="100n" x="9.6179" y="51.528" rot="R225"/>
-<element name="Q2" library="rca_sontiges" package="XO53" value="50.000" x="32.385" y="50.9586" rot="MR180"/>
+<element name="Q2" library="rca_sontiges" package="XO53" value="50.000" x="32.385" y="50.9586" rot="MR180">
+<attribute name="REICHELT#" value="XO53 50,00000" x="32.385" y="50.9586" size="1.778" layer="28" rot="MR180" display="off"/>
+</element>
 <element name="C25" library="rcl" package="C0603" value="100n" x="17.30375" y="45.56125" rot="R270"/>
 <element name="C26" library="rcl" package="C0603" value="100n" x="17.6213" y="63.6588" rot="MR180"/>
 <element name="C27" library="rcl" package="C0603" value="100n" x="30.7975" y="54.7688" rot="MR180"/>
 <element name="C28" library="rcl" package="C0603" value="100n" x="28.8925" y="52.3875" rot="MR270"/>
 <element name="C29" library="rcl" package="C0603" value="100n" x="17.6212" y="65.0876" rot="MR180"/>
 <element name="C30" library="rcl" package="C0603" value="100n" x="37.8482" y="66.675" rot="R45"/>
-<element name="JP5" library="rca_stecker" package="SD_MOLEX_49225-0821" value="SD_DETECT" x="19.05" y="9.3663" rot="MR0"/>
+<element name="JP5" library="rca_stecker" package="SD_MOLEX_49225-0821" value="SD_DETECT" x="19.05" y="9.3663" rot="MR0">
+<attribute name="DIGIKEY#" value="WM3295CT-ND" x="19.05" y="9.3663" size="1.778" layer="28" rot="MR0" display="off"/>
+</element>
 <element name="R26" library="rcl" package="R0603" value="10k" x="27.4637" y="29.21" rot="MR90"/>
 <element name="R28" library="rcl" package="R0603" value="10k" x="28.8924" y="29.2099" rot="MR90"/>
 <element name="R29" library="rcl" package="R0603" value="10k" x="22.54255" y="34.2901" rot="R90"/>
 <element name="C34" library="rcl" package="C0603" value="100n" x="17.62135" y="41.9098" rot="R180"/>
-<element name="LED10" library="led" package="CHIPLED_0805" value="Blue" x="8.89" y="13.97"/>
+<element name="LED10" library="led" package="CHIPLED_0805" value="Blue" x="8.89" y="13.97">
+<attribute name="REICHELT#" value="SMD-LED 0805 BL" x="8.89" y="13.97" size="1.778" layer="27" display="off"/>
+</element>
 <element name="R1" library="rcl" package="R0805" value="820" x="9.8425" y="16.8275" rot="R180"/>
-<element name="IC4" library="rca_spgversorgung" package="SOT223" value="MCP1825S-1202E/DB" x="24.765" y="51.435" rot="MR180"/>
-<element name="C47" library="rcl" package="C0805" value="4µ7" x="23.0187" y="56.8324" rot="MR180"/>
-<element name="C48" library="rcl" package="C0805" value="1µ" x="26.4318" y="56.8325" rot="MR0"/>
-<element name="D1" library="diode" package="SMB" value="MURS 140" x="15.0811" y="26.1938" rot="R270"/>
+<element name="IC4" library="rca_spgversorgung" package="SOT223" value="MCP1825S-1202E/DB" x="24.765" y="51.435" rot="MR180">
+<attribute name="DIGIKEY#" value="MCP1825S-1202E/DB-ND" x="24.765" y="51.435" size="1.778" layer="28" rot="MR180" display="off"/>
+</element>
+<element name="C47" library="rcl" package="C0805" value="4µ7" x="23.0187" y="56.8324" rot="MR180">
+<attribute name="REICHELT#" value="X5R-G0805 4,7" x="23.0187" y="56.8324" size="1.778" layer="28" rot="MR180" display="off"/>
+</element>
+<element name="C48" library="rcl" package="C0805" value="1µ" x="26.4318" y="56.8325" rot="MR0">
+<attribute name="REICHELT#" value="X7R-G0805 1,0/25" x="26.4318" y="56.8325" size="1.778" layer="28" rot="MR0" display="off"/>
+</element>
+<element name="D1" library="diode" package="SMB" value="MURS 140" x="15.0811" y="26.1938" rot="R270">
+<attribute name="REICHELT#" value="MURS 140 SMD" x="15.0811" y="26.1938" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
 <element name="C52" library="rcl" package="SMC_C" value="22µ" x="25.5588" y="23.65365" rot="MR180">
 <attribute name="VOLTAGE" value="6,3V" x="25.5588" y="23.65365" size="1.778" layer="28" rot="R180" display="off"/>
+<attribute name="REICHELT#" value="SMD TAN.22/6,3" x="25.5588" y="23.65365" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
 <element name="C54" library="rcl" package="C0603" value="100n" x="20.4788" y="52.705" rot="MR270"/>
 <element name="C55" library="rcl" package="C0603" value="100n" x="22.0663" y="59.2138" rot="MR90"/>
 <element name="R10" library="rcl" package="R0805" value="1M" x="8.57245" y="1.4288" rot="MR0"/>
 <element name="C56" library="rcl" package="C0603" value="10n" x="8.57255" y="3.175" rot="MR180"/>
-<element name="U1" library="xilinx_devices" package="TQ144" value="6SLX9TQG144" x="25.5156" y="56.6624" rot="R45"/>
+<element name="U1" library="xilinx_devices" package="TQ144" value="6SLX9TQG144" x="25.5156" y="56.6624" rot="R45">
+<attribute name="DIGIKEY#" value="122-1745-ND" x="25.5156" y="56.6624" size="1.778" layer="27" rot="R45" display="off"/>
+</element>
 <element name="RN3" library="resistor-dil" package="EXB38V" value="100" x="38.4055" y="48.7117" rot="R45">
 <attribute name="MF" value="" x="21.343" y="56.7939" size="1.778" layer="27" rot="R45" display="off"/>
 <attribute name="MPN" value="" x="21.343" y="56.7939" size="1.778" layer="27" rot="R45" display="off"/>
 <attribute name="OC_FARNELL" value="unknown" x="21.343" y="56.7939" size="1.778" layer="27" rot="R45" display="off"/>
 <attribute name="OC_NEWARK" value="unknown" x="21.343" y="56.7939" size="1.778" layer="27" rot="R45" display="off"/>
+<attribute name="REICHELT#" value="BCN16 100" x="38.4055" y="48.7117" size="1.778" layer="27" rot="R45" display="off"/>
 </element>
 <element name="RN4" library="resistor-dil" package="EXB38V" value="100" x="30.0987" y="40.1083">
 <attribute name="MF" value="" x="11.0486" y="57.8884" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="" x="11.0486" y="57.8884" size="1.778" layer="27" display="off"/>
 <attribute name="OC_FARNELL" value="unknown" x="11.0486" y="57.8884" size="1.778" layer="27" display="off"/>
 <attribute name="OC_NEWARK" value="unknown" x="11.0486" y="57.8884" size="1.778" layer="27" display="off"/>
+<attribute name="REICHELT#" value="BCN16 100" x="30.0987" y="40.1083" size="1.778" layer="27" display="off"/>
 </element>
 <element name="RN6" library="resistor-dil" package="EXB38V" value="100" x="35.9359" y="46.2421" rot="R45">
 <attribute name="MF" value="" x="0.9129" y="36.3638" size="1.778" layer="27" rot="R45" display="off"/>
 <attribute name="MPN" value="" x="0.9129" y="36.3638" size="1.778" layer="27" rot="R45" display="off"/>
 <attribute name="OC_FARNELL" value="unknown" x="0.9129" y="36.3638" size="1.778" layer="27" rot="R45" display="off"/>
 <attribute name="OC_NEWARK" value="unknown" x="0.9129" y="36.3638" size="1.778" layer="27" rot="R45" display="off"/>
+<attribute name="REICHELT#" value="BCN16 100" x="35.9359" y="46.2421" size="1.778" layer="27" rot="R45" display="off"/>
 </element>
 <element name="RN7" library="resistor-dil" package="EXB38V" value="100" x="33.4663" y="43.7726" rot="R45">
 <attribute name="MF" value="" x="-10.5369" y="24.9141" size="1.778" layer="27" rot="R45" display="off"/>
 <attribute name="MPN" value="" x="-10.5369" y="24.9141" size="1.778" layer="27" rot="R45" display="off"/>
 <attribute name="OC_FARNELL" value="unknown" x="-10.5369" y="24.9141" size="1.778" layer="27" rot="R45" display="off"/>
 <attribute name="OC_NEWARK" value="unknown" x="-10.5369" y="24.9141" size="1.778" layer="27" rot="R45" display="off"/>
+<attribute name="REICHELT#" value="BCN16 100" x="33.4663" y="43.7726" size="1.778" layer="27" rot="R45" display="off"/>
 </element>
 <element name="R7" library="rcl" package="R0603" value="10k" x="32.5438" y="33.4963" rot="MR0"/>
 <element name="R11" library="rcl" package="R0603" value="330" x="41.11625" y="56.19755" rot="R90"/>
-<element name="IC5" library="rca_spgversorgung" package="SO08" value="NCP3170" x="10.6363" y="34.925" rot="R180"/>
-<element name="L3" library="rca_sontiges" package="L-PISG" value="4µ7" x="9.525" y="27.3051"/>
+<element name="IC5" library="rca_spgversorgung" package="SO08" value="NCP3170" x="10.6363" y="34.925" rot="R180">
+<attribute name="DIGIKEY#" value="NCP3170ADR2GOSCT-ND" x="10.6363" y="34.925" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
+<element name="L3" library="rca_sontiges" package="L-PISG" value="4µ7" x="9.525" y="27.3051">
+<attribute name="REICHELT#" value="L-PISG 4,7µ" x="9.525" y="27.3051" size="1.778" layer="27" display="off"/>
+</element>
 <element name="C6" library="rcl" package="SMC_D" value="22µ" x="9.6838" y="43.3387">
 <attribute name="VOLTAGE" value="20V" x="9.6838" y="43.3387" size="1.778" layer="27" display="off"/>
+<attribute name="REICHELT#" value="SMD TAN.22/20" x="9.6838" y="43.3387" size="1.778" layer="27" display="off"/>
 </element>
-<element name="CC1" library="rcl" package="C0805" value="6n8" x="6.8263" y="32.0675" rot="R90"/>
-<element name="RC1" library="rcl" package="M0805" value="4k99" x="6.8263" y="35.56" rot="R270"/>
-<element name="R27" library="rcl" package="M0805" value="24k9" x="14.4463" y="31.9087" rot="R270"/>
-<element name="R30" library="rcl" package="M0805" value="8k06" x="14.4463" y="35.56" rot="R270"/>
+<element name="CC1" library="rcl" package="C0805" value="6n8" x="6.8263" y="32.0675" rot="R90">
+<attribute name="REICHELT#" value="X7R-G0805 6,8N" x="6.8263" y="32.0675" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="RC1" library="rcl" package="M0805" value="4k99" x="6.8263" y="35.56" rot="R270">
+<attribute name="DIGIKEY#" value="311-4.99KCRCT-ND" x="6.8263" y="35.56" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
+<element name="R27" library="rcl" package="M0805" value="24k9" x="14.4463" y="31.9087" rot="R270">
+<attribute name="DIGIKEY#" value="311-24.9KCRCT-ND" x="14.4463" y="31.9087" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
+<element name="R30" library="rcl" package="M0805" value="8k06" x="14.4463" y="35.56" rot="R270">
+<attribute name="DIGIKEY#" value="311-8.06KCRCT-ND" x="14.4463" y="35.56" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
 <element name="C7" library="rcl" package="SMC_C" value="22µ" x="9.0488" y="19.5262" rot="R180">
-<attribute name="VOLTAGE" value="20V" x="9.0488" y="19.5262" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="VOLTAGE" value="6,3V" x="9.0488" y="19.5262" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="REICHELT#" value="SMD TAN.22/6,3" x="9.0488" y="19.5262" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="C8" library="rcl" package="SMC_C" value="22µ" x="9.0488" y="23.1775" rot="R180">
-<attribute name="VOLTAGE" value="20V" x="9.0488" y="23.1775" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="VOLTAGE" value="6,3V" x="9.0488" y="23.1775" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="REICHELT#" value="SMD TAN.22/6,3" x="9.0488" y="23.1775" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="CB1" library="rcl" package="C0603" value="100n" x="6.03255" y="39.21135" rot="R270"/>
-<element name="IC6" library="rca_ic" package="TQFP32-08" value="AD7266SU" x="11.1125" y="69.215" rot="R270"/>
-<element name="L4" library="wuerth-elektronik" package="WE-KI_0805_B" value="0,68u" x="14.7637" y="76.83495" rot="R180"/>
+<element name="IC6" library="rca_ic" package="TQFP32-08" value="AD7265SU" x="11.1125" y="69.215" rot="R270">
+<attribute name="DIGIKEY#" value="AD7265BSUZ-ND" x="11.1125" y="69.215" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
+<element name="L4" library="wuerth-elektronik" package="WE-KI_0805_B" value="0,47u" x="14.7637" y="76.83495" rot="R180">
+<attribute name="REICHELT#" value="JCI 2012 0,47µ" x="14.7637" y="76.83495" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
 <element name="C9" library="rcl" package="C0603" value="100n" x="11.43" y="75.2475" rot="R180"/>
-<element name="C23" library="rcl" package="C0805" value="1µ" x="11.43" y="76.835" rot="R180"/>
-<element name="C24" library="rcl" package="C0805" value="1µ" x="15.55745" y="74.6125" rot="MR0"/>
+<element name="C23" library="rcl" package="C0805" value="1µ" x="11.43" y="76.835" rot="R180">
+<attribute name="REICHELT#" value="X7R-G0805 1,0/25" x="11.43" y="76.835" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
+<element name="C24" library="rcl" package="C0805" value="1µ" x="15.55745" y="74.6125" rot="MR0">
+<attribute name="REICHELT#" value="X7R-G0805 1,0/25" x="15.55745" y="74.6125" size="1.778" layer="28" rot="MR0" display="off"/>
+</element>
 <element name="C45" library="rcl" package="C0603" value="100n" x="15.55745" y="73.025" rot="MR0"/>
 <element name="C46" library="rcl" package="C0603" value="100n" x="15.55755" y="70.8024" rot="MR0"/>
 <element name="R32" library="rcl" package="R0603" value="10k" x="17.145" y="68.4213" rot="MR90"/>
-<element name="C57" library="rcl" package="C0805" value="470n" x="7.7788" y="77.3113" rot="R180"/>
-<element name="C58" library="rcl" package="C0805" value="470n" x="10.22565" y="64.770109375" rot="MR0"/>
+<element name="C57" library="rcl" package="C0805" value="1µ" x="7.7788" y="77.3113" rot="R180">
+<attribute name="REICHELT#" value="X7R-G0805 1,0/25" x="7.7788" y="77.3113" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
+<element name="C58" library="rcl" package="C0805" value="1µ" x="10.22565" y="64.770109375" rot="MR0">
+<attribute name="REICHELT#" value="X7R-G0805 1,0/25" x="10.22565" y="64.770109375" size="1.778" layer="28" rot="MR0" display="off"/>
+</element>
 <element name="R9" library="rcl" package="R0603" value="10k" x="13.4938" y="76.835" rot="MR0"/>
-<element name="IC1" library="stm32" package="TQFP100" value="STM32F10XVXT6" x="29.845" y="25.0825" rot="R180"/>
+<element name="IC1" library="stm32" package="TQFP100" value="STM32F10XVXT6" x="29.845" y="25.0825" rot="R180">
+<attribute name="DIGIKEY#" value="497-11605-ND" x="29.845" y="25.0825" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
 <element name="C40" library="rcl" package="C0603" value="100n" x="40.6399" y="24.13" rot="R270"/>
 <element name="C41" library="rcl" package="C0603" value="100n" x="36.5125" y="35.4012"/>
 <element name="C42" library="rcl" package="C0603" value="100n" x="22.54245" y="37.465" rot="R90"/>
@@ -2192,37 +2250,67 @@ Covered vias can be set in Masks (Limit).
 <element name="C59" library="rcl" package="C0603" value="100n" x="37.9413" y="16.1925"/>
 <element name="SJ1" library="rca_sontiges" package="SJ_2S" value="PDR_ON" x="36.6713" y="19.05" rot="MR270"/>
 <element name="C60" library="rcl" package="C0603" value="100n" x="40.6401" y="21.9075"/>
-<element name="C61" library="rcl" package="C0805" value="4u7" x="39.0525" y="36.195" rot="R270"/>
-<element name="C62" library="rcl" package="C0603" value="1n" x="41.91" y="32.5437"/>
-<element name="C63" library="rcl" package="C0805" value="1µ" x="41.91" y="34.1313"/>
-<element name="C64" library="rcl" package="C0603" value="1n" x="40.9575" y="29.845" rot="R270"/>
-<element name="C65" library="rcl" package="C0805" value="1µ" x="42.545" y="30.0038" rot="R270"/>
-<element name="L2" library="wuerth-elektronik" package="WE-KI_0805_B" value="0,68u" x="41.275" y="38.5762" rot="R270"/>
-<element name="C66" library="rcl" package="C0805" value="2u2" x="24.12995" y="37.4651" rot="R90"/>
-<element name="C67" library="rcl" package="C0805" value="2u2" x="19.0501" y="16.6687" rot="R270"/>
+<element name="C61" library="rcl" package="C0805" value="4u7" x="39.0525" y="36.195" rot="R270">
+<attribute name="REICHELT#" value="X5R-G0805 4,7" x="39.0525" y="36.195" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
+<element name="C62" library="rcl" package="C0603" value="1n" x="41.91" y="32.5437">
+<attribute name="REICHELT#" value="X7R-G0603 1,0N" x="41.91" y="32.5437" size="1.778" layer="27" display="off"/>
+</element>
+<element name="C63" library="rcl" package="C0805" value="1µ" x="41.91" y="34.1313">
+<attribute name="REICHELT#" value="X7R-G0805 1,0/25" x="41.91" y="34.1313" size="1.778" layer="27" display="off"/>
+</element>
+<element name="C64" library="rcl" package="C0603" value="1n" x="40.9575" y="29.845" rot="R270">
+<attribute name="REICHELT#" value="X7R-G0603 1,0N" x="40.9575" y="29.845" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
+<element name="C65" library="rcl" package="C0805" value="1µ" x="42.545" y="30.0038" rot="R270">
+<attribute name="REICHELT#" value="X7R-G0805 1,0/25" x="42.545" y="30.0038" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
+<element name="L2" library="wuerth-elektronik" package="WE-KI_0805_B" value="0,47u" x="41.275" y="38.5762" rot="R270">
+<attribute name="REICHELT#" value="JCI 2012 0,47µ" x="41.275" y="38.5762" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
+<element name="C66" library="rcl" package="C0805" value="2u2" x="24.12995" y="37.4651" rot="R90">
+<attribute name="REICHELT#" value="X7R-G0805 2,2/25" x="24.12995" y="37.4651" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="C67" library="rcl" package="C0805" value="2u2" x="19.0501" y="16.6687" rot="R270">
+<attribute name="REICHELT#" value="X7R-G0805 2,2/25" x="19.0501" y="16.6687" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
 <element name="C68" library="rcl" package="C0603" value="100n" x="44.0202" y="26.8752" rot="R315"/>
 <element name="SJ6" library="rca_sontiges" package="SJS" value="" x="44.7675" y="35.56" rot="R270"/>
 <element name="R14" library="rcl" package="R0603" value="100k" x="32.8612" y="12.38255" rot="R90"/>
 <element name="R15" library="rcl" package="R0603" value="10k" x="20.7963" y="13.4938" rot="R90"/>
-<element name="Q3" library="rca_sontiges" package="XO53" value="25.000" x="32.5437" y="27.7813" rot="MR270"/>
-<element name="S2" library="rca_sontiges" package="B3F-10XX-SMD" value="Reset" x="20.32" y="6.66755" rot="R270"/>
+<element name="Q3" library="rca_sontiges" package="XO53" value="25.000" x="32.5437" y="27.7813" rot="MR270">
+<attribute name="REICHELT#" value="XO53 25,00000" x="32.5437" y="27.7813" size="1.778" layer="28" rot="MR270" display="off"/>
+</element>
+<element name="S2" library="rca_sontiges" package="B3F-10XX-SMD" value="Reset" x="20.32" y="6.66755" rot="R270">
+<attribute name="REICHELT#" value="TASTER 9315" x="20.32" y="6.66755" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
 <element name="R2" library="rcl" package="R0603" value="330" x="40.4813" y="11.5888"/>
 <element name="R3" library="rcl" package="R0603" value="330" x="40.4813" y="13.1763"/>
 <element name="R4" library="rcl" package="R0603" value="10k" x="10.31885" y="56.6737" rot="R270"/>
-<element name="IC2" library="rca_ic" package="SO-08M" value="M25P80MW" x="18.89125" y="36.5125" rot="R180"/>
+<element name="IC2" library="rca_ic" package="SO-08M" value="M25P80MW" x="18.89125" y="36.5125" rot="R180">
+<attribute name="DIGIKEY#" value="M25P80-VMN6TPCT-ND" x="18.89125" y="36.5125" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
 <element name="JP1" library="pinhead2" package="2X16" value="" x="2.54" y="60.96" rot="R270"/>
 <element name="JP4" library="pinhead2" package="2X16" value="" x="2.54" y="20.32" rot="R270"/>
 <element name="JP6" library="pinhead2" package="2X16" value="" x="48.26" y="60.96" rot="R270"/>
-<element name="JP11" library="rca_stecker" package="ML10" value="CORTEX_JTAGW" x="34.29" y="5.08" rot="R180"/>
-<element name="JP2" library="rca_stecker" package="ML10" value="CORTEX_JTAGW" x="26.67" y="76.2"/>
+<element name="JP11" library="rca_stecker" package="ML10" value="CORTEX_JTAGW" x="34.29" y="5.08" rot="R180">
+<attribute name="REICHELT#" value="WSL 10G" x="34.29" y="5.08" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
+<element name="JP2" library="rca_stecker" package="ML10" value="CORTEX_JTAGW" x="26.67" y="76.2">
+<attribute name="REICHELT#" value="WSL 10G" x="26.67" y="76.2" size="1.778" layer="27" display="off"/>
+</element>
 <element name="JP3" library="pinhead2" package="1X03S" value="" x="6.35" y="13.97" rot="R270"/>
-<element name="LED3" library="led" package="CHIPLED_0805" value="Green" x="8.274259375" y="54.18024375" rot="R135"/>
+<element name="LED3" library="led" package="CHIPLED_0805" value="Green" x="8.274259375" y="54.18024375" rot="R135">
+<attribute name="REICHELT#" value="SMD-LED 0805 GN" x="8.274259375" y="54.18024375" size="1.778" layer="27" rot="R135" display="off"/>
+</element>
 <element name="R5" library="rcl" package="R0603" value="330" x="8.09625" y="56.35625" rot="R225"/>
-<element name="IC3" library="rca_ic" package="TSOP48" value="NAND_FLASH" x="39.37" y="66.04" rot="MR90">
+<element name="IC3" library="rca_ic" package="TSOP48" value="S34ML04G100TFI000" x="39.37" y="66.04" rot="MR90">
 <attribute name="OC_NEWARK" value="unknown" x="39.37" y="66.04" size="1.778" layer="28" rot="MR90" display="off"/>
 <attribute name="MPN" value="" x="39.37" y="66.04" size="1.778" layer="28" rot="MR90" display="off"/>
 <attribute name="MF" value="" x="39.37" y="66.04" size="1.778" layer="28" rot="MR90" display="off"/>
 <attribute name="OC_FARNELL" value="unknown" x="39.37" y="66.04" size="1.778" layer="28" rot="MR90" display="off"/>
+<attribute name="DIGIKEY#" value="1274-1042-ND" x="39.37" y="66.04" size="1.778" layer="28" rot="MR90" display="off"/>
+<attribute name="MANF" value="Spansion" x="39.37" y="66.04" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
 <element name="C1" library="rcl" package="C0603" value="100n" x="39.37" y="77.47" rot="MR0"/>
 <element name="C2" library="rcl" package="C0603" value="100n" x="39.37" y="53.975" rot="MR0"/>
@@ -6693,11 +6781,6 @@ Covered vias can be set in Masks (Limit).
 <wire x1="40.62" y1="58.59875" x2="40.62" y2="56.29" width="0.254" layer="16"/>
 </signal>
 </signals>
-<errors>
-<approved hash="19,1,8fca3eadebbb0b8c"/>
-<approved hash="19,1,4175b39e4d792623"/>
-<approved hash="19,1,3b07a5854de3d2cf"/>
-</errors>
 </board>
 </drawing>
 </eagle>
