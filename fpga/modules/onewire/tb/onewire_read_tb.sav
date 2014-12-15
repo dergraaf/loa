@@ -1,0 +1,53 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Sun Dec 14 00:58:59 2014
+[*]
+[dumpfile] "/home/calle/projects/fpga_loa/loa_develop/fpga/modules/onewire/tb/simulation/onewire_read_tb.ghw"
+[dumpfile_mtime] "Sun Dec 14 00:57:30 2014"
+[dumpfile_size] 7952422
+[savefile] "/home/calle/projects/fpga_loa/loa_develop/fpga/modules/onewire/tb/onewire_read_tb.sav"
+[timestart] 0
+[size] 1918 990
+[pos] 1919 0
+*-36.823284 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.onewire_read_tb.
+[treeopen] top.onewire_read_tb.dut.
+[treeopen] top.onewire_read_tb.onewire_in.
+[treeopen] top.onewire_read_tb.onewire_out.
+[sst_width] 224
+[signals_width] 236
+[sst_expanded] 1
+[sst_vpaned_height] 283
+@28
+top.onewire_read_tb.clk
+@200
+-
+@28
+top.onewire_read_tb.onewire_bus_in.d
+@200
+-
+@28
+top.onewire_read_tb.onewire_bus_out.en_driver
+top.onewire_read_tb.onewire_bus_out.d
+@200
+-
+@28
+top.onewire_read_tb.onewire_out.err
+top.onewire_read_tb.onewire_out.busy
+@23
+#{top.onewire_read_tb.onewire_out.d[7:0]} top.onewire_read_tb.onewire_out.d[7] top.onewire_read_tb.onewire_out.d[6] top.onewire_read_tb.onewire_out.d[5] top.onewire_read_tb.onewire_out.d[4] top.onewire_read_tb.onewire_out.d[3] top.onewire_read_tb.onewire_out.d[2] top.onewire_read_tb.onewire_out.d[1] top.onewire_read_tb.onewire_out.d[0]
+@200
+-
+@28
+top.onewire_read_tb.onewire_in.reset_bus
+top.onewire_read_tb.onewire_in.we
+top.onewire_read_tb.onewire_in.re
+@200
+-
+@28
+top.onewire_read_tb.dut.r.state
+top.onewire_read_tb.dut.r.bit_cnt
+top.onewire_read_tb.dut.r.timer
+[pattern_trace] 1
+[pattern_trace] 0

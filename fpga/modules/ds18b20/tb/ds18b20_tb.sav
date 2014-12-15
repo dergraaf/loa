@@ -1,0 +1,56 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Sun Dec 14 12:52:43 2014
+[*]
+[dumpfile] "/home/calle/projects/fpga_loa/loa_develop/fpga/modules/ds18b20/tb/simulation/ds18b20_tb.ghw"
+[dumpfile_mtime] "Sun Dec 14 12:51:51 2014"
+[dumpfile_size] 7001510
+[savefile] "/home/calle/projects/fpga_loa/loa_develop/fpga/modules/ds18b20/tb/ds18b20_tb.sav"
+[timestart] 0
+[size] 1918 990
+[pos] -1 -1
+*-28.038898 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.ds18b20_tb.
+[treeopen] top.ds18b20_tb.ds18b20_out.
+[treeopen] top.ds18b20_tb.dut.
+[treeopen] top.ds18b20_tb.dut.ds18b20_out.
+[treeopen] top.ds18b20_tb.dut.r.
+[treeopen] top.ds18b20_tb.dut.r.ow_in.
+[treeopen] top.ds18b20_tb.ow_in.
+[treeopen] top.ds18b20_tb.ow_out.
+[sst_width] 224
+[signals_width] 118
+[sst_expanded] 1
+[sst_vpaned_height] 283
+@28
+top.ds18b20_tb.clk
+@200
+-
+@28
+top.ds18b20_tb.ow_out.busy
+top.ds18b20_tb.ow_out.err
+@22
+#{top.ds18b20_tb.ow_out.d[7:0]} top.ds18b20_tb.ow_out.d[7] top.ds18b20_tb.ow_out.d[6] top.ds18b20_tb.ow_out.d[5] top.ds18b20_tb.ow_out.d[4] top.ds18b20_tb.ow_out.d[3] top.ds18b20_tb.ow_out.d[2] top.ds18b20_tb.ow_out.d[1] top.ds18b20_tb.ow_out.d[0]
+@200
+-
+@28
+top.ds18b20_tb.ow_in.reset_bus
+top.ds18b20_tb.ow_in.we
+top.ds18b20_tb.ow_in.re
+@200
+-
+@28
+top.ds18b20_tb.ds18b20_in.refresh
+top.ds18b20_tb.ds18b20_out.err
+top.ds18b20_tb.ds18b20_out.update
+@22
+#{top.ds18b20_tb.ds18b20_out.value[15:0]} top.ds18b20_tb.ds18b20_out.value[15] top.ds18b20_tb.ds18b20_out.value[14] top.ds18b20_tb.ds18b20_out.value[13] top.ds18b20_tb.ds18b20_out.value[12] top.ds18b20_tb.ds18b20_out.value[11] top.ds18b20_tb.ds18b20_out.value[10] top.ds18b20_tb.ds18b20_out.value[9] top.ds18b20_tb.ds18b20_out.value[8] top.ds18b20_tb.ds18b20_out.value[7] top.ds18b20_tb.ds18b20_out.value[6] top.ds18b20_tb.ds18b20_out.value[5] top.ds18b20_tb.ds18b20_out.value[4] top.ds18b20_tb.ds18b20_out.value[3] top.ds18b20_tb.ds18b20_out.value[2] top.ds18b20_tb.ds18b20_out.value[1] top.ds18b20_tb.ds18b20_out.value[0]
+@28
+top.ds18b20_tb.dut.r.state
+@22
+#{top.ds18b20_tb.dut.r.ow_in.d[7:0]} top.ds18b20_tb.dut.r.ow_in.d[7] top.ds18b20_tb.dut.r.ow_in.d[6] top.ds18b20_tb.dut.r.ow_in.d[5] top.ds18b20_tb.dut.r.ow_in.d[4] top.ds18b20_tb.dut.r.ow_in.d[3] top.ds18b20_tb.dut.r.ow_in.d[2] top.ds18b20_tb.dut.r.ow_in.d[1] top.ds18b20_tb.dut.r.ow_in.d[0]
+@23
+#{top.ds18b20_tb.dut.ds18b20_out.value[15:0]} top.ds18b20_tb.dut.ds18b20_out.value[15] top.ds18b20_tb.dut.ds18b20_out.value[14] top.ds18b20_tb.dut.ds18b20_out.value[13] top.ds18b20_tb.dut.ds18b20_out.value[12] top.ds18b20_tb.dut.ds18b20_out.value[11] top.ds18b20_tb.dut.ds18b20_out.value[10] top.ds18b20_tb.dut.ds18b20_out.value[9] top.ds18b20_tb.dut.ds18b20_out.value[8] top.ds18b20_tb.dut.ds18b20_out.value[7] top.ds18b20_tb.dut.ds18b20_out.value[6] top.ds18b20_tb.dut.ds18b20_out.value[5] top.ds18b20_tb.dut.ds18b20_out.value[4] top.ds18b20_tb.dut.ds18b20_out.value[3] top.ds18b20_tb.dut.ds18b20_out.value[2] top.ds18b20_tb.dut.ds18b20_out.value[1] top.ds18b20_tb.dut.ds18b20_out.value[0]
+[pattern_trace] 1
+[pattern_trace] 0
