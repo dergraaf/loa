@@ -1,0 +1,47 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Mon Dec 15 00:01:54 2014
+[*]
+[dumpfile] "/home/calle/projects/fpga_loa/loa_develop/fpga/modules/ws2812/tb/simulation/ws2812_8x1_tb.ghw"
+[dumpfile_mtime] "Mon Dec 15 00:01:26 2014"
+[dumpfile_size] 12076026
+[savefile] "/home/calle/projects/fpga_loa/loa_develop/fpga/modules/ws2812/tb/ws2812_8x1_tb.sav"
+[timestart] 0
+[size] 1918 990
+[pos] -1 -1
+*-35.436871 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.ws2812_8x1_tb.
+[treeopen] top.ws2812_8x1_tb.dut.
+[treeopen] top.ws2812_8x1_tb.dut.ws2812_in.
+[treeopen] top.ws2812_8x1_tb.pixels.
+[treeopen] top.ws2812_8x1_tb.pixels.pixel.
+[treeopen] top.ws2812_8x1_tb.ws2812_1.
+[sst_width] 224
+[signals_width] 142
+[sst_expanded] 1
+[sst_vpaned_height] 302
+@28
+top.ws2812_8x1_tb.clk
+@200
+-
+@28
+top.ws2812_8x1_tb.pixels.refresh
+@22
+#{top.ws2812_8x1_tb.pixels.pixel[0][23:0]} top.ws2812_8x1_tb.pixels.pixel[0][23] top.ws2812_8x1_tb.pixels.pixel[0][22] top.ws2812_8x1_tb.pixels.pixel[0][21] top.ws2812_8x1_tb.pixels.pixel[0][20] top.ws2812_8x1_tb.pixels.pixel[0][19] top.ws2812_8x1_tb.pixels.pixel[0][18] top.ws2812_8x1_tb.pixels.pixel[0][17] top.ws2812_8x1_tb.pixels.pixel[0][16] top.ws2812_8x1_tb.pixels.pixel[0][15] top.ws2812_8x1_tb.pixels.pixel[0][14] top.ws2812_8x1_tb.pixels.pixel[0][13] top.ws2812_8x1_tb.pixels.pixel[0][12] top.ws2812_8x1_tb.pixels.pixel[0][11] top.ws2812_8x1_tb.pixels.pixel[0][10] top.ws2812_8x1_tb.pixels.pixel[0][9] top.ws2812_8x1_tb.pixels.pixel[0][8] top.ws2812_8x1_tb.pixels.pixel[0][7] top.ws2812_8x1_tb.pixels.pixel[0][6] top.ws2812_8x1_tb.pixels.pixel[0][5] top.ws2812_8x1_tb.pixels.pixel[0][4] top.ws2812_8x1_tb.pixels.pixel[0][3] top.ws2812_8x1_tb.pixels.pixel[0][2] top.ws2812_8x1_tb.pixels.pixel[0][1] top.ws2812_8x1_tb.pixels.pixel[0][0]
+@28
+top.ws2812_8x1_tb.dut.ws2812_in.we
+top.ws2812_8x1_tb.dut.ws2812_in.send_reset
+@22
+#{top.ws2812_8x1_tb.dut.ws2812_in.d[23:0]} top.ws2812_8x1_tb.dut.ws2812_in.d[23] top.ws2812_8x1_tb.dut.ws2812_in.d[22] top.ws2812_8x1_tb.dut.ws2812_in.d[21] top.ws2812_8x1_tb.dut.ws2812_in.d[20] top.ws2812_8x1_tb.dut.ws2812_in.d[19] top.ws2812_8x1_tb.dut.ws2812_in.d[18] top.ws2812_8x1_tb.dut.ws2812_in.d[17] top.ws2812_8x1_tb.dut.ws2812_in.d[16] top.ws2812_8x1_tb.dut.ws2812_in.d[15] top.ws2812_8x1_tb.dut.ws2812_in.d[14] top.ws2812_8x1_tb.dut.ws2812_in.d[13] top.ws2812_8x1_tb.dut.ws2812_in.d[12] top.ws2812_8x1_tb.dut.ws2812_in.d[11] top.ws2812_8x1_tb.dut.ws2812_in.d[10] top.ws2812_8x1_tb.dut.ws2812_in.d[9] top.ws2812_8x1_tb.dut.ws2812_in.d[8] top.ws2812_8x1_tb.dut.ws2812_in.d[7] top.ws2812_8x1_tb.dut.ws2812_in.d[6] top.ws2812_8x1_tb.dut.ws2812_in.d[5] top.ws2812_8x1_tb.dut.ws2812_in.d[4] top.ws2812_8x1_tb.dut.ws2812_in.d[3] top.ws2812_8x1_tb.dut.ws2812_in.d[2] top.ws2812_8x1_tb.dut.ws2812_in.d[1] top.ws2812_8x1_tb.dut.ws2812_in.d[0]
+@28
+top.ws2812_8x1_tb.ws2812_1.r.state
+@29
+top.ws2812_8x1_tb.ws2812_1.r.bit_cnt
+@200
+-
+@28
+top.ws2812_8x1_tb.ws2812_1.ws2812_chain_out.d
+top.ws2812_8x1_tb.ws2812_1.ws2812_out.busy
+[pattern_trace] 1
+[pattern_trace] 0
