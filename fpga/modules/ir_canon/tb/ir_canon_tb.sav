@@ -1,0 +1,34 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Tue Dec 16 14:02:12 2014
+[*]
+[dumpfile] "/home/calle/projects/fpga_loa/loa_develop/fpga/modules/ir_canon/tb/simulation/ir_canon_tb.ghw"
+[dumpfile_mtime] "Tue Dec 16 14:01:14 2014"
+[dumpfile_size] 13914455
+[savefile] "/home/calle/projects/fpga_loa/loa_develop/fpga/modules/ir_canon/tb/ir_canon_tb.sav"
+[timestart] 0
+[size] 1920 993
+[pos] -1 -1
+*-40.839291 10280000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.ir_canon_tb.
+[treeopen] top.ir_canon_tb.dut.
+[sst_width] 224
+[signals_width] 118
+[sst_expanded] 1
+[sst_vpaned_height] 283
+@28
+top.ir_canon_tb.clk
+top.ir_canon_tb.ir_canon_in.trigger
+top.ir_canon_tb.ir_canon_out.busy
+top.ir_canon_tb.ir_canon_out.ired
+@200
+-
+@28
+top.ir_canon_tb.dut.r.state
+top.ir_canon_tb.dut.r.burst_cnt
+top.ir_canon_tb.dut.r.carrier_cnt
+@29
+top.ir_canon_tb.dut.r.timer
+[pattern_trace] 1
+[pattern_trace] 0
