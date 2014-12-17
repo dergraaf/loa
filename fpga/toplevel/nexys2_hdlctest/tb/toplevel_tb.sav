@@ -1,0 +1,116 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Wed Dec 17 17:47:47 2014
+[*]
+[dumpfile] "/home/calle/projects/fpga_loa/loa_develop/fpga/toplevel/nexys2_hdlctest/tb/simulation/toplevel_tb.ghw"
+[dumpfile_mtime] "Wed Dec 17 17:45:39 2014"
+[dumpfile_size] 4258297
+[savefile] "/home/calle/projects/fpga_loa/loa_develop/fpga/toplevel/nexys2_hdlctest/tb/toplevel_tb.sav"
+[timestart] 2251653600000
+[size] 1912 990
+[pos] -1 -1
+*-25.230505 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.toplevel_tb.
+[treeopen] top.toplevel_tb.dut_toplevel.
+[treeopen] top.toplevel_tb.dut_toplevel.bus_master_inst.
+[treeopen] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.
+[treeopen] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.
+[treeopen] top.toplevel_tb.dut_toplevel.bus_master_inst.r.
+[treeopen] top.toplevel_tb.dut_toplevel.enc_to_fifo.
+[treeopen] top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.
+[treeopen] top.toplevel_tb.dut_toplevel.tx_fifo_inst.
+[treeopen] top.toplevel_tb.dut_toplevel.uart_tx_inst.
+[treeopen] top.toplevel_tb.dut_toplevel.uart_tx_inst.r.
+[sst_width] 224
+[signals_width] 370
+[sst_expanded] 1
+[sst_vpaned_height] 316
+@28
+top.toplevel_tb.clk
+top.toplevel_tb.rsrx
+@22
+#{top.toplevel_tb.dut_toplevel.sw[7:0]} top.toplevel_tb.dut_toplevel.sw[7] top.toplevel_tb.dut_toplevel.sw[6] top.toplevel_tb.dut_toplevel.sw[5] top.toplevel_tb.dut_toplevel.sw[4] top.toplevel_tb.dut_toplevel.sw[3] top.toplevel_tb.dut_toplevel.sw[2] top.toplevel_tb.dut_toplevel.sw[1] top.toplevel_tb.dut_toplevel.sw[0]
+#{top.toplevel_tb.dut_toplevel.led[7:0]} top.toplevel_tb.dut_toplevel.led[7] top.toplevel_tb.dut_toplevel.led[6] top.toplevel_tb.dut_toplevel.led[5] top.toplevel_tb.dut_toplevel.led[4] top.toplevel_tb.dut_toplevel.led[3] top.toplevel_tb.dut_toplevel.led[2] top.toplevel_tb.dut_toplevel.led[1] top.toplevel_tb.dut_toplevel.led[0]
+@200
+-
+-UART rx
+@28
+top.toplevel_tb.dut_toplevel.clk_rx_en
+top.toplevel_tb.dut_toplevel.rx_to_dec.enable
+@22
+#{top.toplevel_tb.dut_toplevel.rx_to_dec.data[7:0]} top.toplevel_tb.dut_toplevel.rx_to_dec.data[7] top.toplevel_tb.dut_toplevel.rx_to_dec.data[6] top.toplevel_tb.dut_toplevel.rx_to_dec.data[5] top.toplevel_tb.dut_toplevel.rx_to_dec.data[4] top.toplevel_tb.dut_toplevel.rx_to_dec.data[3] top.toplevel_tb.dut_toplevel.rx_to_dec.data[2] top.toplevel_tb.dut_toplevel.rx_to_dec.data[1] top.toplevel_tb.dut_toplevel.rx_to_dec.data[0]
+@200
+-
+-decoder output
+@28
+top.toplevel_tb.dut_toplevel.dec_to_busmaster.enable
+@22
+#{top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[8:0]} top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[8] top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[7] top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[6] top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[5] top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[4] top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[3] top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[2] top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[1] top.toplevel_tb.dut_toplevel.dec_to_busmaster.data[0]
+@200
+-
+-Busmaster
+@28
+top.toplevel_tb.dut_toplevel.bus_master_inst.r.state
+@22
+#{top.toplevel_tb.dut_toplevel.bus_master_inst.r.cmd[7:0]} top.toplevel_tb.dut_toplevel.bus_master_inst.r.cmd[7] top.toplevel_tb.dut_toplevel.bus_master_inst.r.cmd[6] top.toplevel_tb.dut_toplevel.bus_master_inst.r.cmd[5] top.toplevel_tb.dut_toplevel.bus_master_inst.r.cmd[4] top.toplevel_tb.dut_toplevel.bus_master_inst.r.cmd[3] top.toplevel_tb.dut_toplevel.bus_master_inst.r.cmd[2] top.toplevel_tb.dut_toplevel.bus_master_inst.r.cmd[1] top.toplevel_tb.dut_toplevel.bus_master_inst.r.cmd[0]
+#{top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_inc[7:0]} top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_inc[7] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_inc[6] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_inc[5] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_inc[4] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_inc[3] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_inc[2] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_inc[1] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_inc[0]
+#{top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_out[7:0]} top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_out[7] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_out[6] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_out[5] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_out[4] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_out[3] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_out[2] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_out[1] top.toplevel_tb.dut_toplevel.bus_master_inst.r.crc_out[0]
+@200
+-bus out
+@22
+#{top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[14:0]} top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[14] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[13] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[12] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[11] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[10] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[9] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[8] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[7] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[6] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[5] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[4] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[3] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[2] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[1] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.addr[0]
+#{top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[15:0]} top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[15] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[14] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[13] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[12] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[11] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[10] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[9] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[8] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[7] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[6] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[5] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[4] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[3] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[2] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[1] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.data[0]
+@28
+top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.re
+top.toplevel_tb.dut_toplevel.bus_master_inst.bus_o.we
+@200
+-bus in
+@22
+#{top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[15:0]} top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[15] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[14] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[13] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[12] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[11] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[10] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[9] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[8] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[7] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[6] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[5] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[4] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[3] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[2] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[1] top.toplevel_tb.dut_toplevel.bus_master_inst.bus_i.data[0]
+@200
+-
+-TX FIFO in
+@28
+top.toplevel_tb.dut_toplevel.enc_to_fifo.enable
+@22
+#{top.toplevel_tb.dut_toplevel.enc_to_fifo.data[7:0]} top.toplevel_tb.dut_toplevel.enc_to_fifo.data[7] top.toplevel_tb.dut_toplevel.enc_to_fifo.data[6] top.toplevel_tb.dut_toplevel.enc_to_fifo.data[5] top.toplevel_tb.dut_toplevel.enc_to_fifo.data[4] top.toplevel_tb.dut_toplevel.enc_to_fifo.data[3] top.toplevel_tb.dut_toplevel.enc_to_fifo.data[2] top.toplevel_tb.dut_toplevel.enc_to_fifo.data[1] top.toplevel_tb.dut_toplevel.enc_to_fifo.data[0]
+@200
+-TX FIFO out
+@28
+top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.empty
+top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.enable
+@22
+#{top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.data[7:0]} top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.data[7] top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.data[6] top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.data[5] top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.data[4] top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.data[3] top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.data[2] top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.data[1] top.toplevel_tb.dut_toplevel.fifo_to_uart_tx.data[0]
+@200
+-FIFO internal
+@22
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.head[3:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.head[3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.head[2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.head[1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.head[0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.tail[3:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.tail[3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.tail[2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.tail[1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.tail[0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[0][7:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[0][7] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[0][6] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[0][5] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[0][4] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[0][3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[0][2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[0][1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[0][0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[1][7:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[1][7] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[1][6] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[1][5] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[1][4] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[1][3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[1][2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[1][1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[1][0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[2][7:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[2][7] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[2][6] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[2][5] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[2][4] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[2][3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[2][2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[2][1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[2][0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[3][7:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[3][7] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[3][6] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[3][5] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[3][4] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[3][3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[3][2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[3][1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[3][0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[4][7:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[4][7] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[4][6] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[4][5] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[4][4] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[4][3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[4][2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[4][1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[4][0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[5][7:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[5][7] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[5][6] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[5][5] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[5][4] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[5][3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[5][2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[5][1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[5][0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[6][7:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[6][7] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[6][6] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[6][5] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[6][4] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[6][3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[6][2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[6][1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[6][0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[7][7:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[7][7] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[7][6] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[7][5] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[7][4] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[7][3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[7][2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[7][1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[7][0]
+#{top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[8][7:0]} top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[8][7] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[8][6] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[8][5] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[8][4] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[8][3] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[8][2] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[8][1] top.toplevel_tb.dut_toplevel.tx_fifo_inst.mem[8][0]
+@200
+-
+-UART tx
+@28
+top.toplevel_tb.dut_toplevel.uart_tx_inst.clk_tx_en
+top.toplevel_tb.dut_toplevel.uart_tx_inst.txd_p
+top.toplevel_tb.dut_toplevel.uart_tx_inst.r.state
+@22
+#{top.toplevel_tb.dut_toplevel.uart_tx_inst.data_p[7:0]} top.toplevel_tb.dut_toplevel.uart_tx_inst.data_p[7] top.toplevel_tb.dut_toplevel.uart_tx_inst.data_p[6] top.toplevel_tb.dut_toplevel.uart_tx_inst.data_p[5] top.toplevel_tb.dut_toplevel.uart_tx_inst.data_p[4] top.toplevel_tb.dut_toplevel.uart_tx_inst.data_p[3] top.toplevel_tb.dut_toplevel.uart_tx_inst.data_p[2] top.toplevel_tb.dut_toplevel.uart_tx_inst.data_p[1] top.toplevel_tb.dut_toplevel.uart_tx_inst.data_p[0]
+#{top.toplevel_tb.dut_toplevel.uart_tx_inst.r.shift_reg[7:0]} top.toplevel_tb.dut_toplevel.uart_tx_inst.r.shift_reg[7] top.toplevel_tb.dut_toplevel.uart_tx_inst.r.shift_reg[6] top.toplevel_tb.dut_toplevel.uart_tx_inst.r.shift_reg[5] top.toplevel_tb.dut_toplevel.uart_tx_inst.r.shift_reg[4] top.toplevel_tb.dut_toplevel.uart_tx_inst.r.shift_reg[3] top.toplevel_tb.dut_toplevel.uart_tx_inst.r.shift_reg[2] top.toplevel_tb.dut_toplevel.uart_tx_inst.r.shift_reg[1] top.toplevel_tb.dut_toplevel.uart_tx_inst.r.shift_reg[0]
+@29
+top.toplevel_tb.dut_toplevel.uart_tx_inst.busy_p
+@28
+top.toplevel_tb.dut_toplevel.uart_tx_inst.r.fifo_re
+top.toplevel_tb.dut_toplevel.uart_tx_inst.empty_p
+top.toplevel_tb.dut_toplevel.uart_tx_inst.re_p
+[pattern_trace] 1
+[pattern_trace] 0
