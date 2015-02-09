@@ -1,0 +1,57 @@
+##############################################################################
+#
+#  UCF for Loa V3 Board 
+#  for FSMC test
+#
+##############################################################################
+
+NET "clk" LOC = P55;
+NET "clk" TNM_NET = clk;
+TIMESPEC TS_clk = PERIOD "clk" 200 MHz HIGH 50%;
+
+NET "*" IOSTANDARD=LVCMOS33;
+
+NET "led_n" LOC = P144; # Green LED near FPGA on Loa Module 
+
+NET "debug<0>" LOC = P119;
+NET "debug<1>" LOC = P134;
+NET "debug<2>" LOC = P138;
+NET "debug<3>" LOC = P140;
+NET "debug<4>" LOC = P142;
+NET "debug<5>" LOC = P1;
+
+##############################################################################
+#
+# FSMC IOs
+#
+##############################################################################
+NET "fsmc_*" IOSTANDARD=LVCMOS33;
+NET "fsmc_*" DRIVE = 12;
+NET "fsmc_*" FAST;
+
+NET "fsmc_data<0>" LOC = P48;
+NET "fsmc_data<1>" LOC = P43;
+NET "fsmc_data<2>" LOC = P44;
+NET "fsmc_data<3>" LOC = P45;
+
+NET "fsmc_data<4>" LOC = P46;
+NET "fsmc_data<5>" LOC = P61;
+NET "fsmc_data<6>" LOC = P62;
+NET "fsmc_data<7>" LOC = P65;
+
+NET "fsmc_data<8>" LOC = P50;
+NET "fsmc_data<9>" LOC = P51;
+NET "fsmc_data<10>" LOC = P56;
+NET "fsmc_data<11>" LOC = P57;
+
+NET "fsmc_data<12>" LOC = P58;
+NET "fsmc_data<13>" LOC = P59;
+NET "fsmc_data<14>" LOC = P40;
+NET "fsmc_data<15>" LOC = P41;
+
+NET "fsmc_adv_n" LOC = P30;
+NET "fsmc_wr_n" LOC = P70;
+NET "fsmc_cs_n" LOC = P29;
+NET "fsmc_oe_n" LOC = P26;
+NET "fsmc_wait_n" LOC = P27;
+

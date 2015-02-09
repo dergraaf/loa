@@ -1,0 +1,75 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Tue Jul 22 16:43:55 2014
+[*]
+[dumpfile] "/home/user/projects/loa/fpga/modules/fsmcslave/tb/simulation/fsmcslave_tb.ghw"
+[dumpfile_mtime] "Tue Jul 22 16:42:29 2014"
+[dumpfile_size] 9208
+[savefile] "/home/user/projects/loa/fpga/modules/fsmcslave/tb/fsmcslave_tb.sav"
+[timestart] 0
+[size] 1918 974
+[pos] -1 -1
+*-26.374645 229700000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.fsmcslave_tb.
+[treeopen] top.fsmcslave_tb.bus_i.
+[treeopen] top.fsmcslave_tb.bus_o.
+[treeopen] top.fsmcslave_tb.dut.
+[treeopen] top.fsmcslave_tb.dut.r.
+[treeopen] top.fsmcslave_tb.dut.r.reg_fsmcslave_i.
+[treeopen] top.fsmcslave_tb.fsmcslave_i.
+[treeopen] top.fsmcslave_tb.fsmcslave_o.
+[treeopen] top.fsmcslave_tb.reg_1.r.
+[treeopen] top.fsmcslave_tb.reg_1.rin.
+[sst_width] 207
+[signals_width] 256
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+top.fsmcslave_tb.clk
+@200
+-
+-FSMC Outputs
+@28
+top.fsmcslave_tb.fsmcslave_i.adv_n
+top.fsmcslave_tb.fsmcslave_i.cs_n
+top.fsmcslave_tb.fsmcslave_i.wr_n
+@22
+#{top.fsmcslave_tb.fsmcslave_i.data[15:0]} top.fsmcslave_tb.fsmcslave_i.data[15] top.fsmcslave_tb.fsmcslave_i.data[14] top.fsmcslave_tb.fsmcslave_i.data[13] top.fsmcslave_tb.fsmcslave_i.data[12] top.fsmcslave_tb.fsmcslave_i.data[11] top.fsmcslave_tb.fsmcslave_i.data[10] top.fsmcslave_tb.fsmcslave_i.data[9] top.fsmcslave_tb.fsmcslave_i.data[8] top.fsmcslave_tb.fsmcslave_i.data[7] top.fsmcslave_tb.fsmcslave_i.data[6] top.fsmcslave_tb.fsmcslave_i.data[5] top.fsmcslave_tb.fsmcslave_i.data[4] top.fsmcslave_tb.fsmcslave_i.data[3] top.fsmcslave_tb.fsmcslave_i.data[2] top.fsmcslave_tb.fsmcslave_i.data[1] top.fsmcslave_tb.fsmcslave_i.data[0]
+#{top.fsmcslave_tb.fsmcslave_o.data[15:0]} top.fsmcslave_tb.fsmcslave_o.data[15] top.fsmcslave_tb.fsmcslave_o.data[14] top.fsmcslave_tb.fsmcslave_o.data[13] top.fsmcslave_tb.fsmcslave_o.data[12] top.fsmcslave_tb.fsmcslave_o.data[11] top.fsmcslave_tb.fsmcslave_o.data[10] top.fsmcslave_tb.fsmcslave_o.data[9] top.fsmcslave_tb.fsmcslave_o.data[8] top.fsmcslave_tb.fsmcslave_o.data[7] top.fsmcslave_tb.fsmcslave_o.data[6] top.fsmcslave_tb.fsmcslave_o.data[5] top.fsmcslave_tb.fsmcslave_o.data[4] top.fsmcslave_tb.fsmcslave_o.data[3] top.fsmcslave_tb.fsmcslave_o.data[2] top.fsmcslave_tb.fsmcslave_o.data[1] top.fsmcslave_tb.fsmcslave_o.data[0]
+@200
+-
+-fsmcslave internals
+@28
+top.fsmcslave_tb.dut.r.state
+top.fsmcslave_tb.dut.r.nadv_old
+@22
+#{top.fsmcslave_tb.dut.r.addr[15:0]} top.fsmcslave_tb.dut.r.addr[14] top.fsmcslave_tb.dut.r.addr[13] top.fsmcslave_tb.dut.r.addr[12] top.fsmcslave_tb.dut.r.addr[11] top.fsmcslave_tb.dut.r.addr[10] top.fsmcslave_tb.dut.r.addr[9] top.fsmcslave_tb.dut.r.addr[8] top.fsmcslave_tb.dut.r.addr[7] top.fsmcslave_tb.dut.r.addr[6] top.fsmcslave_tb.dut.r.addr[5] top.fsmcslave_tb.dut.r.addr[4] top.fsmcslave_tb.dut.r.addr[3] top.fsmcslave_tb.dut.r.addr[2] top.fsmcslave_tb.dut.r.addr[1] top.fsmcslave_tb.dut.r.addr[0]
+#{top.fsmcslave_tb.dut.r.data[15:0]} top.fsmcslave_tb.dut.r.data[15] top.fsmcslave_tb.dut.r.data[14] top.fsmcslave_tb.dut.r.data[13] top.fsmcslave_tb.dut.r.data[12] top.fsmcslave_tb.dut.r.data[11] top.fsmcslave_tb.dut.r.data[10] top.fsmcslave_tb.dut.r.data[9] top.fsmcslave_tb.dut.r.data[8] top.fsmcslave_tb.dut.r.data[7] top.fsmcslave_tb.dut.r.data[6] top.fsmcslave_tb.dut.r.data[5] top.fsmcslave_tb.dut.r.data[4] top.fsmcslave_tb.dut.r.data[3] top.fsmcslave_tb.dut.r.data[2] top.fsmcslave_tb.dut.r.data[1] top.fsmcslave_tb.dut.r.data[0]
+@200
+-
+-fsmcslave out-FSMC
+@22
+#{top.fsmcslave_tb.fsmcslave_o.data[15:0]} top.fsmcslave_tb.fsmcslave_o.data[15] top.fsmcslave_tb.fsmcslave_o.data[14] top.fsmcslave_tb.fsmcslave_o.data[13] top.fsmcslave_tb.fsmcslave_o.data[12] top.fsmcslave_tb.fsmcslave_o.data[11] top.fsmcslave_tb.fsmcslave_o.data[10] top.fsmcslave_tb.fsmcslave_o.data[9] top.fsmcslave_tb.fsmcslave_o.data[8] top.fsmcslave_tb.fsmcslave_o.data[7] top.fsmcslave_tb.fsmcslave_o.data[6] top.fsmcslave_tb.fsmcslave_o.data[5] top.fsmcslave_tb.fsmcslave_o.data[4] top.fsmcslave_tb.fsmcslave_o.data[3] top.fsmcslave_tb.fsmcslave_o.data[2] top.fsmcslave_tb.fsmcslave_o.data[1] top.fsmcslave_tb.fsmcslave_o.data[0]
+@200
+-
+-Loa Bus master out
+@28
+top.fsmcslave_tb.bus_o.we
+top.fsmcslave_tb.bus_o.re
+@22
+#{top.fsmcslave_tb.bus_o.data[15:0]} top.fsmcslave_tb.bus_o.data[15] top.fsmcslave_tb.bus_o.data[14] top.fsmcslave_tb.bus_o.data[13] top.fsmcslave_tb.bus_o.data[12] top.fsmcslave_tb.bus_o.data[11] top.fsmcslave_tb.bus_o.data[10] top.fsmcslave_tb.bus_o.data[9] top.fsmcslave_tb.bus_o.data[8] top.fsmcslave_tb.bus_o.data[7] top.fsmcslave_tb.bus_o.data[6] top.fsmcslave_tb.bus_o.data[5] top.fsmcslave_tb.bus_o.data[4] top.fsmcslave_tb.bus_o.data[3] top.fsmcslave_tb.bus_o.data[2] top.fsmcslave_tb.bus_o.data[1] top.fsmcslave_tb.bus_o.data[0]
+#{top.fsmcslave_tb.bus_o.addr[14:0]} top.fsmcslave_tb.bus_o.addr[14] top.fsmcslave_tb.bus_o.addr[13] top.fsmcslave_tb.bus_o.addr[12] top.fsmcslave_tb.bus_o.addr[11] top.fsmcslave_tb.bus_o.addr[10] top.fsmcslave_tb.bus_o.addr[9] top.fsmcslave_tb.bus_o.addr[8] top.fsmcslave_tb.bus_o.addr[7] top.fsmcslave_tb.bus_o.addr[6] top.fsmcslave_tb.bus_o.addr[5] top.fsmcslave_tb.bus_o.addr[4] top.fsmcslave_tb.bus_o.addr[3] top.fsmcslave_tb.bus_o.addr[2] top.fsmcslave_tb.bus_o.addr[1] top.fsmcslave_tb.bus_o.addr[0]
+@200
+-
+-Loa Bus master in
+@22
+#{top.fsmcslave_tb.bus_i.data[15:0]} top.fsmcslave_tb.bus_i.data[15] top.fsmcslave_tb.bus_i.data[14] top.fsmcslave_tb.bus_i.data[13] top.fsmcslave_tb.bus_i.data[12] top.fsmcslave_tb.bus_i.data[11] top.fsmcslave_tb.bus_i.data[10] top.fsmcslave_tb.bus_i.data[9] top.fsmcslave_tb.bus_i.data[8] top.fsmcslave_tb.bus_i.data[7] top.fsmcslave_tb.bus_i.data[6] top.fsmcslave_tb.bus_i.data[5] top.fsmcslave_tb.bus_i.data[4] top.fsmcslave_tb.bus_i.data[3] top.fsmcslave_tb.bus_i.data[2] top.fsmcslave_tb.bus_i.data[1] top.fsmcslave_tb.bus_i.data[0]
+@200
+-
+-Dummy Register
+@22
+#{top.fsmcslave_tb.reg_1.r.oreg[15:0]} top.fsmcslave_tb.reg_1.r.oreg[15] top.fsmcslave_tb.reg_1.r.oreg[14] top.fsmcslave_tb.reg_1.r.oreg[13] top.fsmcslave_tb.reg_1.r.oreg[12] top.fsmcslave_tb.reg_1.r.oreg[11] top.fsmcslave_tb.reg_1.r.oreg[10] top.fsmcslave_tb.reg_1.r.oreg[9] top.fsmcslave_tb.reg_1.r.oreg[8] top.fsmcslave_tb.reg_1.r.oreg[7] top.fsmcslave_tb.reg_1.r.oreg[6] top.fsmcslave_tb.reg_1.r.oreg[5] top.fsmcslave_tb.reg_1.r.oreg[4] top.fsmcslave_tb.reg_1.r.oreg[3] top.fsmcslave_tb.reg_1.r.oreg[2] top.fsmcslave_tb.reg_1.r.oreg[1] top.fsmcslave_tb.reg_1.r.oreg[0]
+#{top.fsmcslave_tb.reg_1.r.dout[15:0]} top.fsmcslave_tb.reg_1.r.dout[15] top.fsmcslave_tb.reg_1.r.dout[14] top.fsmcslave_tb.reg_1.r.dout[13] top.fsmcslave_tb.reg_1.r.dout[12] top.fsmcslave_tb.reg_1.r.dout[11] top.fsmcslave_tb.reg_1.r.dout[10] top.fsmcslave_tb.reg_1.r.dout[9] top.fsmcslave_tb.reg_1.r.dout[8] top.fsmcslave_tb.reg_1.r.dout[7] top.fsmcslave_tb.reg_1.r.dout[6] top.fsmcslave_tb.reg_1.r.dout[5] top.fsmcslave_tb.reg_1.r.dout[4] top.fsmcslave_tb.reg_1.r.dout[3] top.fsmcslave_tb.reg_1.r.dout[2] top.fsmcslave_tb.reg_1.r.dout[1] top.fsmcslave_tb.reg_1.r.dout[0]
+[pattern_trace] 1
+[pattern_trace] 0
