@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.4">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -21211,7 +21211,7 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <part name="+3V15" library="supply1" deviceset="+3V3" device=""/>
 <part name="R14" library="rcl" deviceset="R-EU_" device="R0603" value="100k"/>
 <part name="GND72" library="supply1" deviceset="GND" device=""/>
-<part name="R15" library="rcl" deviceset="R-EU_" device="R0603" value="10k"/>
+<part name="R15" library="rcl" deviceset="R-EU_" device="R0603" value="2k2"/>
 <part name="+3V16" library="supply1" deviceset="+3V3" device=""/>
 <part name="Q3" library="rca_sontiges" deviceset="XO" device="53" value="25.000">
 <attribute name="REICHELT#" value="XO53 25,00000"/>
@@ -21554,6 +21554,9 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <part name="JP7" library="pinhead2" deviceset="PINHD-2X16" device="_2.54"/>
 <part name="JP8" library="pinhead2" deviceset="PINHD-1X1" device="_2.54" value="GND"/>
 <part name="GND24" library="supply1" deviceset="GND" device=""/>
+<part name="R6" library="rcl" deviceset="R-EU_" device="R0603" value="1k"/>
+<part name="R8" library="rcl" deviceset="R-EU_" device="R0603" value="2k2"/>
+<part name="GND27" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -22798,6 +22801,9 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <instance part="JP11" gate="G$1" x="226.06" y="76.2">
 <attribute name="REICHELT#" x="226.06" y="76.2" size="1.778" layer="96" display="off"/>
 </instance>
+<instance part="R6" gate="G$1" x="165.1" y="71.12" rot="R90"/>
+<instance part="R8" gate="G$1" x="165.1" y="55.88" rot="R90"/>
+<instance part="GND27" gate="1" x="165.1" y="48.26"/>
 </instances>
 <busses>
 <bus name="JTAG:!RESET,TRST,TMS,TCK,PB3_TDO,TDI">
@@ -22903,6 +22909,10 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <wire x1="205.74" y1="101.6" x2="205.74" y2="99.06" width="0.1524" layer="91"/>
 <pinref part="S2" gate="1" pin="P1"/>
 <pinref part="GND8" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="R8" gate="G$1" pin="1"/>
+<pinref part="GND27" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="!RESET" class="0">
@@ -23217,8 +23227,8 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </net>
 <net name="SD_DETECT" class="0">
 <segment>
-<wire x1="154.94" y1="81.28" x2="165.1" y2="81.28" width="0.1524" layer="91"/>
-<label x="165.1" y="81.28" size="1.27" layer="95" xref="yes"/>
+<wire x1="154.94" y1="81.28" x2="167.64" y2="81.28" width="0.1524" layer="91"/>
+<label x="167.64" y="81.28" size="1.27" layer="95" xref="yes"/>
 <pinref part="IC1" gate="PORTC_H" pin="PC15"/>
 </segment>
 </net>
@@ -23566,15 +23576,16 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </net>
 <net name="USB_VBUS" class="0">
 <segment>
-<wire x1="154.94" y1="83.82" x2="165.1" y2="83.82" width="0.1524" layer="91"/>
-<label x="165.1" y="83.82" size="1.27" layer="95" xref="yes"/>
-<pinref part="IC1" gate="PORTC_H" pin="PC14"/>
+<label x="167.64" y="78.74" size="1.27" layer="95" xref="yes"/>
+<wire x1="165.1" y1="76.2" x2="165.1" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="78.74" x2="167.64" y2="78.74" width="0.1524" layer="91"/>
+<pinref part="R6" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="DONE" class="0">
 <segment>
-<wire x1="154.94" y1="86.36" x2="165.1" y2="86.36" width="0.1524" layer="91"/>
-<label x="165.1" y="86.36" size="1.27" layer="95" xref="yes"/>
+<wire x1="154.94" y1="86.36" x2="167.64" y2="86.36" width="0.1524" layer="91"/>
+<label x="167.64" y="86.36" size="1.27" layer="95" xref="yes"/>
 <pinref part="IC1" gate="PORTC_H" pin="PC13"/>
 </segment>
 </net>
@@ -23600,6 +23611,19 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <wire x1="125.73" y1="124.46" x2="127" y2="125.73" width="0.1524" layer="91"/>
 <pinref part="IC1" gate="PORTB_L" pin="PB0"/>
 <label x="99.06" y="124.46" size="1.27" layer="95"/>
+</segment>
+</net>
+<net name="N$19" class="0">
+<segment>
+<pinref part="R8" gate="G$1" pin="2"/>
+<pinref part="R6" gate="G$1" pin="1"/>
+<wire x1="165.1" y1="60.96" x2="165.1" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="63.5" x2="165.1" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="63.5" x2="157.48" y2="63.5" width="0.1524" layer="91"/>
+<junction x="165.1" y="63.5"/>
+<pinref part="IC1" gate="PORTC_H" pin="PC14"/>
+<wire x1="157.48" y1="63.5" x2="157.48" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="157.48" y1="83.82" x2="154.94" y2="83.82" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
