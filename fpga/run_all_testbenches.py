@@ -21,14 +21,17 @@ while True:
     (dir, testbench, ret) = item
 
     cmd = 'cd %s; make TESTBENCH="%s"' % (dir, testbench)
-    print "**** In %s running testbench %s" % (dir, testbench)
+    print('**** In %s running testbench %s' % (dir, testbench))
     ret = os.system(cmd)
-    print "**** Return code is %d" % (ret)
+    print('**** Return code is %d' % (ret))
     print 
     item[2] = ret
     
 # Print results summary
+heading = ('%-40s ==> %-40s ==> %3s' % ('Directory', 'Testbench', 'Return value'))
+print(heading)
+print('-' * len(heading))
 for dir, testbench, ret in L:
-    print '%-40s ==> %-40s ==> %3d' % (dir, testbench, ret) 
+    print('%-40s ==> %-40s ==> %3d' % (dir, testbench, ret))
 
 
